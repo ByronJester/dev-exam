@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePatient extends FormRequest
+class DispenseMedicine extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,9 @@ class CreatePatient extends FormRequest
     public function rules()
     {
         $rules = [
-            'place_id' => "required",
-            'name' => "required|string",
-            'phone' => "required|numeric",
-            'age' => "required|numeric",
-            'gender' => "required|string"
+            'patient_id' => "required",
+            'medicine_id' => "required",
+            'quantity' => "required|numeric|min:1",
         ];
 
         return $rules;

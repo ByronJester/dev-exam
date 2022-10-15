@@ -11,17 +11,25 @@ class Patient extends Model
 
     protected $fillable = [
         'place_id',
+        'user_id',
         'name',
         'phone',
-        'medicine'
+        'age',
+        'gender'
     ];
 
     protected $with = [
-        'place'
+        'place',
+        'user'
     ];
 
     public function place()
     {
         return $this->belongsTo(Place::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

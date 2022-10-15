@@ -43,6 +43,8 @@ const pages = {
   'Users': require('./Pages/Users.vue').default,
   'Patients': require('./Pages/Patients.vue').default,
   'Medicines': require('./Pages/Medicines.vue').default,
+  'Patient': require('./Pages/Patient.vue').default,
+  'PatientMedicine': require('./Pages/PatientMedicine.vue').default,
 }
 
 new Vue({

@@ -25,6 +25,7 @@
         "@inertiajs/inertia": "^0.9.4",
         "@inertiajs/inertia-vue": "^0.6.2",
         "@inertiajs/progress": "^0.2.5",
+        "html-to-image": "^1.10.8",
         "k-progress": "^1.5.0",
         "vue": "^2.6.12",
         "vue-bot-ui": "^0.2.8",

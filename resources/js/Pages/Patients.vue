@@ -37,25 +37,60 @@
                                 </div>
 
                                 <div class="w-3/5">
-                                    <div class="mt-4 ml-3"> 
+                                    <div class="w-full text-center">
                                         <span class="text-md font-bold" 
-                                        :class="{'text-lg' : !newUser}">{{ patient.name }}
+                                            :class="{'text-lg' : !newUser}">{{ patient.name }}
                                         </span>
                                     </div>
 
-                                    <div class="ml-3"> 
-                                        <span class="text-xs font-regular" :class="{'text-sm' : !newUser}">{{ patient.phone }}  </span>
-                                    </div>
+                                    <div class="flex flex-row px-2 text-xs mt-2" :class="{'text-sm' : !newUser}">
+                                        <div class="w-full font-bold">
+                                            <p>
+                                                Place : 
+                                            </p>
 
-                                    <div class="ml-3"> 
-                                        <span class="text-xs font-regular" :class="{'text-sm' : !newUser}">{{ patient.place.name }}  </span>
-                                    </div>
+                                            <p>
+                                                Contact :
+                                            </p>
 
-                                    <div class="ml-3 mt-5"> 
-                                        <button class="--view__profile" @click="viewProfile(patient)">
-                                            View
-                                        </button>
-                                    </div>
+                                            <p>
+                                                Age :
+                                            </p>
+
+                                            <p>
+                                                Gender :
+                                            </p>
+
+                                            <div class="inline-flex">
+                                                <button class="--view__profile my-2 mr-1" @click="viewProfile(patient)">
+                                                    Forms
+                                                </button>
+
+                                                <button class="--view__profile my-2" @click="viewMedicine(patient)">
+                                                    Medicines
+                                                </button>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="w-full">
+                                            <p>
+                                                {{ patient.place.name }} 
+                                            </p>
+
+                                            <p>
+                                                {{ patient.phone }}
+                                            </p>
+
+                                            <p>
+                                                {{ patient.age }}
+                                            </p>
+
+                                            <p>
+                                                {{ patient.gender }}
+                                            </p>
+                                        </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
@@ -91,9 +126,23 @@
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold">Quantity of Medicine:</label><br>
-                                <input type="number" class="--input" v-model="formData.medicine">
-                                <span class="text-xs text-red-500 ml-2">{{validationError('medicine', saveError)}} </span>
+                                <label class="text-bold">Age:</label><br>
+                                <input type="text" class="--input" v-model="formData.age">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('age', saveError)}} </span>
+                            </div>
+
+                            <div class="my-1">
+                                <label for="cars">Gender:</label><br>
+                                <select class="--input" v-model="formData.gender">
+                                    <option :value="'Male'">
+                                        Male
+                                    </option>
+
+                                    <option :value="'Female'">
+                                        Female
+                                    </option>
+                                </select>
+                                <span class="text-xs text-red-500 ml-2">{{validationError('place_id', saveError)}} </span>
                             </div>
 
                             <div class="my-1" v-if="auth.role != 3">
@@ -145,14 +194,15 @@ export default {
                 search: null
             },
             newUser: false,
-            viewUser: false,
             selected: null,
             userType: [],
             formData: {
                 place_id: null,
                 name : null,
                 phone : null,
-                medicine: 0
+                age: null,
+                gender: 'Male'
+
             },
             saveError: null
         }
@@ -172,7 +222,6 @@ export default {
         initiateSearch() {
             var self = this
 
-            self.viewUser = false;
             self.newUser = false;
             self.selected = null;
 
@@ -196,7 +245,24 @@ export default {
 
         viewProfile(arg) {
             this.selected = arg
-            this.viewUser = true
+
+            Inertia.get(
+                this.$root.route + '/patients/' + arg.id,
+                {
+                    onSuccess: () => { },
+                },
+            );
+        },
+
+        viewMedicine(arg){
+            this.selected = arg
+
+            Inertia.get(
+                this.$root.route + '/patients/medicine/' + arg.id,
+                {
+                    onSuccess: () => { },
+                },
+            );
         },
 
         createUser(){
@@ -207,7 +273,8 @@ export default {
                         place_id : null,
                         name : null,
                         phone : null,
-                        medicine: 0
+                        age: null,
+                        gender: 'Male'
                     }
 
                     location.reload()
@@ -230,7 +297,7 @@ export default {
 
 .--view__profile {
     background: #4D77FF;
-    border-radius: 50px;
+    border-radius: 5px;
     color: white;
     padding: 5px 15px 5px 15px;
     font-size: 12px;

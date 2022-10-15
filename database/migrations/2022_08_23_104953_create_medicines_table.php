@@ -18,7 +18,8 @@ class CreateMedicinesTable extends Migration
             $table->bigInteger('place_id')->unsigned()->comment('Foreign key from table places')->nullable();
             $table->string('name');
             $table->string('image')->nullable();
-            $table->integer('quantity');
+            $table->integer('quantity')->default(1);
+            $table->integer('dispensed')->default(0);
             $table->date('date');
         
             $table->foreign('place_id')->references('id')->on('places');

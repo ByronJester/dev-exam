@@ -37,7 +37,7 @@
                             >
                         </div>
 
-                        <div class="w-2/12">
+                        <div class="w-2/12" v-if="auth.role != 3">
                             <button class="text-black float-right p-2"
                                 style="border: 1px solid black; border-radius: 5px"
                                 @click="newUser = true"
@@ -180,7 +180,7 @@ export default {
             },
             saveError: null,
             columns: [
-                'Name', 'Barangay', 'Quantity', 'Date'
+                'Name', 'Barangay', 'Quantity', 'Dispensed', 'Date'
             ],
             keys : [
                 {
@@ -191,6 +191,9 @@ export default {
                 },
                 {
                     label: 'quantity',
+                },
+                {
+                    label: 'dispensed',
                 },
                 {
                     label: 'date',

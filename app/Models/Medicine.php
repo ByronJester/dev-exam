@@ -11,10 +11,11 @@ class Medicine extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'name', 
         'quantity',
         'place_id',
-        'date'
+        'date',
+        'dispensed'
     ];
 
     protected $with = [

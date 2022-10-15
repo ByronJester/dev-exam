@@ -20,7 +20,7 @@
                 >
                     <i class="fa-solid fa-users-rectangle fa-lg mx-2"></i>
                     <span v-if="isHover" class="mx-2"
-                        :style="{'border-bottom': active === '/patients' ? '1px solid white' : 'none'}"
+                        :style="{'border-bottom': active.includes('patients') ? '1px solid white' : 'none'}"
                     > 
                         PATIENTS
                     </span>

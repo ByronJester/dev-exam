@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/4865c75cef.js" crossorigin="anonymous"></script>
+    <script src=https://code.jquery.com/jquery-1.11.3.min.js></script>
     <script src="{{ mix('/js/app.js') }}" defer></script>
   </head>
   <body>

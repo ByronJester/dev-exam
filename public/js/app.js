@@ -2131,12 +2131,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ['rows', 'columns', 'keys'],
+  props: ['rows', 'columns', 'keys', 'selected'],
   data: function data() {
     return {};
   },
-  methods: {},
+  methods: {
+    selectItem: function selectItem(arg) {
+      this.$emit('update:selected', arg);
+    }
+  },
   mounted: function mounted() {}
 });
 
@@ -2630,13 +2637,15 @@ __webpack_require__.r(__webpack_exports__);
         quantity: 0
       },
       saveError: null,
-      columns: ['Name', 'Barangay', 'Quantity', 'Date'],
+      columns: ['Name', 'Barangay', 'Quantity', 'Dispensed', 'Date'],
       keys: [{
         label: 'name'
       }, {
         label: 'barangay'
       }, {
         label: 'quantity'
+      }, {
+        label: 'dispensed'
       }, {
         label: 'date'
       }]
@@ -2673,6 +2682,658 @@ __webpack_require__.r(__webpack_exports__);
             name: null,
             quantity: null
           };
+          location.reload();
+        },
+        onError: function onError(err) {
+          _this.saveError = err;
+        }
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _Layouts_Sidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Layouts/Sidebar */ "./resources/js/Layouts/Sidebar.vue");
+/* harmony import */ var _Components_Table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Components/Table */ "./resources/js/Components/Table.vue");
+/* harmony import */ var html_to_image__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! html-to-image */ "./node_modules/html-to-image/es/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['auth', 'options'],
+  components: {
+    Navigation: _Layouts_Sidebar__WEBPACK_IMPORTED_MODULE_1__.default,
+    Table: _Components_Table__WEBPACK_IMPORTED_MODULE_2__.default
+  },
+  data: function data() {
+    return {
+      patient: null,
+      activeForm: null,
+      formName: 'Tuberculosis Symptom Form',
+      columns: ['Name', 'Description', 'Reference #'],
+      keys: [{
+        label: 'name'
+      }, {
+        label: 'description'
+      }, {
+        label: 'reference'
+      }],
+      selectedForm: null,
+      formData: {
+        id: null,
+        patient_id: null,
+        description: 'Sample description!!',
+        name: null,
+        tb: [],
+        lmp: null,
+        edc: null,
+        edd: null
+      },
+      checked: []
+    };
+  },
+  created: function created() {
+    this.patient = this.options.patient;
+    this.formData.patient_id = this.patient.id;
+    this.formData.name = this.formName;
+  },
+  watch: {
+    activeForm: function activeForm(arg) {
+      this.formData.name = arg;
+    },
+    'formData.tb': {
+      handler: function handler(val, oldVal) {},
+      deep: true
+    },
+    selectedForm: function selectedForm(arg) {
+      this.formData.id = arg.id;
+      this.formData.name = arg.name;
+      this.formData.description = arg.description;
+      this.formData.patient_id = arg.patient_id;
+      this.formData.tb = arg.tb;
+      this.formData.lmp = arg.lmp;
+      this.formData.edc = arg.edc;
+      this.formData.edd = arg.edd;
+      this.formName = arg.name;
+      this.activeForm = arg.name;
+    }
+  },
+  methods: {
+    back: function back() {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.get(this.$root.route + '/patients', {
+        onSuccess: function onSuccess() {}
+      });
+    },
+    generateForm: function generateForm() {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/patients/create-patient/form', this.formData, {
+        onSuccess: function onSuccess(res) {
+          location.reload();
+        },
+        onError: function onError(err) {}
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/PatientMedicine.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/PatientMedicine.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+/* harmony import */ var _Layouts_Sidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Layouts/Sidebar */ "./resources/js/Layouts/Sidebar.vue");
+/* harmony import */ var _Components_Table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Components/Table */ "./resources/js/Components/Table.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['auth', 'options'],
+  components: {
+    Navigation: _Layouts_Sidebar__WEBPACK_IMPORTED_MODULE_1__.default,
+    Table: _Components_Table__WEBPACK_IMPORTED_MODULE_2__.default
+  },
+  data: function data() {
+    return {
+      patient: null,
+      columns: ['Medicine', 'Quantity'],
+      keys: [{
+        label: 'medicine_name'
+      }, {
+        label: 'quantity'
+      }],
+      selected: null,
+      form: {
+        patient_id: null,
+        medicine_id: null,
+        quantity: 1
+      },
+      saveError: null
+    };
+  },
+  created: function created() {
+    this.patient = this.options.patient;
+    this.form.patient_id = this.patient.id;
+    this.form.medicine_id = this.options.availableMedicines[0].id;
+    console.log(this.options);
+  },
+  methods: {
+    back: function back() {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.get(this.$root.route + '/patients', {
+        onSuccess: function onSuccess() {}
+      });
+    },
+    dispenseMedicine: function dispenseMedicine() {
+      var _this = this;
+
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/patients/dispense-medicine', this.form, {
+        onSuccess: function onSuccess(res) {
           location.reload();
         },
         onError: function onError(err) {
@@ -2828,6 +3489,55 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2842,14 +3552,14 @@ __webpack_require__.r(__webpack_exports__);
         search: null
       },
       newUser: false,
-      viewUser: false,
       selected: null,
       userType: [],
       formData: {
         place_id: null,
         name: null,
         phone: null,
-        medicine: 0
+        age: null,
+        gender: 'Male'
       },
       saveError: null
     };
@@ -2865,7 +3575,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     initiateSearch: function initiateSearch() {
       var self = this;
-      self.viewUser = false;
       self.newUser = false;
       self.selected = null;
       clearTimeout(self.timeOut);
@@ -2880,7 +3589,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     viewProfile: function viewProfile(arg) {
       this.selected = arg;
-      this.viewUser = true;
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.get(this.$root.route + '/patients/' + arg.id, {
+        onSuccess: function onSuccess() {}
+      });
+    },
+    viewMedicine: function viewMedicine(arg) {
+      this.selected = arg;
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.get(this.$root.route + '/patients/medicine/' + arg.id, {
+        onSuccess: function onSuccess() {}
+      });
     },
     createUser: function createUser() {
       var _this = this;
@@ -2891,7 +3608,8 @@ __webpack_require__.r(__webpack_exports__);
             place_id: null,
             name: null,
             phone: null,
-            medicine: 0
+            age: null,
+            gender: 'Male'
           };
           location.reload();
         },
@@ -3108,7 +3826,7 @@ __webpack_require__.r(__webpack_exports__);
         phone: null,
         email: null,
         user_type: null,
-        work_address: null
+        work_address: 0
       },
       saveError: null
     };
@@ -3116,6 +3834,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.users = this.options.users;
     this.form.search = this.options.search;
+    console.log(this.auth.work_address);
 
     if (this.auth.role == 1) {
       this.userType = [{
@@ -3214,8 +3933,8 @@ __webpack_require__.r(__webpack_exports__);
     createUser: function createUser() {
       var _this = this;
 
-      if (!this.formData.work_address) {
-        this.formData.work_address = 0;
+      if (this.auth.role == 3) {
+        this.formData.work_address = this.auth.work_address;
       }
 
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/users/create-account', this.formData, {
@@ -3227,7 +3946,7 @@ __webpack_require__.r(__webpack_exports__);
             phone: null,
             email: null,
             user_type: null,
-            work_address: null
+            work_address: 0
           };
           location.reload();
         },
@@ -3288,7 +4007,9 @@ var pages = {
   'Login': __webpack_require__(/*! ./Pages/Login.vue */ "./resources/js/Pages/Login.vue").default,
   'Users': __webpack_require__(/*! ./Pages/Users.vue */ "./resources/js/Pages/Users.vue").default,
   'Patients': __webpack_require__(/*! ./Pages/Patients.vue */ "./resources/js/Pages/Patients.vue").default,
-  'Medicines': __webpack_require__(/*! ./Pages/Medicines.vue */ "./resources/js/Pages/Medicines.vue").default
+  'Medicines': __webpack_require__(/*! ./Pages/Medicines.vue */ "./resources/js/Pages/Medicines.vue").default,
+  'Patient': __webpack_require__(/*! ./Pages/Patient.vue */ "./resources/js/Pages/Patient.vue").default,
+  'PatientMedicine': __webpack_require__(/*! ./Pages/PatientMedicine.vue */ "./resources/js/Pages/PatientMedicine.vue").default
 };
 new vue__WEBPACK_IMPORTED_MODULE_3__.default({
   data: {
@@ -3409,7 +4130,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ntable[data-v-67955193] {\r\n    border-collapse: collapse;\r\n    border-radius: 5px;\r\n    border-style: hidden;\r\n    box-shadow: 0 0 0 1px #2B4865;\n}\ntd[data-v-67955193] {\r\n    border: 1px solid black;\n}\nth[data-v-67955193] {\r\n    border: 1px solid black;\r\n    background: #003865;\r\n    color: white;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ntable[data-v-67955193] {\r\n    border-collapse: collapse;\r\n    border-radius: 5px;\r\n    border-style: hidden;\r\n    box-shadow: 0 0 0 1px black;\n}\ntd[data-v-67955193] {\r\n    border: 1px solid black;\n}\nth[data-v-67955193] {\r\n    border: 1px solid black;\r\n    background: #003865;\r\n    color: white;\n}\n.--active__color[data-v-67955193] {\r\n    background: #B0BEC5;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3505,7 +4226,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.--user[data-v-5278f492] {\r\n    border: 1px solid #22577E;\r\n    border-radius: 5px;\n}\n.--view__profile[data-v-5278f492] {\r\n    background: #4D77FF;\r\n    border-radius: 50px;\r\n    color: white;\r\n    padding: 5px 15px 5px 15px;\r\n    font-size: 12px;\n}\n.--display__picture[data-v-5278f492] {\r\n    width: 100%; \r\n    height: 150px; \r\n    border: 2px solid black; \r\n    border-radius: 20px;\n}\n.--search[data-v-5278f492] {\r\n    width: 20%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 40px;\n}\n.--input[data-v-5278f492] {\r\n    width: 100%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 10px;\r\n    text-align: center;\n}\n.--view--display__picture[data-v-5278f492] {\r\n    width: 100px; \r\n    height: 100px; \r\n    border: 2px solid black; \r\n    border-radius: 10px;\n}\r\n\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.--user[data-v-5278f492] {\r\n    border: 1px solid #22577E;\r\n    border-radius: 5px;\n}\n.--view__profile[data-v-5278f492] {\r\n    background: #4D77FF;\r\n    border-radius: 5px;\r\n    color: white;\r\n    padding: 5px 15px 5px 15px;\r\n    font-size: 12px;\n}\n.--display__picture[data-v-5278f492] {\r\n    width: 100%; \r\n    height: 150px; \r\n    border: 2px solid black; \r\n    border-radius: 20px;\n}\n.--search[data-v-5278f492] {\r\n    width: 20%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 40px;\n}\n.--input[data-v-5278f492] {\r\n    width: 100%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 10px;\r\n    text-align: center;\n}\n.--view--display__picture[data-v-5278f492] {\r\n    width: 100px; \r\n    height: 100px; \r\n    border: 2px solid black; \r\n    border-radius: 10px;\n}\r\n\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -4266,6 +4987,974 @@ var bind = __webpack_require__(/*! function-bind */ "./node_modules/function-bin
 
 module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/apply-style.js":
+/*!******************************************************!*\
+  !*** ./node_modules/html-to-image/es/apply-style.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "applyStyle": () => (/* binding */ applyStyle)
+/* harmony export */ });
+function applyStyle(node, options) {
+    const { style } = node;
+    if (options.backgroundColor) {
+        style.backgroundColor = options.backgroundColor;
+    }
+    if (options.width) {
+        style.width = `${options.width}px`;
+    }
+    if (options.height) {
+        style.height = `${options.height}px`;
+    }
+    const manual = options.style;
+    if (manual != null) {
+        Object.keys(manual).forEach((key) => {
+            style[key] = manual[key];
+        });
+    }
+    return node;
+}
+//# sourceMappingURL=apply-style.js.map
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/clone-node.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/html-to-image/es/clone-node.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cloneNode": () => (/* binding */ cloneNode)
+/* harmony export */ });
+/* harmony import */ var _mimes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mimes */ "./node_modules/html-to-image/es/mimes.js");
+/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dataurl */ "./node_modules/html-to-image/es/dataurl.js");
+/* harmony import */ var _clone_pseudos__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./clone-pseudos */ "./node_modules/html-to-image/es/clone-pseudos.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./util */ "./node_modules/html-to-image/es/util.js");
+
+
+
+
+async function cloneCanvasElement(canvas) {
+    const dataURL = canvas.toDataURL();
+    if (dataURL === 'data:,') {
+        return canvas.cloneNode(false);
+    }
+    return (0,_util__WEBPACK_IMPORTED_MODULE_3__.createImage)(dataURL);
+}
+async function cloneVideoElement(video, options) {
+    const poster = video.poster;
+    const contentType = (0,_mimes__WEBPACK_IMPORTED_MODULE_0__.getMimeType)(poster);
+    const dataURL = await (0,_dataurl__WEBPACK_IMPORTED_MODULE_1__.resourceToDataURL)(poster, contentType, options);
+    return (0,_util__WEBPACK_IMPORTED_MODULE_3__.createImage)(dataURL);
+}
+async function cloneSingleNode(node, options) {
+    if (node instanceof HTMLCanvasElement) {
+        return cloneCanvasElement(node);
+    }
+    if (node instanceof HTMLVideoElement && node.poster) {
+        return cloneVideoElement(node, options);
+    }
+    return node.cloneNode(false);
+}
+const isSlotElement = (node) => node.tagName != null && node.tagName.toUpperCase() === 'SLOT';
+async function cloneChildren(nativeNode, clonedNode, options) {
+    var _a;
+    const children = isSlotElement(nativeNode) && nativeNode.assignedNodes
+        ? (0,_util__WEBPACK_IMPORTED_MODULE_3__.toArray)(nativeNode.assignedNodes())
+        : (0,_util__WEBPACK_IMPORTED_MODULE_3__.toArray)(((_a = nativeNode.shadowRoot) !== null && _a !== void 0 ? _a : nativeNode).childNodes);
+    if (children.length === 0 || nativeNode instanceof HTMLVideoElement) {
+        return clonedNode;
+    }
+    await children.reduce((deferred, child) => deferred
+        .then(() => cloneNode(child, options))
+        .then((clonedChild) => {
+        if (clonedChild) {
+            clonedNode.appendChild(clonedChild);
+        }
+    }), Promise.resolve());
+    return clonedNode;
+}
+function cloneCSSStyle(nativeNode, clonedNode) {
+    const targetStyle = clonedNode.style;
+    if (!targetStyle) {
+        return;
+    }
+    const sourceStyle = window.getComputedStyle(nativeNode);
+    if (sourceStyle.cssText) {
+        targetStyle.cssText = sourceStyle.cssText;
+        targetStyle.transformOrigin = sourceStyle.transformOrigin;
+    }
+    else {
+        (0,_util__WEBPACK_IMPORTED_MODULE_3__.toArray)(sourceStyle).forEach((name) => {
+            let value = sourceStyle.getPropertyValue(name);
+            if (name === 'font-size' && value.endsWith('px')) {
+                const reducedFont = Math.floor(parseFloat(value.substring(0, value.length - 2))) - 0.1;
+                value = `${reducedFont}px`;
+            }
+            targetStyle.setProperty(name, value, sourceStyle.getPropertyPriority(name));
+        });
+    }
+}
+function cloneInputValue(nativeNode, clonedNode) {
+    if (nativeNode instanceof HTMLTextAreaElement) {
+        clonedNode.innerHTML = nativeNode.value;
+    }
+    if (nativeNode instanceof HTMLInputElement) {
+        clonedNode.setAttribute('value', nativeNode.value);
+    }
+}
+function cloneSelectValue(nativeNode, clonedNode) {
+    if (nativeNode instanceof HTMLSelectElement) {
+        const clonedSelect = clonedNode;
+        const selectedOption = Array.from(clonedSelect.children).find((child) => nativeNode.value === child.getAttribute('value'));
+        if (selectedOption) {
+            selectedOption.setAttribute('selected', '');
+        }
+    }
+}
+function decorate(nativeNode, clonedNode) {
+    if (clonedNode instanceof Element) {
+        cloneCSSStyle(nativeNode, clonedNode);
+        (0,_clone_pseudos__WEBPACK_IMPORTED_MODULE_2__.clonePseudoElements)(nativeNode, clonedNode);
+        cloneInputValue(nativeNode, clonedNode);
+        cloneSelectValue(nativeNode, clonedNode);
+    }
+    return clonedNode;
+}
+async function cloneNode(node, options, isRoot) {
+    if (!isRoot && options.filter && !options.filter(node)) {
+        return null;
+    }
+    return Promise.resolve(node)
+        .then((clonedNode) => cloneSingleNode(clonedNode, options))
+        .then((clonedNode) => cloneChildren(node, clonedNode, options))
+        .then((clonedNode) => decorate(node, clonedNode));
+}
+//# sourceMappingURL=clone-node.js.map
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/clone-pseudos.js":
+/*!********************************************************!*\
+  !*** ./node_modules/html-to-image/es/clone-pseudos.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "clonePseudoElements": () => (/* binding */ clonePseudoElements)
+/* harmony export */ });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/html-to-image/es/util.js");
+
+function formatCSSText(style) {
+    const content = style.getPropertyValue('content');
+    return `${style.cssText} content: '${content.replace(/'|"/g, '')}';`;
+}
+function formatCSSProperties(style) {
+    return (0,_util__WEBPACK_IMPORTED_MODULE_0__.toArray)(style)
+        .map((name) => {
+        const value = style.getPropertyValue(name);
+        const priority = style.getPropertyPriority(name);
+        return `${name}: ${value}${priority ? ' !important' : ''};`;
+    })
+        .join(' ');
+}
+function getPseudoElementStyle(className, pseudo, style) {
+    const selector = `.${className}:${pseudo}`;
+    const cssText = style.cssText
+        ? formatCSSText(style)
+        : formatCSSProperties(style);
+    return document.createTextNode(`${selector}{${cssText}}`);
+}
+function clonePseudoElement(nativeNode, clonedNode, pseudo) {
+    const style = window.getComputedStyle(nativeNode, pseudo);
+    const content = style.getPropertyValue('content');
+    if (content === '' || content === 'none') {
+        return;
+    }
+    const className = (0,_util__WEBPACK_IMPORTED_MODULE_0__.uuid)();
+    try {
+        clonedNode.className = `${clonedNode.className} ${className}`;
+    }
+    catch (err) {
+        return;
+    }
+    const styleElement = document.createElement('style');
+    styleElement.appendChild(getPseudoElementStyle(className, pseudo, style));
+    clonedNode.appendChild(styleElement);
+}
+function clonePseudoElements(nativeNode, clonedNode) {
+    clonePseudoElement(nativeNode, clonedNode, ':before');
+    clonePseudoElement(nativeNode, clonedNode, ':after');
+}
+//# sourceMappingURL=clone-pseudos.js.map
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/dataurl.js":
+/*!**************************************************!*\
+  !*** ./node_modules/html-to-image/es/dataurl.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "isDataUrl": () => (/* binding */ isDataUrl),
+/* harmony export */   "makeDataUrl": () => (/* binding */ makeDataUrl),
+/* harmony export */   "fetchAsDataURL": () => (/* binding */ fetchAsDataURL),
+/* harmony export */   "resourceToDataURL": () => (/* binding */ resourceToDataURL)
+/* harmony export */ });
+function getContentFromDataUrl(dataURL) {
+    return dataURL.split(/,/)[1];
+}
+function isDataUrl(url) {
+    return url.search(/^(data:)/) !== -1;
+}
+function makeDataUrl(content, mimeType) {
+    return `data:${mimeType};base64,${content}`;
+}
+async function fetchAsDataURL(url, init, process) {
+    const res = await fetch(url, init);
+    if (res.status === 404) {
+        throw new Error(`Resource "${res.url}" not found`);
+    }
+    const blob = await res.blob();
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onerror = reject;
+        reader.onloadend = () => {
+            try {
+                resolve(process({ res, result: reader.result }));
+            }
+            catch (error) {
+                reject(error);
+            }
+        };
+        reader.readAsDataURL(blob);
+    });
+}
+const cache = {};
+function getCacheKey(url, contentType, includeQueryParams) {
+    let key = url.replace(/\?.*/, '');
+    if (includeQueryParams) {
+        key = url;
+    }
+    // font resource
+    if (/ttf|otf|eot|woff2?/i.test(key)) {
+        key = key.replace(/.*\//, '');
+    }
+    return contentType ? `[${contentType}]${key}` : key;
+}
+async function resourceToDataURL(resourceUrl, contentType, options) {
+    const cacheKey = getCacheKey(resourceUrl, contentType, options.includeQueryParams);
+    if (cache[cacheKey] != null) {
+        return cache[cacheKey];
+    }
+    // ref: https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest#Bypassing_the_cache
+    if (options.cacheBust) {
+        // eslint-disable-next-line no-param-reassign
+        resourceUrl += (/\?/.test(resourceUrl) ? '&' : '?') + new Date().getTime();
+    }
+    let dataURL;
+    try {
+        const content = await fetchAsDataURL(resourceUrl, options.fetchRequestInit, ({ res, result }) => {
+            if (!contentType) {
+                // eslint-disable-next-line no-param-reassign
+                contentType = res.headers.get('Content-Type') || '';
+            }
+            return getContentFromDataUrl(result);
+        });
+        dataURL = makeDataUrl(content, contentType);
+    }
+    catch (error) {
+        dataURL = options.imagePlaceholder || '';
+        let msg = `Failed to fetch resource: ${resourceUrl}`;
+        if (error) {
+            msg = typeof error === 'string' ? error : error.message;
+        }
+        if (msg) {
+            console.warn(msg);
+        }
+    }
+    cache[cacheKey] = dataURL;
+    return dataURL;
+}
+//# sourceMappingURL=dataurl.js.map
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/embed-images.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/html-to-image/es/embed-images.js ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "embedImages": () => (/* binding */ embedImages)
+/* harmony export */ });
+/* harmony import */ var _embed_resources__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./embed-resources */ "./node_modules/html-to-image/es/embed-resources.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./util */ "./node_modules/html-to-image/es/util.js");
+/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dataurl */ "./node_modules/html-to-image/es/dataurl.js");
+/* harmony import */ var _mimes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mimes */ "./node_modules/html-to-image/es/mimes.js");
+
+
+
+
+async function embedBackground(clonedNode, options) {
+    var _a;
+    const background = (_a = clonedNode.style) === null || _a === void 0 ? void 0 : _a.getPropertyValue('background');
+    if (background) {
+        const cssString = await (0,_embed_resources__WEBPACK_IMPORTED_MODULE_0__.embedResources)(background, null, options);
+        clonedNode.style.setProperty('background', cssString, clonedNode.style.getPropertyPriority('background'));
+    }
+}
+async function embedImageNode(clonedNode, options) {
+    if (!(clonedNode instanceof HTMLImageElement && !(0,_dataurl__WEBPACK_IMPORTED_MODULE_2__.isDataUrl)(clonedNode.src)) &&
+        !(clonedNode instanceof SVGImageElement &&
+            !(0,_dataurl__WEBPACK_IMPORTED_MODULE_2__.isDataUrl)(clonedNode.href.baseVal))) {
+        return;
+    }
+    const url = clonedNode instanceof HTMLImageElement
+        ? clonedNode.src
+        : clonedNode.href.baseVal;
+    const dataURL = await (0,_dataurl__WEBPACK_IMPORTED_MODULE_2__.resourceToDataURL)(url, (0,_mimes__WEBPACK_IMPORTED_MODULE_3__.getMimeType)(url), options);
+    await new Promise((resolve, reject) => {
+        clonedNode.onload = resolve;
+        clonedNode.onerror = reject;
+        if (clonedNode instanceof HTMLImageElement) {
+            clonedNode.srcset = '';
+            clonedNode.src = dataURL;
+        }
+        else {
+            clonedNode.href.baseVal = dataURL;
+        }
+    });
+}
+async function embedChildren(clonedNode, options) {
+    const children = (0,_util__WEBPACK_IMPORTED_MODULE_1__.toArray)(clonedNode.childNodes);
+    const deferreds = children.map((child) => embedImages(child, options));
+    await Promise.all(deferreds).then(() => clonedNode);
+}
+async function embedImages(clonedNode, options) {
+    if (clonedNode instanceof Element) {
+        await embedBackground(clonedNode, options);
+        await embedImageNode(clonedNode, options);
+        await embedChildren(clonedNode, options);
+    }
+}
+//# sourceMappingURL=embed-images.js.map
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/embed-resources.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/html-to-image/es/embed-resources.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "parseURLs": () => (/* binding */ parseURLs),
+/* harmony export */   "embed": () => (/* binding */ embed),
+/* harmony export */   "shouldEmbed": () => (/* binding */ shouldEmbed),
+/* harmony export */   "embedResources": () => (/* binding */ embedResources)
+/* harmony export */ });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/html-to-image/es/util.js");
+/* harmony import */ var _mimes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mimes */ "./node_modules/html-to-image/es/mimes.js");
+/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dataurl */ "./node_modules/html-to-image/es/dataurl.js");
+
+
+
+const URL_REGEX = /url\((['"]?)([^'"]+?)\1\)/g;
+const URL_WITH_FORMAT_REGEX = /url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g;
+const FONT_SRC_REGEX = /src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;
+function toRegex(url) {
+    // eslint-disable-next-line no-useless-escape
+    const escaped = url.replace(/([.*+?^${}()|\[\]\/\\])/g, '\\$1');
+    return new RegExp(`(url\\(['"]?)(${escaped})(['"]?\\))`, 'g');
+}
+function parseURLs(cssText) {
+    const urls = [];
+    cssText.replace(URL_REGEX, (raw, quotation, url) => {
+        urls.push(url);
+        return raw;
+    });
+    return urls.filter((url) => !(0,_dataurl__WEBPACK_IMPORTED_MODULE_2__.isDataUrl)(url));
+}
+async function embed(cssText, resourceURL, baseURL, options, getContentFromUrl) {
+    try {
+        const resolvedURL = baseURL ? (0,_util__WEBPACK_IMPORTED_MODULE_0__.resolveUrl)(resourceURL, baseURL) : resourceURL;
+        const contentType = (0,_mimes__WEBPACK_IMPORTED_MODULE_1__.getMimeType)(resourceURL);
+        let dataURL;
+        if (getContentFromUrl) {
+            const content = await getContentFromUrl(resolvedURL);
+            dataURL = (0,_dataurl__WEBPACK_IMPORTED_MODULE_2__.makeDataUrl)(content, contentType);
+        }
+        else {
+            dataURL = await (0,_dataurl__WEBPACK_IMPORTED_MODULE_2__.resourceToDataURL)(resolvedURL, contentType, options);
+        }
+        return cssText.replace(toRegex(resourceURL), `$1${dataURL}$3`);
+    }
+    catch (error) {
+        // pass
+    }
+    return cssText;
+}
+function filterPreferredFontFormat(str, { preferredFontFormat }) {
+    return !preferredFontFormat
+        ? str
+        : str.replace(FONT_SRC_REGEX, (match) => {
+            // eslint-disable-next-line no-constant-condition
+            while (true) {
+                const [src, , format] = URL_WITH_FORMAT_REGEX.exec(match) || [];
+                if (!format) {
+                    return '';
+                }
+                if (format === preferredFontFormat) {
+                    return `src: ${src};`;
+                }
+            }
+        });
+}
+function shouldEmbed(url) {
+    return url.search(URL_REGEX) !== -1;
+}
+async function embedResources(cssText, baseUrl, options) {
+    if (!shouldEmbed(cssText)) {
+        return cssText;
+    }
+    const filteredCSSText = filterPreferredFontFormat(cssText, options);
+    const urls = parseURLs(filteredCSSText);
+    return urls.reduce((deferred, url) => deferred.then((css) => embed(css, url, baseUrl, options)), Promise.resolve(filteredCSSText));
+}
+//# sourceMappingURL=embed-resources.js.map
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/embed-webfonts.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/html-to-image/es/embed-webfonts.js ***!
+  \*********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getWebFontCSS": () => (/* binding */ getWebFontCSS),
+/* harmony export */   "embedWebFonts": () => (/* binding */ embedWebFonts)
+/* harmony export */ });
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./util */ "./node_modules/html-to-image/es/util.js");
+/* harmony import */ var _dataurl__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dataurl */ "./node_modules/html-to-image/es/dataurl.js");
+/* harmony import */ var _embed_resources__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./embed-resources */ "./node_modules/html-to-image/es/embed-resources.js");
+
+
+
+const cssFetchCache = {};
+async function fetchCSS(url) {
+    let cache = cssFetchCache[url];
+    if (cache != null) {
+        return cache;
+    }
+    const res = await fetch(url);
+    const cssText = await res.text();
+    cache = { url, cssText };
+    cssFetchCache[url] = cache;
+    return cache;
+}
+async function embedFonts(data, options) {
+    let cssText = data.cssText;
+    const regexUrl = /url\(["']?([^"')]+)["']?\)/g;
+    const fontLocs = cssText.match(/url\([^)]+\)/g) || [];
+    const loadFonts = fontLocs.map(async (loc) => {
+        let url = loc.replace(regexUrl, '$1');
+        if (!url.startsWith('https://')) {
+            url = new URL(url, data.url).href;
+        }
+        return (0,_dataurl__WEBPACK_IMPORTED_MODULE_1__.fetchAsDataURL)(url, options.fetchRequestInit, ({ result }) => {
+            cssText = cssText.replace(loc, `url(${result})`);
+            return [loc, result];
+        });
+    });
+    return Promise.all(loadFonts).then(() => cssText);
+}
+function parseCSS(source) {
+    if (source == null) {
+        return [];
+    }
+    const result = [];
+    const commentsRegex = /(\/\*[\s\S]*?\*\/)/gi;
+    // strip out comments
+    let cssText = source.replace(commentsRegex, '');
+    // eslint-disable-next-line prefer-regex-literals
+    const keyframesRegex = new RegExp('((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})', 'gi');
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+        const matches = keyframesRegex.exec(cssText);
+        if (matches === null) {
+            break;
+        }
+        result.push(matches[0]);
+    }
+    cssText = cssText.replace(keyframesRegex, '');
+    const importRegex = /@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;
+    // to match css & media queries together
+    const combinedCSSRegex = '((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]' +
+        '*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})';
+    // unified regex
+    const unifiedRegex = new RegExp(combinedCSSRegex, 'gi');
+    // eslint-disable-next-line no-constant-condition
+    while (true) {
+        let matches = importRegex.exec(cssText);
+        if (matches === null) {
+            matches = unifiedRegex.exec(cssText);
+            if (matches === null) {
+                break;
+            }
+            else {
+                importRegex.lastIndex = unifiedRegex.lastIndex;
+            }
+        }
+        else {
+            unifiedRegex.lastIndex = importRegex.lastIndex;
+        }
+        result.push(matches[0]);
+    }
+    return result;
+}
+async function getCSSRules(styleSheets, options) {
+    const ret = [];
+    const deferreds = [];
+    // First loop inlines imports
+    styleSheets.forEach((sheet) => {
+        if ('cssRules' in sheet) {
+            try {
+                (0,_util__WEBPACK_IMPORTED_MODULE_0__.toArray)(sheet.cssRules || []).forEach((item, index) => {
+                    if (item.type === CSSRule.IMPORT_RULE) {
+                        let importIndex = index + 1;
+                        const url = item.href;
+                        const deferred = fetchCSS(url)
+                            .then((metadata) => embedFonts(metadata, options))
+                            .then((cssText) => parseCSS(cssText).forEach((rule) => {
+                            try {
+                                sheet.insertRule(rule, rule.startsWith('@import')
+                                    ? (importIndex += 1)
+                                    : sheet.cssRules.length);
+                            }
+                            catch (error) {
+                                console.error('Error inserting rule from remote css', {
+                                    rule,
+                                    error,
+                                });
+                            }
+                        }))
+                            .catch((e) => {
+                            console.error('Error loading remote css', e.toString());
+                        });
+                        deferreds.push(deferred);
+                    }
+                });
+            }
+            catch (e) {
+                const inline = styleSheets.find((a) => a.href == null) || document.styleSheets[0];
+                if (sheet.href != null) {
+                    deferreds.push(fetchCSS(sheet.href)
+                        .then((metadata) => embedFonts(metadata, options))
+                        .then((cssText) => parseCSS(cssText).forEach((rule) => {
+                        inline.insertRule(rule, sheet.cssRules.length);
+                    }))
+                        .catch((err) => {
+                        console.error('Error loading remote stylesheet', err.toString());
+                    }));
+                }
+                console.error('Error inlining remote css file', e.toString());
+            }
+        }
+    });
+    return Promise.all(deferreds).then(() => {
+        // Second loop parses rules
+        styleSheets.forEach((sheet) => {
+            if ('cssRules' in sheet) {
+                try {
+                    (0,_util__WEBPACK_IMPORTED_MODULE_0__.toArray)(sheet.cssRules || []).forEach((item) => {
+                        ret.push(item);
+                    });
+                }
+                catch (e) {
+                    console.error(`Error while reading CSS rules from ${sheet.href}`, e.toString());
+                }
+            }
+        });
+        return ret;
+    });
+}
+function getWebFontRules(cssRules) {
+    return cssRules
+        .filter((rule) => rule.type === CSSRule.FONT_FACE_RULE)
+        .filter((rule) => (0,_embed_resources__WEBPACK_IMPORTED_MODULE_2__.shouldEmbed)(rule.style.getPropertyValue('src')));
+}
+async function parseWebFontRules(node, options) {
+    if (node.ownerDocument == null) {
+        throw new Error('Provided element is not within a Document');
+    }
+    const styleSheets = (0,_util__WEBPACK_IMPORTED_MODULE_0__.toArray)(node.ownerDocument.styleSheets);
+    const cssRules = await getCSSRules(styleSheets, options);
+    return getWebFontRules(cssRules);
+}
+async function getWebFontCSS(node, options) {
+    const rules = await parseWebFontRules(node, options);
+    const cssTexts = await Promise.all(rules.map((rule) => {
+        const baseUrl = rule.parentStyleSheet ? rule.parentStyleSheet.href : null;
+        return (0,_embed_resources__WEBPACK_IMPORTED_MODULE_2__.embedResources)(rule.cssText, baseUrl, options);
+    }));
+    return cssTexts.join('\n');
+}
+async function embedWebFonts(clonedNode, options) {
+    const cssText = options.fontEmbedCSS != null
+        ? options.fontEmbedCSS
+        : options.skipFonts
+            ? null
+            : await getWebFontCSS(clonedNode, options);
+    if (cssText) {
+        const styleNode = document.createElement('style');
+        const sytleContent = document.createTextNode(cssText);
+        styleNode.appendChild(sytleContent);
+        if (clonedNode.firstChild) {
+            clonedNode.insertBefore(styleNode, clonedNode.firstChild);
+        }
+        else {
+            clonedNode.appendChild(styleNode);
+        }
+    }
+}
+//# sourceMappingURL=embed-webfonts.js.map
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/index.js":
+/*!************************************************!*\
+  !*** ./node_modules/html-to-image/es/index.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "toSvg": () => (/* binding */ toSvg),
+/* harmony export */   "toCanvas": () => (/* binding */ toCanvas),
+/* harmony export */   "toPixelData": () => (/* binding */ toPixelData),
+/* harmony export */   "toPng": () => (/* binding */ toPng),
+/* harmony export */   "toJpeg": () => (/* binding */ toJpeg),
+/* harmony export */   "toBlob": () => (/* binding */ toBlob),
+/* harmony export */   "getFontEmbedCSS": () => (/* binding */ getFontEmbedCSS)
+/* harmony export */ });
+/* harmony import */ var _clone_node__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./clone-node */ "./node_modules/html-to-image/es/clone-node.js");
+/* harmony import */ var _embed_images__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./embed-images */ "./node_modules/html-to-image/es/embed-images.js");
+/* harmony import */ var _apply_style__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./apply-style */ "./node_modules/html-to-image/es/apply-style.js");
+/* harmony import */ var _embed_webfonts__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./embed-webfonts */ "./node_modules/html-to-image/es/embed-webfonts.js");
+/* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./util */ "./node_modules/html-to-image/es/util.js");
+
+
+
+
+
+async function toSvg(node, options = {}) {
+    const { width, height } = (0,_util__WEBPACK_IMPORTED_MODULE_4__.getImageSize)(node, options);
+    const clonedNode = (await (0,_clone_node__WEBPACK_IMPORTED_MODULE_0__.cloneNode)(node, options, true));
+    await (0,_embed_webfonts__WEBPACK_IMPORTED_MODULE_3__.embedWebFonts)(clonedNode, options);
+    await (0,_embed_images__WEBPACK_IMPORTED_MODULE_1__.embedImages)(clonedNode, options);
+    (0,_apply_style__WEBPACK_IMPORTED_MODULE_2__.applyStyle)(clonedNode, options);
+    const datauri = await (0,_util__WEBPACK_IMPORTED_MODULE_4__.nodeToDataURL)(clonedNode, width, height);
+    return datauri;
+}
+async function toCanvas(node, options = {}) {
+    const { width, height } = (0,_util__WEBPACK_IMPORTED_MODULE_4__.getImageSize)(node, options);
+    const svg = await toSvg(node, options);
+    const img = await (0,_util__WEBPACK_IMPORTED_MODULE_4__.createImage)(svg);
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const ratio = options.pixelRatio || (0,_util__WEBPACK_IMPORTED_MODULE_4__.getPixelRatio)();
+    const canvasWidth = options.canvasWidth || width;
+    const canvasHeight = options.canvasHeight || height;
+    canvas.width = canvasWidth * ratio;
+    canvas.height = canvasHeight * ratio;
+    if (!options.skipAutoScale) {
+        (0,_util__WEBPACK_IMPORTED_MODULE_4__.checkCanvasDimensions)(canvas);
+    }
+    canvas.style.width = `${canvasWidth}`;
+    canvas.style.height = `${canvasHeight}`;
+    if (options.backgroundColor) {
+        context.fillStyle = options.backgroundColor;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    context.drawImage(img, 0, 0, canvas.width, canvas.height);
+    return canvas;
+}
+async function toPixelData(node, options = {}) {
+    const { width, height } = (0,_util__WEBPACK_IMPORTED_MODULE_4__.getImageSize)(node, options);
+    const canvas = await toCanvas(node, options);
+    const ctx = canvas.getContext('2d');
+    return ctx.getImageData(0, 0, width, height).data;
+}
+async function toPng(node, options = {}) {
+    const canvas = await toCanvas(node, options);
+    return canvas.toDataURL();
+}
+async function toJpeg(node, options = {}) {
+    const canvas = await toCanvas(node, options);
+    return canvas.toDataURL('image/jpeg', options.quality || 1);
+}
+async function toBlob(node, options = {}) {
+    const canvas = await toCanvas(node, options);
+    const blob = await (0,_util__WEBPACK_IMPORTED_MODULE_4__.canvasToBlob)(canvas);
+    return blob;
+}
+async function getFontEmbedCSS(node, options = {}) {
+    return (0,_embed_webfonts__WEBPACK_IMPORTED_MODULE_3__.getWebFontCSS)(node, options);
+}
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/mimes.js":
+/*!************************************************!*\
+  !*** ./node_modules/html-to-image/es/mimes.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getMimeType": () => (/* binding */ getMimeType)
+/* harmony export */ });
+const WOFF = 'application/font-woff';
+const JPEG = 'image/jpeg';
+const mimes = {
+    woff: WOFF,
+    woff2: WOFF,
+    ttf: 'application/font-truetype',
+    eot: 'application/vnd.ms-fontobject',
+    png: 'image/png',
+    jpg: JPEG,
+    jpeg: JPEG,
+    gif: 'image/gif',
+    tiff: 'image/tiff',
+    svg: 'image/svg+xml',
+};
+function getExtension(url) {
+    const match = /\.([^./]*?)$/g.exec(url);
+    return match ? match[1] : '';
+}
+function getMimeType(url) {
+    const extension = getExtension(url).toLowerCase();
+    return mimes[extension] || '';
+}
+//# sourceMappingURL=mimes.js.map
+
+/***/ }),
+
+/***/ "./node_modules/html-to-image/es/util.js":
+/*!***********************************************!*\
+  !*** ./node_modules/html-to-image/es/util.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "resolveUrl": () => (/* binding */ resolveUrl),
+/* harmony export */   "uuid": () => (/* binding */ uuid),
+/* harmony export */   "delay": () => (/* binding */ delay),
+/* harmony export */   "toArray": () => (/* binding */ toArray),
+/* harmony export */   "getImageSize": () => (/* binding */ getImageSize),
+/* harmony export */   "getPixelRatio": () => (/* binding */ getPixelRatio),
+/* harmony export */   "checkCanvasDimensions": () => (/* binding */ checkCanvasDimensions),
+/* harmony export */   "canvasToBlob": () => (/* binding */ canvasToBlob),
+/* harmony export */   "createImage": () => (/* binding */ createImage),
+/* harmony export */   "svgToDataURL": () => (/* binding */ svgToDataURL),
+/* harmony export */   "nodeToDataURL": () => (/* binding */ nodeToDataURL)
+/* harmony export */ });
+function resolveUrl(url, baseUrl) {
+    // url is absolute already
+    if (url.match(/^[a-z]+:\/\//i)) {
+        return url;
+    }
+    // url is absolute already, without protocol
+    if (url.match(/^\/\//)) {
+        return window.location.protocol + url;
+    }
+    // dataURI, mailto:, tel:, etc.
+    if (url.match(/^[a-z]+:/i)) {
+        return url;
+    }
+    const doc = document.implementation.createHTMLDocument();
+    const base = doc.createElement('base');
+    const a = doc.createElement('a');
+    doc.head.appendChild(base);
+    doc.body.appendChild(a);
+    if (baseUrl) {
+        base.href = baseUrl;
+    }
+    a.href = url;
+    return a.href;
+}
+const uuid = (() => {
+    // generate uuid for className of pseudo elements.
+    // We should not use GUIDs, otherwise pseudo elements sometimes cannot be captured.
+    let counter = 0;
+    // ref: http://stackoverflow.com/a/6248722/2519373
+    const random = () => 
+    // eslint-disable-next-line no-bitwise
+    `0000${((Math.random() * 36 ** 4) << 0).toString(36)}`.slice(-4);
+    return () => {
+        counter += 1;
+        return `u${random()}${counter}`;
+    };
+})();
+function delay(ms) {
+    return (args) => new Promise((resolve) => {
+        setTimeout(() => resolve(args), ms);
+    });
+}
+function toArray(arrayLike) {
+    const arr = [];
+    for (let i = 0, l = arrayLike.length; i < l; i++) {
+        arr.push(arrayLike[i]);
+    }
+    return arr;
+}
+function px(node, styleProperty) {
+    const win = node.ownerDocument.defaultView || window;
+    const val = win.getComputedStyle(node).getPropertyValue(styleProperty);
+    return val ? parseFloat(val.replace('px', '')) : 0;
+}
+function getNodeWidth(node) {
+    const leftBorder = px(node, 'border-left-width');
+    const rightBorder = px(node, 'border-right-width');
+    return node.clientWidth + leftBorder + rightBorder;
+}
+function getNodeHeight(node) {
+    const topBorder = px(node, 'border-top-width');
+    const bottomBorder = px(node, 'border-bottom-width');
+    return node.clientHeight + topBorder + bottomBorder;
+}
+function getImageSize(targetNode, options = {}) {
+    const width = options.width || getNodeWidth(targetNode);
+    const height = options.height || getNodeHeight(targetNode);
+    return { width, height };
+}
+function getPixelRatio() {
+    let ratio;
+    let FINAL_PROCESS;
+    try {
+        FINAL_PROCESS = process;
+    }
+    catch (e) {
+        // pass
+    }
+    const val = FINAL_PROCESS && FINAL_PROCESS.env
+        ? FINAL_PROCESS.env.devicePixelRatio
+        : null;
+    if (val) {
+        ratio = parseInt(val, 10);
+        if (Number.isNaN(ratio)) {
+            ratio = 1;
+        }
+    }
+    return ratio || window.devicePixelRatio || 1;
+}
+// @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/canvas#maximum_canvas_size
+const canvasDimensionLimit = 16384;
+function checkCanvasDimensions(canvas) {
+    if (canvas.width > canvasDimensionLimit ||
+        canvas.height > canvasDimensionLimit) {
+        if (canvas.width > canvasDimensionLimit &&
+            canvas.height > canvasDimensionLimit) {
+            if (canvas.width > canvas.height) {
+                canvas.height *= canvasDimensionLimit / canvas.width;
+                canvas.width = canvasDimensionLimit;
+            }
+            else {
+                canvas.width *= canvasDimensionLimit / canvas.height;
+                canvas.height = canvasDimensionLimit;
+            }
+        }
+        else if (canvas.width > canvasDimensionLimit) {
+            canvas.height *= canvasDimensionLimit / canvas.width;
+            canvas.width = canvasDimensionLimit;
+        }
+        else {
+            canvas.width *= canvasDimensionLimit / canvas.height;
+            canvas.height = canvasDimensionLimit;
+        }
+    }
+}
+function canvasToBlob(canvas, options = {}) {
+    if (canvas.toBlob) {
+        return new Promise((resolve) => {
+            canvas.toBlob(resolve, options.type ? options.type : 'image/png', options.quality ? options.quality : 1);
+        });
+    }
+    return new Promise((resolve) => {
+        const binaryString = window.atob(canvas
+            .toDataURL(options.type ? options.type : undefined, options.quality ? options.quality : undefined)
+            .split(',')[1]);
+        const len = binaryString.length;
+        const binaryArray = new Uint8Array(len);
+        for (let i = 0; i < len; i += 1) {
+            binaryArray[i] = binaryString.charCodeAt(i);
+        }
+        resolve(new Blob([binaryArray], {
+            type: options.type ? options.type : 'image/png',
+        }));
+    });
+}
+function createImage(url) {
+    return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = reject;
+        img.crossOrigin = 'anonymous';
+        img.decoding = 'sync';
+        img.src = url;
+    });
+}
+async function svgToDataURL(svg) {
+    return Promise.resolve()
+        .then(() => new XMLSerializer().serializeToString(svg))
+        .then(encodeURIComponent)
+        .then((html) => `data:image/svg+xml;charset=utf-8,${html}`);
+}
+async function nodeToDataURL(node, width, height) {
+    const xmlns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(xmlns, 'svg');
+    const foreignObject = document.createElementNS(xmlns, 'foreignObject');
+    svg.setAttribute('width', `${width}`);
+    svg.setAttribute('height', `${height}`);
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    foreignObject.setAttribute('width', '100%');
+    foreignObject.setAttribute('height', '100%');
+    foreignObject.setAttribute('x', '0');
+    foreignObject.setAttribute('y', '0');
+    foreignObject.setAttribute('externalResourcesRequired', 'true');
+    svg.appendChild(foreignObject);
+    foreignObject.appendChild(node);
+    return svgToDataURL(svg);
+}
+//# sourceMappingURL=util.js.map
 
 /***/ }),
 
@@ -34193,6 +35882,84 @@ component.options.__file = "resources/js/Pages/Medicines.vue"
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Patient.vue":
+/*!****************************************!*\
+  !*** ./resources/js/Pages/Patient.vue ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Patient.vue?vue&type=template&id=06cf38ec& */ "./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&");
+/* harmony import */ var _Patient_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Patient.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Patient.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _Patient_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/Patient.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Pages/PatientMedicine.vue":
+/*!************************************************!*\
+  !*** ./resources/js/Pages/PatientMedicine.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _PatientMedicine_vue_vue_type_template_id_328fa246___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PatientMedicine.vue?vue&type=template&id=328fa246& */ "./resources/js/Pages/PatientMedicine.vue?vue&type=template&id=328fa246&");
+/* harmony import */ var _PatientMedicine_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PatientMedicine.vue?vue&type=script&lang=js& */ "./resources/js/Pages/PatientMedicine.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _PatientMedicine_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _PatientMedicine_vue_vue_type_template_id_328fa246___WEBPACK_IMPORTED_MODULE_0__.render,
+  _PatientMedicine_vue_vue_type_template_id_328fa246___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Pages/PatientMedicine.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Patients.vue":
 /*!*****************************************!*\
   !*** ./resources/js/Pages/Patients.vue ***!
@@ -34355,6 +36122,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Patient.vue?vue&type=script&lang=js&":
+/*!*****************************************************************!*\
+  !*** ./resources/js/Pages/Patient.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Patient.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/Pages/PatientMedicine.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/Pages/PatientMedicine.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PatientMedicine_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PatientMedicine.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/PatientMedicine.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PatientMedicine_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Patients.vue?vue&type=script&lang=js&":
 /*!******************************************************************!*\
   !*** ./resources/js/Pages/Patients.vue?vue&type=script&lang=js& ***!
@@ -34468,6 +36267,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Medicines_vue_vue_type_template_id_f5d9a4c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Medicines_vue_vue_type_template_id_f5d9a4c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Medicines.vue?vue&type=template&id=f5d9a4c0&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Medicines.vue?vue&type=template&id=f5d9a4c0&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&":
+/*!***********************************************************************!*\
+  !*** ./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec& ***!
+  \***********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Patient.vue?vue&type=template&id=06cf38ec& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Pages/PatientMedicine.vue?vue&type=template&id=328fa246&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/Pages/PatientMedicine.vue?vue&type=template&id=328fa246& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PatientMedicine_vue_vue_type_template_id_328fa246___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PatientMedicine_vue_vue_type_template_id_328fa246___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PatientMedicine_vue_vue_type_template_id_328fa246___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./PatientMedicine.vue?vue&type=template&id=328fa246& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/PatientMedicine.vue?vue&type=template&id=328fa246&");
 
 
 /***/ }),
@@ -34644,9 +36477,22 @@ var render = function() {
           "tr",
           { key: l.id, staticClass: "text-center" },
           _vm._l(_vm.keys, function(k, i) {
-            return _c("td", { key: i }, [
-              _c("span", [_vm._v(_vm._s(_vm.rows[index][k.label]))])
-            ])
+            return _c(
+              "td",
+              {
+                key: i,
+                staticClass: "cursor-pointer",
+                class: {
+                  "--active__color": !!_vm.selected && _vm.selected.id == l.id
+                },
+                on: {
+                  click: function($event) {
+                    return _vm.selectItem(l)
+                  }
+                }
+              },
+              [_c("span", [_vm._v(_vm._s(_vm.rows[index][k.label]))])]
+            )
           }),
           0
         )
@@ -34804,10 +36650,9 @@ var render = function() {
                         {
                           staticClass: "mx-2",
                           style: {
-                            "border-bottom":
-                              _vm.active === "/patients"
-                                ? "1px solid white"
-                                : "none"
+                            "border-bottom": _vm.active.includes("patients")
+                              ? "1px solid white"
+                              : "none"
                           }
                         },
                         [
@@ -35125,29 +36970,31 @@ var render = function() {
                     })
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "w-2/12" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "text-black float-right p-2",
-                        staticStyle: {
-                          border: "1px solid black",
-                          "border-radius": "5px"
-                        },
-                        on: {
-                          click: function($event) {
-                            _vm.newUser = true
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass:
-                            "fa-solid fa-house-chimney-medical fa-2xl"
-                        })
-                      ]
-                    )
-                  ])
+                  _vm.auth.role != 3
+                    ? _c("div", { staticClass: "w-2/12" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "text-black float-right p-2",
+                            staticStyle: {
+                              border: "1px solid black",
+                              "border-radius": "5px"
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.newUser = true
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fa-solid fa-house-chimney-medical fa-2xl"
+                            })
+                          ]
+                        )
+                      ])
+                    : _vm._e()
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "flex flex-row" }, [
@@ -35585,6 +37432,3063 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("Navigation", { attrs: { auth: _vm.auth } }, [
+    _c("div", { staticClass: "px-4 pt-12" }, [
+      _c("div", { staticClass: "w-full" }, [
+        _c("span", { staticClass: "text-2xl" }, [
+          _c("i", {
+            staticClass: "fa-solid fa-arrow-left mr-2 cursor-pointer",
+            on: {
+              click: function($event) {
+                return _vm.back()
+              }
+            }
+          }),
+          _vm._v(" Patient Forms\n            ")
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "text-2xl float-right font-bold" }, [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.patient.name) +
+              " (" +
+              _vm._s(_vm.patient.place.name) +
+              ")\n            "
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-full mt-10" }, [
+        _c("div", { staticClass: "w-full inline-block" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formName,
+                  expression: "formName"
+                }
+              ],
+              staticStyle: {
+                width: "230px",
+                height: "30px",
+                border: "1px solid black"
+              },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.formName = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "Tuberculosis Symptom Form" } }, [
+                _vm._v("Tuberculosis Symptom Form")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Pregnancy Form" } }, [
+                _vm._v("Pregnancy Form")
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "text-white",
+              staticStyle: {
+                height: "30px",
+                border: "1px solid black",
+                background: "#003865",
+                padding: "0px 20px 0px 20px"
+              },
+              on: {
+                click: function($event) {
+                  _vm.activeForm = _vm.formName
+                  _vm.formData.tb = []
+                  _vm.formData.lmp = null
+                  _vm.formData.edc = null
+                  _vm.formData.edd = null
+                }
+              }
+            },
+            [_c("i", { staticClass: "fa-solid fa-plus" })]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "w-full mt-5" },
+        [
+          !_vm.activeForm && !_vm.selectedForm
+            ? _c("Table", {
+                attrs: {
+                  columns: _vm.columns,
+                  rows: _vm.options.forms,
+                  keys: _vm.keys,
+                  selected: _vm.selectedForm
+                },
+                on: {
+                  "update:selected": function($event) {
+                    _vm.selectedForm = $event
+                  }
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.activeForm == "Tuberculosis Symptom Form"
+            ? _c("div", { staticClass: "w-full" }, [
+                _c("div", { staticClass: "w-full" }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass: "float-right cursor-pointer p-4",
+                      on: {
+                        click: function($event) {
+                          _vm.activeForm = null
+                          _vm.formData.tb = []
+                          _vm.formData.lmp = null
+                          _vm.formData.edc = null
+                          _vm.formData.edd = null
+                          _vm.selectedForm = null
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa-solid fa-xmark" })]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "w-full p-4",
+                    staticStyle: {
+                      height: "auto",
+                      border: "1px solid black",
+                      "border-radius": "5px"
+                    }
+                  },
+                  [
+                    _c("p", { staticClass: "mb-2 font-bold" }, [
+                      _vm._v("\n                        Lagyan ng "),
+                      _c("span", [
+                        _c("i", { staticClass: "fa-solid fa-check" })
+                      ]),
+                      _vm._v(
+                        " kung mayroon ng alinman sa mga sumusunod na sintomas at angkop na tagal ng sintomas na nararanasan:\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row text-sm" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "70%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "1" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "1") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "1",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Ubo")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "2" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "2") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "2",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(" Pag-ubo na may kasamang dugo")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "3" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "3") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "3",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(" Lagnat na di maipaliwanag ang sanhi")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "4" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "4") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "4",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(" Pamamayat na di maipaliwanag ang sanhi")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "5" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "5") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "5",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(
+                                " Labis na pagpapawis sa hapon o gabi na walang kinalaman sa init ng panahon"
+                              )
+                            ])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "10%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "6" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "6") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "6",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" >2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "7" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "7") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "7",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" >2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "8" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "8") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "8",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" >2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "9" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "9") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "9",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" >2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "10" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "10") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "10",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" >2 weeks")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "10%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "11" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "11") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "11",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" <2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "12" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "12") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "12",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" <2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "13" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "13") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "13",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" <2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "14" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "14") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "14",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" <2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "15" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "15") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "15",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" <2 weeks")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "10%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "16" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "16") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "16",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Wala")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "17" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "17") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "17",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Wala")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "18" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "18") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "18",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Wala")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "19" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "19") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "19",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Wala")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "20" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "20") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "20",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Wala")])
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-2 mt-4 font-bold" }, [
+                      _vm._v(
+                        "\n                        Karagdagang tanong para sa mga batang edad 0-14:\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row text-sm" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "70%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "21" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "21") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "21",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(" Ubo o kahirapan sa paghinga")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "22" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "22") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "22",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Mabilis mapagod")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "23" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "23") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "23",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Pananamlay")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "24" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "24") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "24",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(" Walang gana o mahinang kumain")
+                            ])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "10%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "25" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "25") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "25",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" >2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "26" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "26") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "26",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" >2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "27" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "27") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "27",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" >2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "28" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "28") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "28",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" >2 weeks")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "10%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "29" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "29") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "29",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" <2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "30" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "30") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "30",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" <2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "31" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "31") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "31",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" <2 weeks")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "32" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "32") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "32",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" <2 weeks")])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "10%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "33" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "33") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "33",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Wala")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "32" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "32") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "32",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Wala")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "35" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "35") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "35",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Wala")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "36" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "36") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "36",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Wala")])
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-2 mt-4 font-bold" }, [
+                      _vm._v("\n                        Lagyan ng "),
+                      _c("span", [
+                        _c("i", { staticClass: "fa-solid fa-check" })
+                      ]),
+                      _vm._v(
+                        " kung mayroon ng alinman sa mga sumusunod na risk factors:\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row text-sm" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "70%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "37" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "37") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "37",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(" Dating nag-gamutan sa sakit na TB")
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "38" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "38") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "38",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(
+                                " May nakakasamang may sakit na TB sa matagal na panahon"
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "39" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "39") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "39",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(
+                                " Diabetes | Cancer | Sumasailalim sa dialysis"
+                              )
+                            ])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "flex flex-col",
+                          staticStyle: { width: "30%" }
+                        },
+                        [
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "40" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "40") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "40",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Edad 60 anyos pataas")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "41" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "41") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "41",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v(" Indigent | 4P's/CCT Member")])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "w-full" }, [
+                            _c("input", {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.tb,
+                                  expression: "formData.tb"
+                                }
+                              ],
+                              attrs: { type: "checkbox", value: "42" },
+                              domProps: {
+                                checked: Array.isArray(_vm.formData.tb)
+                                  ? _vm._i(_vm.formData.tb, "42") > -1
+                                  : _vm.formData.tb
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$a = _vm.formData.tb,
+                                    $$el = $event.target,
+                                    $$c = $$el.checked ? true : false
+                                  if (Array.isArray($$a)) {
+                                    var $$v = "42",
+                                      $$i = _vm._i($$a, $$v)
+                                    if ($$el.checked) {
+                                      $$i < 0 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a.concat([$$v])
+                                        )
+                                    } else {
+                                      $$i > -1 &&
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "tb",
+                                          $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1))
+                                        )
+                                    }
+                                  } else {
+                                    _vm.$set(_vm.formData, "tb", $$c)
+                                  }
+                                }
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("label", [
+                              _vm._v(" Naninigarilyo | Madalas uminom ng alak")
+                            ])
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mb-2 mt-4 font-bold" }, [
+                      _vm._v("\n                        Lagyan ng "),
+                      _c("span", [
+                        _c("i", { staticClass: "fa-solid fa-check" })
+                      ]),
+                      _vm._v(
+                        " kung anong aksyon ang ginawa para sa kliyente:\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "w-full flex flex-row text-sm mb-8" },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "flex flex-col",
+                            staticStyle: { width: "70%" }
+                          },
+                          [
+                            _c("div", { staticClass: "w-full" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.formData.tb,
+                                    expression: "formData.tb"
+                                  }
+                                ],
+                                attrs: { type: "checkbox", value: "43" },
+                                domProps: {
+                                  checked: Array.isArray(_vm.formData.tb)
+                                    ? _vm._i(_vm.formData.tb, "43") > -1
+                                    : _vm.formData.tb
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.formData.tb,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = "43",
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.formData,
+                                            "tb",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.formData,
+                                            "tb",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.formData, "tb", $$c)
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("label", [
+                                _vm._v(
+                                  " Ni-refer sa health center dahil mayroon ng alinman sintomas o risk factor"
+                                )
+                              ])
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "flex flex-col",
+                            staticStyle: { width: "30%" }
+                          },
+                          [
+                            _c("div", { staticClass: "w-full" }, [
+                              _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.formData.tb,
+                                    expression: "formData.tb"
+                                  }
+                                ],
+                                attrs: { type: "checkbox", value: "44" },
+                                domProps: {
+                                  checked: Array.isArray(_vm.formData.tb)
+                                    ? _vm._i(_vm.formData.tb, "44") > -1
+                                    : _vm.formData.tb
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.formData.tb,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = "44",
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.formData,
+                                            "tb",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.formData,
+                                            "tb",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.formData, "tb", $$c)
+                                    }
+                                  }
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("label", [
+                                _vm._v(" Hindi ini-refer sa health center")
+                              ])
+                            ])
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full mb-2" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "text-white",
+                          class: {
+                            "cursor-not-allowed": _vm.formData.tb.length == 0,
+                            "cursor-pointer": _vm.formData.tb.length > 0
+                          },
+                          staticStyle: {
+                            padding: "5px 20px 5px 20px",
+                            background: "#003865",
+                            "border-radius": "5px"
+                          },
+                          attrs: { disabled: _vm.formData.tb.length == 0 },
+                          on: {
+                            click: function($event) {
+                              return _vm.generateForm()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Submit\n                        "
+                          )
+                        ]
+                      )
+                    ])
+                  ]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.activeForm == "Pregnancy Form"
+            ? _c(
+                "div",
+                {
+                  staticClass: "w-full",
+                  staticStyle: {
+                    border: "1px solid black",
+                    "border-radius": "5px"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "w-full" }, [
+                    _c(
+                      "span",
+                      {
+                        staticClass: "float-right cursor-pointer p-2",
+                        on: {
+                          click: function($event) {
+                            _vm.activeForm = null
+                            _vm.formData.tb = []
+                            _vm.formData.lmp = null
+                            _vm.formData.edc = null
+                            _vm.formData.edd = null
+                            _vm.selectedForm = null
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa-solid fa-xmark" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "w-full mt-2 mb-5 px-4 flex flex-row",
+                      staticStyle: { height: "auto" }
+                    },
+                    [
+                      _c("div", { staticClass: "w-full" }, [
+                        _c("label", { staticClass: "text-xl font-bold" }, [
+                          _vm._v(" Last Menstrual Period")
+                        ]),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formData.lmp,
+                              expression: "formData.lmp"
+                            }
+                          ],
+                          staticClass: "mt-2",
+                          staticStyle: {
+                            height: "40px",
+                            border: "1px solid black",
+                            "border-radius": "5px",
+                            padding: "5px 10px 5px 10px"
+                          },
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.formData.lmp },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.formData, "lmp", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full" }, [
+                        _c("label", { staticClass: "text-xl font-bold" }, [
+                          _vm._v(" Expected Date of Confinement")
+                        ]),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formData.edc,
+                              expression: "formData.edc"
+                            }
+                          ],
+                          staticClass: "mt-2",
+                          staticStyle: {
+                            height: "40px",
+                            border: "1px solid black",
+                            "border-radius": "5px",
+                            padding: "5px 10px 5px 10px"
+                          },
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.formData.edc },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.formData, "edc", $event.target.value)
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full" }, [
+                        _c("label", { staticClass: "text-xl font-bold" }, [
+                          _vm._v(" Expected Date of Delivery")
+                        ]),
+                        _vm._v(" "),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formData.edd,
+                              expression: "formData.edd"
+                            }
+                          ],
+                          staticClass: "mt-2",
+                          staticStyle: {
+                            height: "40px",
+                            border: "1px solid black",
+                            "border-radius": "5px",
+                            padding: "5px 10px 5px 10px"
+                          },
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.formData.edd },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.formData, "edd", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full mb-5 px-4" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "text-white",
+                        class: {
+                          "cursor-not-allowed":
+                            !_vm.formData.lmp ||
+                            !_vm.formData.edc ||
+                            !_vm.formData.edd,
+                          "cursor-pointer":
+                            !!_vm.formData.lmp &&
+                            !!_vm.formData.edc &&
+                            !!_vm.formData.edd
+                        },
+                        staticStyle: {
+                          padding: "5px 20px 5px 20px",
+                          background: "#003865",
+                          "border-radius": "5px"
+                        },
+                        attrs: {
+                          disabled:
+                            !_vm.formData.lmp ||
+                            !_vm.formData.edc ||
+                            !_vm.formData.edd
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.generateForm()
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Submit\n                    "
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/PatientMedicine.vue?vue&type=template&id=328fa246&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/PatientMedicine.vue?vue&type=template&id=328fa246& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("Navigation", { attrs: { auth: _vm.auth } }, [
+    _c("div", { staticClass: "px-4 pt-12" }, [
+      _c("div", { staticClass: "w-full" }, [
+        _c("span", { staticClass: "text-2xl" }, [
+          _c("i", {
+            staticClass: "fa-solid fa-arrow-left mr-2 cursor-pointer",
+            on: {
+              click: function($event) {
+                return _vm.back()
+              }
+            }
+          }),
+          _vm._v(" Patient Medicines\n            ")
+        ]),
+        _vm._v(" "),
+        _c("span", { staticClass: "text-2xl float-right font-bold" }, [
+          _vm._v(
+            "\n                " +
+              _vm._s(_vm.patient.name) +
+              " (" +
+              _vm._s(_vm.patient.place.name) +
+              ")\n            "
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "w-full flex flex-row mt-10" }, [
+        _c(
+          "div",
+          { staticStyle: { width: "50%" } },
+          [
+            _c("Table", {
+              attrs: {
+                columns: _vm.columns,
+                rows: _vm.options.patientMedicines,
+                keys: _vm.keys,
+                selected: _vm.selected
+              },
+              on: {
+                "update:selected": function($event) {
+                  _vm.selected = $event
+                }
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c("div", { staticStyle: { width: "50%" } }, [
+          _c(
+            "div",
+            {
+              staticClass: "float-right flex flex-col",
+              staticStyle: {
+                border: "1px solid black",
+                "border-radius": "5px",
+                width: "50%"
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "w-full text-2xl font-bold pl-4 pt-4" },
+                [
+                  _vm._v(
+                    "\n                        Dispense Medicine\n                    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full px-4 py-3" }, [
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.medicine_id,
+                        expression: "form.medicine_id"
+                      }
+                    ],
+                    staticClass: "text-center",
+                    staticStyle: {
+                      height: "40px",
+                      width: "100%",
+                      border: "1px solid black",
+                      "border-radius": "5px"
+                    },
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "medicine_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      }
+                    }
+                  },
+                  _vm._l(_vm.options.availableMedicines, function(med) {
+                    return _c(
+                      "option",
+                      { key: med.id, domProps: { value: med.id } },
+                      [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(med.name) +
+                            "\n                            "
+                        )
+                      ]
+                    )
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-xs text-red-500 ml-2" }, [
+                  _vm._v(
+                    _vm._s(_vm.validationError("medicine_id", _vm.saveError)) +
+                      " "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full px-4 py-3" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.quantity,
+                      expression: "form.quantity"
+                    }
+                  ],
+                  staticClass: "text-center",
+                  staticStyle: {
+                    height: "40px",
+                    width: "100%",
+                    border: "1px solid black",
+                    "border-radius": "5px"
+                  },
+                  attrs: { type: "text", placeholder: "Quantity" },
+                  domProps: { value: _vm.form.quantity },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "quantity", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("span", { staticClass: "text-xs text-red-500 ml-2" }, [
+                  _vm._v(
+                    _vm._s(_vm.validationError("quantity", _vm.saveError)) + " "
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "w-full px-4 py-3" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "text-center text-white",
+                    staticStyle: {
+                      height: "40px",
+                      width: "100%",
+                      border: "1px solid black",
+                      "border-radius": "5px",
+                      background: "#003865"
+                    },
+                    on: {
+                      click: function($event) {
+                        return _vm.dispenseMedicine()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            Submit\n                        "
+                    )
+                  ]
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patients.vue?vue&type=template&id=5278f492&scoped=true&":
 /*!***************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patients.vue?vue&type=template&id=5278f492&scoped=true& ***!
@@ -35686,7 +40590,7 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "w-3/5" }, [
-                        _c("div", { staticClass: "mt-4 ml-3" }, [
+                        _c("div", { staticClass: "w-full text-center" }, [
                           _c(
                             "span",
                             {
@@ -35702,46 +40606,110 @@ var render = function() {
                           )
                         ]),
                         _vm._v(" "),
-                        _c("div", { staticClass: "ml-3" }, [
-                          _c(
-                            "span",
-                            {
-                              staticClass: "text-xs font-regular",
-                              class: { "text-sm": !_vm.newUser }
-                            },
-                            [_vm._v(_vm._s(patient.phone) + "  ")]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "ml-3" }, [
-                          _c(
-                            "span",
-                            {
-                              staticClass: "text-xs font-regular",
-                              class: { "text-sm": !_vm.newUser }
-                            },
-                            [_vm._v(_vm._s(patient.place.name) + "  ")]
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "ml-3 mt-5" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "--view__profile",
-                              on: {
-                                click: function($event) {
-                                  return _vm.viewProfile(patient)
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                            View\n                                        "
-                              )
-                            ]
-                          )
-                        ])
+                        _c(
+                          "div",
+                          {
+                            staticClass: "flex flex-row px-2 text-xs mt-2",
+                            class: { "text-sm": !_vm.newUser }
+                          },
+                          [
+                            _c("div", { staticClass: "w-full font-bold" }, [
+                              _c("p", [
+                                _vm._v(
+                                  "\n                                                Place : \n                                            "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                                                Contact :\n                                            "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                                                Age :\n                                            "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                                                Gender :\n                                            "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "inline-flex" }, [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "--view__profile my-2 mr-1",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.viewProfile(patient)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                                    Forms\n                                                "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass: "--view__profile my-2",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.viewMedicine(patient)
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                                    Medicines\n                                                "
+                                    )
+                                  ]
+                                )
+                              ])
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "w-full" }, [
+                              _c("p", [
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(patient.place.name) +
+                                    " \n                                            "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(patient.phone) +
+                                    "\n                                            "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(patient.age) +
+                                    "\n                                            "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  "\n                                                " +
+                                    _vm._s(patient.gender) +
+                                    "\n                                            "
+                                )
+                              ])
+                            ])
+                          ]
+                        )
                       ])
                     ])
                   ]
@@ -35888,7 +40856,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", { staticClass: "my-1" }, [
                           _c("label", { staticClass: "text-bold" }, [
-                            _vm._v("Quantity of Medicine:")
+                            _vm._v("Age:")
                           ]),
                           _c("br"),
                           _vm._v(" "),
@@ -35897,13 +40865,13 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.formData.medicine,
-                                expression: "formData.medicine"
+                                value: _vm.formData.age,
+                                expression: "formData.age"
                               }
                             ],
                             staticClass: "--input",
-                            attrs: { type: "number" },
-                            domProps: { value: _vm.formData.medicine },
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.formData.age },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
@@ -35911,7 +40879,7 @@ var render = function() {
                                 }
                                 _vm.$set(
                                   _vm.formData,
-                                  "medicine",
+                                  "age",
                                   $event.target.value
                                 )
                               }
@@ -35924,7 +40892,74 @@ var render = function() {
                             [
                               _vm._v(
                                 _vm._s(
-                                  _vm.validationError("medicine", _vm.saveError)
+                                  _vm.validationError("age", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "my-1" }, [
+                          _c("label", { attrs: { for: "cars" } }, [
+                            _vm._v("Gender:")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.formData.gender,
+                                  expression: "formData.gender"
+                                }
+                              ],
+                              staticClass: "--input",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.formData,
+                                    "gender",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("option", { domProps: { value: "Male" } }, [
+                                _vm._v(
+                                  "\n                                        Male\n                                    "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("option", { domProps: { value: "Female" } }, [
+                                _vm._v(
+                                  "\n                                        Female\n                                    "
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 ml-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("place_id", _vm.saveError)
                                 ) + " "
                               )
                             ]
@@ -36589,84 +41624,6 @@ var render = function() {
                             ]
                           )
                         ]),
-                        _vm._v(" "),
-                        _vm.auth.user_type == "leader"
-                          ? _c("div", { staticClass: "my-1" }, [
-                              _c("label", { attrs: { for: "cars" } }, [
-                                _vm._v("Barangay:")
-                              ]),
-                              _c("br"),
-                              _vm._v(" "),
-                              _c(
-                                "select",
-                                {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.formData.work_address,
-                                      expression: "formData.work_address"
-                                    }
-                                  ],
-                                  staticClass: "--input",
-                                  on: {
-                                    change: function($event) {
-                                      var $$selectedVal = Array.prototype.filter
-                                        .call($event.target.options, function(
-                                          o
-                                        ) {
-                                          return o.selected
-                                        })
-                                        .map(function(o) {
-                                          var val =
-                                            "_value" in o ? o._value : o.value
-                                          return val
-                                        })
-                                      _vm.$set(
-                                        _vm.formData,
-                                        "work_address",
-                                        $event.target.multiple
-                                          ? $$selectedVal
-                                          : $$selectedVal[0]
-                                      )
-                                    }
-                                  }
-                                },
-                                _vm._l(_vm.options.places, function(place) {
-                                  return _c(
-                                    "option",
-                                    {
-                                      key: place.id,
-                                      domProps: { value: place.id }
-                                    },
-                                    [
-                                      _vm._v(
-                                        "\n                                        " +
-                                          _vm._s(place.name) +
-                                          "\n                                    "
-                                      )
-                                    ]
-                                  )
-                                }),
-                                0
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "span",
-                                { staticClass: "text-xs text-red-500 ml-2" },
-                                [
-                                  _vm._v(
-                                    _vm._s(
-                                      _vm.validationError(
-                                        "work_address",
-                                        _vm.saveError
-                                      )
-                                    ) + " "
-                                  )
-                                ]
-                              )
-                            ])
-                          : _vm._e(),
                         _vm._v(" "),
                         _c("div", { staticClass: "mt-3 mb-2" }, [
                           _c(

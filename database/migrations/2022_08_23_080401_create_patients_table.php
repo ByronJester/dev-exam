@@ -16,12 +16,16 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('place_id')->unsigned()->comment('Foreign key from table places');
+            $table->bigInteger('user_id')->unsigned()->nullable()->comment('Foreign key from table users');
             $table->string('name');
             $table->string('image')->nullable();
             $table->string('phone');
-            $table->integer('medicine')->default(0);
+            $table->string('age');
+            $table->string('gender');
+            
         
             $table->foreign('place_id')->references('id')->on('places');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -129,7 +129,7 @@
                                 <span class="text-xs text-red-500 ml-2">{{validationError('user_type', saveError)}} </span>
                             </div>
 
-                            <div class="my-1" v-if="auth.user_type == 'leader'">
+                            <!-- <div class="my-1" v-if="auth.user_type == 'leader'">
                                 <label for="cars">Barangay:</label><br>
                                 <select class="--input" v-model="formData.work_address">
                                     <option v-for="place in options.places" :key="place.id"
@@ -139,7 +139,7 @@
                                     </option>
                                 </select>
                                 <span class="text-xs text-red-500 ml-2">{{validationError('work_address', saveError)}} </span>
-                            </div>
+                            </div> -->
 
                             <div class="mt-3 mb-2">
                                 <button class="w-full py-2 px-4 text-white font-bold" 
@@ -190,7 +190,7 @@ export default {
                 phone : null,
                 email : null,
                 user_type : null,
-                work_address: null
+                work_address: 0
             },
             saveError: null
         }
@@ -199,6 +199,8 @@ export default {
     mounted(){
         this.users = this.options.users
         this.form.search = this.options.search
+
+        console.log(this.auth.work_address)
 
         if(this.auth.role == 1) {
             this.userType = [
@@ -320,8 +322,8 @@ export default {
         },
 
         createUser(){
-            if(!this.formData.work_address) {
-                this.formData.work_address = 0
+            if(this.auth.role == 3) {
+                this.formData.work_address = this.auth.work_address
             }
 
             Inertia.post(this.$root.route + '/users/create-account', this.formData,
@@ -334,7 +336,7 @@ export default {
                         phone : null,
                         email : null,
                         user_type : null,
-                        work_address: null
+                        work_address: 0
                     }
 
                     location.reload()
