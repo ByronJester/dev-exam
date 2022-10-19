@@ -12,34 +12,6 @@ class Medicine extends Model
 
     protected $fillable = [
         'name', 
-        'quantity',
-        'place_id',
-        'date',
-        'dispensed'
+        'category'
     ];
-
-    protected $with = [
-        'place'
-    ];
-
-    protected $appends = [
-        'barangay'
-    ];
-
-    public function place()
-    {
-        return $this->belongsTo(Place::class);
-    }
-
-    public function getBarangayAttribute()
-    {
-        return $this->place->name;
-    }
-
-    public function getDateAttribute($value)
-    {
-        $date = Carbon::parse($value);
-
-        return $date->isoFormat('LL');
-    }
 }

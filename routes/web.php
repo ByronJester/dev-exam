@@ -47,7 +47,7 @@ Route::middleware(['cors'])->group(function () {
     
     Route::prefix('medicines')->group(function () {
         Route::get('/', [MedicineController::class, 'viewMedicine'])->name('view.medicines');
-        Route::post('/create-medicine', [MedicineController::class, 'createMedicine']);
+        Route::post('/dispense-barangay-medicine', [MedicineController::class, 'dispenseBarangayMedicine']);
     });
 });
 

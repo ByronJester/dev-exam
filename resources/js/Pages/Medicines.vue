@@ -49,7 +49,7 @@
 
                     <div class="flex flex-row">
                         <div class="w-9/12 h-full mr-2">
-                            <Table :columns="columns"  :rows="medicines" :keys="keys"/>
+                            <Table :columns="columns"  :rows="options.barangayMedicines" :keys="keys"/>
                         </div>
 
                         <div class="w-3/12" v-if="!newUser"
@@ -65,7 +65,7 @@
                                 Total medicine for {{ options.month }} {{ options.year }} 
                             </div>
 
-                            <div class="w-full flex align-center justify-center">
+                            <div class="w-full flex align-center justify-center"> 
                                 <div class="text-6xl w-6/12 wrapper text-center my-5">
                                     <div class="mt-10"> {{ options.medicineDispensed }} </div>
                                 </div>
@@ -84,7 +84,7 @@
                                 style="border-bottom: 1px solid #22577E; background-color: #003865"
                             >
                                 <span class="font-bold text-lg">
-                                    New Medicine
+                                    Dispense Medicine
                                 </span>
                                 <i class="fa-solid fa-xmark fa-md mr-2 mt-1 cursor-pointer float-right"
                                     @click="newUser = false"
@@ -95,21 +95,19 @@
                                 style="background-color: #EFDAD7"
                             >
                                 <div class="my-1">
-                                    <label class="text-bold">Name:</label><br>
-                                    <input type="text" class="--input" v-model="formData.name">
-                                    <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
+                                    <label class="text-bold">Medicine:</label><br>
+                                    <select class="--input" v-model="formData.medicine_id">
+                                        <option v-for="medicine in options.medicines" :key="medicine.id" :value="medicine.id">
+                                            {{ medicine.name}}
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('medicine_id', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1">
-                                    <label class="text-bold">Quantity.:</label><br>
+                                    <label class="text-bold">Quantity:</label><br>
                                     <input type="number" class="--input" v-model="formData.quantity">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('quantity', saveError)}} </span>
-                                </div>
-
-                                <div class="my-1">
-                                    <label class="text-bold">Date:</label><br>
-                                    <input type="date" class="--input" v-model="formData.date">
-                                    <span class="text-xs text-red-500 ml-2">{{validationError('date', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1" v-if="auth.role != 3">
@@ -125,11 +123,11 @@
                                 </div>
 
                                 <div class="mt-3 mb-2">
-                                    <button class="w-full py-2 px-4 text-white font-bold" 
-                                        style="border-radius: 50px; background-color: #4D77FF"
-                                        @click="createMedicine()"
+                                    <button class="text-center text-white" 
+                                        style="height: 40px; width: 100%; border: 1px solid black; border-radius: 5px; background: #003865"
+                                        @click="dispenseMedicine()"
                                     >
-                                        Create
+                                        Dispense
                                     </button>
                                 </div>
                                 
@@ -139,14 +137,6 @@
                     </div>
 
                 </div>
-
-                <!-- <div v-if="activeTab == 'statistics'" class="w-full pt-20 px-12">
-                    <div class="text-2xl font-bold text-blue-500 w-full"
-                        style="border-bottom: 1px solid black"
-                    >
-                        Statistics
-                    </div>
-                </div> -->
 
             </div>
         </Navigation>
@@ -167,27 +157,26 @@ export default {
     data(){
         return {
             activeTab: 'medicines',
-            medicines: [],
             form: {
                 search: null
             },
             newUser: false,
             selected: null,
             formData: {
+                medicine_id: null,
                 place_id: null,
-                name : null,
                 quantity : 0
             },
             saveError: null,
             columns: [
-                'Name', 'Barangay', 'Quantity', 'Dispensed', 'Date'
+                'Medicine', 'Barangay', 'Quantity', 'Dispensed'
             ],
             keys : [
                 {
                     label: 'name',
                 },
                 {
-                    label: 'barangay',
+                    label: 'place_name',
                 },
                 {
                     label: 'quantity',
@@ -195,15 +184,16 @@ export default {
                 {
                     label: 'dispensed',
                 },
-                {
-                    label: 'date',
-                },
             ],
         }
     },
     mounted(){
-        this.medicines = this.options.medicines
         this.form.search = this.options.search
+
+        this.formData.medicine_id = this.options.medicines[0].id
+        this.formData.place_id = this.options.places[0].id
+
+        console.log(this.options.barangayMedicines)
     },
     methods: {
         initiateSearch() {
@@ -232,14 +222,14 @@ export default {
             );
         },
 
-        createMedicine(){
-            Inertia.post(this.$root.route + '/medicines/create-medicine', this.formData,
+        dispenseMedicine(){
+            Inertia.post(this.$root.route + '/medicines/dispense-barangay-medicine', this.formData,
             {
                 onSuccess: (res) => {
                     this.formData = {
                         place_id : null,
-                        name : null,
-                        quantity : null
+                        quantity : null,
+                        medicine_id : null
                     }
 
                     location.reload()

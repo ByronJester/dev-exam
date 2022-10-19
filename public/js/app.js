@@ -2603,16 +2603,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -2625,35 +2615,34 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       activeTab: 'medicines',
-      medicines: [],
       form: {
         search: null
       },
       newUser: false,
       selected: null,
       formData: {
+        medicine_id: null,
         place_id: null,
-        name: null,
         quantity: 0
       },
       saveError: null,
-      columns: ['Name', 'Barangay', 'Quantity', 'Dispensed', 'Date'],
+      columns: ['Medicine', 'Barangay', 'Quantity', 'Dispensed'],
       keys: [{
         label: 'name'
       }, {
-        label: 'barangay'
+        label: 'place_name'
       }, {
         label: 'quantity'
       }, {
         label: 'dispensed'
-      }, {
-        label: 'date'
       }]
     };
   },
   mounted: function mounted() {
-    this.medicines = this.options.medicines;
     this.form.search = this.options.search;
+    this.formData.medicine_id = this.options.medicines[0].id;
+    this.formData.place_id = this.options.places[0].id;
+    console.log(this.options.barangayMedicines);
   },
   methods: {
     initiateSearch: function initiateSearch() {
@@ -2672,15 +2661,15 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    createMedicine: function createMedicine() {
+    dispenseMedicine: function dispenseMedicine() {
       var _this = this;
 
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/medicines/create-medicine', this.formData, {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/medicines/dispense-barangay-medicine', this.formData, {
         onSuccess: function onSuccess(res) {
           _this.formData = {
             place_id: null,
-            name: null,
-            quantity: null
+            quantity: null,
+            medicine_id: null
           };
           location.reload();
         },
@@ -3304,7 +3293,7 @@ __webpack_require__.r(__webpack_exports__);
       patient: null,
       columns: ['Medicine', 'Quantity'],
       keys: [{
-        label: 'medicine_name'
+        label: 'name'
       }, {
         label: 'quantity'
       }],
@@ -3312,7 +3301,8 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         patient_id: null,
         medicine_id: null,
-        quantity: 1
+        quantity: 1,
+        place_id: null
       },
       saveError: null
     };
@@ -3321,7 +3311,7 @@ __webpack_require__.r(__webpack_exports__);
     this.patient = this.options.patient;
     this.form.patient_id = this.patient.id;
     this.form.medicine_id = this.options.availableMedicines[0].id;
-    console.log(this.options);
+    this.form.place_id = this.patient.place_id;
   },
   methods: {
     back: function back() {
@@ -37005,7 +36995,7 @@ var render = function() {
                       _c("Table", {
                         attrs: {
                           columns: _vm.columns,
-                          rows: _vm.medicines,
+                          rows: _vm.options.barangayMedicines,
                           keys: _vm.keys
                         }
                       })
@@ -37136,7 +37126,7 @@ var render = function() {
                             [
                               _c("span", { staticClass: "font-bold text-lg" }, [
                                 _vm._v(
-                                  "\n                                New Medicine\n                            "
+                                  "\n                                Dispense Medicine\n                            "
                                 )
                               ]),
                               _vm._v(" "),
@@ -37161,35 +37151,65 @@ var render = function() {
                             [
                               _c("div", { staticClass: "my-1" }, [
                                 _c("label", { staticClass: "text-bold" }, [
-                                  _vm._v("Name:")
+                                  _vm._v("Medicine:")
                                 ]),
                                 _c("br"),
                                 _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.formData.name,
-                                      expression: "formData.name"
-                                    }
-                                  ],
-                                  staticClass: "--input",
-                                  attrs: { type: "text" },
-                                  domProps: { value: _vm.formData.name },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.formData.medicine_id,
+                                        expression: "formData.medicine_id"
                                       }
-                                      _vm.$set(
-                                        _vm.formData,
-                                        "name",
-                                        $event.target.value
-                                      )
+                                    ],
+                                    staticClass: "--input",
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.formData,
+                                          "medicine_id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
                                     }
-                                  }
-                                }),
+                                  },
+                                  _vm._l(_vm.options.medicines, function(
+                                    medicine
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: medicine.id,
+                                        domProps: { value: medicine.id }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                        " +
+                                            _vm._s(medicine.name) +
+                                            "\n                                    "
+                                        )
+                                      ]
+                                    )
+                                  }),
+                                  0
+                                ),
                                 _vm._v(" "),
                                 _c(
                                   "span",
@@ -37198,7 +37218,7 @@ var render = function() {
                                     _vm._v(
                                       _vm._s(
                                         _vm.validationError(
-                                          "name",
+                                          "medicine_id",
                                           _vm.saveError
                                         )
                                       ) + " "
@@ -37209,7 +37229,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("div", { staticClass: "my-1" }, [
                                 _c("label", { staticClass: "text-bold" }, [
-                                  _vm._v("Quantity.:")
+                                  _vm._v("Quantity:")
                                 ]),
                                 _c("br"),
                                 _vm._v(" "),
@@ -37247,54 +37267,6 @@ var render = function() {
                                       _vm._s(
                                         _vm.validationError(
                                           "quantity",
-                                          _vm.saveError
-                                        )
-                                      ) + " "
-                                    )
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "my-1" }, [
-                                _c("label", { staticClass: "text-bold" }, [
-                                  _vm._v("Date:")
-                                ]),
-                                _c("br"),
-                                _vm._v(" "),
-                                _c("input", {
-                                  directives: [
-                                    {
-                                      name: "model",
-                                      rawName: "v-model",
-                                      value: _vm.formData.date,
-                                      expression: "formData.date"
-                                    }
-                                  ],
-                                  staticClass: "--input",
-                                  attrs: { type: "date" },
-                                  domProps: { value: _vm.formData.date },
-                                  on: {
-                                    input: function($event) {
-                                      if ($event.target.composing) {
-                                        return
-                                      }
-                                      _vm.$set(
-                                        _vm.formData,
-                                        "date",
-                                        $event.target.value
-                                      )
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "span",
-                                  { staticClass: "text-xs text-red-500 ml-2" },
-                                  [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.validationError(
-                                          "date",
                                           _vm.saveError
                                         )
                                       ) + " "
@@ -37392,21 +37364,23 @@ var render = function() {
                                 _c(
                                   "button",
                                   {
-                                    staticClass:
-                                      "w-full py-2 px-4 text-white font-bold",
+                                    staticClass: "text-center text-white",
                                     staticStyle: {
-                                      "border-radius": "50px",
-                                      "background-color": "#4D77FF"
+                                      height: "40px",
+                                      width: "100%",
+                                      border: "1px solid black",
+                                      "border-radius": "5px",
+                                      background: "#003865"
                                     },
                                     on: {
                                       click: function($event) {
-                                        return _vm.createMedicine()
+                                        return _vm.dispenseMedicine()
                                       }
                                     }
                                   },
                                   [
                                     _vm._v(
-                                      "\n                                    Create\n                                "
+                                      "\n                                    Dispense\n                                "
                                     )
                                   ]
                                 )
@@ -40470,7 +40444,7 @@ var render = function() {
                   },
                   [
                     _vm._v(
-                      "\n                            Submit\n                        "
+                      "\n                            Dispense\n                        "
                     )
                   ]
                 )

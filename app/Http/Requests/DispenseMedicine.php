@@ -24,9 +24,9 @@ class DispenseMedicine extends FormRequest
     public function rules()
     {
         $rules = [
-            'patient_id' => "required",
-            'medicine_id' => "required",
-            'quantity' => "required|numeric|min:1",
+            'place_id' => "sometimes|required",
+            'patient_id' => "sometimes|required",
+            'quantity' => "required|integer|min:1",
         ];
 
         return $rules;

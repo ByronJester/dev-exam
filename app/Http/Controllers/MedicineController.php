@@ -7,9 +7,10 @@ use App\Models\Place;
 use App\Models\Medicine;
 use App\Models\Patient;
 use App\Models\PatientMedicine;
+use App\Models\BarangayMedicine;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\CreateMedicine;
+use App\Http\Requests\DispenseMedicine;
 use Carbon\Carbon;
 
 class MedicineController extends Controller
@@ -19,29 +20,37 @@ class MedicineController extends Controller
         $auth = Auth::user();
 
         if($auth) {
-            $medicines = Medicine::orderBy('date', 'desc');
-
-            $medicineCount = Medicine::select('*')->whereMonth('date', Carbon::now()->month);
-
-            if($auth->role == 3) {
-                $medicines = $medicines->where('place_id', $auth->work_address);
-                $medicineCount = $medicineCount->where('place_id', $auth->work_address);
-            }
+            $medicines = Medicine::orderBy('name')->get();
+            
+            $barangayMedicines = BarangayMedicine::whereMonth('created_at', Carbon::now()->month);
+            $patientMedicines = PatientMedicine::whereMonth('created_at', Carbon::now()->month);
 
             if($search = $request->search) {
-                $medicines = $medicines->where('name', 'LIKE', '%' . $search . '%');
+                $barangayMedicines = $barangayMedicines->whereHas('medicine', function($q) use ($search){
+                    $q->where('name', 'LIKE', '%'. $search . '%');
+                });
             }
 
-            $medicineCount = $medicineCount->get();
+            if($auth->role == 3) {
+                $barangayMedicines = $barangayMedicines->where('place_id', $auth->work_address);
+
+                $patientMedicines = $patientMedicines->whereHas('patient', function($q) use ($auth){
+                    $q->where('place_id', $auth->work_address);
+                });
+            }
+
+            $barangayMedicines = $barangayMedicines->get();
+            $patientMedicines = $patientMedicines->get();
 
             return Inertia::render('Medicines', [
                 'auth'    => $auth,
                 'options' => [
                     'places' => Place::get(),
-                    'medicines' => $medicines->get(),
+                    'medicines' => $medicines,
                     'search' => $search,
-                    'medicineCount' => $medicineCount->sum('quantity'),
-                    'medicineDispensed' => $medicineCount->sum('dispensed'),
+                    'barangayMedicines' => $barangayMedicines,
+                    'medicineCount' => $barangayMedicines->sum('quantity'),
+                    'medicineDispensed' => $patientMedicines->sum('quantity'),
                     'month' => date('F'),
                     'year' => date('Y')
                 ]
@@ -51,17 +60,17 @@ class MedicineController extends Controller
         return redirect('/'); 
     }
 
-    public function createMedicine(CreateMedicine $request)
+    public function dispenseBarangayMedicine(DispenseMedicine $request)
     {
         $data = $request->toArray();
 
-        $medicine = Medicine::where('name', $request->name)->whereMonth('date', Carbon::now()->month)->where('place_id', $request->place_id)->first();
+        $arg = BarangayMedicine::where('medicine_id', $request->medicine_id)->whereMonth('created_at', Carbon::now()->month)->where('place_id', $request->place_id)->first();
 
-        if($medicine) {
-            $medicine->quantity += $request->quantity;
-            $medicine->save();
+        if($arg) {
+            $arg->quantity += $request->quantity;
+            $arg->save();
         } else {
-            Medicine::create($data);
+            BarangayMedicine::create($data);
         }
 
         return redirect()->back()->with('errors');

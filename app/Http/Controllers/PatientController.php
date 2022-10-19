@@ -8,12 +8,14 @@ use Inertia\Inertia;
 use App\Models\Patient;
 use App\Models\PatientForm;
 use App\Models\PatientMedicine;
+use App\Models\BarangayMedicine;
 use App\Models\Place;
 use App\Models\Medicine;
 use App\Http\Requests\CreatePatient;
 use App\Http\Requests\CreatePatientForm;
 use App\Http\Requests\DispenseMedicine;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class PatientController extends Controller
 {
@@ -79,8 +81,20 @@ class PatientController extends Controller
 
         $patient = Patient::where('id', $id)->first();
 
-        $availableMedicines = Medicine::where('place_id', $patient->place_id)->where('quantity' , '>', 0)->get();
+        $availableMedicines = Medicine::get();
 
+        if($auth->role == 3) {
+            $availableMedicines = [];
+
+            $barangayMedicines = BarangayMedicine::where('place_id', $patient->place_id)->whereMonth('created_at', Carbon::now()->month)->get();
+
+            foreach ($barangayMedicines as $medicine) {
+                if($medicine->quantity > $medicine->dispensed) {
+                    $availableMedicines[] = $medicine;
+                }
+            }
+        }
+        
         $patientMedicines = PatientMedicine::where('patient_id', $patient->id)->get();
 
         return Inertia::render('PatientMedicine', [
@@ -114,14 +128,31 @@ class PatientController extends Controller
 
     public function dispenseMedicine(DispenseMedicine $request)
     {
-        $medicine = Medicine::where('id', $request->medicine_id)->first();
+        $data = $request->except(['place_id']);
 
-        if($medicine) {
-            $medicine->dispensed += $request->quantity;
-            $medicine->save();
+        $patientMedicine = PatientMedicine::where('medicine_id', $request->medicine_id)->whereMonth('created_at', Carbon::now()->month)->where('patient_id', $request->patient_id)->first();
+
+        if($patientMedicine) {
+            $patientMedicine->quantity += $request->quantity;
+            $patientMedicine->save();
+        } else {
+            PatientMedicine::create($data);
         }
 
-        PatientMedicine::create($request->toArray());
+        $barangayMedicine = BarangayMedicine::where('medicine_id', $request->medicine_id)->whereMonth('created_at', Carbon::now()->month)->where('place_id', $request->place_id)->first();
+
+        if($barangayMedicine) {
+            $barangayMedicine->quantity += $request->quantity;
+            $barangayMedicine->save();
+        } else {
+            $barangayData = [
+                "place_id" => $request->place_id,
+                "medicine_id" => $request->medicine_id,
+                "quantity" => $request->quantity,
+            ];
+
+            BarangayMedicine::create($barangayData);
+        }
 
         return redirect()->back()->with('errors');
 

@@ -235,7 +235,7 @@ export default {
         },
 
         search() {
-            Inertia.get(
+            Inertia.get( 
                 this.$root.route + '/patients', this.form,
                 {
                     onSuccess: () => { },

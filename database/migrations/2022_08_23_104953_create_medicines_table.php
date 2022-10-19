@@ -15,14 +15,8 @@ class CreateMedicinesTable extends Migration
     {
         Schema::create('medicines', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('place_id')->unsigned()->comment('Foreign key from table places')->nullable();
             $table->string('name');
-            $table->string('image')->nullable();
-            $table->integer('quantity')->default(1);
-            $table->integer('dispensed')->default(0);
-            $table->date('date');
-        
-            $table->foreign('place_id')->references('id')->on('places');
+            
             $table->softDeletes();
             $table->timestamps();
         });

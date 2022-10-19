@@ -16,11 +16,12 @@ class PatientMedicine extends Model
     ];
 
     protected $with = [
-        'medicine'
+        'medicine',
+        'patient'
     ];
 
     protected $appends = [
-        'medicine_name'
+        'name'
     ];
 
     public function medicine()
@@ -28,8 +29,13 @@ class PatientMedicine extends Model
         return $this->belongsTo(Medicine::class);
     }
 
-    public function getMedicineNameAttribute()
+    public function getNameAttribute()
     {
         return $this->medicine->name;
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
     }
 }

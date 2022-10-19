@@ -48,7 +48,7 @@
                                 style="height: 40px; width: 100%; border: 1px solid black; border-radius: 5px; background: #003865"
                                 @click="dispenseMedicine()"
                             >
-                                Submit
+                                Dispense
                             </button>
                         </div>
 
@@ -82,7 +82,7 @@ export default {
             ],
             keys : [
                 {
-                    label: 'medicine_name',
+                    label: 'name',
                 },
                 {
                     label: 'quantity',
@@ -92,7 +92,8 @@ export default {
             form: {
                 patient_id: null,
                 medicine_id: null,
-                quantity: 1
+                quantity: 1,
+                place_id: null
             },
 
             saveError: null
@@ -102,8 +103,7 @@ export default {
         this.patient = this.options.patient
         this.form.patient_id = this.patient.id
         this.form.medicine_id = this.options.availableMedicines[0].id
-
-        console.log(this.options)
+        this.form.place_id = this.patient.place_id
         
     },
     methods: {
