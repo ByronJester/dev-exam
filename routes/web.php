@@ -34,6 +34,7 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/logout', [UserController::class, 'logoutAccount']);
         Route::post('/deactivate-reactivate', [UserController::class, 'changeStatus']);
         Route::post('/create-account', [UserController::class, 'saveUser']);
+        Route::post('/change-password', [UserController::class, 'changePassword']);
     });
     
     Route::prefix('patients')->group(function () {

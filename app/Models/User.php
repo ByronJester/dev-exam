@@ -39,4 +39,19 @@ class User extends Authenticatable
         'is_active' => 'boolean',
     ];
 
+    protected $appends = [
+        'place'
+    ];
+
+    public function getPlaceAttribute()
+    {
+        $place = Place::where('id', $this->work_address)->first();
+
+        if($place) {
+            return $place->name;
+        }
+
+        return null;
+    }
+
 }

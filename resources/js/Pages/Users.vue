@@ -40,13 +40,19 @@
                                     <div class="mt-4 ml-3"> 
                                         <span class="text-md font-bold" 
                                         :class="{'text-lg' : !newUser}">{{ user.first_name }} {{ user.last_name }}
-                                        </span>
+                                        </span>   
                                     </div>
 
                                     <div class="ml-3"> 
                                         <span class="text-xs font-regular"
                                             :class="{'text-sm' : !newUser}"
                                         >{{ getUserType(user) }}  
+                                        </span>
+
+                                        
+
+                                        <span class="text-xs font-regular" :class="{'text-sm' : !newUser}" v-if="auth.role == 1 && user.user_type == 'leader'">
+                                            ({{ user.place }})
                                         </span>
                                     </div>
 
@@ -117,6 +123,18 @@
                                 <span class="text-xs text-red-500 ml-2">{{validationError('email', saveError)}} </span>
                             </div>
 
+                            <div class="my-1" v-if="auth.role == 1">
+                                <label for="cars">Barangay:</label><br>
+                                <select class="--input" v-model="formData.work_address">
+                                    <option v-for="place in options.places" :key="place.id"
+                                        :value="place.id"
+                                    >
+                                        {{ place.name }}
+                                    </option>
+                                </select>
+                                <span class="text-xs text-red-500 ml-2">{{validationError('work_address', saveError)}} </span>
+                            </div>
+
                             <div class="my-1">
                                 <label for="cars">User Type:</label><br>
                                 <select class="--input" v-model="formData.user_type">
@@ -128,18 +146,6 @@
                                 </select>
                                 <span class="text-xs text-red-500 ml-2">{{validationError('user_type', saveError)}} </span>
                             </div>
-
-                            <!-- <div class="my-1" v-if="auth.user_type == 'leader'">
-                                <label for="cars">Barangay:</label><br>
-                                <select class="--input" v-model="formData.work_address">
-                                    <option v-for="place in options.places" :key="place.id"
-                                        :value="place.id"
-                                    >
-                                        {{ place.name }}
-                                    </option>
-                                </select>
-                                <span class="text-xs text-red-500 ml-2">{{validationError('work_address', saveError)}} </span>
-                            </div> -->
 
                             <div class="mt-3 mb-2">
                                 <button class="w-full py-2 px-4 text-white font-bold" 
@@ -200,13 +206,13 @@ export default {
         this.users = this.options.users
         this.form.search = this.options.search
 
-        console.log(this.auth.work_address)
+        console.log(this.options)
 
         if(this.auth.role == 1) {
             this.userType = [
                 {
-                    label: 'Admin',
-                    value: 'admin'
+                    label: 'BHW - Leader',
+                    value: 'leader'
                 }
             ]
         }

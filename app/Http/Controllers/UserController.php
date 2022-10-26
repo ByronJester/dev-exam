@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\RegisterAccount;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -89,6 +90,10 @@ class UserController extends Controller
         if($auth) {
             $users = User::orderBy('created_at', 'desc')->where('role', $auth->role)->whereNotIn('id', [$auth->id]);
 
+            if($auth->role == 1) {
+                $users = User::orderBy('created_at', 'desc')->where('user_type', 'leader')->whereNotIn('id', [$auth->id]);
+            }
+
             if($search = $request->search) {
                 $users = $users->where(function($q) use ($search){
                     $q->where('first_name', 'LIKE', '%' . $search . '%')->orWhere('last_name', 'LIKE', '%' . $search . '%');
@@ -125,19 +130,44 @@ class UserController extends Controller
     {
         $data = $request->toArray();
 
-        $password = Str::random(10);
+        $password = strtolower($request->last_name);
+        $password = str_replace(' ', '_', $password);
         $data['password'] = Hash::make($password);
-        $data['role'] = Auth::user()->role;
-
-        $saveUser = User::create($data);
-
-        if($saveUser) {
-            $this->sendSms($saveUser->phone, 
-                'Hi ' . $saveUser->first_name . ' ' . $saveUser->last_name . ' Your password for account with email ' . $saveUser->email . ' is ' . $password . '.'
-            );
+        
+        if($request->user_type == 'leader') {
+            $data['role'] = 3;
+        } else {
+            $data['role'] = Auth::user()->role;
         }
         
+        $saveUser = User::create($data);
+        
         return redirect()->back()->with('errors');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $auth = Auth::user();
+
+        $rules = [
+            'current_password' => "required|password",
+            'new_password' => "required|min:8",
+            'confirm_password' => "required|same:new_password|min:8",
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422], 200);
+        }
+
+        $password = $request->new_password;
+
+        User::where('id', $auth->id)->update([
+            'password' => Hash::make($password)
+        ]);
+
+        return response()->json(['status' => 200], 200); 
     }
 } 
  
