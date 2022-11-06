@@ -22,6 +22,8 @@ class CreatePatientsTable extends Migration
             $table->string('phone');
             $table->string('age');
             $table->string('gender');
+            $table->boolean('is_rhu')->default(false);
+
             
         
             $table->foreign('place_id')->references('id')->on('places');

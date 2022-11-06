@@ -2,45 +2,44 @@
     <div class="w-full h-screen">
         <Navigation :auth="auth">
             <div class="px-4 pt-12">
-                <!-- <div class="flex flex-row text-center font-bold text-lg">
-                    <div class="w-full">
-                        <span class="cursor-pointer"
-                            :style="{'border-bottom': activeTab == 'medicines' ? '1px solid black' : 'none'}"
-                            @click="activeTab = 'medicines'"
-                        >
-                            Medicines
-                        </span>
-                    </div>
-
-                    <div class="w-full">
-                        <span class="cursor-pointer"
-                            @click="activeTab = 'statistics'"
-                            :style="{'border-bottom': activeTab == 'statistics' ? '1px solid black' : 'none'}"
-                        >
-                            Statistics
-                        </span>
-                    </div>
-                </div> -->
-
-                <div v-if="activeTab == 'medicines'" class="w-full px-12">
+                <div v-if="activeTab == 'medicines' && !newUser" class="w-full px-12" >
                     <div class="text-2xl font-bold text-blue-500 w-full"
                         style="border-bottom: 1px solid black"
                     >
-                        Medicine Report
+                        Medicines
                     </div>
 
                     <div class="flex flex-row mb-5 mt-10">
-                        <div class="w-10/12">
-                            <input type="text" class="--search pl-5"
+                        <div class="w-10/12 inline-flex">
+                            <input type="text" class="--search pl-5 mr-2"
                                 v-model="form.search" @input="initiateSearch()"
                                 placeholder="Search...."
                             >
+
+                            <select class="--input mr-2" style="width: 150px !important" v-model="dispensed_type" v-if="auth.role != 3">
+                                <option :value="'barangay'">
+                                    Barangay
+                                </option>
+
+                                <option :value="'individual'">
+                                    Individual
+                                </option>
+                            </select>
+
+
+                            <select class="--input" style="width: 150px !important" v-model="barangay" v-if="dispensed_type == 'barangay' && auth.role != 3">
+                                <option v-for="place in options.places" :key="place.name"
+                                    :value="place.name"
+                                >
+                                    {{ place.name }}
+                                </option>
+                            </select>
                         </div>
 
-                        <div class="w-2/12" v-if="auth.role != 3">
+                        <div class="w-2/12">
                             <button class="text-black float-right p-2"
                                 style="border: 1px solid black; border-radius: 5px"
-                                @click="newUser = true"
+                                @click="openModal()"
                             >
                                 <i class="fa-solid fa-house-chimney-medical fa-2xl"></i>
                             </button>
@@ -48,53 +47,28 @@
                     </div>
 
                     <div class="flex flex-row">
-                        <div class="w-9/12 h-full mr-2">
-                            <Table :columns="columns"  :rows="options.barangayMedicines" :keys="keys"/>
+                        <div class="w-full h-full mr-2">
+                            <Table :columns="columns"  :rows="medecineList" :keys="keys"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="medicineModal" class="medicineModal">
+                    <div class="medicine-modal-content flex flex-col" style="width: 30%">
+                        <div class="w-full">
+                            <span class="text-lg font-bold">
+                                New Medicine
+                            </span>
+                            <span class="float-right cursor-pointer"
+                                @click="closeModal()"
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
                         </div>
 
-                        <div class="w-3/12" v-if="!newUser"
-                            style="border: 1px solid #22577E; border-radius: 5px"
-                        >
-                            <div class="w-full flex align-center justify-center">
-                                <div class="text-6xl w-6/12 wrapper text-center my-5">
-                                    <div class="mt-10"> {{ options.medicineCount }} </div>
-                                </div>
-                            </div>
-
-                            <div class="w-full text-center text-xl font-bold">
-                                Total medicine for {{ options.month }} {{ options.year }} 
-                            </div>
-
-                            <div class="w-full flex align-center justify-center"> 
-                                <div class="text-6xl w-6/12 wrapper text-center my-5">
-                                    <div class="mt-10"> {{ options.medicineDispensed }} </div>
-                                </div>
-                            </div>
-
-                            <div class="w-full text-center text-xl font-bold mb-5">
-                                Medicine dispensed for {{ options.month }} {{ options.year }} 
-                            </div>
-
-                        </div>
-
-                        <div class="w-3/12" v-if="newUser"
-                            style="border: 1px solid #22577E; border-radius: 5px"
-                        >
-                            <div class="w-full text-center text-white"
-                                style="border-bottom: 1px solid #22577E; background-color: #003865"
-                            >
-                                <span class="font-bold text-lg">
-                                    Dispense Medicine
-                                </span>
-                                <i class="fa-solid fa-xmark fa-md mr-2 mt-1 cursor-pointer float-right"
-                                    @click="newUser = false"
-                                ></i>
-                            </div>
-
-                            <div class="w-full p-2 flex flex-col"
-                                style="background-color: #EFDAD7"
-                            >
-                                <div class="my-1">
+                        <div class="w-full flex flex-col">
+                            <div class="my-1 flex flex-row">
+                                <div class="w-full mr-2">
                                     <label class="text-bold">Medicine:</label><br>
                                     <select class="--input" v-model="formData.medicine_id">
                                         <option v-for="medicine in options.medicines" :key="medicine.id" :value="medicine.id">
@@ -104,38 +78,89 @@
                                     <span class="text-xs text-red-500 ml-2">{{validationError('medicine_id', saveError)}} </span>
                                 </div>
 
-                                <div class="my-1">
-                                    <label class="text-bold">Quantity:</label><br>
-                                    <input type="number" class="--input" v-model="formData.quantity">
-                                    <span class="text-xs text-red-500 ml-2">{{validationError('quantity', saveError)}} </span>
-                                </div>
-
-                                <div class="my-1" v-if="auth.role != 3">
-                                    <label for="cars">Barangay:</label><br>
-                                    <select class="--input" v-model="formData.place_id">
-                                        <option v-for="place in options.places" :key="place.id"
-                                            :value="place.id"
-                                        >
-                                            {{ place.name }}
+                                <div class="w-full mr-2">
+                                    <label class="text-bold">Category:</label><br>
+                                    <select class="--input" v-model="formData.medicine_category_id">
+                                        <option v-for="category in options.categories" :key="category.id" :value="category.id">
+                                            {{ category.category}}
                                         </option>
                                     </select>
-                                    <span class="text-xs text-red-500 ml-2">{{validationError('place_id', saveError)}} </span>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('medicine_category_id', saveError)}} </span>
                                 </div>
 
-                                <div class="mt-3 mb-2">
-                                    <button class="text-center text-white" 
-                                        style="height: 40px; width: 100%; border: 1px solid black; border-radius: 5px; background: #003865"
-                                        @click="dispenseMedicine()"
-                                    >
-                                        Dispense
-                                    </button>
+                                <div class="mr-2">
+                                    <label class="text-bold">Dosage:</label><br>
+                                    <input type="number" class="--input" v-model="formData.dosage">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('dosage', saveError)}} </span>
                                 </div>
-                                
+
+                                <div class="w-full mr-2">
+                                    <label class="text-bold">Unit:</label><br>
+                                    <select class="--input" v-model="formData.medicine_unit_id">
+                                        <option v-for="unit in options.units" :key="unit.id" :value="unit.id">
+                                            {{ unit.unit}}
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('medicine_unit_id', saveError)}} </span>
+                                </div>
+
+                            </div>
+
+                            <div class="my-1">
+                                <label class="text-bold">Quantity:</label><br>
+                                <input type="number" class="--input" v-model="formData.quantity">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('quantity', saveError)}} </span>
+                            </div>
+
+                            <div class="my-1" v-if="auth.role != 3">
+                                <label for="cars">Dispensed Type:</label><br>
+                                <select class="--input" v-model="formData.dispensed_type">
+                                    <option :value="'barangay'">
+                                        Barangay
+                                    </option>
+
+                                    <option :value="'individual'">
+                                        Individual
+                                    </option>
+                                </select>
+                                <span class="text-xs text-red-500 ml-2">{{validationError('dispensed_type', saveError)}} </span>
+                            </div>
+
+                            <div class="my-1" v-if="auth.role != 3 && formData.dispensed_type == 'barangay'">
+                                <label for="cars">Barangay:</label><br>
+                                <select class="--input" v-model="formData.place_id">
+                                    <option v-for="place in options.places" :key="place.id"
+                                        :value="place.id"
+                                    >
+                                        {{ place.name }}
+                                    </option>
+                                </select>
+                                <span class="text-xs text-red-500 ml-2">{{validationError('place_id', saveError)}} </span>
+                            </div>
+
+                            <div class="my-1" v-if="formData.dispensed_type == 'individual'">
+                                <label for="cars">Patient:</label><br>
+                                <select class="--input" v-model="formData.patient_id">
+                                    <option v-for="patient in options.patients" :key="patient.id"
+                                        :value="patient.id"
+                                    >
+                                        {{ patient.name }}
+                                    </option>
+                                </select>
+                                <span class="text-xs text-red-500 ml-2">{{validationError('patient_id', saveError)}} </span>
+                            </div>
+
+                            <div class="mt-3 mb-2">
+                                <button class="text-center text-white" 
+                                    style="height: 40px; width: 100%; border: 1px solid black; border-radius: 5px; background: #003865"
+                                    @click="dispenseMedicine()"
+                                >
+                                    Dispense
+                                </button>
                             </div>
                         </div>
-
+                    
                     </div>
-
                 </div>
 
             </div>
@@ -147,6 +172,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import Navigation from "../Layouts/Sidebar";
 import Table from "../Components/Table";
+import axios from "axios";
 
 export default {
     props: ['auth','options'],
@@ -165,15 +191,33 @@ export default {
             formData: {
                 medicine_id: null,
                 place_id: null,
-                quantity : 0
+                quantity : 1,
+                dispensed_type: 'barangay',
+                patient_id: null,
+                category_id: null,
+                unit_id: null,
+                dosage: 1
+                
             },
             saveError: null,
             columns: [
-                'Medicine', 'Barangay', 'Quantity', 'Dispensed'
+                'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Dispensed', 'Date'
             ],
             keys : [
                 {
                     label: 'name',
+                },
+
+                {
+                    label: 'category',
+                },
+
+                {
+                    label: 'dosage',
+                },
+
+                {
+                    label: 'unit',
                 },
                 {
                     label: 'place_name',
@@ -184,16 +228,111 @@ export default {
                 {
                     label: 'dispensed',
                 },
+                {
+                    label: 'date',
+                },
             ],
+            dispensed_type: 'barangay',
+            barangay: null,
+            medecineList: []
         }
     },
     mounted(){
         this.form.search = this.options.search
-
-        this.formData.medicine_id = this.options.medicines[0].id
+        this.formData.medicine_id = this.options.medicines.length > 0 ? this.options.medicines[0].id : null
         this.formData.place_id = this.options.places[0].id
+        this.barangay = this.options.places[0].name
 
-        console.log(this.options.barangayMedicines)
+        this.medecineList = this.options.barangayMedicines.filter((x) => {
+            return x.place_name == this.barangay;
+        })
+
+        if(this.auth.role == 3) {
+            this.dispensed_type = 'individual';
+            this.formData.dispensed_type = 'individual';
+
+            this.medecineList = this.options.patientMedicines
+        }
+
+        console.log(this.options)
+    },
+    watch: {
+        barangay(arg){
+            this.medecineList = this.options.barangayMedicines.filter((x) => {
+                return x.place_name == arg;
+            })
+        },
+        dispensed_type(arg) {
+            if(arg == 'barangay') {
+                this.medecineList = this.options.barangayMedicines.filter((x) => {
+                    return x.place_name == arg;
+                })
+
+                this.columns = [
+                    'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Dispensed', 'Date'
+                ]
+
+                this.keys = [
+                    {
+                        label: 'name',
+                    },
+                    {
+                        label: 'category',
+                    },
+                    {
+                        label: 'dosage',
+                    },
+                    {
+                        label: 'unit',
+                    },
+                    {
+                        label: 'place_name',
+                    },
+                    {
+                        label: 'quantity',
+                    },
+                    {
+                        label: 'dispensed',
+                    },
+                    {
+                        label: 'date',
+                    },
+                ]
+            } else {
+                this.medecineList = this.options.patientMedicines
+
+                this.columns = [
+                    'Medicine', 'Category', 'Dosage', 'Unit', 'Patient', 'Barangay', 'Quantity', 'Date'
+                ]
+
+                this.keys = [
+                    {
+                        label: 'name',
+                    },
+                    {
+                        label: 'category',
+                    },
+                    {
+                        label: 'dosage',
+                    },
+                    {
+                        label: 'unit',
+                    },
+                    {
+                        label: 'patient_name',
+                    },
+                    {
+                        label: 'barangay',
+                    },
+                    {
+                        label: 'quantity',
+                    },
+                    {
+                        label: 'date',
+                    },
+                ]
+            }
+        }
     },
     methods: {
         initiateSearch() {
@@ -215,7 +354,6 @@ export default {
                 this.$root.route + '/medicines', this.form,
                 {
                     onSuccess: (res) => { 
-                        console.log(res)
 
                     },
                 },
@@ -223,22 +361,57 @@ export default {
         },
 
         dispenseMedicine(){
-            Inertia.post(this.$root.route + '/medicines/dispense-barangay-medicine', this.formData,
-            {
-                onSuccess: (res) => {
-                    this.formData = {
-                        place_id : null,
-                        quantity : null,
-                        medicine_id : null
-                    }
+            if(this.formData.dispensed_type == 'barangay') {
+                delete this.formData.patient_id;
+            } else {
+                delete this.formData.place_id;
+            }
 
-                    location.reload()
-                },
-                onError: (err) => {
-                    this.saveError = err
-                }
-            });
-        }
+            axios.post(this.$root.route + '/medicines/dispense-barangay-medicine', this.formData)
+				.then(response => {
+					if(response.data.status == 422) {
+						this.saveError = response.data.errors 
+					} else {
+						this.formData = {
+                            place_id : null,
+                            quantity : null,
+                            medicine_id : null,
+                            dispensed_type: 'barangay',
+                            patient_id: null,
+                            category_id: null,
+                            unit_id: null,
+                            dosage: 1
+                        }
+
+                        location.reload()
+					}
+				})
+        },
+
+        openModal(){
+            var modal = document.getElementById("medicineModal");
+
+            modal.style.display = "block";
+            
+            this.newUser = true
+        },
+
+        closeModal(){
+            var modal = document.getElementById("medicineModal");
+
+            modal.style.display = "none";
+
+            this.newUser = false
+
+            this.formData = {
+                place_id : null,
+                quantity : null,
+                medicine_id : null
+            }
+                
+
+            this.saveError = null
+        },
     }
 }
 </script>
@@ -300,5 +473,43 @@ export default {
   width: 50%;
   height: 200px;
   padding: 12px;
+}
+
+.medicineModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.medicine-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 </style>

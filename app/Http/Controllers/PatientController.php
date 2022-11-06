@@ -27,8 +27,12 @@ class PatientController extends Controller
             $patients = Patient::orderBy('created_at', 'desc');
 
             if($auth->role == 3) {
-                $patients = $patients->where('place_id', $auth->work_address);
-            }
+                $patients = $patients->where('place_id', $auth->work_address)->where('is_rhu', false);
+            } 
+
+            if($auth->role == 2) {
+                $patients = $patients->where('is_rhu', true);
+            } 
 
             if($search = $request->search) {
                 $patients = $patients->where('name', 'LIKE', '%' . $search . '%');
@@ -54,6 +58,10 @@ class PatientController extends Controller
         $data = $request->toArray();
 
         $data['user_id'] = $auth->id;
+
+        if($auth->role == 2) {
+            $data['is_rhu'] = true;
+        }
 
         Patient::create($data);
 
@@ -107,7 +115,7 @@ class PatientController extends Controller
         ]);
     }
 
-    public function createPatientForm(CreatePatientForm $request) 
+    public function createPatientForm(CreatePatientForm $request)  
     {
        $data = $request->except(['tb']);;
 

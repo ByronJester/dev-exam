@@ -1,7 +1,11 @@
 <template>
 	<div class="w-screen h-screen --panel">
 		<div class="--login__register">
-			<div class="py-4 px-4">
+			<div class="py-5 px-10">
+				<div class="w-full flex justify-center items-center mb-5" style="font-size: 80px">
+					<i class="fa-solid fa-user"></i>
+				</div>
+
   				<input type="text" class="w-full  my-2 --login__register--input text-center"
 					placeholder="Email" v-model="formData.email"
 					@keyup.enter="login()"
@@ -75,18 +79,18 @@ export default {
 
 <style scoped>
 .--panel {
-	background-image: url('/images/login-bg.jpg');
+	background-image: url('/images/bg.webp');
 	background-repeat: no-repeat;
  	background-size: 100vw 100vh;
-	/* display: flex;
+	display: flex;
 	align-items: center;
-	justify-content: center; */
+	justify-content: center;
 }
 
 .--login__register {
-	width: 380px;
+	width: auto;
 	height: auto;
-	background: #2B4865;
+	background: #366422;
 	border-radius: 5px;
 	position: relative;
 	top: 1.5rem;

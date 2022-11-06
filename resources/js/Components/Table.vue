@@ -53,7 +53,7 @@ td {
 
 th {
     border: 1px solid black;
-    background: #003865;
+    background: #366422;
     color: white;
 }
 

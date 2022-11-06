@@ -5,7 +5,7 @@
     
     <div
       class="w-12 h-5 flex items-center bg-red-300 rounded-full p-1 duration-300 cursor-pointer"
-      :class="{ 'bg-green-500': value }"
+      :class="{ 'bg-green1': value }"
       :aria-checked="value"
       @click="toggle"
     >
@@ -38,3 +38,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.bg-green1 {
+  background: #366422;
+}
+</style>

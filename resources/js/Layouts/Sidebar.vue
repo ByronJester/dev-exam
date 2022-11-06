@@ -1,76 +1,75 @@
 <template>
-    <div class="w-screen h-screen flex flex-row">
-        <div class="--left__panel" @mouseover="biggerWidth()" @mouseleave="smallerWidth()"
-            :style="{ 'width': leftPanel}"
-        >
-            <ul class="pl-2 pt-10 --ul__caption text-bold w-full">
-                <li class="mt-1 mb-10 cursor-pointer" v-if="hasAccess('users')"
-                    @click="changeActive('/users')"
-                >
+    <div class="w-screen h-screen flex flex-col">
+        <div class="--left__panel flex flex-row" @mouseover="biggerWidth()" @mouseleave="smallerWidth()"
+        >   
+            <div class="w-6/12 inline-flex">
+                <img src="/images/logo.jfif" style="height: 100px; width: 100px; border-radius: 50%" class="m-4"/>
+                <p style="font-size: 50px; font-family: Times New Roman, Times, serif; font-weight: bold; color: white" class="mt-7">
+                    Municipality of Balayan
+                </p>
+            </div>
+
+            <div class="w-6/12 inline-flex justify-end items-center text-white" style="font-size: 22px">
+                <div class="dropdown inline-block relative">
+                    <p class="mr-2 cursor-pointer">
+                        <i class="fa-solid fa-user-gear fa-lg mx-2"></i>
+                        <span v-if="isHover" class="mx-2"
+                            :style="{'border-bottom': active === '/change-password' ? '1px solid white' : 'none'}"
+                        > 
+                            ACCOUNT
+                        </span>
+                    </p>
+
+                    <ul class="dropdown-menu absolute hidden pt-1">
+                        <li class="cursor-pointer">
+                            <a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" @click="openModal()">Change Password</a>
+                        </li>
+
+                        <li class="cursor-pointer">
+                            <a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" @click="logout()">Logout</a>
+                        </li>
+                        
+                    </ul>
+
+                </div>
+
+                <p class="mr-2 cursor-pointer" v-if="hasAccess('users')" @click="changeActive('/users')">
                     <i class="fa-solid fa-user-group fa-lg mx-2"></i> 
                     <span v-if="isHover" class="mx-2"
                         :style="{'border-bottom': active === '/users' ? '1px solid white' : 'none'}"
                     > 
                         USERS
                     </span>
-                </li>
+                </p>
 
-                <li class="mt-1 mb-10 cursor-pointer" v-if="hasAccess('patients')"
-                    @click="changeActive('/patients')"
-                >
+                <p class="mr-2 cursor-pointer" v-if="hasAccess('patients')" @click="changeActive('/patients')">
                     <i class="fa-solid fa-users-rectangle fa-lg mx-2"></i>
                     <span v-if="isHover" class="mx-2"
                         :style="{'border-bottom': active.includes('patients') ? '1px solid white' : 'none'}"
                     > 
                         PATIENTS
                     </span>
-                </li>
+                </p>
 
-
-                <li class="my-10 cursor-pointer" v-if="hasAccess('medicines')"
-                    @click="changeActive('/medicines')"
-                >
+                <p class="mr-2 cursor-pointer" v-if="hasAccess('medicines')" @click="changeActive('/medicines')">
                     <i class="fa-solid fa-capsules fa-lg mx-2"></i> 
                     <span v-if="isHover" class="mx-2"
                         :style="{'border-bottom': active === '/medicines' ? '1px solid white' : 'none'}"
                     > 
                         MEDICINES
                     </span>
-                </li>
+                </p>
 
-
-                <li class="my-10 cursor-pointer" v-if="hasAccess('reports')"
-                    @click="changeActive('/reports')"
-                >
+                <p class="mr-2 cursor-pointer" v-if="hasAccess('reports')" @click="changeActive('/reports')">
                     <i class="fa-solid fa-chart-column fa-lg mx-2"></i> 
                     <span v-if="isHover" class="mx-2"
                         :style="{'border-bottom': active === '/reports' ? '1px solid white' : 'none'}"
                     > 
                         REPORTS
                     </span>
-                </li>
+                </p>
 
-                <li class="my-10 cursor-pointer"
-                    @click="openModal()"
-                >
-                    <i class="fa-solid fa-gears fa-lg mx-2"></i>
-                    <span v-if="isHover" class="mx-2"
-                        :style="{'border-bottom': active === '/change-password' ? '1px solid white' : 'none'}"
-                    > 
-                        SETTINGS
-                    </span>
-                </li>
-            </ul>
-
-            <ul class="--ul__caption absolute text-bold w-full"
-                style="bottom: 0.2rem;"
-            >
-                <hr>
-                <li class="my-5 px-2 cursor-pointer" @click="logout()">
-                    <i class="fa-solid fa-door-open fa-lg mx-2"></i> 
-                    <span v-if="isHover" class="mx-2"> LOGOUT </span>
-                </li>
-            </ul>
+            </div>
         </div>
 
         <div id="myModal" class="modal">
@@ -121,11 +120,12 @@
 
         </div>
 
-        <div class="--right__panel"
-            :style="{ 'width': rightPanel}"
-        >
+        <div class="w-full" style="min-height: 87vh; height: 100%" 
+        >   
             <slot></slot>
         </div>
+
+        
     </div>
 </template>
 
@@ -137,9 +137,9 @@ export default {
 	props:['auth'],
 	data(){
         return {
-            leftPanel: '3%',
-            rightPanel: '97%',
-            isHover: false,
+            leftPanel: '9%',
+            rightPanel: '91%',
+            isHover: true,
             active: window.location.pathname,
             tabs: [],
             formData: {
@@ -195,9 +195,9 @@ export default {
         },
 
         smallerWidth(){
-            this.leftPanel = '3%';
-            this.rightPanel = '97%';
-            this.isHover = false
+            this.leftPanel = '9%';
+            this.rightPanel = '91%';
+            this.isHover = true
         },
 
         logout(){
@@ -262,8 +262,9 @@ export default {
 
 <style scoped>
 .--left__panel {
-    background: #003865;
-    width: 15%;
+    background: #366422;
+    width: 100%;
+    height: 13vh;
 }
 
 .--right__panel {
@@ -310,6 +311,19 @@ export default {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+@font-face {
+  font-family: Kawaru;
+  src: url('/fonts/kawaru/kawaru.woff');
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    width: 200px;
+    text-align: center;
+    color: #000000;
+    font-size: 15px;
 }
 
 </style>

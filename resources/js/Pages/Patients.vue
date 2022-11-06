@@ -1,9 +1,8 @@
 <template>
 	<div class="">
         <Navigation :auth="auth">
-            <div class="px-4 pt-12">
-                
-                <div class="flex flex-row mb-5">
+            <div class="px-4 pt-12" >
+                <div class="flex flex-row mb-5" v-if="!newUser">
                     <div class="w-10/12">
                         <input type="text" class="--search pl-5"
                             v-model="form.search" @input="initiateSearch()"
@@ -14,14 +13,14 @@
                     <div class="w-2/12">
                         <button class="text-black float-right p-2"
                             style="border: 1px solid black; border-radius: 5px"
-                            @click="newUser = true"
+                            @click="openModal()"
                         >
                             <i class="fa-solid fa-person-circle-plus fa-2xl"></i>
                         </button>
                     </div>
                 </div>
 
-                <div class="flex flex-row">
+                <div class="flex flex-row" v-if="!newUser">
                     <div class="grid grid-cols-4 gap-2 w-full h-full"
                         :class="{'w-7/12': !!newUser}"
                     >
@@ -66,9 +65,9 @@
                                                     Forms
                                                 </button>
 
-                                                <button class="--view__profile my-2" @click="viewMedicine(patient)">
+                                                <!-- <button class="--view__profile my-2" @click="viewMedicine(patient)">
                                                     Medicines
-                                                </button>
+                                                </button> -->
                                             </div>
                                             
                                         </div>
@@ -95,24 +94,22 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="w-4/12" v-if="newUser"
-                        style="border: 1px solid #22577E; border-radius: 5px"
-                    >
-                        <div class="w-full text-center text-white"
-                            style="border-bottom: 1px solid #22577E; background-color: #003865"
-                        >
-                            <span class="font-bold text-lg">
+                <div id="patientModal" class="patientModal">
+                    <div class="patient-modal-content flex flex-col" style="width: 30%">
+                        <div class="w-full">
+                            <span class="text-lg font-bold">
                                 New Patient
                             </span>
-                            <i class="fa-solid fa-xmark fa-md mr-2 mt-1 cursor-pointer float-right"
-                                @click="newUser = false"
-                            ></i>
+                            <span class="float-right cursor-pointer"
+                                @click="closeModal()"
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
                         </div>
 
-                        <div class="w-full p-2 flex flex-col"
-                            style="background-color: #EFDAD7"
-                        >
+                        <div class="w-full flex flex-col">
                             <div class="my-1">
                                 <label class="text-bold">Name:</label><br>
                                 <input type="text" class="--input" v-model="formData.name">
@@ -165,10 +162,9 @@
                                     Create New Patient
                                 </button>
                             </div>
-                            
                         </div>
+                    
                     </div>
-
                 </div>
  
             </div>
@@ -283,7 +279,33 @@ export default {
                     this.saveError = err
                 }
             });
-        }
+        },
+        openModal(){
+            var modal = document.getElementById("patientModal");
+
+            modal.style.display = "block";
+            
+            this.newUser = true
+        },
+
+        closeModal(){
+            var modal = document.getElementById("patientModal");
+
+            modal.style.display = "none";
+
+            this.newUser = false
+
+            this.formData = {
+                place_id : null,
+                name : null,
+                phone : null,
+                age: null,
+                gender: 'Male'
+            }
+                
+
+            this.saveError = null
+        },
     }
 }
 
@@ -296,7 +318,7 @@ export default {
 }
 
 .--view__profile {
-    background: #4D77FF;
+    background: #366422;
     border-radius: 5px;
     color: white;
     padding: 5px 15px 5px 15px;
@@ -332,6 +354,42 @@ export default {
     border-radius: 10px;
 }
 
+.patientModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
 
+/* Modal Content */
+.patient-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 </style>

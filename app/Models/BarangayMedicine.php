@@ -13,7 +13,10 @@ class BarangayMedicine extends Model
     protected $fillable = [
         'place_id',
         'medicine_id',
-        'quantity'
+        'quantity',
+        'medicine_category_id',
+        'medicine_unit_id',
+        'dosage'
     ];
 
     protected $with = [
@@ -24,7 +27,10 @@ class BarangayMedicine extends Model
     protected $appends = [
         'name',
         'place_name',
-        'dispensed'
+        'dispensed',
+        'category',
+        'unit',
+        'date'
     ];
 
     public function medicine()
@@ -52,11 +58,33 @@ class BarangayMedicine extends Model
         $place = $this->place_id;
 
         $patientMedicine = PatientMedicine::where('medicine_id', $this->medicine_id)
+            ->where('is_individual', false)
             ->whereMonth('created_at', Carbon::now()->month)
             ->whereHas('patient', function($q) use ($place){
                 $q->where('place_id', $place);
             })->get();
 
         return $patientMedicine->sum('quantity');
+    }
+
+    public function getCategoryAttribute()
+    {
+        $category = MedicineCategory::where('id', $this->medicine_category_id)->first();
+
+        return $category->category;
+    }
+
+    public function getUnitAttribute()
+    {
+        $unit = MedicineUnit::where('id', $this->medicine_unit_id)->first();
+
+        return $unit->unit;
+    }
+
+    public function getDateAttribute()
+    {
+        $date = Carbon::parse($this->create_at);
+
+        return $date->isoFormat('LL'); 
     }
 }

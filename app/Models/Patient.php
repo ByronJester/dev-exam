@@ -15,7 +15,8 @@ class Patient extends Model
         'name',
         'phone',
         'age',
-        'gender'
+        'gender',
+        'is_rhu'
     ];
 
     protected $with = [

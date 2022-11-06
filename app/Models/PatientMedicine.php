@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class PatientMedicine extends Model
 {
@@ -12,7 +13,11 @@ class PatientMedicine extends Model
     protected $fillable = [
         'patient_id',
         'medicine_id',
-        'quantity'
+        'quantity',
+        'is_individual',
+        'medicine_category_id',
+        'medicine_unit_id',
+        'dosage'
     ];
 
     protected $with = [
@@ -21,7 +26,12 @@ class PatientMedicine extends Model
     ];
 
     protected $appends = [
-        'name'
+        'name',
+        'barangay',
+        'patient_name',
+        'category',
+        'unit',
+        'date'
     ];
 
     public function medicine()
@@ -34,8 +44,39 @@ class PatientMedicine extends Model
         return $this->medicine->name;
     }
 
+    public function getPatientNameAttribute()
+    {
+        return $this->patient->name;
+    }
+
     public function patient()
     {
         return $this->belongsTo(Patient::class);
+    }
+
+    public function getBarangayAttribute()
+    {
+        return $this->patient->place->name;
+    }
+
+    public function getCategoryAttribute()
+    {
+        $category = MedicineCategory::where('id', $this->medicine_category_id)->first();
+
+        return $category->category;
+    }
+
+    public function getUnitAttribute()
+    {
+        $unit = MedicineUnit::where('id', $this->medicine_unit_id)->first();
+
+        return $unit->unit;
+    }
+
+    public function getDateAttribute()
+    {
+        $date = Carbon::parse($this->create_at);
+
+        return $date->isoFormat('LL'); 
     }
 }
