@@ -121,18 +121,6 @@
                                 <span class="text-xs text-red-500 ml-2">{{validationError('email', saveError)}} </span>
                             </div>
 
-                            <div class="my-1" v-if="auth.role == 1">
-                                <label for="cars">Barangay:</label><br>
-                                <select class="--input" v-model="formData.work_address">
-                                    <option v-for="place in options.places" :key="place.id"
-                                        :value="place.id"
-                                    >
-                                        {{ place.name }}
-                                    </option>
-                                </select>
-                                <span class="text-xs text-red-500 ml-2">{{validationError('work_address', saveError)}} </span>
-                            </div>
-
                             <div class="my-1">
                                 <label for="cars">User Type:</label><br>
                                 <select class="--input" v-model="formData.user_type">
@@ -143,6 +131,18 @@
                                     </option>
                                 </select>
                                 <span class="text-xs text-red-500 ml-2">{{validationError('user_type', saveError)}} </span>
+                            </div>
+
+                            <div class="my-1" v-if="auth.role == 1 && formData.user_type != 'doctor'">
+                                <label for="cars">Barangay:</label><br>
+                                <select class="--input" v-model="formData.work_address">
+                                    <option v-for="place in options.places" :key="place.id"
+                                        :value="place.id"
+                                    >
+                                        {{ place.name }}
+                                    </option>
+                                </select>
+                                <span class="text-xs text-red-500 ml-2">{{validationError('work_address', saveError)}} </span>
                             </div>
 
                             <div class="mt-3 mb-2">
@@ -193,9 +193,15 @@ export default {
                 phone : null,
                 email : null,
                 user_type : null,
-                work_address: 0
+                work_address: null
             },
             saveError: null
+        }
+    },
+
+    watch: {
+        'formData.user_type'(arg){
+            this.formData.work_address = null
         }
     },
 
@@ -203,14 +209,18 @@ export default {
         this.users = this.options.users
         this.form.search = this.options.search
 
-        console.log(this.options)
-
         if(this.auth.role == 1) {
+            this.formData.user_type = 'doctor'
+
             this.userType = [
+                {
+                    label: 'Doctor',
+                    value: 'doctor'
+                },
                 {
                     label: 'BHW - Leader',
                     value: 'leader'
-                }
+                },
             ]
         }
 
@@ -329,6 +339,10 @@ export default {
                 this.formData.work_address = this.auth.work_address
             }
 
+            if(this.formData.user_type == 'doctor') {
+                delete this.formData.work_address;
+            }
+
             Inertia.post(this.$root.route + '/users/create-account', this.formData,
             {
                 onSuccess: (res) => {
@@ -339,7 +353,7 @@ export default {
                         phone : null,
                         email : null,
                         user_type : null,
-                        work_address: 0
+                        work_address: null
                     }
 
                     location.reload()
@@ -372,7 +386,7 @@ export default {
                 phone : null,
                 email : null,
                 user_type : null,
-                work_address: 0
+                work_address: null
             }
 
             this.saveError = null

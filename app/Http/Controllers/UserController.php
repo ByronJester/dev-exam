@@ -91,7 +91,7 @@ class UserController extends Controller
             $users = User::orderBy('created_at', 'desc')->where('role', $auth->role)->whereNotIn('id', [$auth->id]);
 
             if($auth->role == 1) {
-                $users = User::orderBy('created_at', 'desc')->where('user_type', 'leader')->whereNotIn('id', [$auth->id]);
+                $users = User::orderBy('created_at', 'desc')->whereIn('user_type', ['leader', 'doctor'])->whereNotIn('id', [$auth->id]);
             }
 
             if($search = $request->search) {
@@ -129,20 +129,24 @@ class UserController extends Controller
     public function saveUser(RegisterAccount $request)
     {
         $data = $request->toArray();
+        $auth = Auth::user();
 
         $password = strtolower($request->last_name);
         $password = str_replace(' ', '_', $password);
         $data['password'] = Hash::make($password);
         
-        if($request->user_type == 'leader') {
+        if(($request->user_type == 'leader' || $request->user_type == 'midwife' || $request->user_type == 'member') && ($auth->role == 3 || $auth->role == 1)) {
             $data['role'] = 3;
         } else {
-            $data['role'] = Auth::user()->role;
+            if(($request->user_type == 'doctor' || $request->user_type == 'midwife' || $request->user_type == 'nurse') && ($auth->role == 2 || $auth->role == 1)){
+                $data['role'] = 2;
+            }
+            
         }
         
         $saveUser = User::create($data);
         
-        return redirect()->back()->with('errors');
+        return redirect()->back()->with('errors'); 
     }
 
     public function changePassword(Request $request)

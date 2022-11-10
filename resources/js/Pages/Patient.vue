@@ -18,6 +18,7 @@
                     >
                         <option value="Tuberculosis Symptom Form">Tuberculosis Symptom Form</option>
                         <option value="Pregnancy Form">Pregnancy Form</option>
+                        <option value="Prenatal Registration Form">Prenatal Registration Form</option>
                     </select>
 
                     <button style="height: 30px; border: 1px solid black; background: #003865; padding: 0px 20px 0px 20px" class="text-white"
@@ -412,6 +413,430 @@
 
                 <!-- End of Pregnancy Form -->
 
+                <!-- Prenatal Registration Form -->
+                <div class="w-full" v-if="activeForm == 'Prenatal Registration Form'" style="border: 1px solid black; border-radius: 5px">
+                    <div class="w-full flex-col p-4">
+                        <div class="w-full">
+                            <label>Today's Date:</label><br>
+                            <input type="date" class="--input" v-model="prenatal.date_today"><br>
+                            <span class="text-xs text-red-500 ml-2">{{validationError('date_today', saveError)}} </span>
+                        </div>
+
+                        <div class="w-full mt-10 font-bold">
+                            PREGNANCY CARE INFORMATION
+                        </div>
+
+                        <div class="w-full flex flex-row mt-4">
+                            <div class="w-full pr-2">
+                                <label>Provider Name:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.provider_name">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('provider_name', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>NPI #:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.npi">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('npi', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>PhilHealth ID # or Billing ID #:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.billing_id">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('billing_id', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Tax ID #:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.tax_id">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('tax_id', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row mt-4">
+                            <div class="w-full pr-2">
+                                <label>Provider Address:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.provider_address">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('provider_address', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>City:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.city">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('city', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Town:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.town">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('town', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>ZIP:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.zip">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('zip', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Provider Phone:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.provider_phone">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('provider_phone', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Provider Fax:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.provider_fax">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('provider_fax', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full mt-10 font-bold">
+                            MEMBER INFORMATION
+                        </div>
+
+                        <div class="w-full mt-4">
+                            <b>NOTE:</b> Verify the member’s eligibility on the secure Provider portal before rendering services.
+                        </div>
+
+                        <div class="w-full flex flex-row mt-4">
+                            <div class="w-full pr-2">
+                                <label>Member Name:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.member_name">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('member_name', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Member ID #:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.member_id">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('member_id', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>DOB:</label><br>
+                                <input type="date" class="--input w-full" v-model="prenatal.dob">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('dob', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Member Address:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.member_address">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('member_address', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row mt-4">
+                            <div class="w-full pr-2">
+                                <label>Phone:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.member_phone">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('member_phone', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>City:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.member_city">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('member_city', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Town:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.member_town">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('member_town', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>ZIP:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.member_zip">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('member_zip', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row mt-4">
+                            <div class="w-full pr-2">
+                                <label>LMP:</label><br>
+                                <input type="date" class="--input w-full" v-model="prenatal.lmp">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('lmp', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>G:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.g">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('g', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>P:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.p">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('p', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>EDD:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.edd">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('edd', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row mt-4">
+                            <div class="w-full pr-2">
+                                <label>Date of first prenatal visit:</label><br>
+                                <input type="date" class="--input w-full" v-model="prenatal.first_prenatal">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('first_prenatal', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Date of most recent prenatal visit:</label><br>
+                                <input type="date" class="--input w-full" v-model="prenatal.recent_prenatal">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('recent_prenatal', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Type of last delivery:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.type_of_last_delivery">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('type_of_last_delivery', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Date of last delivery:</label><br>
+                                <input type="date" class="--input w-full" v-model="prenatal.last_delivery">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('last_delivery', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Expected delivery facility:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.delivery_facility">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('delivery_facility', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full mt-10 font-bold">
+                            RISK ASSESSMENT
+                        </div>
+
+                        <div class="w-full mt-4">
+                            <b>NOTE:</b> Check all applicable risks. You may attach your own risk assessment form if necessary.
+                        </div>
+
+                        <div class="w-full flex flex-row mt-4">
+                            <div class="w-full flex-col pr-2">
+                                <div class="w-full font-bold">
+                                    Behavioral risks
+                                </div>
+
+                                <div class="w-full mt-5">
+                                    <input type="checkbox" v-model="prenatal.behavioral_risks"  value="Smokes more than 10 cigarettes per day">
+                                    <label> Smokes more than 10 cigarettes per day</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.behavioral_risks" value="Less than 2 years since last pregnancy">
+                                    <label> Less than 2 years since last pregnancy</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.behavioral_risks" value="Directed member to WIC office">
+                                    <label> Directed member to WIC office</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.behavioral_risks" value="Offered HIV counseling">
+                                    <label> Offered HIV counseling</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.behavioral_risks" value="Substance use in pregnancy">
+                                    <label> Substance use in pregnancy</label><br>
+                                </div>
+                            </div>
+
+                            <div class="w-full flex-col pr-2">
+                                <div class="w-full font-bold">
+                                    Psychological risks
+                                </div>
+
+                                <div class="w-full mt-5">
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Adolescent">
+                                    <label>Adolescent  </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Inadequate finances">
+                                    <label>Inadequate finances </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Inadequate housing">
+                                    <label>Inadequate housing</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Inadequate social supports">
+                                    <label>Inadequate social supports</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Involvement with other agencies, e.g., DCF">
+                                    <label>Involvement with other agencies, e.g., DCF</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Less than high school education">
+                                    <label>Less than high school education</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Poor nutrition">
+                                    <label>Poor nutrition</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Psychiatric history">
+                                    <label>Psychiatric history</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Significant learning disabilities">
+                                    <label>Significant learning disabilities </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.pyschological_risks" value="Violence/abuse">
+                                    <label>Violence/abuse</label><br>
+
+                                </div>
+                            </div>
+
+                            <div class="w-full flex-col pr-2">
+                                <div class="w-full font-bold">
+                                    Medical risks
+                                </div>
+
+                                <div class="w-full mt-5">
+                                    <input type="checkbox" v-model="prenatal.medical_risks" value="Cardiac disease">
+                                    <label>Cardiac disease </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.medical_risks" value="Diabetes">
+                                    <label>Diabetes </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.medical_risks" value="Endocrine disorders">
+                                    <label>Endocrine disorders </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.medical_risks" value="GI disorders">
+                                    <label>GI disorders </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.medical_risks" value="Hypothyroid">
+                                    <label>Hypothyroid </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.medical_risks" value="Malignancy">
+                                    <label>Malignancy </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.medical_risks" value="Moderate or severe asthma">
+                                    <label>Moderate or severe asthma</label><br>
+
+                                    <input type="checkbox" v-model="prenatal.medical_risks" value="Renal disease/history of UTIs">
+                                    <label>Renal disease/history of UTIs </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.medical_risks" value="Seizure disorders">
+                                    <label> Seizure disorders</label><br>
+
+                                     <input type="checkbox" v-model="prenatal.medical_risks" value="Sickle cell disease">
+                                    <label> Sickle cell disease</label><br>
+
+                                </div>
+                            </div>
+
+                            <div class="w-full flex-col pr-2">
+                                <div class="w-full font-bold">
+                                    Obstetrics risks
+                                </div>
+
+                                <div class="w-full mt-5">
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Abnormal pap smear">
+                                    <label>Abnormal pap smear </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Anemia">
+                                    <label>Anemia </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="BMI > 30">
+                                    <label>BMI > 30 </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Gestational diabetes">
+                                    <label>Gestational diabetes </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of cervical uterine infections">
+                                    <label>History of cervical uterine infections </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of infant with brain injury, neurological defect or congenial abnormality">
+                                    <label>
+                                        History of infant with brain injury, neurological defect or congenial abnormality
+                                    </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of infertility">
+                                    <label>History of infertility </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Inadequate prenatal care">
+                                    <label>Inadequate prenatal care </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of low birth weight infant">
+                                    <label>History of low birth weight infant </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Incompetent cervix">
+                                    <label>Incompetent cervix </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Intrauterine growth retardation (IUGR)">
+                                    <label>Intrauterine growth retardation (IUGR) </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Placenta Previa/Placenta Abruptia">
+                                    <label>Placenta Previa/Placenta Abruptia </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Polyhydramnios/oligohydramnios">
+                                    <label>Polyhydramnios/oligohydramnios </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Poor weight gain">
+                                    <label>Poor weight gain </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Postpartum depression – family history">
+                                    <label>Postpartum depression – family history </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Postpartum depression – personal history">
+                                    <label>Postpartum depression – personal history </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Pregnancy-induced hypertension (PIH)">
+                                    <label>Pregnancy-induced hypertension (PIH) </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Pre-pregnancy weight of less than 100 lbs.">
+                                    <label>Pre-pregnancy weight of less than 100 lbs. </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Previous pre-term labor (PTL)">
+                                    <label>Previous pre-term labor (PTL) </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Previous pre-term delivery (PTD)">
+                                    <label>Previous pre-term delivery (PTD) </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Previous stillborn/neonatal death">
+                                    <label>Previous stillborn/neonatal death </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Multiple gestation">
+                                    <label>Multiple gestation </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Rh sensitization">
+                                    <label>Rh sensitization </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Sexually transmitted disease (STD)">
+                                    <label>Sexually transmitted disease (STD) </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="2 or more spontaneous abortions (SABs) or therapeutic abortions (TABs)">
+                                    <label>
+                                        2 or more spontaneous abortions (SABs) or therapeutic abortions (TABs)
+                                    </label><br>
+
+                                    <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Uterine/cervical anomaly">
+                                    <label>
+                                        Uterine/cervical anomaly
+                                    </label><br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row mt-10">
+                            <div class="w-full pr-2">
+                                <label>OB/GYN provider signature:</label><br>
+                                <input type="text" class="--input w-full" v-model="prenatal.ob_gyn">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('ob_gyn', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Date:</label><br>
+                                <input type="date" class="--input w-full" v-model="prenatal.date">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('date', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <br>
+                                <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
+                                    @click="createPrenatal()"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </Navigation>
@@ -436,7 +861,7 @@ export default {
             activeForm: null,
             formName: 'Tuberculosis Symptom Form',
             columns: [
-                'Name', 'Description', 'Reference #'
+                'Name', 'Description'
             ],
             keys : [
                 {
@@ -444,23 +869,59 @@ export default {
                 },
                 {
                     label: 'description',
-                },
-                {
-                    label: 'reference',
-                },
+                }
             ],
             selectedForm: null,
             formData: {
                 id: null,
                 patient_id: null,
-                description: 'Sample description!!',
+                description: null,
                 name: null,
                 tb: [],
                 lmp: null,
                 edc: null,
                 edd: null
             },
-            checked: []
+            prenatal: {
+                id: null,
+                patient_id: null,
+                date_today: null,
+                provider_name: null,
+                npi: null,
+                billing_id: null,
+                tax_id: null,
+                provider_address: null,
+                city: null,
+                town: null,
+                zip: null,
+                provider_phone: null,
+                provider_fax: null,
+                member_name: null,
+                member_id: null,
+                dob: null,
+                member_address: null,
+                member_phone: null,
+                member_city: null,
+                member_town: null,
+                member_zip: null,
+                lmp: null,
+                g: null,
+                p: null,
+                edd: null,
+                first_prenatal: null,
+                recent_prenatal: null,
+                type_of_last_delivery: null,
+                last_delivery: null,
+                delivery_facility: null,
+                behavioral_risks: [],
+                pyschological_risks: [],
+                medical_risks: [],
+                obstetrics_risks: [],
+                ob_gyn: null,
+                date: null,
+            },
+            checked: [],
+            saveError: null
         }
     },
 
@@ -470,6 +931,8 @@ export default {
         this.formData.patient_id = this.patient.id
 
         this.formData.name = this.formName
+
+        this.prenatal.patient_id = this.patient.id
     },
 
     watch: {
@@ -484,14 +947,22 @@ export default {
         },
 
         selectedForm(arg) {
-            this.formData.id = arg.id
-            this.formData.name = arg.name
-            this.formData.description = arg.description
-            this.formData.patient_id = arg.patient_id
-            this.formData.tb = arg.tb
-            this.formData.lmp = arg.lmp
-            this.formData.edc = arg.edc
-            this.formData.edd = arg.edd
+            if(arg.name == 'Prenatal Registration Form') {
+                // delete this.arg.name
+                // delete this.arg.description
+
+                this.prenatal = Object.assign({}, arg);
+            } else {
+                this.formData.id = arg.id
+                this.formData.name = arg.name
+                this.formData.description = arg.description
+                this.formData.patient_id = arg.patient_id
+                this.formData.tb = arg.tb
+                this.formData.lmp = arg.lmp
+                this.formData.edc = arg.edc
+                this.formData.edd = arg.edd
+            }
+            
 
             this.formName = arg.name
             this.activeForm = arg.name
@@ -518,8 +989,34 @@ export default {
                 onError: (err) => {
                 }
             });
+        },
+
+        createPrenatal(){
+            Inertia.post(this.$root.route + '/patients/create-patient/prenatal', this.prenatal,
+            {
+                onSuccess: (res) => {
+                    location.reload()
+                },
+                onError: (err) => {
+                    console.log(err)
+                    this.saveError = err
+                }
+            });
         }
     }
 }
 
 </script>
+
+<style scoped>
+    .--input {
+        height: 40px;
+        border: 1px solid black;
+        border-radius: 5px;
+        padding: 5px 10px 5px 10px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+</style>

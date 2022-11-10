@@ -44,6 +44,7 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/create-patient', [PatientController::class, 'createPatient']);
         Route::post('/dispense-medicine', [PatientController::class, 'dispenseMedicine']);
         Route::post('/create-patient/form', [PatientController::class, 'createPatientForm']);
+        Route::post('/create-patient/prenatal', [PatientController::class, 'createPrenatalForm']);
     });
     
     Route::prefix('medicines')->group(function () {

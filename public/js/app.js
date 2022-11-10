@@ -2133,7 +2133,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['rows', 'columns', 'keys', 'selected'],
   data: function data() {
@@ -3350,6 +3349,431 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3366,32 +3790,70 @@ __webpack_require__.r(__webpack_exports__);
       patient: null,
       activeForm: null,
       formName: 'Tuberculosis Symptom Form',
-      columns: ['Name', 'Description', 'Reference #'],
+      columns: ['Name', 'Description'],
       keys: [{
         label: 'name'
       }, {
         label: 'description'
-      }, {
-        label: 'reference'
       }],
       selectedForm: null,
       formData: {
         id: null,
         patient_id: null,
-        description: 'Sample description!!',
+        description: null,
         name: null,
         tb: [],
         lmp: null,
         edc: null,
         edd: null
       },
-      checked: []
+      prenatal: {
+        id: null,
+        patient_id: null,
+        date_today: null,
+        provider_name: null,
+        npi: null,
+        billing_id: null,
+        tax_id: null,
+        provider_address: null,
+        city: null,
+        town: null,
+        zip: null,
+        provider_phone: null,
+        provider_fax: null,
+        member_name: null,
+        member_id: null,
+        dob: null,
+        member_address: null,
+        member_phone: null,
+        member_city: null,
+        member_town: null,
+        member_zip: null,
+        lmp: null,
+        g: null,
+        p: null,
+        edd: null,
+        first_prenatal: null,
+        recent_prenatal: null,
+        type_of_last_delivery: null,
+        last_delivery: null,
+        delivery_facility: null,
+        behavioral_risks: [],
+        pyschological_risks: [],
+        medical_risks: [],
+        obstetrics_risks: [],
+        ob_gyn: null,
+        date: null
+      },
+      checked: [],
+      saveError: null
     };
   },
   created: function created() {
     this.patient = this.options.patient;
     this.formData.patient_id = this.patient.id;
     this.formData.name = this.formName;
+    this.prenatal.patient_id = this.patient.id;
   },
   watch: {
     activeForm: function activeForm(arg) {
@@ -3402,14 +3864,21 @@ __webpack_require__.r(__webpack_exports__);
       deep: true
     },
     selectedForm: function selectedForm(arg) {
-      this.formData.id = arg.id;
-      this.formData.name = arg.name;
-      this.formData.description = arg.description;
-      this.formData.patient_id = arg.patient_id;
-      this.formData.tb = arg.tb;
-      this.formData.lmp = arg.lmp;
-      this.formData.edc = arg.edc;
-      this.formData.edd = arg.edd;
+      if (arg.name == 'Prenatal Registration Form') {
+        // delete this.arg.name
+        // delete this.arg.description
+        this.prenatal = Object.assign({}, arg);
+      } else {
+        this.formData.id = arg.id;
+        this.formData.name = arg.name;
+        this.formData.description = arg.description;
+        this.formData.patient_id = arg.patient_id;
+        this.formData.tb = arg.tb;
+        this.formData.lmp = arg.lmp;
+        this.formData.edc = arg.edc;
+        this.formData.edd = arg.edd;
+      }
+
       this.formName = arg.name;
       this.activeForm = arg.name;
     }
@@ -3426,6 +3895,19 @@ __webpack_require__.r(__webpack_exports__);
           location.reload();
         },
         onError: function onError(err) {}
+      });
+    },
+    createPrenatal: function createPrenatal() {
+      var _this = this;
+
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/patients/create-patient/prenatal', this.prenatal, {
+        onSuccess: function onSuccess(res) {
+          location.reload();
+        },
+        onError: function onError(err) {
+          console.log(err);
+          _this.saveError = err;
+        }
       });
     }
   }
@@ -4066,18 +4548,26 @@ __webpack_require__.r(__webpack_exports__);
         phone: null,
         email: null,
         user_type: null,
-        work_address: 0
+        work_address: null
       },
       saveError: null
     };
   },
+  watch: {
+    'formData.user_type': function formDataUser_type(arg) {
+      this.formData.work_address = null;
+    }
+  },
   mounted: function mounted() {
     this.users = this.options.users;
     this.form.search = this.options.search;
-    console.log(this.options);
 
     if (this.auth.role == 1) {
+      this.formData.user_type = 'doctor';
       this.userType = [{
+        label: 'Doctor',
+        value: 'doctor'
+      }, {
         label: 'BHW - Leader',
         value: 'leader'
       }];
@@ -4177,6 +4667,10 @@ __webpack_require__.r(__webpack_exports__);
         this.formData.work_address = this.auth.work_address;
       }
 
+      if (this.formData.user_type == 'doctor') {
+        delete this.formData.work_address;
+      }
+
       _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/users/create-account', this.formData, {
         onSuccess: function onSuccess(res) {
           _this.formData = {
@@ -4186,7 +4680,7 @@ __webpack_require__.r(__webpack_exports__);
             phone: null,
             email: null,
             user_type: null,
-            work_address: 0
+            work_address: null
           };
           location.reload();
         },
@@ -4211,7 +4705,7 @@ __webpack_require__.r(__webpack_exports__);
         phone: null,
         email: null,
         user_type: null,
-        work_address: 0
+        work_address: null
       };
       this.saveError = null;
     }
@@ -4487,6 +4981,30 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, "\n.--user[data-v-f5d9a4c0] {\r\n    border: 1px solid #22577E;\r\n    border-radius: 5px;\n}\n.--view__profile[data-v-f5d9a4c0] {\r\n    background: #4D77FF;\r\n    border-radius: 50px;\r\n    color: white;\r\n    padding: 5px 15px 5px 15px;\r\n    font-size: 12px;\n}\n.--display__picture[data-v-f5d9a4c0] {\r\n    width: 100%; \r\n    height: 150px; \r\n    border: 2px solid black; \r\n    border-radius: 20px;\n}\n.--search[data-v-f5d9a4c0] {\r\n    width: 20%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 40px;\n}\n.--input[data-v-f5d9a4c0] {\r\n    width: 100%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 10px;\r\n    text-align: center;\n}\n.--view--display__picture[data-v-f5d9a4c0] {\r\n    width: 100px; \r\n    height: 100px; \r\n    border: 2px solid black; \r\n    border-radius: 10px;\n}\n.wrapper[data-v-f5d9a4c0] {\r\n  /* Border */\r\n  border: 10px solid transparent;\r\n  border-radius: 50%;\r\n  background: \r\n    linear-gradient(to right, white, white), \r\n    linear-gradient(to right, red , blue); \r\n  background-clip: padding-box, border-box;\r\n  background-origin: padding-box, border-box;\r\n  \r\n  /* Other styles */\r\n  width: 50%;\r\n  height: 200px;\r\n  padding: 12px;\n}\n.medicineModal[data-v-f5d9a4c0] {\r\n  display: none; /* Hidden by default */\r\n  position: fixed; /* Stay in place */\r\n  z-index: 1; /* Sit on top */\r\n  padding-top: 100px; /* Location of the box */\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%; /* Full width */\r\n  height: 100%; /* Full height */\r\n  overflow: auto; /* Enable scroll if needed */\r\n  background-color: rgb(0,0,0); /* Fallback color */\r\n  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */\n}\r\n\r\n/* Modal Content */\n.medicine-modal-content[data-v-f5d9a4c0] {\r\n  background-color: #fefefe;\r\n  margin: auto;\r\n  padding: 20px;\r\n  border: 1px solid #888;\r\n  width: 100%;\n}\r\n\r\n/* The Close Button */\n.close[data-v-f5d9a4c0] {\r\n  color: #aaaaaa;\r\n  float: right;\r\n  font-size: 28px;\r\n  font-weight: bold;\n}\n.close[data-v-f5d9a4c0]:hover,\r\n.close[data-v-f5d9a4c0]:focus {\r\n  color: #000;\r\n  text-decoration: none;\r\n  cursor: pointer;\n}\r\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.--input[data-v-06cf38ec] {\n    height: 40px;\n    border: 1px solid black;\n    border-radius: 5px;\n    padding: 5px 10px 5px 10px;\n}\nlabel[data-v-06cf38ec] {\n    font-weight: bold;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36179,23 +36697,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Patient.vue?vue&type=template&id=06cf38ec& */ "./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&");
+/* harmony import */ var _Patient_vue_vue_type_template_id_06cf38ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Patient.vue?vue&type=template&id=06cf38ec&scoped=true& */ "./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&scoped=true&");
 /* harmony import */ var _Patient_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Patient.vue?vue&type=script&lang=js& */ "./resources/js/Pages/Patient.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _Patient_vue_vue_type_style_index_0_id_06cf38ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css& */ "./resources/js/Pages/Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _Patient_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__.render,
-  _Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Patient_vue_vue_type_template_id_06cf38ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Patient_vue_vue_type_template_id_06cf38ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  null,
+  "06cf38ec",
   null
   
 )
@@ -36557,19 +37077,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&":
-/*!***********************************************************************!*\
-  !*** ./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec& ***!
-  \***********************************************************************/
+/***/ "./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&scoped=true&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&scoped=true& ***!
+  \***********************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_template_id_06cf38ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_template_id_06cf38ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_template_id_06cf38ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Patient.vue?vue&type=template&id=06cf38ec& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_template_id_06cf38ec_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Patient.vue?vue&type=template&id=06cf38ec&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&scoped=true&");
 
 
 /***/ }),
@@ -36710,6 +37230,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/Pages/Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_style_index_0_id_06cf38ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-style-loader/index.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_style_index_0_id_06cf38ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_style_index_0_id_06cf38ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_style_index_0_id_06cf38ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Patient_vue_vue_type_style_index_0_id_06cf38ec_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Patients.vue?vue&type=style&index=0&id=5278f492&scoped=true&lang=css&":
 /*!**************************************************************************************************!*\
   !*** ./resources/js/Pages/Patients.vue?vue&type=style&index=0&id=5278f492&scoped=true&lang=css& ***!
@@ -36778,16 +37315,13 @@ var render = function() {
       _vm._l(_vm.rows, function(l, index) {
         return _c(
           "tr",
-          { key: l.id, staticClass: "text-center" },
+          { key: index, staticClass: "text-center" },
           _vm._l(_vm.keys, function(k, i) {
             return _c(
               "td",
               {
                 key: i,
                 staticClass: "cursor-pointer",
-                class: {
-                  "--active__color": !!_vm.selected && _vm.selected.id == l.id
-                },
                 on: {
                   click: function($event) {
                     return _vm.selectItem(l)
@@ -38290,10 +38824,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=template&id=06cf38ec&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -38373,6 +38907,10 @@ var render = function() {
               _vm._v(" "),
               _c("option", { attrs: { value: "Pregnancy Form" } }, [
                 _vm._v("Pregnancy Form")
+              ]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "Prenatal Registration Form" } }, [
+                _vm._v("Prenatal Registration Form")
               ])
             ]
           ),
@@ -41109,6 +41647,4595 @@ var render = function() {
                   ])
                 ]
               )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.activeForm == "Prenatal Registration Form"
+            ? _c(
+                "div",
+                {
+                  staticClass: "w-full",
+                  staticStyle: {
+                    border: "1px solid black",
+                    "border-radius": "5px"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "w-full flex-col p-4" }, [
+                    _c("div", { staticClass: "w-full" }, [
+                      _c("label", [_vm._v("Today's Date:")]),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.prenatal.date_today,
+                            expression: "prenatal.date_today"
+                          }
+                        ],
+                        staticClass: "--input",
+                        attrs: { type: "date" },
+                        domProps: { value: _vm.prenatal.date_today },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.prenatal,
+                              "date_today",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-xs text-red-500 ml-2" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm.validationError("date_today", _vm.saveError)
+                          ) + " "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full mt-10 font-bold" }, [
+                      _vm._v(
+                        "\n                        PREGNANCY CARE INFORMATION\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row mt-4" }, [
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Provider Name:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.provider_name,
+                              expression: "prenatal.provider_name"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.provider_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "provider_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "provider_name",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("NPI #:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.npi,
+                              expression: "prenatal.npi"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.npi },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.prenatal, "npi", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("npi", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [
+                          _vm._v("PhilHealth ID # or Billing ID #:")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.billing_id,
+                              expression: "prenatal.billing_id"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.billing_id },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "billing_id",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("billing_id", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Tax ID #:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.tax_id,
+                              expression: "prenatal.tax_id"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.tax_id },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "tax_id",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("tax_id", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row mt-4" }, [
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Provider Address:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.provider_address,
+                              expression: "prenatal.provider_address"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.provider_address },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "provider_address",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "provider_address",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("City:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.city,
+                              expression: "prenatal.city"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.city },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "city",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("city", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Town:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.town,
+                              expression: "prenatal.town"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.town },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "town",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("town", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("ZIP:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.zip,
+                              expression: "prenatal.zip"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.zip },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.prenatal, "zip", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("zip", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Provider Phone:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.provider_phone,
+                              expression: "prenatal.provider_phone"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.provider_phone },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "provider_phone",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "provider_phone",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Provider Fax:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.provider_fax,
+                              expression: "prenatal.provider_fax"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.provider_fax },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "provider_fax",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "provider_fax",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full mt-10 font-bold" }, [
+                      _vm._v(
+                        "\n                        MEMBER INFORMATION\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full mt-4" }, [
+                      _c("b", [_vm._v("NOTE:")]),
+                      _vm._v(
+                        " Verify the member’s eligibility on the secure Provider portal before rendering services.\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row mt-4" }, [
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Member Name:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.member_name,
+                              expression: "prenatal.member_name"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.member_name },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "member_name",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "member_name",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Member ID #:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.member_id,
+                              expression: "prenatal.member_id"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.member_id },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "member_id",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("member_id", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("DOB:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.dob,
+                              expression: "prenatal.dob"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.prenatal.dob },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.prenatal, "dob", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("dob", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Member Address:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.member_address,
+                              expression: "prenatal.member_address"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.member_address },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "member_address",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "member_address",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row mt-4" }, [
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Phone:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.member_phone,
+                              expression: "prenatal.member_phone"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.member_phone },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "member_phone",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "member_phone",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("City:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.member_city,
+                              expression: "prenatal.member_city"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.member_city },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "member_city",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "member_city",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Town:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.member_town,
+                              expression: "prenatal.member_town"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.member_town },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "member_town",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "member_town",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("ZIP:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.member_zip,
+                              expression: "prenatal.member_zip"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.member_zip },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "member_zip",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("member_zip", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row mt-4" }, [
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("LMP:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.lmp,
+                              expression: "prenatal.lmp"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.prenatal.lmp },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.prenatal, "lmp", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("lmp", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("G:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.g,
+                              expression: "prenatal.g"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.g },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.prenatal, "g", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.validationError("g", _vm.saveError)) +
+                                " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("P:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.p,
+                              expression: "prenatal.p"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.p },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.prenatal, "p", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.validationError("p", _vm.saveError)) +
+                                " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("EDD:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.edd,
+                              expression: "prenatal.edd"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.edd },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.prenatal, "edd", $event.target.value)
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("edd", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row mt-4" }, [
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Date of first prenatal visit:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.first_prenatal,
+                              expression: "prenatal.first_prenatal"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.prenatal.first_prenatal },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "first_prenatal",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "first_prenatal",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [
+                          _vm._v("Date of most recent prenatal visit:")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.recent_prenatal,
+                              expression: "prenatal.recent_prenatal"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.prenatal.recent_prenatal },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "recent_prenatal",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "recent_prenatal",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Type of last delivery:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.type_of_last_delivery,
+                              expression: "prenatal.type_of_last_delivery"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: {
+                            value: _vm.prenatal.type_of_last_delivery
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "type_of_last_delivery",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "type_of_last_delivery",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Date of last delivery:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.last_delivery,
+                              expression: "prenatal.last_delivery"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.prenatal.last_delivery },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "last_delivery",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "last_delivery",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Expected delivery facility:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.delivery_facility,
+                              expression: "prenatal.delivery_facility"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.delivery_facility },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "delivery_facility",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "delivery_facility",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full mt-10 font-bold" }, [
+                      _vm._v(
+                        "\n                        RISK ASSESSMENT\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full mt-4" }, [
+                      _c("b", [_vm._v("NOTE:")]),
+                      _vm._v(
+                        " Check all applicable risks. You may attach your own risk assessment form if necessary.\n                    "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row mt-4" }, [
+                      _c("div", { staticClass: "w-full flex-col pr-2" }, [
+                        _c("div", { staticClass: "w-full font-bold" }, [
+                          _vm._v(
+                            "\n                                Behavioral risks\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full mt-5" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.behavioral_risks,
+                                expression: "prenatal.behavioral_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Smokes more than 10 cigarettes per day"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.behavioral_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.behavioral_risks,
+                                    "Smokes more than 10 cigarettes per day"
+                                  ) > -1
+                                : _vm.prenatal.behavioral_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.behavioral_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "Smokes more than 10 cigarettes per day",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "behavioral_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v(" Smokes more than 10 cigarettes per day")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.behavioral_risks,
+                                expression: "prenatal.behavioral_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Less than 2 years since last pregnancy"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.behavioral_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.behavioral_risks,
+                                    "Less than 2 years since last pregnancy"
+                                  ) > -1
+                                : _vm.prenatal.behavioral_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.behavioral_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "Less than 2 years since last pregnancy",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "behavioral_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v(" Less than 2 years since last pregnancy")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.behavioral_risks,
+                                expression: "prenatal.behavioral_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Directed member to WIC office"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.behavioral_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.behavioral_risks,
+                                    "Directed member to WIC office"
+                                  ) > -1
+                                : _vm.prenatal.behavioral_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.behavioral_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Directed member to WIC office",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "behavioral_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v(" Directed member to WIC office")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.behavioral_risks,
+                                expression: "prenatal.behavioral_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Offered HIV counseling"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.behavioral_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.behavioral_risks,
+                                    "Offered HIV counseling"
+                                  ) > -1
+                                : _vm.prenatal.behavioral_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.behavioral_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Offered HIV counseling",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "behavioral_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v(" Offered HIV counseling")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.behavioral_risks,
+                                expression: "prenatal.behavioral_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Substance use in pregnancy"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.behavioral_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.behavioral_risks,
+                                    "Substance use in pregnancy"
+                                  ) > -1
+                                : _vm.prenatal.behavioral_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.behavioral_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Substance use in pregnancy",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "behavioral_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "behavioral_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v(" Substance use in pregnancy")]),
+                          _c("br")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex-col pr-2" }, [
+                        _c("div", { staticClass: "w-full font-bold" }, [
+                          _vm._v(
+                            "\n                                Psychological risks\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full mt-5" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: { type: "checkbox", value: "Adolescent" },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Adolescent"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Adolescent",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Adolescent  ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Inadequate finances"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Inadequate finances"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Inadequate finances",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Inadequate finances ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Inadequate housing"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Inadequate housing"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Inadequate housing",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Inadequate housing")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Inadequate social supports"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Inadequate social supports"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Inadequate social supports",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Inadequate social supports")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value:
+                                "Involvement with other agencies, e.g., DCF"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Involvement with other agencies, e.g., DCF"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "Involvement with other agencies, e.g., DCF",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Involvement with other agencies, e.g., DCF")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Less than high school education"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Less than high school education"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Less than high school education",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Less than high school education")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Poor nutrition"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Poor nutrition"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Poor nutrition",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Poor nutrition")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Psychiatric history"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Psychiatric history"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Psychiatric history",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Psychiatric history")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Significant learning disabilities"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Significant learning disabilities"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Significant learning disabilities",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Significant learning disabilities ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.pyschological_risks,
+                                expression: "prenatal.pyschological_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Violence/abuse"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.pyschological_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.pyschological_risks,
+                                    "Violence/abuse"
+                                  ) > -1
+                                : _vm.prenatal.pyschological_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.pyschological_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Violence/abuse",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "pyschological_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "pyschological_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Violence/abuse")]),
+                          _c("br")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex-col pr-2" }, [
+                        _c("div", { staticClass: "w-full font-bold" }, [
+                          _vm._v(
+                            "\n                                Medical risks\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full mt-5" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Cardiac disease"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "Cardiac disease"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Cardiac disease",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Cardiac disease ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: { type: "checkbox", value: "Diabetes" },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "Diabetes"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Diabetes",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Diabetes ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Endocrine disorders"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "Endocrine disorders"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Endocrine disorders",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Endocrine disorders ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: { type: "checkbox", value: "GI disorders" },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "GI disorders"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "GI disorders",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("GI disorders ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: { type: "checkbox", value: "Hypothyroid" },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "Hypothyroid"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Hypothyroid",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Hypothyroid ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: { type: "checkbox", value: "Malignancy" },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "Malignancy"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Malignancy",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Malignancy ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Moderate or severe asthma"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "Moderate or severe asthma"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Moderate or severe asthma",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Moderate or severe asthma")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Renal disease/history of UTIs"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "Renal disease/history of UTIs"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Renal disease/history of UTIs",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Renal disease/history of UTIs ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Seizure disorders"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "Seizure disorders"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Seizure disorders",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v(" Seizure disorders")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.medical_risks,
+                                expression: "prenatal.medical_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Sickle cell disease"
+                            },
+                            domProps: {
+                              checked: Array.isArray(_vm.prenatal.medical_risks)
+                                ? _vm._i(
+                                    _vm.prenatal.medical_risks,
+                                    "Sickle cell disease"
+                                  ) > -1
+                                : _vm.prenatal.medical_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.medical_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Sickle cell disease",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "medical_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(_vm.prenatal, "medical_risks", $$c)
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v(" Sickle cell disease")]),
+                          _c("br")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex-col pr-2" }, [
+                        _c("div", { staticClass: "w-full font-bold" }, [
+                          _vm._v(
+                            "\n                                Obstetrics risks\n                            "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full mt-5" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Abnormal pap smear"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Abnormal pap smear"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Abnormal pap smear",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Abnormal pap smear ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: { type: "checkbox", value: "Anemia" },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Anemia"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Anemia",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Anemia ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: { type: "checkbox", value: "BMI > 30" },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "BMI > 30"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "BMI > 30",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("BMI > 30 ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Gestational diabetes"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Gestational diabetes"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Gestational diabetes",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Gestational diabetes ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "History of cervical uterine infections"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "History of cervical uterine infections"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "History of cervical uterine infections",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("History of cervical uterine infections ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value:
+                                "History of infant with brain injury, neurological defect or congenial abnormality"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "History of infant with brain injury, neurological defect or congenial abnormality"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "History of infant with brain injury, neurological defect or congenial abnormality",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v(
+                              "\n                                    History of infant with brain injury, neurological defect or congenial abnormality\n                                "
+                            )
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "History of infertility"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "History of infertility"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "History of infertility",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("History of infertility ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Inadequate prenatal care"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Inadequate prenatal care"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Inadequate prenatal care",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Inadequate prenatal care ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "History of low birth weight infant"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "History of low birth weight infant"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "History of low birth weight infant",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("History of low birth weight infant ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Incompetent cervix"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Incompetent cervix"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Incompetent cervix",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Incompetent cervix ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Intrauterine growth retardation (IUGR)"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Intrauterine growth retardation (IUGR)"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "Intrauterine growth retardation (IUGR)",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Intrauterine growth retardation (IUGR) ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Placenta Previa/Placenta Abruptia"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Placenta Previa/Placenta Abruptia"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Placenta Previa/Placenta Abruptia",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Placenta Previa/Placenta Abruptia ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Polyhydramnios/oligohydramnios"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Polyhydramnios/oligohydramnios"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Polyhydramnios/oligohydramnios",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Polyhydramnios/oligohydramnios ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Poor weight gain"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Poor weight gain"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Poor weight gain",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Poor weight gain ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Postpartum depression – family history"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Postpartum depression – family history"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "Postpartum depression – family history",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Postpartum depression – family history ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Postpartum depression – personal history"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Postpartum depression – personal history"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "Postpartum depression – personal history",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Postpartum depression – personal history ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Pregnancy-induced hypertension (PIH)"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Pregnancy-induced hypertension (PIH)"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "Pregnancy-induced hypertension (PIH)",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Pregnancy-induced hypertension (PIH) ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value:
+                                "Pre-pregnancy weight of less than 100 lbs."
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Pre-pregnancy weight of less than 100 lbs."
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "Pre-pregnancy weight of less than 100 lbs.",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v(
+                              "Pre-pregnancy weight of less than 100 lbs. "
+                            )
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Previous pre-term labor (PTL)"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Previous pre-term labor (PTL)"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Previous pre-term labor (PTL)",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Previous pre-term labor (PTL) ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Previous pre-term delivery (PTD)"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Previous pre-term delivery (PTD)"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Previous pre-term delivery (PTD)",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Previous pre-term delivery (PTD) ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Previous stillborn/neonatal death"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Previous stillborn/neonatal death"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Previous stillborn/neonatal death",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Previous stillborn/neonatal death ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Multiple gestation"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Multiple gestation"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Multiple gestation",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Multiple gestation ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Rh sensitization"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Rh sensitization"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Rh sensitization",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [_vm._v("Rh sensitization ")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Sexually transmitted disease (STD)"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Sexually transmitted disease (STD)"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "Sexually transmitted disease (STD)",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v("Sexually transmitted disease (STD) ")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value:
+                                "2 or more spontaneous abortions (SABs) or therapeutic abortions (TABs)"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "2 or more spontaneous abortions (SABs) or therapeutic abortions (TABs)"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v =
+                                      "2 or more spontaneous abortions (SABs) or therapeutic abortions (TABs)",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v(
+                              "\n                                    2 or more spontaneous abortions (SABs) or therapeutic abortions (TABs)\n                                "
+                            )
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.prenatal.obstetrics_risks,
+                                expression: "prenatal.obstetrics_risks"
+                              }
+                            ],
+                            attrs: {
+                              type: "checkbox",
+                              value: "Uterine/cervical anomaly"
+                            },
+                            domProps: {
+                              checked: Array.isArray(
+                                _vm.prenatal.obstetrics_risks
+                              )
+                                ? _vm._i(
+                                    _vm.prenatal.obstetrics_risks,
+                                    "Uterine/cervical anomaly"
+                                  ) > -1
+                                : _vm.prenatal.obstetrics_risks
+                            },
+                            on: {
+                              change: function($event) {
+                                var $$a = _vm.prenatal.obstetrics_risks,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = "Uterine/cervical anomaly",
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a.concat([$$v])
+                                      )
+                                  } else {
+                                    $$i > -1 &&
+                                      _vm.$set(
+                                        _vm.prenatal,
+                                        "obstetrics_risks",
+                                        $$a
+                                          .slice(0, $$i)
+                                          .concat($$a.slice($$i + 1))
+                                      )
+                                  }
+                                } else {
+                                  _vm.$set(
+                                    _vm.prenatal,
+                                    "obstetrics_risks",
+                                    $$c
+                                  )
+                                }
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("label", [
+                            _vm._v(
+                              "\n                                    Uterine/cervical anomaly\n                                "
+                            )
+                          ]),
+                          _c("br")
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "w-full flex flex-row mt-10" }, [
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("OB/GYN provider signature:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.ob_gyn,
+                              expression: "prenatal.ob_gyn"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "text" },
+                          domProps: { value: _vm.prenatal.ob_gyn },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "ob_gyn",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("ob_gyn", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("label", [_vm._v("Date:")]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.prenatal.date,
+                              expression: "prenatal.date"
+                            }
+                          ],
+                          staticClass: "--input w-full",
+                          attrs: { type: "date" },
+                          domProps: { value: _vm.prenatal.date },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.prenatal,
+                                "date",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("date", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full pr-2" }, [
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "w-full mx-2",
+                            staticStyle: {
+                              background: "black",
+                              color: "white",
+                              border: "1px solid white",
+                              "border-radius": "5px",
+                              height: "43px"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.createPrenatal()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Save\n                            "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  ])
+                ]
+              )
             : _vm._e()
         ],
         1
@@ -42307,7 +47434,70 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm.auth.role == 1
+                  _c("div", { staticClass: "my-1" }, [
+                    _c("label", { attrs: { for: "cars" } }, [
+                      _vm._v("User Type:")
+                    ]),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formData.user_type,
+                            expression: "formData.user_type"
+                          }
+                        ],
+                        staticClass: "--input",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.formData,
+                              "user_type",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.userType, function(type) {
+                        return _c(
+                          "option",
+                          { key: type.value, domProps: { value: type.value } },
+                          [
+                            _vm._v(
+                              "\n                                        " +
+                                _vm._s(type.label) +
+                                "\n                                    "
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "text-xs text-red-500 ml-2" }, [
+                      _vm._v(
+                        _vm._s(
+                          _vm.validationError("user_type", _vm.saveError)
+                        ) + " "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.auth.role == 1 && _vm.formData.user_type != "doctor"
                     ? _c("div", { staticClass: "my-1" }, [
                         _c("label", { attrs: { for: "cars" } }, [
                           _vm._v("Barangay:")
@@ -42378,69 +47568,6 @@ var render = function() {
                         )
                       ])
                     : _vm._e(),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "my-1" }, [
-                    _c("label", { attrs: { for: "cars" } }, [
-                      _vm._v("User Type:")
-                    ]),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.formData.user_type,
-                            expression: "formData.user_type"
-                          }
-                        ],
-                        staticClass: "--input",
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.formData,
-                              "user_type",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      _vm._l(_vm.userType, function(type) {
-                        return _c(
-                          "option",
-                          { key: type.value, domProps: { value: type.value } },
-                          [
-                            _vm._v(
-                              "\n                                        " +
-                                _vm._s(type.label) +
-                                "\n                                    "
-                            )
-                          ]
-                        )
-                      }),
-                      0
-                    ),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "text-xs text-red-500 ml-2" }, [
-                      _vm._v(
-                        _vm._s(
-                          _vm.validationError("user_type", _vm.saveError)
-                        ) + " "
-                      )
-                    ])
-                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "mt-3 mb-2" }, [
                     _c(
@@ -42694,6 +47821,27 @@ if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
 var add = __webpack_require__(/*! !../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
 var update = add("48de8820", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Pages/Patient.vue?vue&type=style&index=0&id=06cf38ec&scoped=true&lang=css&");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! !../../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
+var update = add("5f93bd20", content, false, {});
 // Hot Module Replacement
 if(false) {}
 

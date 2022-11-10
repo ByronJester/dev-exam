@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use App\Models\Patient;
 use App\Models\PatientForm;
+use App\Models\PrenatalForm;
 use App\Models\PatientMedicine;
 use App\Models\BarangayMedicine;
 use App\Models\Place;
@@ -14,6 +15,7 @@ use App\Models\Medicine;
 use App\Http\Requests\CreatePatient;
 use App\Http\Requests\CreatePatientForm;
 use App\Http\Requests\DispenseMedicine;
+use App\Http\Requests\SavePrenatal;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -74,11 +76,19 @@ class PatientController extends Controller
 
         $patient = Patient::where('id', $id)->first();
 
+        $tbAndPregForm = PatientForm::where('patient_id', $id)->get();
+        $tbAndPregForm = $tbAndPregForm->toArray();
+
+        $prenatalForm = PrenatalForm::where('patient_id', $id)->get();
+        $prenatalForm = $prenatalForm->toArray();
+
+        $forms = array_merge($tbAndPregForm, $prenatalForm);
+
         return Inertia::render('Patient', [
             'auth'    => $auth,
             'options' => [
                 'patient' => $patient,
-                'forms' => PatientForm::where('patient_id', $id)->get()
+                'forms' => $forms
             ]
         ]);
     }
@@ -129,6 +139,35 @@ class PatientController extends Controller
             PatientForm::where('id', $request->id)->update($data);
         } else {
             PatientForm::create($data);
+        }
+
+        return redirect()->back()->with('errors');
+    }
+
+    public function createPrenatalForm(SavePrenatal $request)
+    {
+        $data = $request->except(['behavioral_risks', 'pyschological_risks', 'medical_risks', 'obstetrics_risks', 'name', 'description']);;
+
+        if($request->behavioral_risks && count($request->behavioral_risks) > 0) {
+            $data['behavioral_risks'] = json_encode($request->behavioral_risks);
+        }
+
+        if($request->pyschological_risks && count($request->pyschological_risks) > 0) {
+            $data['pyschological_risks'] = json_encode($request->pyschological_risks);
+        }
+
+        if($request->medical_risks && count($request->medical_risks) > 0) {
+            $data['medical_risks'] = json_encode($request->medical_risks);
+        }
+
+        if($request->obstetrics_risks && count($request->obstetrics_risks) > 0) {
+            $data['obstetrics_risks'] = json_encode($request->obstetrics_risks);
+        }
+
+        if($request->id) {
+            PrenatalForm::where('id', $request->id)->update($data);
+        } else {
+            PrenatalForm::forceCreate($data);
         }
 
         return redirect()->back()->with('errors');

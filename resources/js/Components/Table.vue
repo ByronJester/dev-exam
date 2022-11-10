@@ -7,10 +7,9 @@
         </tr>
 
         <tr class="text-center"
-            v-for="(l, index) in rows" :key="l.id"
+            v-for="(l, index) in rows" :key="index"
         >
-            <td v-for="(k, i) in keys" :key="i" class="cursor-pointer" 
-                :class="{'--active__color': !!selected && selected.id == l.id }"
+            <td v-for="(k, i) in keys" :key="i" class="cursor-pointer"
                 @click="selectItem(l)"
             >
                 <span>{{ rows[index][k.label] }}</span>
