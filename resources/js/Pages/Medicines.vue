@@ -82,7 +82,7 @@
                                     <label class="text-bold">Category:</label><br>
                                     <select class="--input" v-model="formData.medicine_category_id">
                                         <option v-for="category in options.categories" :key="category.id" :value="category.id">
-                                            {{ category.category}}
+                                            {{ category.name}}
                                         </option>
                                     </select>
                                     <span class="text-xs text-red-500 ml-2">{{validationError('medicine_category_id', saveError)}} </span>
@@ -98,7 +98,7 @@
                                     <label class="text-bold">Unit:</label><br>
                                     <select class="--input" v-model="formData.medicine_unit_id">
                                         <option v-for="unit in options.units" :key="unit.id" :value="unit.id">
-                                            {{ unit.unit}}
+                                            {{ unit.name}}
                                         </option>
                                     </select>
                                     <span class="text-xs text-red-500 ml-2">{{validationError('medicine_unit_id', saveError)}} </span>
@@ -152,7 +152,7 @@
 
                             <div class="mt-3 mb-2">
                                 <button class="text-center text-white" 
-                                    style="height: 40px; width: 100%; border: 1px solid black; border-radius: 5px; background: #003865"
+                                    style="height: 40px; width: 100%; border: 1px solid black; border-radius: 5px; background: #366422"
                                     @click="dispenseMedicine()"
                                 >
                                     Dispense
@@ -194,8 +194,8 @@ export default {
                 quantity : 1,
                 dispensed_type: 'barangay',
                 patient_id: null,
-                category_id: null,
-                unit_id: null,
+                medicine_category_id: null,
+                medicine_unit_id: null,
                 dosage: 1
                 
             },
@@ -254,7 +254,8 @@ export default {
             this.medecineList = this.options.patientMedicines
         }
 
-        console.log(this.options)
+        this.formData.medicine_category_id = this.options.categories[0].id
+        this.formData.medicine_unit_id = this.options.units[0].id
     },
     watch: {
         barangay(arg){
@@ -378,8 +379,8 @@ export default {
                             medicine_id : null,
                             dispensed_type: 'barangay',
                             patient_id: null,
-                            category_id: null,
-                            unit_id: null,
+                            medicine_category_id: null,
+                            medicine_unit_id: null,
                             dosage: 1
                         }
 

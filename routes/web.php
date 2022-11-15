@@ -51,6 +51,15 @@ Route::middleware(['cors'])->group(function () {
         Route::get('/', [MedicineController::class, 'viewMedicine'])->name('view.medicines');
         Route::post('/dispense-barangay-medicine', [MedicineController::class, 'dispenseBarangayMedicine']);
     });
+
+    Route::prefix('maintenance')->group(function () {
+        Route::get('/', [UserController::class, 'viewMaitenance'])->name('view.maintenance');
+        Route::post('/save-maintenance', [UserController::class, 'saveMaintenance']);
+    });
+
+    Route::prefix('reports')->group(function () {
+        Route::get('/', [UserController::class, 'viewReports'])->name('view.reports');
+    });
 });
 
 

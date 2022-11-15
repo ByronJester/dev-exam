@@ -10,6 +10,28 @@
     <script src=https://code.jquery.com/jquery-1.11.3.min.js></script>
     <script src="{{ mix('/js/app.js') }}" defer></script>
   </head>
+
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      overflow-x:hidden;
+      overflow-y:scroll;
+    }
+
+    body::-webkit-scrollbar {
+      width: 0px;
+      background: white;
+    }
+
+    body::-webkit-scrollbar-thumb {
+      background: #ffffff;
+      height:30px;
+    }
+
+    body::-webkit-scrollbar-track-piece{
+      display:none;
+    }
+  </style>
   <body>
     @inertia
   </body>

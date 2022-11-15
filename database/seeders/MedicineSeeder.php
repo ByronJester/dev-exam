@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Medicine;
 use App\Models\MedicineCategory;
 use App\Models\MedicineUnit;
+use App\Models\Vaccination;
 
 class MedicineSeeder extends Seeder
 {
@@ -40,7 +41,7 @@ class MedicineSeeder extends Seeder
 
         foreach ($categories as $category) {
             MedicineCategory::create([
-                "category" => $category,
+                "name" => $category,
             ]);
         }
 
@@ -50,7 +51,17 @@ class MedicineSeeder extends Seeder
 
         foreach ($units as $unit) {
             MedicineUnit::create([
-                "unit" => $unit,
+                "name" => $unit,
+            ]);
+        }
+
+        $vaccinations = [
+            'Covid Vaccine', 'MMR', 'PCV', 'Oral and Inactive Polio Vaccine', 'Pentavalent Vaccine', 'Hepatitis B', 'BCG'
+        ];
+
+        foreach ($vaccinations as $vaccination) {
+            Vaccination::create([
+                "name" => $vaccination,
             ]);
         }
         

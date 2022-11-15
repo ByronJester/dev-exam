@@ -71,14 +71,14 @@ class BarangayMedicine extends Model
     {
         $category = MedicineCategory::where('id', $this->medicine_category_id)->first();
 
-        return $category->category;
+        return $category->name;
     }
 
     public function getUnitAttribute()
     {
         $unit = MedicineUnit::where('id', $this->medicine_unit_id)->first();
 
-        return $unit->unit;
+        return $unit->name;
     }
 
     public function getDateAttribute()

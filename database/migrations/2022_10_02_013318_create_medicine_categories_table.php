@@ -15,7 +15,7 @@ class CreateMedicineCategoriesTable extends Migration
     {
         Schema::create('medicine_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('category');
+            $table->string('name');
         
             $table->softDeletes();
             $table->timestamps();

@@ -15,7 +15,7 @@ class CreateMedicineUnitsTable extends Migration
     {
         Schema::create('medicine_units', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('unit');
+            $table->string('name');
         
             $table->softDeletes();
             $table->timestamps();

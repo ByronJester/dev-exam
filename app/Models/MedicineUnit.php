@@ -10,6 +10,6 @@ class MedicineUnit extends Model
     use HasFactory;
 
     protected $fillable = [
-        'unit'
+        'name'
     ];
 }

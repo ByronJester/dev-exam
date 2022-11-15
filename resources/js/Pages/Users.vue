@@ -339,7 +339,7 @@ export default {
                 this.formData.work_address = this.auth.work_address
             }
 
-            if(this.formData.user_type == 'doctor') {
+            if(this.formData.user_type == 'doctor' && this.auth.role == 1) {
                 delete this.formData.work_address;
             }
 

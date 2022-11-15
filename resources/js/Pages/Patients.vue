@@ -262,6 +262,10 @@ export default {
         },
 
         createUser(){
+            if(this.auth.role == 3) {
+                this.formData.place_id = this.auth.work_address
+            }
+
             Inertia.post(this.$root.route + '/patients/create-patient', this.formData,
             {
                 onSuccess: (res) => {

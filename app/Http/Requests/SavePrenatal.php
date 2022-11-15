@@ -53,10 +53,10 @@ class SavePrenatal extends FormRequest
             'type_of_last_delivery' => "required",
             'last_delivery' => "required",
             'delivery_facility' => "required",
-            'behavioral_risks' => "nullable",
-            'pyschological_risks' => "nullable",
-            'medical_risks' => "nullable",
-            'obstetrics_risks' => "nullable",
+            'behavioral_risks' => "sometimes|nullable",
+            'pyschological_risks' => "sometimes|nullable",
+            'medical_risks' => "sometimes|nullable",
+            'obstetrics_risks' => "sometimes|nullable",
             'ob_gyn' => "required",
             'date' => "required"
         ];

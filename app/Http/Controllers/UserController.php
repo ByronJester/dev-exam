@@ -8,6 +8,12 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Place;
+use App\Models\Medicine;
+use App\Models\MedicineUnit;
+use App\Models\MedicineCategory;
+use App\Models\Vaccination;
+use App\Models\BarangayMedicine;
+use App\Models\PatientMedicine;
 use App\Mail\PasswordMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\RegisterAccount;
@@ -172,6 +178,91 @@ class UserController extends Controller
         ]);
 
         return response()->json(['status' => 200], 200); 
+    }
+
+    public function viewMaitenance(Request $request)
+    {
+        $auth = Auth::user();
+
+        if($auth) {
+            return Inertia::render('Maintenance', [
+                'auth'    => $auth,
+                'options' => [
+                    'medicines' => Medicine::get(),
+                    'categories' => MedicineCategory::get(),
+                    'units' => MedicineUnit::get(),
+                    'vaccinations' => Vaccination::get()
+                ]
+            ]);
+        }
+
+        return redirect('/');
+    }
+
+    public function saveMaintenance(Request $request)
+    {
+        $tab = $request->tab;
+
+        $rules = [
+            'name' => "required",
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422], 200);
+        }
+
+        if($tab == 'medicine') {
+            Medicine::create($request->only(['name']));
+        }
+
+        if($tab == 'category') {
+            MedicineCategory::create($request->only(['name']));
+        }
+
+        if($tab == 'unit') {
+            MedicineUnit::create($request->only(['name']));
+        }
+
+        if($tab == 'vaccination') {
+            Vaccination::create($request->only(['name']));
+        }
+
+        return response()->json(['status' => 200], 200); 
+    }
+
+    public function viewReports(Request $request)
+    {
+        $auth = Auth::user();
+
+        if($auth) {
+            $patientMedicines = PatientMedicine::orderBy('created_at', 'desc');
+
+            if($auth->user_type == 'doctor') {
+                $patientMedicines = $patientMedicines->where('is_individual', true);
+            } else {
+                if($auth->user_type == 'leader') {
+                    $patientMedicines = $patientMedicines->where('is_individual', false);
+                }
+            }
+
+            $barangayMedicines = BarangayMedicine::orderBy('created_at', 'desc');
+
+            if($auth->user_type == 'leader') {
+                $barangayMedicines = $barangayMedicines->where('place_id', $auth->work_address);
+            } 
+
+            return Inertia::render('Reports', [
+                'auth'    => $auth,
+                'options' => [
+                    'barangayMedicines' => $barangayMedicines->get(),
+                    'patientMedicines'  => $patientMedicines->get()
+                ]
+            ]);
+        }
+
+        return redirect('/');
     }
 } 
  

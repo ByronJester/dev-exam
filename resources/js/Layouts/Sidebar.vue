@@ -42,6 +42,15 @@
                     </span>
                 </p>
 
+                <p class="mr-2 cursor-pointer" v-if="hasAccess('maintenance')" @click="changeActive('/maintenance')">
+                    <i class="fa-solid fa-prescription fa-lg mx-2"></i>
+                    <span v-if="isHover" class="mx-2"
+                        :style="{'border-bottom': active === '/maintenance' ? '1px solid white' : 'none'}"
+                    > 
+                        MAINTENANCE
+                    </span>
+                </p>
+
                 <p class="mr-2 cursor-pointer" v-if="hasAccess('patients')" @click="changeActive('/patients')">
                     <i class="fa-solid fa-users-rectangle fa-lg mx-2"></i>
                     <span v-if="isHover" class="mx-2"
@@ -153,7 +162,7 @@ export default {
 
     created(){
         if(this.auth.role == 1) {
-            this.tabs = ['users'];
+            this.tabs = ['users', 'maintenance'];
         }
 
         if(this.auth.role == 2) {
@@ -166,7 +175,7 @@ export default {
                     break;
 
                 case 'nurse':
-                    this.tabs = ['patients'];
+                    this.tabs = ['patients', 'reports'];
                     break;
             }
         }

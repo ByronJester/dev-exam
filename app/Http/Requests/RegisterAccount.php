@@ -32,7 +32,7 @@ class RegisterAccount extends FormRequest
             'phone' => "required|unique:users,phone",
             'email' => "required|unique:users,email|email:rfc,dns",
             'user_type' => "required",
-            'work_address' => 'required'
+            'work_address' => 'sometimes|required'
         ];
 
         return $rules;

@@ -148,19 +148,27 @@ class PatientController extends Controller
     {
         $data = $request->except(['behavioral_risks', 'pyschological_risks', 'medical_risks', 'obstetrics_risks', 'name', 'description']);;
 
-        if($request->behavioral_risks && count($request->behavioral_risks) > 0) {
+        if(count($request->behavioral_risks) > 0) {
+            $data['behavioral_risks'] = json_encode($request->behavioral_risks);
+        } else {
             $data['behavioral_risks'] = json_encode($request->behavioral_risks);
         }
 
-        if($request->pyschological_risks && count($request->pyschological_risks) > 0) {
+        if(count($request->pyschological_risks) > 0) {
+            $data['pyschological_risks'] = json_encode($request->pyschological_risks);
+        } else {
             $data['pyschological_risks'] = json_encode($request->pyschological_risks);
         }
 
-        if($request->medical_risks && count($request->medical_risks) > 0) {
+        if(count($request->medical_risks) > 0) {
+            $data['medical_risks'] = json_encode($request->medical_risks);
+        } else {
             $data['medical_risks'] = json_encode($request->medical_risks);
         }
 
-        if($request->obstetrics_risks && count($request->obstetrics_risks) > 0) {
+        if(count($request->obstetrics_risks) > 0) {
+            $data['obstetrics_risks'] = json_encode($request->obstetrics_risks);
+        } else {
             $data['obstetrics_risks'] = json_encode($request->obstetrics_risks);
         }
 
