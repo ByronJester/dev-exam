@@ -13,7 +13,7 @@ class Patient extends Model
         'place_id',
         'user_id',
         'name',
-        'phone',
+        'phone', 
         'age',
         'gender',
         'is_rhu'
@@ -24,6 +24,10 @@ class Patient extends Model
         'user'
     ];
 
+    protected $appends = [
+        'barangay'
+    ];
+
     public function place()
     {
         return $this->belongsTo(Place::class);
@@ -32,5 +36,10 @@ class Patient extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getBarangayAttribute()
+    {
+        return $this->place->name;
     }
 }

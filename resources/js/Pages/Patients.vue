@@ -61,7 +61,7 @@
                                             </p>
 
                                             <div class="inline-flex">
-                                                <button class="--view__profile my-2 mr-1" @click="viewProfile(patient)" v-if="auth.user_type == 'pharmacist'">
+                                                <button class="--view__profile my-2 mr-1" @click="viewProfile(patient)" v-if="auth.user_type != 'pharmacist'">
                                                     Forms
                                                 </button>
 
@@ -243,7 +243,7 @@ export default {
             this.selected = arg
 
             Inertia.get(
-                this.$root.route + '/patients/' + arg.id,
+                this.$root.route + '/patients/' + arg.id + '/' + false,
                 {
                     onSuccess: () => { },
                 },

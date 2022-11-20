@@ -2133,6 +2133,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['rows', 'columns', 'keys', 'selected'],
   data: function data() {
@@ -4699,6 +4700,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4850,7 +4858,8 @@ __webpack_require__.r(__webpack_exports__);
         vaccination_id: null
       },
       checked: [],
-      saveError: null
+      saveError: null,
+      forms: []
     };
   },
   created: function created() {
@@ -4862,6 +4871,16 @@ __webpack_require__.r(__webpack_exports__);
     this.nutrition.patient_id = this.patient.id;
     this.deworming.patient_id = this.patient.id;
     this.vaccination.patient_id = this.patient.id;
+
+    if (this.auth.user_type == 'doctor' || this.auth.user_type == 'leader' || this.auth.user_type == 'member') {
+      this.forms = this.options.forms.filter(function (x) {
+        return x.name == 'Tuberculosis Symptom Form';
+      });
+    } else {
+      this.forms = this.options.forms.filter(function (x) {
+        return x.name != 'Tuberculosis Symptom Form';
+      });
+    }
   },
   watch: {
     activeForm: function activeForm(arg) {
@@ -4899,7 +4918,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     back: function back() {
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.get(this.$root.route + '/patients', {
+      var url = '/patients';
+
+      if (this.options.isReport) {
+        url = '/reports';
+      }
+
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.get(this.$root.route + url, {
         onSuccess: function onSuccess() {}
       });
     },
@@ -5353,7 +5378,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     viewProfile: function viewProfile(arg) {
       this.selected = arg;
-      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.get(this.$root.route + '/patients/' + arg.id, {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.get(this.$root.route + '/patients/' + arg.id + '/' + false, {
         onSuccess: function onSuccess() {}
       });
     },
@@ -5469,6 +5494,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -5487,10 +5514,16 @@ __webpack_require__.r(__webpack_exports__);
       medicine_report_type: 'individual',
       columns: [],
       keys: [],
-      rows: []
+      rows: [],
+      selected: null
     };
   },
   watch: {
+    selected: function selected(arg) {
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.get(this.$root.route + '/patients/' + arg.id + '/' + true, {
+        onSuccess: function onSuccess() {}
+      });
+    },
     activeTab: function activeTab(arg) {
       if (arg == 'medicine_report') {
         if (this.medicine_report_type == 'individual') {
@@ -5534,6 +5567,20 @@ __webpack_require__.r(__webpack_exports__);
             label: 'date'
           }];
         }
+      } else {
+        this.columns = ['Name', 'Barangay', 'Contact', 'Age', 'Gender'];
+        this.keys = [{
+          label: 'name'
+        }, {
+          label: 'barangay'
+        }, {
+          label: 'phone'
+        }, {
+          label: 'age'
+        }, {
+          label: 'gender'
+        }];
+        this.rows = this.options.patients;
       }
     },
     medicine_report_type: function medicine_report_type(arg) {
@@ -5587,6 +5634,22 @@ __webpack_require__.r(__webpack_exports__);
 
     if (this.auth.user_type == 'pharmacist') {
       this.activeTab = 'medicine_report';
+    }
+
+    if (this.activeTab == 'patient_report') {
+      this.columns = ['Name', 'Barangay', 'Contact', 'Age', 'Gender'];
+      this.keys = [{
+        label: 'name'
+      }, {
+        label: 'barangay'
+      }, {
+        label: 'phone'
+      }, {
+        label: 'age'
+      }, {
+        label: 'gender'
+      }];
+      this.rows = this.options.patients;
     }
   },
   methods: {}
@@ -38813,6 +38876,9 @@ var render = function() {
               {
                 key: i,
                 staticClass: "cursor-pointer",
+                class: {
+                  "--active__color": !!_vm.selected && _vm.selected.id == l.id
+                },
                 on: {
                   click: function($event) {
                     return _vm.selectItem(l)
@@ -39087,9 +39153,11 @@ var render = function() {
                           {
                             staticClass: "mx-2",
                             style: {
-                              "border-bottom": _vm.active.includes("patients")
-                                ? "1px solid white"
-                                : "none"
+                              "border-bottom":
+                                _vm.active.includes("patients") &&
+                                _vm.active.includes("false")
+                                  ? "1px solid white"
+                                  : "none"
                             }
                           },
                           [
@@ -39163,7 +39231,9 @@ var render = function() {
                             staticClass: "mx-2",
                             style: {
                               "border-bottom":
-                                _vm.active === "/reports"
+                                _vm.active === "/reports" ||
+                                (_vm.active.includes("patients") &&
+                                  _vm.active.includes("true"))
                                   ? "1px solid white"
                                   : "none"
                             }
@@ -41412,7 +41482,15 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" Consultation Forms\n                ")
+              _vm._v(
+                "  " +
+                  _vm._s(
+                    _vm.options.isReport
+                      ? "Patient Report"
+                      : "Consultation Forms"
+                  ) +
+                  "\n                "
+              )
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "text-2xl float-right font-bold" }, [
@@ -41426,143 +41504,149 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "w-full mt-10" }, [
-            _c("div", { staticClass: "w-full inline-block" }, [
-              _c(
-                "select",
-                {
-                  directives: [
+          !_vm.options.isReport
+            ? _c("div", { staticClass: "w-full mt-10" }, [
+                _c("div", { staticClass: "w-full inline-block" }, [
+                  _c(
+                    "select",
                     {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.formName,
-                      expression: "formName"
-                    }
-                  ],
-                  staticStyle: {
-                    width: "230px",
-                    height: "30px",
-                    border: "1px solid black"
-                  },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.formName = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
-                },
-                [
-                  _vm.auth.user_type == "doctor" ||
-                  _vm.auth.user_type == "leader" ||
-                  _vm.auth.user_type == "member"
-                    ? _c(
-                        "option",
-                        { attrs: { value: "Tuberculosis Symptom Form" } },
-                        [
-                          _vm._v(
-                            "\n                            TB-Dots\n                        "
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.formName,
+                          expression: "formName"
+                        }
+                      ],
+                      staticStyle: {
+                        width: "230px",
+                        height: "30px",
+                        border: "1px solid black"
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.formName = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
+                      }
+                    },
+                    [
+                      _vm.auth.user_type == "doctor" ||
+                      _vm.auth.user_type == "leader" ||
+                      _vm.auth.user_type == "member"
+                        ? _c(
+                            "option",
+                            { attrs: { value: "Tuberculosis Symptom Form" } },
+                            [
+                              _vm._v(
+                                "\n                            TB-Dots\n                        "
+                              )
+                            ]
                           )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.auth.user_type == "nurse" ||
-                  _vm.auth.user_type == "midwife"
-                    ? _c("option", { attrs: { value: "Pregnancy Form" } }, [
-                        _vm._v(
-                          "\n                            Pregnancy Form\n                        "
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.auth.user_type == "nurse" ||
-                  _vm.auth.user_type == "midwife"
-                    ? _c(
-                        "option",
-                        { attrs: { value: "Prenatal Registration Form" } },
-                        [
-                          _vm._v(
-                            "\n                            Prenatal Registration Form\n                        "
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.auth.user_type == "nurse" ||
+                      _vm.auth.user_type == "midwife"
+                        ? _c("option", { attrs: { value: "Pregnancy Form" } }, [
+                            _vm._v(
+                              "\n                            Pregnancy Form\n                        "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.auth.user_type == "nurse" ||
+                      _vm.auth.user_type == "midwife"
+                        ? _c(
+                            "option",
+                            { attrs: { value: "Prenatal Registration Form" } },
+                            [
+                              _vm._v(
+                                "\n                            Prenatal Registration Form\n                        "
+                              )
+                            ]
                           )
-                        ]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.auth.user_type == "nurse" ||
-                  _vm.auth.user_type == "midwife"
-                    ? _c(
-                        "option",
-                        { attrs: { value: "Postnatal Registration Form" } },
-                        [
-                          _vm._v(
-                            "\n                            Postnatal Registration Form\n                        "
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.auth.user_type == "nurse" ||
+                      _vm.auth.user_type == "midwife"
+                        ? _c(
+                            "option",
+                            { attrs: { value: "Postnatal Registration Form" } },
+                            [
+                              _vm._v(
+                                "\n                            Postnatal Registration Form\n                        "
+                              )
+                            ]
                           )
-                        ]
-                      )
-                    : _vm._e(),
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.auth.user_type == "nurse" ||
+                      _vm.auth.user_type == "midwife"
+                        ? _c("option", { attrs: { value: "Nutrition Form" } }, [
+                            _vm._v(
+                              "\n                            Nutrition Form\n                        "
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.auth.user_type == "nurse" ||
+                      _vm.auth.user_type == "midwife"
+                        ? _c(
+                            "option",
+                            { attrs: { value: "Vaccination Form" } },
+                            [
+                              _vm._v(
+                                "\n                            Vaccination Form\n                        "
+                              )
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.auth.user_type == "nurse" ||
+                      _vm.auth.user_type == "midwife"
+                        ? _c("option", { attrs: { value: "Deworming Form" } }, [
+                            _vm._v(
+                              "\n                            Deworming Form\n                        "
+                            )
+                          ])
+                        : _vm._e()
+                    ]
+                  ),
                   _vm._v(" "),
-                  _vm.auth.user_type == "nurse" ||
-                  _vm.auth.user_type == "midwife"
-                    ? _c("option", { attrs: { value: "Nutrition Form" } }, [
-                        _vm._v(
-                          "\n                            Nutrition Form\n                        "
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.auth.user_type == "nurse" ||
-                  _vm.auth.user_type == "midwife"
-                    ? _c("option", { attrs: { value: "Vaccination Form" } }, [
-                        _vm._v(
-                          "\n                            Vaccination Form\n                        "
-                        )
-                      ])
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm.auth.user_type == "nurse" ||
-                  _vm.auth.user_type == "midwife"
-                    ? _c("option", { attrs: { value: "Deworming Form" } }, [
-                        _vm._v(
-                          "\n                            Deworming Form\n                        "
-                        )
-                      ])
-                    : _vm._e()
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "text-white",
-                  staticStyle: {
-                    height: "30px",
-                    border: "1px solid black",
-                    background: "#003865",
-                    padding: "0px 20px 0px 20px"
-                  },
-                  on: {
-                    click: function($event) {
-                      _vm.activeForm = _vm.formName
-                      _vm.formData.tb = []
-                      _vm.formData.lmp = null
-                      _vm.formData.edc = null
-                      _vm.formData.edd = null
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fa-solid fa-plus" })]
-              )
-            ])
-          ]),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "text-white",
+                      staticStyle: {
+                        height: "30px",
+                        border: "1px solid black",
+                        background: "#003865",
+                        padding: "0px 20px 0px 20px"
+                      },
+                      on: {
+                        click: function($event) {
+                          _vm.activeForm = _vm.formName
+                          _vm.formData.tb = []
+                          _vm.formData.lmp = null
+                          _vm.formData.edc = null
+                          _vm.formData.edd = null
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fa-solid fa-plus" })]
+                  )
+                ])
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "div",
@@ -41572,7 +41656,7 @@ var render = function() {
                 ? _c("Table", {
                     attrs: {
                       columns: _vm.columns,
-                      rows: _vm.options.forms,
+                      rows: _vm.forms,
                       keys: _vm.keys,
                       selected: _vm.selectedForm
                     },
@@ -44070,33 +44154,37 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("div", { staticClass: "w-full mb-2" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "text-white",
-                              class: {
-                                "cursor-not-allowed":
-                                  _vm.formData.tb.length == 0,
-                                "cursor-pointer": _vm.formData.tb.length > 0
-                              },
-                              staticStyle: {
-                                padding: "5px 20px 5px 20px",
-                                background: "#003865",
-                                "border-radius": "5px"
-                              },
-                              attrs: { disabled: _vm.formData.tb.length == 0 },
-                              on: {
-                                click: function($event) {
-                                  return _vm.generateForm()
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Submit\n                            "
+                          !_vm.options.isReport
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "text-white",
+                                  class: {
+                                    "cursor-not-allowed":
+                                      _vm.formData.tb.length == 0,
+                                    "cursor-pointer": _vm.formData.tb.length > 0
+                                  },
+                                  staticStyle: {
+                                    padding: "5px 20px 5px 20px",
+                                    background: "#003865",
+                                    "border-radius": "5px"
+                                  },
+                                  attrs: {
+                                    disabled: _vm.formData.tb.length == 0
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.generateForm()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Submit\n                            "
+                                  )
+                                ]
                               )
-                            ]
-                          )
+                            : _vm._e()
                         ])
                       ]
                     )
@@ -44264,43 +44352,45 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("div", { staticClass: "w-full mb-5 px-4" }, [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "text-white",
-                            class: {
-                              "cursor-not-allowed":
-                                !_vm.formData.lmp ||
-                                !_vm.formData.edc ||
-                                !_vm.formData.edd,
-                              "cursor-pointer":
-                                !!_vm.formData.lmp &&
-                                !!_vm.formData.edc &&
-                                !!_vm.formData.edd
-                            },
-                            staticStyle: {
-                              padding: "5px 20px 5px 20px",
-                              background: "#003865",
-                              "border-radius": "5px"
-                            },
-                            attrs: {
-                              disabled:
-                                !_vm.formData.lmp ||
-                                !_vm.formData.edc ||
-                                !_vm.formData.edd
-                            },
-                            on: {
-                              click: function($event) {
-                                return _vm.generateForm()
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                            Submit\n                        "
+                        !_vm.options.isReport
+                          ? _c(
+                              "button",
+                              {
+                                staticClass: "text-white",
+                                class: {
+                                  "cursor-not-allowed":
+                                    !_vm.formData.lmp ||
+                                    !_vm.formData.edc ||
+                                    !_vm.formData.edd,
+                                  "cursor-pointer":
+                                    !!_vm.formData.lmp &&
+                                    !!_vm.formData.edc &&
+                                    !!_vm.formData.edd
+                                },
+                                staticStyle: {
+                                  padding: "5px 20px 5px 20px",
+                                  background: "#003865",
+                                  "border-radius": "5px"
+                                },
+                                attrs: {
+                                  disabled:
+                                    !_vm.formData.lmp ||
+                                    !_vm.formData.edc ||
+                                    !_vm.formData.edd
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.generateForm()
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                            Submit\n                        "
+                                )
+                              ]
                             )
-                          ]
-                        )
+                          : _vm._e()
                       ])
                     ]
                   )
@@ -49113,29 +49203,31 @@ var render = function() {
                             _c("div", { staticClass: "w-full pr-2" }, [
                               _c("br"),
                               _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass: "w-full mx-2",
-                                  staticStyle: {
-                                    background: "black",
-                                    color: "white",
-                                    border: "1px solid white",
-                                    "border-radius": "5px",
-                                    height: "43px"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.createPrenatal()
-                                    }
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n                                    Save\n                                "
+                              !_vm.options.isReport
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass: "w-full mx-2",
+                                      staticStyle: {
+                                        background: "black",
+                                        color: "white",
+                                        border: "1px solid white",
+                                        "border-radius": "5px",
+                                        height: "43px"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.createPrenatal()
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                    Save\n                                "
+                                      )
+                                    ]
                                   )
-                                ]
-                              )
+                                : _vm._e()
                             ])
                           ]
                         )
@@ -49483,29 +49575,31 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "w-full pr-2 mt-5" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "w-full mx-2",
-                              staticStyle: {
-                                background: "black",
-                                color: "white",
-                                border: "1px solid white",
-                                "border-radius": "5px",
-                                height: "43px"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.createNutritionForm()
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Save\n                            "
+                          !_vm.options.isReport
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "w-full mx-2",
+                                  staticStyle: {
+                                    background: "black",
+                                    color: "white",
+                                    border: "1px solid white",
+                                    "border-radius": "5px",
+                                    height: "43px"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.createNutritionForm()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Save\n                            "
+                                  )
+                                ]
                               )
-                            ]
-                          )
+                            : _vm._e()
                         ])
                       ])
                     ]
@@ -49856,29 +49950,31 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "w-full pr-2 mt-5" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "w-full mx-2",
-                              staticStyle: {
-                                background: "black",
-                                color: "white",
-                                border: "1px solid white",
-                                "border-radius": "5px",
-                                height: "43px"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.createDewormingForm()
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Save\n                            "
+                          !_vm.options.isReport
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "w-full mx-2",
+                                  staticStyle: {
+                                    background: "black",
+                                    color: "white",
+                                    border: "1px solid white",
+                                    "border-radius": "5px",
+                                    height: "43px"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.createDewormingForm()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Save\n                            "
+                                  )
+                                ]
                               )
-                            ]
-                          )
+                            : _vm._e()
                         ])
                       ])
                     ]
@@ -50247,29 +50343,31 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "w-full pr-2 mt-5" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "w-full mx-2",
-                              staticStyle: {
-                                background: "black",
-                                color: "white",
-                                border: "1px solid white",
-                                "border-radius": "5px",
-                                height: "43px"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.createVaccinationForm()
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Save\n                            "
+                          !_vm.options.isReport
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "w-full mx-2",
+                                  staticStyle: {
+                                    background: "black",
+                                    color: "white",
+                                    border: "1px solid white",
+                                    "border-radius": "5px",
+                                    height: "43px"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.createVaccinationForm()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Save\n                            "
+                                  )
+                                ]
                               )
-                            ]
-                          )
+                            : _vm._e()
                         ])
                       ])
                     ]
@@ -52210,29 +52308,31 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "w-full pr-2 mt-5" }, [
-                          _c(
-                            "button",
-                            {
-                              staticClass: "w-full mx-2",
-                              staticStyle: {
-                                background: "black",
-                                color: "white",
-                                border: "1px solid white",
-                                "border-radius": "5px",
-                                height: "43px"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.createPostnatalForm()
-                                }
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                Save\n                            "
+                          !_vm.options.isReport
+                            ? _c(
+                                "button",
+                                {
+                                  staticClass: "w-full mx-2",
+                                  staticStyle: {
+                                    background: "black",
+                                    color: "white",
+                                    border: "1px solid white",
+                                    "border-radius": "5px",
+                                    height: "43px"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.createPostnatalForm()
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                Save\n                            "
+                                  )
+                                ]
                               )
-                            ]
-                          )
+                            : _vm._e()
                         ])
                       ])
                     ]
@@ -52631,7 +52731,7 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "inline-flex" }, [
-                                    _vm.auth.user_type == "pharmacist"
+                                    _vm.auth.user_type != "pharmacist"
                                       ? _c(
                                           "button",
                                           {
@@ -53091,7 +53191,28 @@ var render = function() {
           ),
           _vm._v(" "),
           _vm.activeTab == "patient_report"
-            ? _c("div", { staticClass: "w-full flex flex-col" })
+            ? _c("div", { staticClass: "w-full flex flex-col mt-4" }, [
+                _c(
+                  "div",
+                  { staticClass: "w-full px-2" },
+                  [
+                    _c("Table", {
+                      attrs: {
+                        columns: _vm.columns,
+                        rows: _vm.rows,
+                        keys: _vm.keys,
+                        selected: _vm.selected
+                      },
+                      on: {
+                        "update:selected": function($event) {
+                          _vm.selected = $event
+                        }
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
             : _c("div", { staticClass: "w-full flex flex-col" }, [
                 _c("div", { staticClass: "w-full mt-10" }, [
                   _c(

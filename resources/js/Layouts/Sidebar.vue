@@ -54,7 +54,7 @@
                 <p class="mr-2 cursor-pointer" v-if="hasAccess('patients')" @click="changeActive('/patients')">
                     <i class="fa-solid fa-users-rectangle fa-lg mx-2"></i>
                     <span v-if="isHover" class="mx-2"
-                        :style="{'border-bottom': active.includes('patients') ? '1px solid white' : 'none'}"
+                        :style="{'border-bottom': active.includes('patients') && active.includes('false') ? '1px solid white' : 'none'}"
                     > 
                         PATIENTS
                     </span>
@@ -72,7 +72,7 @@
                 <p class="mr-2 cursor-pointer" v-if="hasAccess('reports')" @click="changeActive('/reports')">
                     <i class="fa-solid fa-chart-column fa-lg mx-2"></i> 
                     <span v-if="isHover" class="mx-2"
-                        :style="{'border-bottom': active === '/reports' ? '1px solid white' : 'none'}"
+                        :style="{'border-bottom': active === '/reports' || (active.includes('patients') && active.includes('true')) ? '1px solid white' : 'none'}"
                     > 
                         REPORTS
                     </span>

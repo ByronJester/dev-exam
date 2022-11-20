@@ -14,12 +14,14 @@ use App\Models\MedicineCategory;
 use App\Models\Vaccination;
 use App\Models\BarangayMedicine;
 use App\Models\PatientMedicine;
+use App\Models\Patient;
 use App\Mail\PasswordMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\RegisterAccount;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Builder;
 
 class UserController extends Controller
 {
@@ -238,13 +240,33 @@ class UserController extends Controller
         }
 
         return response()->json(['status' => 200], 200); 
-    }
+    } 
 
     public function viewReports(Request $request)
     {
         $auth = Auth::user();
 
         if($auth) {
+            $patients = Patient::orderBy('created_at', 'desc')->where('user_id', $auth->id);
+
+            if($auth->user_type == 'doctor') {
+                $patients = Patient::orderBy('created_at', 'desc');
+            }
+
+            if($auth->user_type == 'midwife' && $auth->role == 2) {
+                $patients = Patient::orderBy('created_at', 'desc')
+                    ->whereHas('user', function (Builder $query) {
+                        $query->whereIn('user_type', ['nurse', 'midwife']);
+                    });
+            }
+
+            if($auth->user_type == 'leader') {
+                $patients = Patient::orderBy('created_at', 'desc')
+                    ->whereHas('user', function (Builder $query) {
+                        $query->whereIn('user_type', ['member', 'midwife']);
+                    });
+            }
+
             $patientMedicines = PatientMedicine::orderBy('created_at', 'desc');
 
             if($auth->user_type == 'doctor') {
@@ -265,7 +287,8 @@ class UserController extends Controller
                 'auth'    => $auth,
                 'options' => [
                     'barangayMedicines' => $barangayMedicines->get(),
-                    'patientMedicines'  => $patientMedicines->get()
+                    'patientMedicines'  => $patientMedicines->get(),
+                    'patients' => $patients->get()
                 ]
             ]);
         }

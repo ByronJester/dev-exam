@@ -39,7 +39,7 @@ Route::middleware(['cors'])->group(function () {
     
     Route::prefix('patients')->group(function () {
         Route::get('/', [PatientController::class, 'viewPatients'])->name('view.patients');
-        Route::get('/{id}', [PatientController::class, 'viewPatient'])->name('view.patient');
+        Route::get('/{id}/{isReport}', [PatientController::class, 'viewPatient'])->name('view.patient');
         Route::get('/medicine/{id}', [PatientController::class, 'viewPatientMedicine'])->name('view.patient.medicine');
         Route::post('/create-patient', [PatientController::class, 'createPatient']);
         Route::post('/dispense-medicine', [PatientController::class, 'dispenseMedicine']);
@@ -65,7 +65,7 @@ Route::middleware(['cors'])->group(function () {
     });
 
     Route::prefix('reports')->group(function () {
-        Route::get('/', [UserController::class, 'viewReports'])->name('view.reports');
+        Route::get('/', [UserController::class, 'viewReports'])->name('view.reports'); 
     });
 });
 

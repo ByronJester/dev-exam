@@ -4,7 +4,7 @@
             <div class="px-4 pt-12">
                 <div class="w-full">
                     <span class="text-2xl">
-                        <i class="fa-solid fa-arrow-left mr-2 cursor-pointer" @click="back()"></i> Consultation Forms
+                        <i class="fa-solid fa-arrow-left mr-2 cursor-pointer" @click="back()"></i>  {{ options.isReport ? 'Patient Report' : 'Consultation Forms' }}
                     </span>
 
                     <span class="text-2xl float-right font-bold">
@@ -12,7 +12,7 @@
                     </span>
                 </div>
 
-                <div class="w-full mt-10">
+                <div class="w-full mt-10" v-if="!options.isReport">
                     <div class="w-full inline-block">
                         <select v-model="formName"
                             style="width: 230px; height: 30px; border: 1px solid black"
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="w-full mt-5">
-                    <Table :columns="columns" :rows="options.forms" :keys="keys" :selected.sync="selectedForm"
+                    <Table :columns="columns" :rows="forms" :keys="keys" :selected.sync="selectedForm"
                         v-if="!activeForm && !selectedForm"
                     />
 
@@ -383,6 +383,7 @@
                                     @click="generateForm()"
                                     :class="{ 'cursor-not-allowed': formData.tb.length == 0, 'cursor-pointer': formData.tb.length > 0 }"
                                     :disabled="formData.tb.length == 0"
+                                    v-if="!options.isReport"
                                 >
                                     Submit
                                 </button>
@@ -428,6 +429,7 @@
                                 @click="generateForm()"
                                 :class="{ 'cursor-not-allowed': !formData.lmp || !formData.edc || !formData.edd, 'cursor-pointer': !!formData.lmp && !!formData.edc && !!formData.edd }"
                                 :disabled="!formData.lmp || !formData.edc || !formData.edd"
+                                v-if="!options.isReport"
                             >
                                 Submit
                             </button>
@@ -862,6 +864,7 @@
                                     <br>
                                     <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
                                         @click="createPrenatal()"
+                                        v-if="!options.isReport"
                                     >
                                         Save
                                     </button>
@@ -930,6 +933,7 @@
                             <div class="w-full pr-2 mt-5">
                                 <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
                                     @click="createNutritionForm()"
+                                    v-if="!options.isReport"
                                 >
                                     Save
                                 </button>
@@ -996,6 +1000,7 @@
                             <div class="w-full pr-2 mt-5">
                                 <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
                                     @click="createDewormingForm()"
+                                    v-if="!options.isReport"
                                 >
                                     Save
                                 </button>
@@ -1064,6 +1069,7 @@
                             <div class="w-full pr-2 mt-5">
                                 <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
                                     @click="createVaccinationForm()"
+                                    v-if="!options.isReport"
                                 >
                                     Save
                                 </button>
@@ -1348,6 +1354,7 @@
                             <div class="w-full pr-2 mt-5">
                                 <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
                                     @click="createPostnatalForm()"
+                                    v-if="!options.isReport"
                                 >
                                     Save
                                 </button>
@@ -1520,7 +1527,8 @@ export default {
                 vaccination_id: null,
             },
             checked: [],
-            saveError: null
+            saveError: null,
+            forms: []
         }
     },
 
@@ -1536,6 +1544,14 @@ export default {
         this.nutrition.patient_id = this.patient.id
         this.deworming.patient_id = this.patient.id
         this.vaccination.patient_id = this.patient.id
+
+        if(this.auth.user_type == 'doctor' || this.auth.user_type == 'leader' || this.auth.user_type == 'member') {
+            this.forms = this.options.forms.filter(x => { return x.name == 'Tuberculosis Symptom Form' })
+        } else {
+            this.forms = this.options.forms.filter(x => { return x.name != 'Tuberculosis Symptom Form' })
+        }
+
+
     },
 
     watch: {
@@ -1580,8 +1596,13 @@ export default {
 
     methods: {
         back(){
+            var url = '/patients'
+
+            if(this.options.isReport) {
+                url = '/reports'
+            }
             Inertia.get(
-                this.$root.route + '/patients',
+                this.$root.route + url,
                 {
                     onSuccess: () => { },
                 },

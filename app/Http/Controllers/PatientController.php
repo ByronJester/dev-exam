@@ -79,9 +79,15 @@ class PatientController extends Controller
         return redirect()->back()->with('errors');
     }
 
-    public function viewPatient($id)
+    public function viewPatient($id, $isReport)
     {
         $auth = Auth::user();
+
+        if($isReport == "false" || !$isReport) {
+            $isReport = false;
+        } else {
+            $isReport = true;
+        }
 
         $patient = Patient::where('id', $id)->first();
 
@@ -110,7 +116,8 @@ class PatientController extends Controller
             'options' => [
                 'patient' => $patient,
                 'forms' => $forms,
-                'vaccinations' => Vaccination::get()
+                'vaccinations' => Vaccination::get(),
+                'isReport' => $isReport
             ]
         ]);
     }

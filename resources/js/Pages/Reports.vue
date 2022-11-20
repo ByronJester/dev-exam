@@ -18,8 +18,10 @@
                     </div>
                 </div>
 
-                <div class="w-full flex flex-col" v-if="activeTab == 'patient_report'">
-    
+                <div class="w-full flex flex-col mt-4" v-if="activeTab == 'patient_report'">
+                    <div class="w-full px-2">
+                        <Table :columns="columns"  :rows="rows" :keys="keys" :selected.sync="selected"/>
+                    </div>
                 </div>
 
                 <div class="w-full flex flex-col" v-else>
@@ -66,11 +68,20 @@ export default {
             keys : [
                
             ],
-            rows: []
+            rows: [],
+            selected: null
         }
     },
 
     watch: {
+        selected(arg){
+            Inertia.get(
+                this.$root.route + '/patients/' + arg.id + '/' + true,
+                {
+                    onSuccess: () => { },
+                },
+            );
+        },
         activeTab(arg) {
             if(arg == 'medicine_report') {
 
@@ -142,6 +153,30 @@ export default {
                         },
                     ]
                 }
+            } else {
+                this.columns = [
+                    'Name', 'Barangay', 'Contact', 'Age', 'Gender'
+                ];
+
+                this.keys = [
+                    {
+                        label: 'name',
+                    },
+                    {
+                        label: 'barangay',
+                    },
+                    {
+                        label: 'phone',
+                    },
+                    {
+                        label: 'age',
+                    },
+                    {
+                        label: 'gender',
+                    }
+                ]
+
+                this.rows = this.options.patients
             }
         },
 
@@ -224,6 +259,32 @@ export default {
 
         if(this.auth.user_type == 'pharmacist') {
             this.activeTab = 'medicine_report';
+        }
+
+        if(this.activeTab == 'patient_report') {
+            this.columns = [
+                'Name', 'Barangay', 'Contact', 'Age', 'Gender'
+            ];
+
+            this.keys = [
+                {
+                    label: 'name',
+                },
+                {
+                    label: 'barangay',
+                },
+                {
+                    label: 'phone',
+                },
+                {
+                    label: 'age',
+                },
+                {
+                    label: 'gender',
+                }
+            ]
+
+            this.rows = this.options.patients
         }
     },
 
