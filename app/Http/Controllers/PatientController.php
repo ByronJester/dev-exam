@@ -8,14 +8,23 @@ use Inertia\Inertia;
 use App\Models\Patient;
 use App\Models\PatientForm;
 use App\Models\PrenatalForm;
+use App\Models\PostnatalForm;
 use App\Models\PatientMedicine;
 use App\Models\BarangayMedicine;
 use App\Models\Place;
 use App\Models\Medicine;
+use App\Models\NutritionForm;
+use App\Models\DewormingForm;
+use App\Models\Vaccination;
+use App\Models\VaccinationForm;
 use App\Http\Requests\CreatePatient;
 use App\Http\Requests\CreatePatientForm;
 use App\Http\Requests\DispenseMedicine;
 use App\Http\Requests\SavePrenatal;
+use App\Http\Requests\SaveNutrition;
+use App\Http\Requests\SaveDeworming;
+use App\Http\Requests\SaveVaccination;
+use App\Http\Requests\SavePostnatal;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
@@ -82,13 +91,26 @@ class PatientController extends Controller
         $prenatalForm = PrenatalForm::where('patient_id', $id)->get();
         $prenatalForm = $prenatalForm->toArray();
 
-        $forms = array_merge($tbAndPregForm, $prenatalForm);
+        $postnatalForm = PostnatalForm::where('patient_id', $id)->get();
+        $postnatalForm = $postnatalForm->toArray();
+
+        $nutritionForm = NutritionForm::where('patient_id', $id)->get();
+        $nutritionForm = $nutritionForm->toArray();
+
+        $dewormingForm = DewormingForm::where('patient_id', $id)->get();
+        $dewormingForm = $dewormingForm->toArray();
+
+        $vaccinationForm = VaccinationForm::where('patient_id', $id)->get();
+        $vaccinationForm = $vaccinationForm->toArray();
+
+        $forms = array_merge($tbAndPregForm, $prenatalForm, $postnatalForm, $nutritionForm, $dewormingForm, $vaccinationForm);
 
         return Inertia::render('Patient', [
             'auth'    => $auth,
             'options' => [
                 'patient' => $patient,
-                'forms' => $forms
+                'forms' => $forms,
+                'vaccinations' => Vaccination::get()
             ]
         ]);
     }
@@ -146,7 +168,7 @@ class PatientController extends Controller
 
     public function createPrenatalForm(SavePrenatal $request)
     {
-        $data = $request->except(['behavioral_risks', 'pyschological_risks', 'medical_risks', 'obstetrics_risks', 'name', 'description']);;
+        $data = $request->except(['behavioral_risks', 'pyschological_risks', 'medical_risks', 'obstetrics_risks', 'name', 'description']);
 
         if(count($request->behavioral_risks) > 0) {
             $data['behavioral_risks'] = json_encode($request->behavioral_risks);
@@ -181,6 +203,19 @@ class PatientController extends Controller
         return redirect()->back()->with('errors');
     }
 
+    public function createPostnatalForm(SavePostnatal $request)
+    {
+        $data = $request->except(['name', 'description']);
+
+        if($request->id) {
+            PostnatalForm::where('id', $request->id)->update($data);
+        } else {
+            PostnatalForm::forceCreate($data);
+        }
+
+        return redirect()->back();
+    }
+
     public function dispenseMedicine(DispenseMedicine $request)
     {
         $data = $request->except(['place_id']);
@@ -210,7 +245,44 @@ class PatientController extends Controller
         }
 
         return redirect()->back()->with('errors');
+    }
 
+    public function createNutritionForm(SaveNutrition $request)
+    {
+        $data = $request->except(['name', 'description']);
 
+        if($request->id) {
+            NutritionForm::where('id', $request->id)->update($data);
+        } else {
+            NutritionForm::forceCreate($data);
+        }
+
+        return redirect()->back();
+    }
+
+    public function createDewormingForm(SaveDeworming $request)
+    {
+        $data = $request->except(['name', 'description']);
+
+        if($request->id) {
+            DewormingForm::where('id', $request->id)->update($data);
+        } else {
+            DewormingForm::forceCreate($data);
+        }
+
+        return redirect()->back();
+    }
+
+    public function createVaccinationForm(SaveVaccination $request)
+    {
+        $data = $request->except(['name', 'description']);
+
+        if($request->id) {
+            VaccinationForm::where('id', $request->id)->update($data);
+        } else {
+            VaccinationForm::forceCreate($data);
+        }
+
+        return redirect()->back();
     }
 }

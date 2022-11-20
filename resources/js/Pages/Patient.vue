@@ -4,7 +4,7 @@
             <div class="px-4 pt-12">
                 <div class="w-full">
                     <span class="text-2xl">
-                        <i class="fa-solid fa-arrow-left mr-2 cursor-pointer" @click="back()"></i> Patient Forms
+                        <i class="fa-solid fa-arrow-left mr-2 cursor-pointer" @click="back()"></i> Consultation Forms
                     </span>
 
                     <span class="text-2xl float-right font-bold">
@@ -20,6 +20,10 @@
                             <option value="Tuberculosis Symptom Form">Tuberculosis Symptom Form</option>
                             <option value="Pregnancy Form">Pregnancy Form</option>
                             <option value="Prenatal Registration Form">Prenatal Registration Form</option>
+                            <option value="Postnatal Registration Form">Postnatal Registration Form</option>
+                            <option value="Nutrition Form">Nutrition Form</option>
+                            <option value="Vaccination Form">Vaccination Form</option>
+                            <option value="Deworming Form">Deworming Form</option>
                         </select>
 
                         <button style="height: 30px; border: 1px solid black; background: #003865; padding: 0px 20px 0px 20px" class="text-white"
@@ -848,6 +852,491 @@
                         </div>
                     </div>
 
+                    <!-- Nutrition FOrm -->
+                    <div class="w-full flex-col" v-if="activeForm == 'Nutrition Form'" style="border: 1px solid black; border-radius: 5px">
+                        <div class="w-full">
+                            <span class="float-right cursor-pointer p-2" 
+                                @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Gurdian Name:</label><br>
+                                <input type="text" class="--input w-full" v-model="nutrition.guardian_name">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Date of Birth:</label><br>
+                                <input type="date" class="--input w-full" v-model="nutrition.dob">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Age:</label><br>
+                                <input type="text" class="--input w-full" v-model="nutrition.age">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Height:</label><br>
+                                <input type="text" class="--input w-full" v-model="nutrition.height">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
+                            </div>
+
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Weight:</label><br>
+                                <input type="text" class="--input w-full" v-model="nutrition.weight">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>BMI:</label><br>
+                                <input type="text" class="--input w-full" v-model="nutrition.bmi">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('bmi', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Vitamis:</label><br>
+                                <input type="text" class="--input w-full" v-model="nutrition.vitamins">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('vitamins', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2 mt-5">
+                                <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
+                                    @click="createNutritionForm()"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Deworming FOrm -->
+                    <div class="w-full flex-col" v-if="activeForm == 'Deworming Form'" style="border: 1px solid black; border-radius: 5px">
+                        <div class="w-full">
+                            <span class="float-right cursor-pointer p-2" 
+                                @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Gurdian Name:</label><br>
+                                <input type="text" class="--input w-full" v-model="deworming.guardian_name">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Date of Birth:</label><br>
+                                <input type="date" class="--input w-full" v-model="deworming.dob">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Age:</label><br>
+                                <input type="text" class="--input w-full" v-model="deworming.age">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Height:</label><br>
+                                <input type="text" class="--input w-full" v-model="deworming.height">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
+                            </div>
+
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Weight:</label><br>
+                                <input type="text" class="--input w-full" v-model="deworming.weight">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>BMI:</label><br>
+                                <input type="text" class="--input w-full" v-model="deworming.bmi">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('bmi', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Deworming Medication:</label><br>
+                                <input type="text" class="--input w-full" v-model="deworming.deworming_medication">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('deworming_medication', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2 mt-5">
+                                <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
+                                    @click="createDewormingForm()"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vaccination FOrm -->
+                    <div class="w-full flex-col" v-if="activeForm == 'Vaccination Form'" style="border: 1px solid black; border-radius: 5px">
+                        <div class="w-full">
+                            <span class="float-right cursor-pointer p-2" 
+                                @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Gurdian Name:</label><br>
+                                <input type="text" class="--input w-full" v-model="vaccination.guardian_name">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Date of Birth:</label><br>
+                                <input type="date" class="--input w-full" v-model="vaccination.dob">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Age:</label><br>
+                                <input type="text" class="--input w-full" v-model="vaccination.age">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Height:</label><br>
+                                <input type="text" class="--input w-full" v-model="vaccination.height">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
+                            </div>
+
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Weight:</label><br>
+                                <input type="text" class="--input w-full" v-model="vaccination.weight">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>BMI:</label><br>
+                                <input type="text" class="--input w-full" v-model="vaccination.bmi">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('bmi', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Vaccine:</label><br>
+                                <select v-model="vaccination.vaccination_id" class="--input w-full">
+                                    <option v-for="vaccine in options.vaccinations" :value="vaccine.id" :key="vaccine.id">{{vaccine.name}}</option>
+                                </select>
+                                <span class="text-xs text-red-500 pl-2">{{validationError('vaccination_id', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2 mt-5">
+                                <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
+                                    @click="createVaccinationForm()"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Postnatal Registration Form -->
+                    <div class="w-full flex-col" v-if="activeForm == 'Postnatal Registration Form'" style="border: 1px solid black; border-radius: 5px">
+                        <div class="w-full">
+                            <span class="float-right cursor-pointer p-2" 
+                                @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Hospital Name:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.hospital_name">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('hospital_name', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Client's Name:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.clients_name">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('clients_name', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Address:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.address">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('address', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Occupation:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.occupation">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('occupation', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Type of Delivery:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.type_of_delivery">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('type_of_delivery', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Mode of Delivery:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.mode_of_delivery">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('mode_of_delivery', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Total Hours of Labor:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.total_hours_of_labor">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('total_hours_of_labor', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Postnatal Day:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.postnatal_day">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('postnatal_day', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Registration #:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.register_no">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('register_no', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Date of Arrival:</label><br>
+                                <input type="date" class="--input w-full" v-model="postnatal.doa">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('doa', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Religion:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.religion">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('religion', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Gestational Age:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.gestational_age">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('gestational_age', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Last Menstrual Period:</label><br>
+                                <input type="date" class="--input w-full" v-model="postnatal.lmp">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('lmp', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>New Born Sex:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.new_born_sex">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('new_born_sex', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Days of Hospital Stay:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.days_of_hospital_stay">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('days_of_hospital_stay', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Age:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.age">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Education:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.education">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('education', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Obstetrical Score:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.obstetrical_score">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('obstetrical_score', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Chief Complain:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.chief_complain">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('chief_complain', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Estimated Date of Delivery:</label><br>
+                                <input type="date" class="--input w-full" v-model="postnatal.edd">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('edd', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>New Born Weight:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.newborn_weight">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('newborn_weight', saveError)}} </span>
+                            </div>
+
+
+                            <div class="w-full pr-2">
+                                <label>Elimination Pattern:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.elimination_pattern">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('elimination_pattern', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Activity and Exercise:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.activity_and_exercise">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('activity_and_exercise', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Menarche Age:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.menarche_age">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('menarche_age', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Period:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.period">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('period', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Bad Habits:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.bad_habits">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('bad_habits', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Nutritional Pattern:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.nutritional_pattern">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('nutritional_pattern', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Sleeping Pattern</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.sleeping_pattern">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('sleeping_pattern', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Cycle:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.cycle">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('cycle', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Amount of Blood Loss:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.amount_of_blood_loss">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('amount_of_blood_loss', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Duration of Marriage:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.duration_of_marriage">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('duration_of_marriage', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Family Planning Method Adopted:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.family_planning_method_adopted">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('family_planning_method_adopted', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Diseases</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.diseases">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('diseases', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Genitics Condition:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.genitics_condition">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('genitics_condition', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Parity:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.parity">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('parity', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Gravidity:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.gravidity">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('gravidity', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Miscarriages:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.miscarriages">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('miscarriages', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Terminations</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.terminations">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('terminations', saveError)}} </span>
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-row p-4">
+                            <div class="w-full pr-2">
+                                <label>Previous Pregnancy:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.previous_pregnancy">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('previous_pregnancy', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Length of Pregnancy:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.length_of_pregnancy">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('length_of_pregnancy', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2">
+                                <label>Induction:</label><br>
+                                <input type="text" class="--input w-full" v-model="postnatal.induction">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('induction', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full pr-2 mt-5">
+                                <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
+                                    @click="createPostnatalForm()"
+                                >
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
         </Navigation>
@@ -933,6 +1422,84 @@ export default {
                 ob_gyn: null,
                 date: null,
             },
+            postnatal: {
+                id: null,
+                patient_id: null,
+                hospital_name: null,
+                clients_name: null,
+                address: null,
+                occupation: null,
+                type_of_delivery: null,
+                mode_of_delivery: null,
+                total_hours_of_labor: null,
+                postnatal_day: null,
+                register_no: null,
+                doa: null,
+                religion: null,
+                gestational_age: null,
+                lmp: null,
+                new_born_sex: null,
+                days_of_hospital_stay: null,
+                age: null,
+                education: null,
+                obstetrical_score: null,
+                chief_complain: null,
+                edd: null,
+                newborn_weight: null,
+                bad_habits: null,
+                elimination_pattern: null,
+                activity_and_exercise: null,
+                menarche_age: null,
+                period: null,
+                nutritional_pattern: null,
+                sleeping_pattern: null,
+                cycle: null,
+                amount_of_blood_loss: null,
+                duration_of_marriage: null,
+                family_planning_method_adopted: null,
+                diseases: null,
+                genitics_condition: null,
+                gravidity: null,
+                parity: null,
+                miscarriages: null,
+                terminations: null,
+                previous_pregnancy: null,
+                length_of_pregnancy: null,
+                induction: null,
+            },
+            nutrition: {
+                id: null,
+                patient_id: null,
+                guardian_name: null,
+                dob: null,
+                age: null,
+                height: null,
+                weight: null,
+                bmi: null,
+                vitamins: null,
+            },
+            deworming: {
+                id: null,
+                patient_id: null,
+                guardian_name: null,
+                dob: null,
+                age: null,
+                height: null,
+                weight: null,
+                bmi: null,
+                deworming_medication: null,
+            },
+            vaccination: {
+                id: null,
+                patient_id: null,
+                guardian_name: null,
+                dob: null,
+                age: null,
+                height: null,
+                weight: null,
+                bmi: null,
+                vaccination_id: null,
+            },
             checked: [],
             saveError: null
         }
@@ -946,8 +1513,10 @@ export default {
         this.formData.name = this.formName
 
         this.prenatal.patient_id = this.patient.id
-
-        this.form.description = this
+        this.postnatal.patient_id = this.patient.id
+        this.nutrition.patient_id = this.patient.id
+        this.deworming.patient_id = this.patient.id
+        this.vaccination.patient_id = this.patient.id
     },
 
     watch: {
@@ -963,10 +1532,15 @@ export default {
 
         selectedForm(arg) {
             if(arg.name == 'Prenatal Registration Form') {
-                // delete this.arg.name
-                // delete this.arg.description
-
                 this.prenatal = Object.assign({}, arg);
+            }else if (arg.name == 'Postnatal Registration Form') {
+                this.postnatal = Object.assign({}, arg);
+            } else if(arg.name == 'Nutrition Form') {
+                this.nutrition = Object.assign({}, arg);
+            } else if(arg.name == 'Deworming Form') {
+                this.deworming = Object.assign({}, arg);
+                } else if(arg.name == 'Vaccination Form') {
+                this.vaccination = Object.assign({}, arg);
             } else {
                 this.formData.id = arg.id
                 this.formData.name = arg.name
@@ -997,6 +1571,7 @@ export default {
 
         generateForm(){
             this.formData.description = this.activeForm
+
             Inertia.post(this.$root.route + '/patients/create-patient/form', this.formData,
             {
                 onSuccess: (res) => {
@@ -1005,17 +1580,6 @@ export default {
                 onError: (err) => {
                 }
             });
-
-            
-
-            // axios.post(this.$root.route + '/patients/create-patient/form', this.formData)
-			// 	.then(response => {
-			// 		if(response.data.status == 422) {
-			// 			this.saveError = response.data.errors 
-			// 		} else {
-            //             location.reload()
-			// 		}
-			// 	})
         },
 
         createPrenatal(){
@@ -1025,7 +1589,53 @@ export default {
                     location.reload()
                 },
                 onError: (err) => {
+                    this.saveError = err
+                }
+            });
+        },
+        createNutritionForm(){
+            Inertia.post(this.$root.route + '/patients/create-patient/nutrition', this.nutrition,
+            {
+                onSuccess: (res) => {
+                    location.reload()
+                },
+                onError: (err) => {
                     console.log(err)
+                    this.saveError = err
+                }
+            });
+        },
+        createDewormingForm(){
+            Inertia.post(this.$root.route + '/patients/create-patient/deworming', this.deworming,
+            {
+                onSuccess: (res) => {
+                    location.reload()
+                },
+                onError: (err) => {
+                    this.saveError = err
+                }
+            });
+        },
+
+        createVaccinationForm() {
+            Inertia.post(this.$root.route + '/patients/create-patient/vaccination', this.vaccination,
+            {
+                onSuccess: (res) => {
+                    location.reload()
+                },
+                onError: (err) => {
+                    this.saveError = err
+                }
+            });
+        },
+
+        createPostnatalForm(){
+            Inertia.post(this.$root.route + '/patients/create-patient/postnatal', this.postnatal,
+            {
+                onSuccess: (res) => {
+                    location.reload()
+                },
+                onError: (err) => {
                     this.saveError = err
                 }
             });

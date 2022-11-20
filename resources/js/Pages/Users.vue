@@ -232,6 +232,11 @@ export default {
                 },
 
                 {
+                    label: 'Pharmacist',
+                    value: 'pharmacist'
+                },
+
+                {
                     label: 'Chief Midwife',
                     value: 'midwife'
                 },
@@ -276,6 +281,11 @@ export default {
                     case 'doctor':
                         user_type = 'RHU - Doctor';
                         break;
+
+                    case 'pharmacist':
+                        user_type = 'Pharmacist';
+                        break;
+
                     case 'midwife':
                         user_type = 'Chief Midwife';
                         break;
@@ -339,7 +349,7 @@ export default {
                 this.formData.work_address = this.auth.work_address
             }
 
-            if(this.formData.user_type == 'doctor' && this.auth.role == 1) {
+            if((this.formData.user_type == 'doctor' && this.auth.role == 1) || this.auth.role == 2) {
                 delete this.formData.work_address;
             }
 

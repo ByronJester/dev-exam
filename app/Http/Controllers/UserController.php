@@ -35,6 +35,10 @@ class UserController extends Controller
                 return redirect('/users');
             }
 
+            if($auth->user_type == 'pharmacist') {
+                return redirect('/medicines');
+            }
+
             return redirect('/patients');
             
         }
@@ -72,6 +76,10 @@ class UserController extends Controller
             if($auth) {
                 if(in_array($auth->user_type, $canAccessUsers)) {
                     return redirect('/users');
+                }
+
+                if($auth->user_type == 'pharmacist') {
+                    return redirect('/medicines');
                 }
 
                 return redirect('/patients');
@@ -144,7 +152,7 @@ class UserController extends Controller
         if(($request->user_type == 'leader' || $request->user_type == 'midwife' || $request->user_type == 'member') && ($auth->role == 3 || $auth->role == 1)) {
             $data['role'] = 3;
         } else {
-            if(($request->user_type == 'doctor' || $request->user_type == 'midwife' || $request->user_type == 'nurse') && ($auth->role == 2 || $auth->role == 1)){
+            if(($request->user_type == 'doctor' || $request->user_type == 'midwife' || $request->user_type == 'nurse' || $request->user_type == 'pharmacist') && ($auth->role == 2 || $auth->role == 1)){
                 $data['role'] = 2;
             }
             

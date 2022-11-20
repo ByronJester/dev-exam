@@ -2,55 +2,75 @@
     <div class="w-full h-screen">
         <Navigation :auth="auth">
             <div class="px-4 pt-12">
-                <div v-if="activeTab == 'medicines' && !newUser" class="w-full px-12" >
-                    <div class="text-2xl font-bold text-blue-500 w-full"
+                <div v-if="!newUser" class="w-full px-12" >
+                    <div class="text-2xl font-bold w-full inline-flex"
                         style="border-bottom: 1px solid black"
                     >
-                        Medicines
+                        <span class="cursor-pointer" :class="{'text-blue-500': activeTab == 'medicines'}" @click="activeTab = 'medicines'">
+                            Medicine Dispensed
+                        </span>
+
+                        <span class="ml-4 cursor-pointer" :class="{'text-blue-500': activeTab == 'stock'}" @click="activeTab = 'stock'">
+                            Medicine Stock
+                        </span>
                     </div>
 
-                    <div class="flex flex-row mb-5 mt-10">
-                        <div class="w-10/12 inline-flex">
-                            <input type="text" class="--search pl-5 mr-2"
-                                v-model="form.search" @input="initiateSearch()"
-                                placeholder="Search...."
-                            >
-
-                            <select class="--input mr-2" style="width: 150px !important" v-model="dispensed_type" v-if="auth.role != 3">
-                                <option :value="'barangay'">
-                                    Barangay
-                                </option>
-
-                                <option :value="'individual'">
-                                    Individual
-                                </option>
-                            </select>
-
-
-                            <select class="--input" style="width: 150px !important" v-model="barangay" v-if="dispensed_type == 'barangay' && auth.role != 3">
-                                <option v-for="place in options.places" :key="place.name"
-                                    :value="place.name"
+                    <div class="w-full" v-if="activeTab == 'medicines'">
+                        <div class="flex flex-row mb-5 mt-10">
+                            <div class="w-10/12 inline-flex">
+                                <input type="text" class="--search pl-5 mr-2"
+                                    v-model="form.search" @input="initiateSearch()"
+                                    placeholder="Search...."
                                 >
-                                    {{ place.name }}
-                                </option>
-                            </select>
+
+                                <select class="--input mr-2" style="width: 150px !important" v-model="dispensed_type" v-if="auth.role != 3">
+                                    <option :value="'barangay'">
+                                        Barangay
+                                    </option>
+
+                                    <option :value="'individual'">
+                                        Individual
+                                    </option>
+                                </select>
+
+
+                                <select class="--input" style="width: 150px !important" v-model="barangay" v-if="dispensed_type == 'barangay' && auth.role != 3">
+                                    <option v-for="place in options.places" :key="place.name"
+                                        :value="place.name"
+                                    >
+                                        {{ place.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="w-2/12">
+                                <button class="text-black float-right p-2"
+                                    style="border: 1px solid black; border-radius: 5px"
+                                    @click="openModal()"
+                                >
+                                    <i class="fa-solid fa-house-chimney-medical fa-2xl"></i>
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="w-2/12">
-                            <button class="text-black float-right p-2"
-                                style="border: 1px solid black; border-radius: 5px"
-                                @click="openModal()"
+                        <div class="flex flex-row">
+                            <div class="w-full h-full mr-2">
+                                <Table :columns="columns"  :rows="medecineList" :keys="keys"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full flex flex-col" v-else>
+                        <div class="w-full">
+                            <button class="text-black float-right p-2 mt-2"
+                                style="border: 1px solid black; border-radius: 5px; width: 50px"
+                                @click="openStockModal()"
                             >
                                 <i class="fa-solid fa-house-chimney-medical fa-2xl"></i>
                             </button>
                         </div>
                     </div>
 
-                    <div class="flex flex-row">
-                        <div class="w-full h-full mr-2">
-                            <Table :columns="columns"  :rows="medecineList" :keys="keys"/>
-                        </div>
-                    </div>
                 </div>
 
                 <div id="medicineModal" class="medicineModal">
@@ -68,7 +88,18 @@
 
                         <div class="w-full flex flex-col">
                             <div class="my-1 flex flex-row">
-                                <div class="w-full mr-2">
+
+                                <div class="w-full mr-2" v-if="auth.role != '3'">
+                                    <label class="text-bold">Medicine:</label><br>
+                                    <select class="--input" v-model="formData.medicine_id">
+                                        <option v-for="medicine in options.medicines.filter(x => {return options.stocks.includes(x.id)})" :key="medicine.id" :value="medicine.id">
+                                            {{ medicine.name}}
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('medicine_id', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full mr-2" v-else>
                                     <label class="text-bold">Medicine:</label><br>
                                     <select class="--input" v-model="formData.medicine_id">
                                         <option v-for="medicine in options.medicines" :key="medicine.id" :value="medicine.id">
@@ -81,7 +112,7 @@
                                 <div class="w-full mr-2">
                                     <label class="text-bold">Category:</label><br>
                                     <select class="--input" v-model="formData.medicine_category_id">
-                                        <option v-for="category in options.categories" :key="category.id" :value="category.id">
+                                        <option v-for="category in options.categories.filter(x => {return categories.includes(x.id)})" :key="category.id" :value="category.id">
                                             {{ category.name}}
                                         </option>
                                     </select>
@@ -97,7 +128,7 @@
                                 <div class="w-full mr-2">
                                     <label class="text-bold">Unit:</label><br>
                                     <select class="--input" v-model="formData.medicine_unit_id">
-                                        <option v-for="unit in options.units" :key="unit.id" :value="unit.id">
+                                        <option v-for="unit in options.units.filter(x => {return units.includes(x.id)})" :key="unit.id" :value="unit.id">
                                             {{ unit.name}}
                                         </option>
                                     </select>
@@ -139,7 +170,7 @@
                             </div>
 
                             <div class="my-1" v-if="formData.dispensed_type == 'individual'">
-                                <label for="cars">Patient:</label><br>
+                                <label for="cars">Patients:</label><br>
                                 <select class="--input" v-model="formData.patient_id">
                                     <option v-for="patient in options.patients" :key="patient.id"
                                         :value="patient.id"
@@ -150,12 +181,89 @@
                                 <span class="text-xs text-red-500 ml-2">{{validationError('patient_id', saveError)}} </span>
                             </div>
 
-                            <div class="mt-3 mb-2">
+                            <div class="mt-3 mb-1">
                                 <button class="text-center text-white" 
                                     style="height: 40px; width: 100%; border: 1px solid black; border-radius: 5px; background: #366422"
                                     @click="dispenseMedicine()"
                                 >
                                     Dispense
+                                </button>
+                            </div>
+
+                            <div class="w-full mt-3 mb-2" v-if="errorMessage">
+                                <span class="text-lg text-red-500 ml-2">{{ errorMessage }}</span>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+
+                <div id="stockModal" class="stockModal">
+                    <div class="stock-modal-content flex flex-col" style="width: 30%">
+                        <div class="w-full">
+                            <span class="text-lg font-bold">
+                                Medicine Stock
+                            </span>
+                            <span class="float-right cursor-pointer"
+                                @click="closeStockModal()"
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-col">
+                            <div class="my-1 flex flex-row">
+                                <div class="w-full mr-2">
+                                    <label class="text-bold">Medicine:</label><br>
+                                    <select class="--input" v-model="formStock.medicine_id">
+                                        <option v-for="medicine in options.medicines" :key="medicine.id" :value="medicine.id">
+                                            {{ medicine.name}}
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('medicine_id', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full mr-2">
+                                    <label class="text-bold">Category:</label><br>
+                                    <select class="--input" v-model="formStock.medicine_category_id">
+                                        <option v-for="category in options.categories" :key="category.id" :value="category.id">
+                                            {{ category.name}}
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('medicine_category_id', saveError)}} </span>
+                                </div>
+
+                                <div class="mr-2">
+                                    <label class="text-bold">Dosage:</label><br>
+                                    <input type="number" class="--input" v-model="formStock.dosage">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('dosage', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full mr-2">
+                                    <label class="text-bold">Unit:</label><br>
+                                    <select class="--input" v-model="formStock.medicine_unit_id">
+                                        <option v-for="unit in options.units" :key="unit.id" :value="unit.id">
+                                            {{ unit.name}}
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('medicine_unit_id', saveError)}} </span>
+                                </div>
+
+                            </div>
+
+                            <div class="my-1">
+                                <label class="text-bold">Quantity:</label><br>
+                                <input type="number" class="--input" v-model="formStock.quantity">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('quantity', saveError)}} </span>
+                            </div>
+
+
+                            <div class="mt-3 mb-2">
+                                <button class="text-center text-white" 
+                                    style="height: 40px; width: 100%; border: 1px solid black; border-radius: 5px; background: #366422"
+                                    @click="saveStock()"
+                                >
+                                    Save
                                 </button>
                             </div>
                         </div>
@@ -199,9 +307,16 @@ export default {
                 dosage: 1
                 
             },
+            formStock: {
+                medicine_id: null,
+                quantity : 1,
+                medicine_category_id: null,
+                medicine_unit_id: null,
+                dosage: 1
+            },
             saveError: null,
             columns: [
-                'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Dispensed', 'Date'
+                'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Date'
             ],
             keys : [
                 {
@@ -226,15 +341,15 @@ export default {
                     label: 'quantity',
                 },
                 {
-                    label: 'dispensed',
-                },
-                {
                     label: 'date',
                 },
             ],
             dispensed_type: 'barangay',
             barangay: null,
-            medecineList: []
+            medecineList: [],
+            categories: [],
+            units: [],
+            errorMessage: null
         }
     },
     mounted(){
@@ -256,8 +371,43 @@ export default {
 
         this.formData.medicine_category_id = this.options.categories[0].id
         this.formData.medicine_unit_id = this.options.units[0].id
+
+        this.formStock.medicine_id = this.options.medicines.length > 0 ? this.options.medicines[0].id : null
+        this.formStock.medicine_category_id = this.options.categories[0].id
+        this.formStock.medicine_unit_id = this.options.units[0].id
+
+        console.log(this.options)
     },
     watch: {
+        'formData.medicine_id'(arg) {
+            var type = null;
+
+            if(this.auth.role == 3) {
+                type = 'barangay'
+            } else {
+                type = 'stock'
+            }
+
+            axios.post(this.$root.route + '/medicines/get-categories', {medicine_id: arg, type: type})
+				.then(response => {
+					if(response.data.status == 422) {
+						this.saveError = response.data.errors 
+					} else {
+                        this.categories = response.data.data
+                        console.log(this.categories)
+					}
+				})
+
+            axios.post(this.$root.route + '/medicines/get-units', {medicine_id: arg, type: type})
+				.then(response => {
+					if(response.data.status == 422) {
+						this.saveError = response.data.errors 
+					} else {
+                        this.units = response.data.data
+                        console.log(this.units)
+					}
+				})
+        },
         barangay(arg){
             this.medecineList = this.options.barangayMedicines.filter((x) => {
                 return x.place_name == arg;
@@ -373,12 +523,36 @@ export default {
 					if(response.data.status == 422) {
 						this.saveError = response.data.errors 
 					} else {
-						this.formData = {
-                            place_id : null,
-                            quantity : null,
-                            medicine_id : null,
-                            dispensed_type: 'barangay',
-                            patient_id: null,
+                        if(response.data.message == null) {
+                            this.formData = {
+                                place_id : null,
+                                quantity : null,
+                                medicine_id : null,
+                                dispensed_type: 'barangay',
+                                patient_id: null,
+                                medicine_category_id: null,
+                                medicine_unit_id: null,
+                                dosage: 1
+                            }
+
+                            location.reload()
+                        } else {
+                            this.errorMessage = response.data.message
+                        }
+						
+					}
+				})
+        },
+
+        saveStock(){
+            axios.post(this.$root.route + '/medicines/save-stock', this.formStock)
+				.then(response => {
+					if(response.data.status == 422) {
+						this.saveError = response.data.errors 
+					} else {
+						this.formStock ={
+                            medicine_id: null,
+                            quantity : 1,
                             medicine_category_id: null,
                             medicine_unit_id: null,
                             dosage: 1
@@ -413,6 +587,28 @@ export default {
 
             this.saveError = null
         },
+
+        openStockModal(){
+            var modal = document.getElementById("stockModal");
+
+            modal.style.display = "block";
+            
+            this.newUser = true
+        },
+
+        closeStockModal(){
+            var modal = document.getElementById("stockModal");
+
+            modal.style.display = "none";
+
+            this.newUser = false                
+
+            this.saveError = null
+        },
+
+        arrayUnique(arr){
+            return _.uniq(arr)
+        }
     }
 }
 </script>
@@ -492,6 +688,29 @@ export default {
 
 /* Modal Content */
 .medicine-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+}
+
+.stockModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.stock-modal-content {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;

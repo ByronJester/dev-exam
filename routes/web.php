@@ -44,12 +44,19 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/create-patient', [PatientController::class, 'createPatient']);
         Route::post('/dispense-medicine', [PatientController::class, 'dispenseMedicine']);
         Route::post('/create-patient/form', [PatientController::class, 'createPatientForm']);
-        Route::post('/create-patient/prenatal', [PatientController::class, 'createPrenatalForm']);
+        Route::post('/create-patient/prenatal', [PatientController::class, 'createPrenatalForm']); 
+        Route::post('/create-patient/postnatal', [PatientController::class, 'createPostnatalForm']); 
+        Route::post('/create-patient/nutrition', [PatientController::class, 'createNutritionForm']);
+        Route::post('/create-patient/deworming', [PatientController::class, 'createDewormingForm']);
+        Route::post('/create-patient/vaccination', [PatientController::class, 'createVaccinationForm']);
     });
     
     Route::prefix('medicines')->group(function () {
         Route::get('/', [MedicineController::class, 'viewMedicine'])->name('view.medicines');
         Route::post('/dispense-barangay-medicine', [MedicineController::class, 'dispenseBarangayMedicine']);
+        Route::post('/save-stock', [MedicineController::class, 'saveMedicineStock']);
+        Route::post('/get-categories', [MedicineController::class, 'getCategories']);
+        Route::post('/get-units', [MedicineController::class, 'getUnits']);
     });
 
     Route::prefix('maintenance')->group(function () {

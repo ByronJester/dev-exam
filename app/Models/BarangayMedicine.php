@@ -57,14 +57,18 @@ class BarangayMedicine extends Model
     {
         $place = $this->place_id;
 
+        $createdAt = Carbon::parse($this->created_at);
+        $createdAt = $createdAt->month;
+
         $patientMedicine = PatientMedicine::where('medicine_id', $this->medicine_id)
             ->where('is_individual', false)
-            ->whereMonth('created_at', Carbon::now()->month)
+            ->whereMonth('created_at', $createdAt)
             ->whereHas('patient', function($q) use ($place){
                 $q->where('place_id', $place);
             })->get();
 
         return $patientMedicine->sum('quantity');
+        
     }
 
     public function getCategoryAttribute()
@@ -83,7 +87,7 @@ class BarangayMedicine extends Model
 
     public function getDateAttribute()
     {
-        $date = Carbon::parse($this->create_at);
+        $date = Carbon::parse($this->created_at);
 
         return $date->isoFormat('LL'); 
     }

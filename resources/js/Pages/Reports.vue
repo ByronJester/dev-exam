@@ -10,7 +10,7 @@
                         Patient Report
                     </div>
 
-                    <div class="w-full flex justify-center items-center text-4xl cursor-pointer" v-if="auth.user_type == 'doctor' || auth.user_type == 'leader'"
+                    <div class="w-full flex justify-center items-center text-4xl cursor-pointer" v-if="auth.user_type == 'pharmacist' || auth.user_type == 'leader'"
                         :class="{'--bg_gray': activeTab == 'medicine_report'}"
                         @click="activeTab = 'medicine_report'"
                     >
@@ -20,7 +20,7 @@
 
                 <div class="w-full mt-10" v-if="activeTab == 'medicine_report'">
                     <select v-model="medicine_report_type" class="float-right mr-5" style="width: 200px; height: 40px; border: 1px solid black">
-                        <option value="individual" v-if="auth.user_type == 'doctor'">Individual Report</option>
+                        <option value="individual" v-if="auth.user_type == 'pharmacist'">Individual Report</option>
                         <option value="barangay">Barangay Report</option>
                     </select>
                 </div>

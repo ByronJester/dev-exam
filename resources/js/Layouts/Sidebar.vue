@@ -168,7 +168,10 @@ export default {
         if(this.auth.role == 2) {
             switch(this.auth.user_type) {
                 case 'doctor':
-                    this.tabs = ['users', 'patients', 'medicines', 'reports'];
+                    this.tabs = ['users', 'patients', 'reports'];
+                    break;
+                case 'pharmacist':
+                    this.tabs = ['medicines', 'reports'];
                     break;
                 case 'midwife':
                     this.tabs = ['patients', 'reports'];

@@ -2381,7 +2381,11 @@ __webpack_require__.r(__webpack_exports__);
     if (this.auth.role == 2) {
       switch (this.auth.user_type) {
         case 'doctor':
-          this.tabs = ['users', 'patients', 'medicines', 'reports'];
+          this.tabs = ['users', 'patients', 'reports'];
+          break;
+
+        case 'pharmacist':
+          this.tabs = ['medicines', 'reports'];
           break;
 
         case 'midwife':
@@ -2937,6 +2941,114 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2965,8 +3077,15 @@ __webpack_require__.r(__webpack_exports__);
         medicine_unit_id: null,
         dosage: 1
       },
+      formStock: {
+        medicine_id: null,
+        quantity: 1,
+        medicine_category_id: null,
+        medicine_unit_id: null,
+        dosage: 1
+      },
       saveError: null,
-      columns: ['Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Dispensed', 'Date'],
+      columns: ['Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Date'],
       keys: [{
         label: 'name'
       }, {
@@ -2980,13 +3099,14 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         label: 'quantity'
       }, {
-        label: 'dispensed'
-      }, {
         label: 'date'
       }],
       dispensed_type: 'barangay',
       barangay: null,
-      medecineList: []
+      medecineList: [],
+      categories: [],
+      units: [],
+      errorMessage: null
     };
   },
   mounted: function mounted() {
@@ -3008,8 +3128,46 @@ __webpack_require__.r(__webpack_exports__);
 
     this.formData.medicine_category_id = this.options.categories[0].id;
     this.formData.medicine_unit_id = this.options.units[0].id;
+    this.formStock.medicine_id = this.options.medicines.length > 0 ? this.options.medicines[0].id : null;
+    this.formStock.medicine_category_id = this.options.categories[0].id;
+    this.formStock.medicine_unit_id = this.options.units[0].id;
+    console.log(this.options);
   },
   watch: {
+    'formData.medicine_id': function formDataMedicine_id(arg) {
+      var _this2 = this;
+
+      var type = null;
+
+      if (this.auth.role == 3) {
+        type = 'barangay';
+      } else {
+        type = 'stock';
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_3___default().post(this.$root.route + '/medicines/get-categories', {
+        medicine_id: arg,
+        type: type
+      }).then(function (response) {
+        if (response.data.status == 422) {
+          _this2.saveError = response.data.errors;
+        } else {
+          _this2.categories = response.data.data;
+          console.log(_this2.categories);
+        }
+      });
+      axios__WEBPACK_IMPORTED_MODULE_3___default().post(this.$root.route + '/medicines/get-units', {
+        medicine_id: arg,
+        type: type
+      }).then(function (response) {
+        if (response.data.status == 422) {
+          _this2.saveError = response.data.errors;
+        } else {
+          _this2.units = response.data.data;
+          console.log(_this2.units);
+        }
+      });
+    },
     barangay: function barangay(arg) {
       this.medecineList = this.options.barangayMedicines.filter(function (x) {
         return x.place_name == arg;
@@ -3077,7 +3235,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     dispenseMedicine: function dispenseMedicine() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.formData.dispensed_type == 'barangay') {
         delete this.formData.patient_id;
@@ -3087,14 +3245,36 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_3___default().post(this.$root.route + '/medicines/dispense-barangay-medicine', this.formData).then(function (response) {
         if (response.data.status == 422) {
-          _this2.saveError = response.data.errors;
+          _this3.saveError = response.data.errors;
         } else {
-          _this2.formData = {
-            place_id: null,
-            quantity: null,
+          if (response.data.message == null) {
+            _this3.formData = {
+              place_id: null,
+              quantity: null,
+              medicine_id: null,
+              dispensed_type: 'barangay',
+              patient_id: null,
+              medicine_category_id: null,
+              medicine_unit_id: null,
+              dosage: 1
+            };
+            location.reload();
+          } else {
+            _this3.errorMessage = response.data.message;
+          }
+        }
+      });
+    },
+    saveStock: function saveStock() {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_3___default().post(this.$root.route + '/medicines/save-stock', this.formStock).then(function (response) {
+        if (response.data.status == 422) {
+          _this4.saveError = response.data.errors;
+        } else {
+          _this4.formStock = {
             medicine_id: null,
-            dispensed_type: 'barangay',
-            patient_id: null,
+            quantity: 1,
             medicine_category_id: null,
             medicine_unit_id: null,
             dosage: 1
@@ -3118,6 +3298,20 @@ __webpack_require__.r(__webpack_exports__);
         medicine_id: null
       };
       this.saveError = null;
+    },
+    openStockModal: function openStockModal() {
+      var modal = document.getElementById("stockModal");
+      modal.style.display = "block";
+      this.newUser = true;
+    },
+    closeStockModal: function closeStockModal() {
+      var modal = document.getElementById("stockModal");
+      modal.style.display = "none";
+      this.newUser = false;
+      this.saveError = null;
+    },
+    arrayUnique: function arrayUnique(arr) {
+      return _.uniq(arr);
     }
   }
 });
@@ -3141,6 +3335,495 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var html_to_image__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! html-to-image */ "./node_modules/html-to-image/es/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4069,6 +4752,84 @@ __webpack_require__.r(__webpack_exports__);
         ob_gyn: null,
         date: null
       },
+      postnatal: {
+        id: null,
+        patient_id: null,
+        hospital_name: null,
+        clients_name: null,
+        address: null,
+        occupation: null,
+        type_of_delivery: null,
+        mode_of_delivery: null,
+        total_hours_of_labor: null,
+        postnatal_day: null,
+        register_no: null,
+        doa: null,
+        religion: null,
+        gestational_age: null,
+        lmp: null,
+        new_born_sex: null,
+        days_of_hospital_stay: null,
+        age: null,
+        education: null,
+        obstetrical_score: null,
+        chief_complain: null,
+        edd: null,
+        newborn_weight: null,
+        bad_habits: null,
+        elimination_pattern: null,
+        activity_and_exercise: null,
+        menarche_age: null,
+        period: null,
+        nutritional_pattern: null,
+        sleeping_pattern: null,
+        cycle: null,
+        amount_of_blood_loss: null,
+        duration_of_marriage: null,
+        family_planning_method_adopted: null,
+        diseases: null,
+        genitics_condition: null,
+        gravidity: null,
+        parity: null,
+        miscarriages: null,
+        terminations: null,
+        previous_pregnancy: null,
+        length_of_pregnancy: null,
+        induction: null
+      },
+      nutrition: {
+        id: null,
+        patient_id: null,
+        guardian_name: null,
+        dob: null,
+        age: null,
+        height: null,
+        weight: null,
+        bmi: null,
+        vitamins: null
+      },
+      deworming: {
+        id: null,
+        patient_id: null,
+        guardian_name: null,
+        dob: null,
+        age: null,
+        height: null,
+        weight: null,
+        bmi: null,
+        deworming_medication: null
+      },
+      vaccination: {
+        id: null,
+        patient_id: null,
+        guardian_name: null,
+        dob: null,
+        age: null,
+        height: null,
+        weight: null,
+        bmi: null,
+        vaccination_id: null
+      },
       checked: [],
       saveError: null
     };
@@ -4078,7 +4839,10 @@ __webpack_require__.r(__webpack_exports__);
     this.formData.patient_id = this.patient.id;
     this.formData.name = this.formName;
     this.prenatal.patient_id = this.patient.id;
-    this.form.description = this;
+    this.postnatal.patient_id = this.patient.id;
+    this.nutrition.patient_id = this.patient.id;
+    this.deworming.patient_id = this.patient.id;
+    this.vaccination.patient_id = this.patient.id;
   },
   watch: {
     activeForm: function activeForm(arg) {
@@ -4090,9 +4854,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectedForm: function selectedForm(arg) {
       if (arg.name == 'Prenatal Registration Form') {
-        // delete this.arg.name
-        // delete this.arg.description
         this.prenatal = Object.assign({}, arg);
+      } else if (arg.name == 'Postnatal Registration Form') {
+        this.postnatal = Object.assign({}, arg);
+      } else if (arg.name == 'Nutrition Form') {
+        this.nutrition = Object.assign({}, arg);
+      } else if (arg.name == 'Deworming Form') {
+        this.deworming = Object.assign({}, arg);
+      } else if (arg.name == 'Vaccination Form') {
+        this.vaccination = Object.assign({}, arg);
       } else {
         this.formData.id = arg.id;
         this.formData.name = arg.name;
@@ -4121,14 +4891,7 @@ __webpack_require__.r(__webpack_exports__);
           location.reload();
         },
         onError: function onError(err) {}
-      }); // axios.post(this.$root.route + '/patients/create-patient/form', this.formData)
-      // 	.then(response => {
-      // 		if(response.data.status == 422) {
-      // 			this.saveError = response.data.errors 
-      // 		} else {
-      //             location.reload()
-      // 		}
-      // 	})
+      });
     },
     createPrenatal: function createPrenatal() {
       var _this = this;
@@ -4138,8 +4901,56 @@ __webpack_require__.r(__webpack_exports__);
           location.reload();
         },
         onError: function onError(err) {
-          console.log(err);
           _this.saveError = err;
+        }
+      });
+    },
+    createNutritionForm: function createNutritionForm() {
+      var _this2 = this;
+
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/patients/create-patient/nutrition', this.nutrition, {
+        onSuccess: function onSuccess(res) {
+          location.reload();
+        },
+        onError: function onError(err) {
+          console.log(err);
+          _this2.saveError = err;
+        }
+      });
+    },
+    createDewormingForm: function createDewormingForm() {
+      var _this3 = this;
+
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/patients/create-patient/deworming', this.deworming, {
+        onSuccess: function onSuccess(res) {
+          location.reload();
+        },
+        onError: function onError(err) {
+          _this3.saveError = err;
+        }
+      });
+    },
+    createVaccinationForm: function createVaccinationForm() {
+      var _this4 = this;
+
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/patients/create-patient/vaccination', this.vaccination, {
+        onSuccess: function onSuccess(res) {
+          location.reload();
+        },
+        onError: function onError(err) {
+          _this4.saveError = err;
+        }
+      });
+    },
+    createPostnatalForm: function createPostnatalForm() {
+      var _this5 = this;
+
+      _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_0__.Inertia.post(this.$root.route + '/patients/create-patient/postnatal', this.postnatal, {
+        onSuccess: function onSuccess(res) {
+          location.reload();
+        },
+        onError: function onError(err) {
+          _this5.saveError = err;
         }
       });
     }
@@ -4990,6 +5801,9 @@ __webpack_require__.r(__webpack_exports__);
         label: 'RHU - Doctor',
         value: 'doctor'
       }, {
+        label: 'Pharmacist',
+        value: 'pharmacist'
+      }, {
         label: 'Chief Midwife',
         value: 'midwife'
       }, {
@@ -5023,6 +5837,10 @@ __webpack_require__.r(__webpack_exports__);
         switch (user.user_type) {
           case 'doctor':
             user_type = 'RHU - Doctor';
+            break;
+
+          case 'pharmacist':
+            user_type = 'Pharmacist';
             break;
 
           case 'midwife':
@@ -5079,7 +5897,7 @@ __webpack_require__.r(__webpack_exports__);
         this.formData.work_address = this.auth.work_address;
       }
 
-      if (this.formData.user_type == 'doctor' && this.auth.role == 1) {
+      if (this.formData.user_type == 'doctor' && this.auth.role == 1 || this.auth.role == 2) {
         delete this.formData.work_address;
       }
 
@@ -5418,7 +6236,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.--user[data-v-f5d9a4c0] {\r\n    border: 1px solid #22577E;\r\n    border-radius: 5px;\n}\n.--view__profile[data-v-f5d9a4c0] {\r\n    background: #4D77FF;\r\n    border-radius: 50px;\r\n    color: white;\r\n    padding: 5px 15px 5px 15px;\r\n    font-size: 12px;\n}\n.--display__picture[data-v-f5d9a4c0] {\r\n    width: 100%; \r\n    height: 150px; \r\n    border: 2px solid black; \r\n    border-radius: 20px;\n}\n.--search[data-v-f5d9a4c0] {\r\n    width: 20%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 40px;\n}\n.--input[data-v-f5d9a4c0] {\r\n    width: 100%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 10px;\r\n    text-align: center;\n}\n.--view--display__picture[data-v-f5d9a4c0] {\r\n    width: 100px; \r\n    height: 100px; \r\n    border: 2px solid black; \r\n    border-radius: 10px;\n}\n.wrapper[data-v-f5d9a4c0] {\r\n  /* Border */\r\n  border: 10px solid transparent;\r\n  border-radius: 50%;\r\n  background: \r\n    linear-gradient(to right, white, white), \r\n    linear-gradient(to right, red , blue); \r\n  background-clip: padding-box, border-box;\r\n  background-origin: padding-box, border-box;\r\n  \r\n  /* Other styles */\r\n  width: 50%;\r\n  height: 200px;\r\n  padding: 12px;\n}\n.medicineModal[data-v-f5d9a4c0] {\r\n  display: none; /* Hidden by default */\r\n  position: fixed; /* Stay in place */\r\n  z-index: 1; /* Sit on top */\r\n  padding-top: 100px; /* Location of the box */\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%; /* Full width */\r\n  height: 100%; /* Full height */\r\n  overflow: auto; /* Enable scroll if needed */\r\n  background-color: rgb(0,0,0); /* Fallback color */\r\n  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */\n}\r\n\r\n/* Modal Content */\n.medicine-modal-content[data-v-f5d9a4c0] {\r\n  background-color: #fefefe;\r\n  margin: auto;\r\n  padding: 20px;\r\n  border: 1px solid #888;\r\n  width: 100%;\n}\r\n\r\n/* The Close Button */\n.close[data-v-f5d9a4c0] {\r\n  color: #aaaaaa;\r\n  float: right;\r\n  font-size: 28px;\r\n  font-weight: bold;\n}\n.close[data-v-f5d9a4c0]:hover,\r\n.close[data-v-f5d9a4c0]:focus {\r\n  color: #000;\r\n  text-decoration: none;\r\n  cursor: pointer;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.--user[data-v-f5d9a4c0] {\r\n    border: 1px solid #22577E;\r\n    border-radius: 5px;\n}\n.--view__profile[data-v-f5d9a4c0] {\r\n    background: #4D77FF;\r\n    border-radius: 50px;\r\n    color: white;\r\n    padding: 5px 15px 5px 15px;\r\n    font-size: 12px;\n}\n.--display__picture[data-v-f5d9a4c0] {\r\n    width: 100%; \r\n    height: 150px; \r\n    border: 2px solid black; \r\n    border-radius: 20px;\n}\n.--search[data-v-f5d9a4c0] {\r\n    width: 20%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 40px;\n}\n.--input[data-v-f5d9a4c0] {\r\n    width: 100%;\r\n    height: 40px;\r\n    border: 1px solid black;\r\n    border-radius: 10px;\r\n    text-align: center;\n}\n.--view--display__picture[data-v-f5d9a4c0] {\r\n    width: 100px; \r\n    height: 100px; \r\n    border: 2px solid black; \r\n    border-radius: 10px;\n}\n.wrapper[data-v-f5d9a4c0] {\r\n  /* Border */\r\n  border: 10px solid transparent;\r\n  border-radius: 50%;\r\n  background: \r\n    linear-gradient(to right, white, white), \r\n    linear-gradient(to right, red , blue); \r\n  background-clip: padding-box, border-box;\r\n  background-origin: padding-box, border-box;\r\n  \r\n  /* Other styles */\r\n  width: 50%;\r\n  height: 200px;\r\n  padding: 12px;\n}\n.medicineModal[data-v-f5d9a4c0] {\r\n  display: none; /* Hidden by default */\r\n  position: fixed; /* Stay in place */\r\n  z-index: 1; /* Sit on top */\r\n  padding-top: 100px; /* Location of the box */\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%; /* Full width */\r\n  height: 100%; /* Full height */\r\n  overflow: auto; /* Enable scroll if needed */\r\n  background-color: rgb(0,0,0); /* Fallback color */\r\n  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */\n}\r\n\r\n/* Modal Content */\n.medicine-modal-content[data-v-f5d9a4c0] {\r\n  background-color: #fefefe;\r\n  margin: auto;\r\n  padding: 20px;\r\n  border: 1px solid #888;\r\n  width: 100%;\n}\n.stockModal[data-v-f5d9a4c0] {\r\n  display: none; /* Hidden by default */\r\n  position: fixed; /* Stay in place */\r\n  z-index: 1; /* Sit on top */\r\n  padding-top: 100px; /* Location of the box */\r\n  left: 0;\r\n  top: 0;\r\n  width: 100%; /* Full width */\r\n  height: 100%; /* Full height */\r\n  overflow: auto; /* Enable scroll if needed */\r\n  background-color: rgb(0,0,0); /* Fallback color */\r\n  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */\n}\r\n\r\n/* Modal Content */\n.stock-modal-content[data-v-f5d9a4c0] {\r\n  background-color: #fefefe;\r\n  margin: auto;\r\n  padding: 20px;\r\n  border: 1px solid #888;\r\n  width: 100%;\n}\r\n\r\n/* The Close Button */\n.close[data-v-f5d9a4c0] {\r\n  color: #aaaaaa;\r\n  float: right;\r\n  font-size: 28px;\r\n  font-weight: bold;\n}\n.close[data-v-f5d9a4c0]:hover,\r\n.close[data-v-f5d9a4c0]:focus {\r\n  color: #000;\r\n  text-decoration: none;\r\n  cursor: pointer;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39188,188 +40006,270 @@ var render = function() {
     [
       _c("Navigation", { attrs: { auth: _vm.auth } }, [
         _c("div", { staticClass: "px-4 pt-12" }, [
-          _vm.activeTab == "medicines" && !_vm.newUser
+          !_vm.newUser
             ? _c("div", { staticClass: "w-full px-12" }, [
                 _c(
                   "div",
                   {
-                    staticClass: "text-2xl font-bold text-blue-500 w-full",
+                    staticClass: "text-2xl font-bold w-full inline-flex",
                     staticStyle: { "border-bottom": "1px solid black" }
                   },
-                  [_vm._v("\n                    Medicines\n                ")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "flex flex-row mb-5 mt-10" }, [
-                  _c("div", { staticClass: "w-10/12 inline-flex" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.search,
-                          expression: "form.search"
-                        }
-                      ],
-                      staticClass: "--search pl-5 mr-2",
-                      attrs: { type: "text", placeholder: "Search...." },
-                      domProps: { value: _vm.form.search },
-                      on: {
-                        input: [
-                          function($event) {
-                            if ($event.target.composing) {
-                              return
-                            }
-                            _vm.$set(_vm.form, "search", $event.target.value)
-                          },
-                          function($event) {
-                            return _vm.initiateSearch()
-                          }
-                        ]
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.auth.role != 3
-                      ? _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.dispensed_type,
-                                expression: "dispensed_type"
-                              }
-                            ],
-                            staticClass: "--input mr-2",
-                            staticStyle: { width: "150px !important" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.dispensed_type = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          [
-                            _c("option", { domProps: { value: "barangay" } }, [
-                              _vm._v(
-                                "\n                                Barangay\n                            "
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c(
-                              "option",
-                              { domProps: { value: "individual" } },
-                              [
-                                _vm._v(
-                                  "\n                                Individual\n                            "
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.dispensed_type == "barangay" && _vm.auth.role != 3
-                      ? _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.barangay,
-                                expression: "barangay"
-                              }
-                            ],
-                            staticClass: "--input",
-                            staticStyle: { width: "150px !important" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.barangay = $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              }
-                            }
-                          },
-                          _vm._l(_vm.options.places, function(place) {
-                            return _c(
-                              "option",
-                              {
-                                key: place.name,
-                                domProps: { value: place.name }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                " +
-                                    _vm._s(place.name) +
-                                    "\n                            "
-                                )
-                              ]
-                            )
-                          }),
-                          0
-                        )
-                      : _vm._e()
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "w-2/12" }, [
+                  [
                     _c(
-                      "button",
+                      "span",
                       {
-                        staticClass: "text-black float-right p-2",
-                        staticStyle: {
-                          border: "1px solid black",
-                          "border-radius": "5px"
+                        staticClass: "cursor-pointer",
+                        class: {
+                          "text-blue-500": _vm.activeTab == "medicines"
                         },
                         on: {
                           click: function($event) {
-                            return _vm.openModal()
+                            _vm.activeTab = "medicines"
                           }
                         }
                       },
                       [
-                        _c("i", {
-                          staticClass:
-                            "fa-solid fa-house-chimney-medical fa-2xl"
-                        })
+                        _vm._v(
+                          "\n                        Medicine Dispensed\n                    "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "ml-4 cursor-pointer",
+                        class: { "text-blue-500": _vm.activeTab == "stock" },
+                        on: {
+                          click: function($event) {
+                            _vm.activeTab = "stock"
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Medicine Stock\n                    "
+                        )
                       ]
                     )
-                  ])
-                ]),
+                  ]
+                ),
                 _vm._v(" "),
-                _c("div", { staticClass: "flex flex-row" }, [
-                  _c(
-                    "div",
-                    { staticClass: "w-full h-full mr-2" },
-                    [
-                      _c("Table", {
-                        attrs: {
-                          columns: _vm.columns,
-                          rows: _vm.medecineList,
-                          keys: _vm.keys
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ])
+                _vm.activeTab == "medicines"
+                  ? _c("div", { staticClass: "w-full" }, [
+                      _c("div", { staticClass: "flex flex-row mb-5 mt-10" }, [
+                        _c("div", { staticClass: "w-10/12 inline-flex" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.search,
+                                expression: "form.search"
+                              }
+                            ],
+                            staticClass: "--search pl-5 mr-2",
+                            attrs: { type: "text", placeholder: "Search...." },
+                            domProps: { value: _vm.form.search },
+                            on: {
+                              input: [
+                                function($event) {
+                                  if ($event.target.composing) {
+                                    return
+                                  }
+                                  _vm.$set(
+                                    _vm.form,
+                                    "search",
+                                    $event.target.value
+                                  )
+                                },
+                                function($event) {
+                                  return _vm.initiateSearch()
+                                }
+                              ]
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.auth.role != 3
+                            ? _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.dispensed_type,
+                                      expression: "dispensed_type"
+                                    }
+                                  ],
+                                  staticClass: "--input mr-2",
+                                  staticStyle: { width: "150px !important" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.dispensed_type = $event.target
+                                        .multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "option",
+                                    { domProps: { value: "barangay" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                    Barangay\n                                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "option",
+                                    { domProps: { value: "individual" } },
+                                    [
+                                      _vm._v(
+                                        "\n                                    Individual\n                                "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.dispensed_type == "barangay" && _vm.auth.role != 3
+                            ? _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.barangay,
+                                      expression: "barangay"
+                                    }
+                                  ],
+                                  staticClass: "--input",
+                                  staticStyle: { width: "150px !important" },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.barangay = $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    }
+                                  }
+                                },
+                                _vm._l(_vm.options.places, function(place) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: place.name,
+                                      domProps: { value: place.name }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                    " +
+                                          _vm._s(place.name) +
+                                          "\n                                "
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
+                              )
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-2/12" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "text-black float-right p-2",
+                              staticStyle: {
+                                border: "1px solid black",
+                                "border-radius": "5px"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.openModal()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass:
+                                  "fa-solid fa-house-chimney-medical fa-2xl"
+                              })
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "flex flex-row" }, [
+                        _c(
+                          "div",
+                          { staticClass: "w-full h-full mr-2" },
+                          [
+                            _c("Table", {
+                              attrs: {
+                                columns: _vm.columns,
+                                rows: _vm.medecineList,
+                                keys: _vm.keys
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ])
+                    ])
+                  : _c("div", { staticClass: "w-full flex flex-col" }, [
+                      _c("div", { staticClass: "w-full" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "text-black float-right p-2 mt-2",
+                            staticStyle: {
+                              border: "1px solid black",
+                              "border-radius": "5px",
+                              width: "50px"
+                            },
+                            on: {
+                              click: function($event) {
+                                return _vm.openStockModal()
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fa-solid fa-house-chimney-medical fa-2xl"
+                            })
+                          ]
+                        )
+                      ])
+                    ])
               ])
             : _vm._e(),
           _vm._v(" "),
@@ -39407,78 +40307,158 @@ var render = function() {
                   _vm._v(" "),
                   _c("div", { staticClass: "w-full flex flex-col" }, [
                     _c("div", { staticClass: "my-1 flex flex-row" }, [
-                      _c("div", { staticClass: "w-full mr-2" }, [
-                        _c("label", { staticClass: "text-bold" }, [
-                          _vm._v("Medicine:")
-                        ]),
-                        _c("br"),
-                        _vm._v(" "),
-                        _c(
-                          "select",
-                          {
-                            directives: [
+                      _vm.auth.role != "3"
+                        ? _c("div", { staticClass: "w-full mr-2" }, [
+                            _c("label", { staticClass: "text-bold" }, [
+                              _vm._v("Medicine:")
+                            ]),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "select",
                               {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.formData.medicine_id,
-                                expression: "formData.medicine_id"
-                              }
-                            ],
-                            staticClass: "--input",
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.formData,
-                                  "medicine_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
-                            }
-                          },
-                          _vm._l(_vm.options.medicines, function(medicine) {
-                            return _c(
-                              "option",
-                              {
-                                key: medicine.id,
-                                domProps: { value: medicine.id }
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.formData.medicine_id,
+                                    expression: "formData.medicine_id"
+                                  }
+                                ],
+                                staticClass: "--input",
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.formData,
+                                      "medicine_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
                               },
+                              _vm._l(
+                                _vm.options.medicines.filter(function(x) {
+                                  return _vm.options.stocks.includes(x.id)
+                                }),
+                                function(medicine) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: medicine.id,
+                                      domProps: { value: medicine.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n                                        " +
+                                          _vm._s(medicine.name) +
+                                          "\n                                    "
+                                      )
+                                    ]
+                                  )
+                                }
+                              ),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              { staticClass: "text-xs text-red-500 ml-2" },
                               [
                                 _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(medicine.name) +
-                                    "\n                                    "
+                                  _vm._s(
+                                    _vm.validationError(
+                                      "medicine_id",
+                                      _vm.saveError
+                                    )
+                                  ) + " "
                                 )
                               ]
                             )
-                          }),
-                          0
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "span",
-                          { staticClass: "text-xs text-red-500 ml-2" },
-                          [
-                            _vm._v(
-                              _vm._s(
-                                _vm.validationError(
-                                  "medicine_id",
-                                  _vm.saveError
+                          ])
+                        : _c("div", { staticClass: "w-full mr-2" }, [
+                            _c("label", { staticClass: "text-bold" }, [
+                              _vm._v("Medicine:")
+                            ]),
+                            _c("br"),
+                            _vm._v(" "),
+                            _c(
+                              "select",
+                              {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.formData.medicine_id,
+                                    expression: "formData.medicine_id"
+                                  }
+                                ],
+                                staticClass: "--input",
+                                on: {
+                                  change: function($event) {
+                                    var $$selectedVal = Array.prototype.filter
+                                      .call($event.target.options, function(o) {
+                                        return o.selected
+                                      })
+                                      .map(function(o) {
+                                        var val =
+                                          "_value" in o ? o._value : o.value
+                                        return val
+                                      })
+                                    _vm.$set(
+                                      _vm.formData,
+                                      "medicine_id",
+                                      $event.target.multiple
+                                        ? $$selectedVal
+                                        : $$selectedVal[0]
+                                    )
+                                  }
+                                }
+                              },
+                              _vm._l(_vm.options.medicines, function(medicine) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: medicine.id,
+                                    domProps: { value: medicine.id }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(medicine.name) +
+                                        "\n                                    "
+                                    )
+                                  ]
                                 )
-                              ) + " "
+                              }),
+                              0
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              { staticClass: "text-xs text-red-500 ml-2" },
+                              [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.validationError(
+                                      "medicine_id",
+                                      _vm.saveError
+                                    )
+                                  ) + " "
+                                )
+                              ]
                             )
-                          ]
-                        )
-                      ]),
+                          ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "w-full mr-2" }, [
                         _c("label", { staticClass: "text-bold" }, [
@@ -39518,22 +40498,27 @@ var render = function() {
                               }
                             }
                           },
-                          _vm._l(_vm.options.categories, function(category) {
-                            return _c(
-                              "option",
-                              {
-                                key: category.id,
-                                domProps: { value: category.id }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(category.name) +
-                                    "\n                                    "
-                                )
-                              ]
-                            )
-                          }),
+                          _vm._l(
+                            _vm.options.categories.filter(function(x) {
+                              return _vm.categories.includes(x.id)
+                            }),
+                            function(category) {
+                              return _c(
+                                "option",
+                                {
+                                  key: category.id,
+                                  domProps: { value: category.id }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(category.name) +
+                                      "\n                                    "
+                                  )
+                                ]
+                              )
+                            }
+                          ),
                           0
                         ),
                         _vm._v(" "),
@@ -39636,19 +40621,24 @@ var render = function() {
                               }
                             }
                           },
-                          _vm._l(_vm.options.units, function(unit) {
-                            return _c(
-                              "option",
-                              { key: unit.id, domProps: { value: unit.id } },
-                              [
-                                _vm._v(
-                                  "\n                                        " +
-                                    _vm._s(unit.name) +
-                                    "\n                                    "
-                                )
-                              ]
-                            )
-                          }),
+                          _vm._l(
+                            _vm.options.units.filter(function(x) {
+                              return _vm.units.includes(x.id)
+                            }),
+                            function(unit) {
+                              return _c(
+                                "option",
+                                { key: unit.id, domProps: { value: unit.id } },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(unit.name) +
+                                      "\n                                    "
+                                  )
+                                ]
+                              )
+                            }
+                          ),
                           0
                         ),
                         _vm._v(" "),
@@ -39867,7 +40857,7 @@ var render = function() {
                     _vm.formData.dispensed_type == "individual"
                       ? _c("div", { staticClass: "my-1" }, [
                           _c("label", { attrs: { for: "cars" } }, [
-                            _vm._v("Patient:")
+                            _vm._v("Patients:")
                           ]),
                           _c("br"),
                           _vm._v(" "),
@@ -39940,7 +40930,7 @@ var render = function() {
                         ])
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("div", { staticClass: "mt-3 mb-2" }, [
+                    _c("div", { staticClass: "mt-3 mb-1" }, [
                       _c(
                         "button",
                         {
@@ -39961,6 +40951,384 @@ var render = function() {
                         [
                           _vm._v(
                             "\n                                Dispense\n                            "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm.errorMessage
+                      ? _c("div", { staticClass: "w-full mt-3 mb-2" }, [
+                          _c(
+                            "span",
+                            { staticClass: "text-lg text-red-500 ml-2" },
+                            [_vm._v(_vm._s(_vm.errorMessage))]
+                          )
+                        ])
+                      : _vm._e()
+                  ])
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "stockModal", attrs: { id: "stockModal" } },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "stock-modal-content flex flex-col",
+                  staticStyle: { width: "30%" }
+                },
+                [
+                  _c("div", { staticClass: "w-full" }, [
+                    _c("span", { staticClass: "text-lg font-bold" }, [
+                      _vm._v(
+                        "\n                            Medicine Stock\n                        "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      {
+                        staticClass: "float-right cursor-pointer",
+                        on: {
+                          click: function($event) {
+                            return _vm.closeStockModal()
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa-solid fa-xmark" })]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "w-full flex flex-col" }, [
+                    _c("div", { staticClass: "my-1 flex flex-row" }, [
+                      _c("div", { staticClass: "w-full mr-2" }, [
+                        _c("label", { staticClass: "text-bold" }, [
+                          _vm._v("Medicine:")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.formStock.medicine_id,
+                                expression: "formStock.medicine_id"
+                              }
+                            ],
+                            staticClass: "--input",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.formStock,
+                                  "medicine_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.options.medicines, function(medicine) {
+                            return _c(
+                              "option",
+                              {
+                                key: medicine.id,
+                                domProps: { value: medicine.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(medicine.name) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "medicine_id",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full mr-2" }, [
+                        _c("label", { staticClass: "text-bold" }, [
+                          _vm._v("Category:")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.formStock.medicine_category_id,
+                                expression: "formStock.medicine_category_id"
+                              }
+                            ],
+                            staticClass: "--input",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.formStock,
+                                  "medicine_category_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.options.categories, function(category) {
+                            return _c(
+                              "option",
+                              {
+                                key: category.id,
+                                domProps: { value: category.id }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(category.name) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "medicine_category_id",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "mr-2" }, [
+                        _c("label", { staticClass: "text-bold" }, [
+                          _vm._v("Dosage:")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.formStock.dosage,
+                              expression: "formStock.dosage"
+                            }
+                          ],
+                          staticClass: "--input",
+                          attrs: { type: "number" },
+                          domProps: { value: _vm.formStock.dosage },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.formStock,
+                                "dosage",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError("dosage", _vm.saveError)
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full mr-2" }, [
+                        _c("label", { staticClass: "text-bold" }, [
+                          _vm._v("Unit:")
+                        ]),
+                        _c("br"),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.formStock.medicine_unit_id,
+                                expression: "formStock.medicine_unit_id"
+                              }
+                            ],
+                            staticClass: "--input",
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.formStock,
+                                  "medicine_unit_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
+                            }
+                          },
+                          _vm._l(_vm.options.units, function(unit) {
+                            return _c(
+                              "option",
+                              { key: unit.id, domProps: { value: unit.id } },
+                              [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(unit.name) +
+                                    "\n                                    "
+                                )
+                              ]
+                            )
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          { staticClass: "text-xs text-red-500 ml-2" },
+                          [
+                            _vm._v(
+                              _vm._s(
+                                _vm.validationError(
+                                  "medicine_unit_id",
+                                  _vm.saveError
+                                )
+                              ) + " "
+                            )
+                          ]
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "my-1" }, [
+                      _c("label", { staticClass: "text-bold" }, [
+                        _vm._v("Quantity:")
+                      ]),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.formStock.quantity,
+                            expression: "formStock.quantity"
+                          }
+                        ],
+                        staticClass: "--input",
+                        attrs: { type: "number" },
+                        domProps: { value: _vm.formStock.quantity },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.formStock,
+                              "quantity",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-xs text-red-500 ml-2" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm.validationError("quantity", _vm.saveError)
+                          ) + " "
+                        )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "mt-3 mb-2" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "text-center text-white",
+                          staticStyle: {
+                            height: "40px",
+                            width: "100%",
+                            border: "1px solid black",
+                            "border-radius": "5px",
+                            background: "#366422"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.saveStock()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Save\n                            "
                           )
                         ]
                       )
@@ -40015,7 +41383,7 @@ var render = function() {
                   }
                 }
               }),
-              _vm._v(" Patient Forms\n                ")
+              _vm._v(" Consultation Forms\n                ")
             ]),
             _vm._v(" "),
             _c("span", { staticClass: "text-2xl float-right font-bold" }, [
@@ -40078,7 +41446,25 @@ var render = function() {
                     "option",
                     { attrs: { value: "Prenatal Registration Form" } },
                     [_vm._v("Prenatal Registration Form")]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "option",
+                    { attrs: { value: "Postnatal Registration Form" } },
+                    [_vm._v("Postnatal Registration Form")]
+                  ),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "Nutrition Form" } }, [
+                    _vm._v("Nutrition Form")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "Vaccination Form" } }, [
+                    _vm._v("Vaccination Form")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "Deworming Form" } }, [
+                    _vm._v("Deworming Form")
+                  ])
                 ]
               ),
               _vm._v(" "),
@@ -47685,6 +49071,3101 @@ var render = function() {
                       ])
                     ]
                   )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.activeForm == "Nutrition Form"
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "w-full flex-col",
+                      staticStyle: {
+                        border: "1px solid black",
+                        "border-radius": "5px"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "w-full" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right cursor-pointer p-2",
+                            on: {
+                              click: function($event) {
+                                _vm.activeForm = null
+                                _vm.formData.tb = []
+                                _vm.formData.lmp = null
+                                _vm.formData.edc = null
+                                _vm.formData.edd = null
+                                _vm.selectedForm = null
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa-solid fa-xmark" })]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Gurdian Name:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nutrition.guardian_name,
+                                expression: "nutrition.guardian_name"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.nutrition.guardian_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.nutrition,
+                                  "guardian_name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "guardian_name",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Date of Birth:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nutrition.dob,
+                                expression: "nutrition.dob"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "date" },
+                            domProps: { value: _vm.nutrition.dob },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.nutrition,
+                                  "dob",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("dob", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Age:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nutrition.age,
+                                expression: "nutrition.age"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.nutrition.age },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.nutrition,
+                                  "age",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("age", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Height:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nutrition.height,
+                                expression: "nutrition.height"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.nutrition.height },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.nutrition,
+                                  "height",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("height", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Weight:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nutrition.weight,
+                                expression: "nutrition.weight"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.nutrition.weight },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.nutrition,
+                                  "weight",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("weight", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("BMI:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nutrition.bmi,
+                                expression: "nutrition.bmi"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.nutrition.bmi },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.nutrition,
+                                  "bmi",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("bmi", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Vitamis:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nutrition.vitamins,
+                                expression: "nutrition.vitamins"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.nutrition.vitamins },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.nutrition,
+                                  "vitamins",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("vitamins", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2 mt-5" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "w-full mx-2",
+                              staticStyle: {
+                                background: "black",
+                                color: "white",
+                                border: "1px solid white",
+                                "border-radius": "5px",
+                                height: "43px"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.createNutritionForm()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Save\n                            "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.activeForm == "Deworming Form"
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "w-full flex-col",
+                      staticStyle: {
+                        border: "1px solid black",
+                        "border-radius": "5px"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "w-full" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right cursor-pointer p-2",
+                            on: {
+                              click: function($event) {
+                                _vm.activeForm = null
+                                _vm.formData.tb = []
+                                _vm.formData.lmp = null
+                                _vm.formData.edc = null
+                                _vm.formData.edd = null
+                                _vm.selectedForm = null
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa-solid fa-xmark" })]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Gurdian Name:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.deworming.guardian_name,
+                                expression: "deworming.guardian_name"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.deworming.guardian_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.deworming,
+                                  "guardian_name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "guardian_name",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Date of Birth:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.deworming.dob,
+                                expression: "deworming.dob"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "date" },
+                            domProps: { value: _vm.deworming.dob },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.deworming,
+                                  "dob",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("dob", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Age:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.deworming.age,
+                                expression: "deworming.age"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.deworming.age },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.deworming,
+                                  "age",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("age", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Height:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.deworming.height,
+                                expression: "deworming.height"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.deworming.height },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.deworming,
+                                  "height",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("height", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Weight:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.deworming.weight,
+                                expression: "deworming.weight"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.deworming.weight },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.deworming,
+                                  "weight",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("weight", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("BMI:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.deworming.bmi,
+                                expression: "deworming.bmi"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.deworming.bmi },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.deworming,
+                                  "bmi",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("bmi", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Deworming Medication:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.deworming.deworming_medication,
+                                expression: "deworming.deworming_medication"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.deworming.deworming_medication
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.deworming,
+                                  "deworming_medication",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "deworming_medication",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2 mt-5" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "w-full mx-2",
+                              staticStyle: {
+                                background: "black",
+                                color: "white",
+                                border: "1px solid white",
+                                "border-radius": "5px",
+                                height: "43px"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.createDewormingForm()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Save\n                            "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.activeForm == "Vaccination Form"
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "w-full flex-col",
+                      staticStyle: {
+                        border: "1px solid black",
+                        "border-radius": "5px"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "w-full" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right cursor-pointer p-2",
+                            on: {
+                              click: function($event) {
+                                _vm.activeForm = null
+                                _vm.formData.tb = []
+                                _vm.formData.lmp = null
+                                _vm.formData.edc = null
+                                _vm.formData.edd = null
+                                _vm.selectedForm = null
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa-solid fa-xmark" })]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Gurdian Name:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.vaccination.guardian_name,
+                                expression: "vaccination.guardian_name"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.vaccination.guardian_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.vaccination,
+                                  "guardian_name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "guardian_name",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Date of Birth:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.vaccination.dob,
+                                expression: "vaccination.dob"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "date" },
+                            domProps: { value: _vm.vaccination.dob },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.vaccination,
+                                  "dob",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("dob", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Age:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.vaccination.age,
+                                expression: "vaccination.age"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.vaccination.age },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.vaccination,
+                                  "age",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("age", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Height:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.vaccination.height,
+                                expression: "vaccination.height"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.vaccination.height },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.vaccination,
+                                  "height",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("height", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Weight:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.vaccination.weight,
+                                expression: "vaccination.weight"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.vaccination.weight },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.vaccination,
+                                  "weight",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("weight", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("BMI:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.vaccination.bmi,
+                                expression: "vaccination.bmi"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.vaccination.bmi },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.vaccination,
+                                  "bmi",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("bmi", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Vaccine:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.vaccination.vaccination_id,
+                                  expression: "vaccination.vaccination_id"
+                                }
+                              ],
+                              staticClass: "--input w-full",
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.vaccination,
+                                    "vaccination_id",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            _vm._l(_vm.options.vaccinations, function(vaccine) {
+                              return _c(
+                                "option",
+                                {
+                                  key: vaccine.id,
+                                  domProps: { value: vaccine.id }
+                                },
+                                [_vm._v(_vm._s(vaccine.name))]
+                              )
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "vaccination_id",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2 mt-5" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "w-full mx-2",
+                              staticStyle: {
+                                background: "black",
+                                color: "white",
+                                border: "1px solid white",
+                                "border-radius": "5px",
+                                height: "43px"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.createVaccinationForm()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Save\n                            "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.activeForm == "Postnatal Registration Form"
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "w-full flex-col",
+                      staticStyle: {
+                        border: "1px solid black",
+                        "border-radius": "5px"
+                      }
+                    },
+                    [
+                      _c("div", { staticClass: "w-full" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "float-right cursor-pointer p-2",
+                            on: {
+                              click: function($event) {
+                                _vm.activeForm = null
+                                _vm.formData.tb = []
+                                _vm.formData.lmp = null
+                                _vm.formData.edc = null
+                                _vm.formData.edd = null
+                                _vm.selectedForm = null
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fa-solid fa-xmark" })]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Hospital Name:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.hospital_name,
+                                expression: "postnatal.hospital_name"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.hospital_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "hospital_name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "hospital_name",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Client's Name:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.clients_name,
+                                expression: "postnatal.clients_name"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.clients_name },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "clients_name",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "clients_name",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Address:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.address,
+                                expression: "postnatal.address"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.address },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "address",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("address", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Occupation:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.occupation,
+                                expression: "postnatal.occupation"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.occupation },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "occupation",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "occupation",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Type of Delivery:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.type_of_delivery,
+                                expression: "postnatal.type_of_delivery"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.type_of_delivery },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "type_of_delivery",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "type_of_delivery",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Mode of Delivery:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.mode_of_delivery,
+                                expression: "postnatal.mode_of_delivery"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.mode_of_delivery },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "mode_of_delivery",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "mode_of_delivery",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Total Hours of Labor:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.total_hours_of_labor,
+                                expression: "postnatal.total_hours_of_labor"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.total_hours_of_labor
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "total_hours_of_labor",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "total_hours_of_labor",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Postnatal Day:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.postnatal_day,
+                                expression: "postnatal.postnatal_day"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.postnatal_day },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "postnatal_day",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "postnatal_day",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Registration #:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.register_no,
+                                expression: "postnatal.register_no"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.register_no },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "register_no",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "register_no",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Date of Arrival:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.doa,
+                                expression: "postnatal.doa"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "date" },
+                            domProps: { value: _vm.postnatal.doa },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "doa",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("doa", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Religion:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.religion,
+                                expression: "postnatal.religion"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.religion },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "religion",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("religion", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Gestational Age:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.gestational_age,
+                                expression: "postnatal.gestational_age"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.gestational_age },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "gestational_age",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "gestational_age",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Last Menstrual Period:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.lmp,
+                                expression: "postnatal.lmp"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "date" },
+                            domProps: { value: _vm.postnatal.lmp },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "lmp",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("lmp", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("New Born Sex:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.new_born_sex,
+                                expression: "postnatal.new_born_sex"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.new_born_sex },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "new_born_sex",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "new_born_sex",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Days of Hospital Stay:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.days_of_hospital_stay,
+                                expression: "postnatal.days_of_hospital_stay"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.days_of_hospital_stay
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "days_of_hospital_stay",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "days_of_hospital_stay",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Age:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.age,
+                                expression: "postnatal.age"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.age },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "age",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("age", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Education:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.education,
+                                expression: "postnatal.education"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.education },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "education",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "education",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Obstetrical Score:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.obstetrical_score,
+                                expression: "postnatal.obstetrical_score"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.obstetrical_score
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "obstetrical_score",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "obstetrical_score",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Chief Complain:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.chief_complain,
+                                expression: "postnatal.chief_complain"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.chief_complain },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "chief_complain",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "chief_complain",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Estimated Date of Delivery:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.edd,
+                                expression: "postnatal.edd"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "date" },
+                            domProps: { value: _vm.postnatal.edd },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "edd",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("edd", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("New Born Weight:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.newborn_weight,
+                                expression: "postnatal.newborn_weight"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.newborn_weight },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "newborn_weight",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "newborn_weight",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Elimination Pattern:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.elimination_pattern,
+                                expression: "postnatal.elimination_pattern"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.elimination_pattern
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "elimination_pattern",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "elimination_pattern",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Activity and Exercise:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.activity_and_exercise,
+                                expression: "postnatal.activity_and_exercise"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.activity_and_exercise
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "activity_and_exercise",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "activity_and_exercise",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Menarche Age:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.menarche_age,
+                                expression: "postnatal.menarche_age"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.menarche_age },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "menarche_age",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "menarche_age",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Period:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.period,
+                                expression: "postnatal.period"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.period },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "period",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("period", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Bad Habits:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.bad_habits,
+                                expression: "postnatal.bad_habits"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.bad_habits },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "bad_habits",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "bad_habits",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Nutritional Pattern:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.nutritional_pattern,
+                                expression: "postnatal.nutritional_pattern"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.nutritional_pattern
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "nutritional_pattern",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "nutritional_pattern",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Sleeping Pattern")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.sleeping_pattern,
+                                expression: "postnatal.sleeping_pattern"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.sleeping_pattern },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "sleeping_pattern",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "sleeping_pattern",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Cycle:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.cycle,
+                                expression: "postnatal.cycle"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.cycle },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "cycle",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("cycle", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Amount of Blood Loss:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.amount_of_blood_loss,
+                                expression: "postnatal.amount_of_blood_loss"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.amount_of_blood_loss
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "amount_of_blood_loss",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "amount_of_blood_loss",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Duration of Marriage:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.duration_of_marriage,
+                                expression: "postnatal.duration_of_marriage"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.duration_of_marriage
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "duration_of_marriage",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "duration_of_marriage",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [
+                            _vm._v("Family Planning Method Adopted:")
+                          ]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value:
+                                  _vm.postnatal.family_planning_method_adopted,
+                                expression:
+                                  "postnatal.family_planning_method_adopted"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value:
+                                _vm.postnatal.family_planning_method_adopted
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "family_planning_method_adopted",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "family_planning_method_adopted",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Diseases")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.diseases,
+                                expression: "postnatal.diseases"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.diseases },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "diseases",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("diseases", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Genitics Condition:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.genitics_condition,
+                                expression: "postnatal.genitics_condition"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.genitics_condition
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "genitics_condition",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "genitics_condition",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Parity:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.parity,
+                                expression: "postnatal.parity"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.parity },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "parity",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError("parity", _vm.saveError)
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Gravidity:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.gravidity,
+                                expression: "postnatal.gravidity"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.gravidity },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "gravidity",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "gravidity",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Miscarriages:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.miscarriages,
+                                expression: "postnatal.miscarriages"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.miscarriages },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "miscarriages",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "miscarriages",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Terminations")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.terminations,
+                                expression: "postnatal.terminations"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.terminations },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "terminations",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "terminations",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "w-full flex flex-row p-4" }, [
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Previous Pregnancy:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.previous_pregnancy,
+                                expression: "postnatal.previous_pregnancy"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.previous_pregnancy
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "previous_pregnancy",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "previous_pregnancy",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Length of Pregnancy:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.length_of_pregnancy,
+                                expression: "postnatal.length_of_pregnancy"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: {
+                              value: _vm.postnatal.length_of_pregnancy
+                            },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "length_of_pregnancy",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "length_of_pregnancy",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2" }, [
+                          _c("label", [_vm._v("Induction:")]),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.postnatal.induction,
+                                expression: "postnatal.induction"
+                              }
+                            ],
+                            staticClass: "--input w-full",
+                            attrs: { type: "text" },
+                            domProps: { value: _vm.postnatal.induction },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.postnatal,
+                                  "induction",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "text-xs text-red-500 pl-2" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  _vm.validationError(
+                                    "induction",
+                                    _vm.saveError
+                                  )
+                                ) + " "
+                              )
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "w-full pr-2 mt-5" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "w-full mx-2",
+                              staticStyle: {
+                                background: "black",
+                                color: "white",
+                                border: "1px solid white",
+                                "border-radius": "5px",
+                                height: "43px"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.createPostnatalForm()
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                Save\n                            "
+                              )
+                            ]
+                          )
+                        ])
+                      ])
+                    ]
+                  )
                 : _vm._e()
             ],
             1
@@ -48508,7 +52989,8 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _vm.auth.user_type == "doctor" || _vm.auth.user_type == "leader"
+              _vm.auth.user_type == "pharmacist" ||
+              _vm.auth.user_type == "leader"
                 ? _c(
                     "div",
                     {
@@ -48569,7 +53051,7 @@ var render = function() {
                     }
                   },
                   [
-                    _vm.auth.user_type == "doctor"
+                    _vm.auth.user_type == "pharmacist"
                       ? _c("option", { attrs: { value: "individual" } }, [
                           _vm._v("Individual Report")
                         ])

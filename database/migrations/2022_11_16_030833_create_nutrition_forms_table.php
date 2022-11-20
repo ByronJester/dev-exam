@@ -16,7 +16,6 @@ class CreateNutritionFormsTable extends Migration
         Schema::create('nutrition_forms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('patient_id')->unsigned()->comment('Foreign key from table patients');
-            $table->string('fullname');
             $table->string('guardian_name');
             $table->date('dob');
             $table->string('age');

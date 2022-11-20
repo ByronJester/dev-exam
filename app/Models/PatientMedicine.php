@@ -75,7 +75,7 @@ class PatientMedicine extends Model
 
     public function getDateAttribute()
     {
-        $date = Carbon::parse($this->create_at);
+        $date = Carbon::parse($this->created_at);
 
         return $date->isoFormat('LL'); 
     }

@@ -17,7 +17,6 @@ class CreateVaccinationFormsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('patient_id')->unsigned()->comment('Foreign key from table patients');
             $table->bigInteger('vaccination_id')->unsigned()->comment('Foreign key from table vaccinations');
-            $table->string('fullname');
             $table->string('guardian_name');
             $table->date('dob');
             $table->string('age');
