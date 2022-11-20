@@ -3,7 +3,7 @@
         <Navigation :auth="auth">
             <div class="w-full flex flex-col">
                 <div class="w-full flex flex-row mt-8" style="height: 5vh;">
-                    <div class="w-full flex justify-center items-center text-4xl cursor-pointer"
+                    <div class="w-full flex justify-center items-center text-4xl cursor-pointer" v-if="auth.user_type != 'pharmacist'"
                         @click="activeTab = 'patient_report'"
                         :class="{'--bg_gray': activeTab == 'patient_report'}"
                     >
@@ -18,16 +18,22 @@
                     </div>
                 </div>
 
-                <div class="w-full mt-10" v-if="activeTab == 'medicine_report'">
-                    <select v-model="medicine_report_type" class="float-right mr-5" style="width: 200px; height: 40px; border: 1px solid black">
-                        <option value="individual" v-if="auth.user_type == 'pharmacist'">Individual Report</option>
-                        <option value="barangay">Barangay Report</option>
-                    </select>
+                <div class="w-full flex flex-col" v-if="activeTab == 'patient_report'">
+    
                 </div>
 
+                <div class="w-full flex flex-col" v-else>
+                    <div class="w-full mt-10" >
+                        <select v-model="medicine_report_type" class="float-right mr-5" style="width: 200px; height: 40px; border: 1px solid black">
+                            <option value="individual" v-if="auth.user_type == 'pharmacist'">Individual Report</option>
+                            <option value="barangay">Barangay Report</option>
+                        </select>
+                    </div>
 
-                <div class="w-full mt-5 px-5" v-if="activeTab == 'medicine_report'">
-                    <Table :columns="columns"  :rows="rows" :keys="keys"/>
+
+                    <div class="w-full mt-5 px-5">
+                        <Table :columns="columns"  :rows="rows" :keys="keys"/>
+                    </div>
                 </div>
 
             </div>
@@ -214,6 +220,10 @@ export default {
     mounted(){
         if(this.auth.user_type == 'leader') {
             this.medicine_report_type = 'barangay'
+        }
+
+        if(this.auth.user_type == 'pharmacist') {
+            this.activeTab = 'medicine_report';
         }
     },
 

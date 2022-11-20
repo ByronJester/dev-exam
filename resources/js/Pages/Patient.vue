@@ -17,17 +17,36 @@
                         <select v-model="formName"
                             style="width: 230px; height: 30px; border: 1px solid black"
                         >
-                            <option value="Tuberculosis Symptom Form">Tuberculosis Symptom Form</option>
-                            <option value="Pregnancy Form">Pregnancy Form</option>
-                            <option value="Prenatal Registration Form">Prenatal Registration Form</option>
-                            <option value="Postnatal Registration Form">Postnatal Registration Form</option>
-                            <option value="Nutrition Form">Nutrition Form</option>
-                            <option value="Vaccination Form">Vaccination Form</option>
-                            <option value="Deworming Form">Deworming Form</option>
+                            <option value="Tuberculosis Symptom Form" v-if="auth.user_type == 'doctor' || auth.user_type == 'leader' || auth.user_type == 'member'">
+                                TB-Dots
+                            </option>
+
+                            <option value="Pregnancy Form" v-if="auth.user_type == 'nurse' || auth.user_type == 'midwife'">
+                                Pregnancy Form
+                            </option>
+
+                            <option value="Prenatal Registration Form" v-if="auth.user_type == 'nurse' || auth.user_type == 'midwife'">
+                                Prenatal Registration Form
+                            </option>
+
+                            <option value="Postnatal Registration Form" v-if="auth.user_type == 'nurse' || auth.user_type == 'midwife'">
+                                Postnatal Registration Form
+                            </option>
+
+                            <option value="Nutrition Form" v-if="auth.user_type == 'nurse' || auth.user_type == 'midwife'">
+                                Nutrition Form
+                            </option>
+                            
+                            <option value="Vaccination Form" v-if="auth.user_type == 'nurse' || auth.user_type == 'midwife'">
+                                Vaccination Form
+                            </option>
+                            <option value="Deworming Form" v-if="auth.user_type == 'nurse' || auth.user_type == 'midwife'">
+                                Deworming Form
+                            </option>
                         </select>
 
                         <button style="height: 30px; border: 1px solid black; background: #003865; padding: 0px 20px 0px 20px" class="text-white"
-                            @click="activeForm = formName; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null;"
+                            @click="activeForm = formName; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null;" 
                         >
                             <i class="fa-solid fa-plus"></i>
                         </button>

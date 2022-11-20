@@ -227,7 +227,7 @@ export default {
         if(this.auth.role == 2) {
             this.userType = [
                 {
-                    label: 'RHU - Doctor',
+                    label: 'RHU - Doctor', 
                     value: 'doctor'
                 },
 

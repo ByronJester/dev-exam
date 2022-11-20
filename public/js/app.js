@@ -4680,6 +4680,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5444,6 +5463,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5558,6 +5583,10 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     if (this.auth.user_type == 'leader') {
       this.medicine_report_type = 'barangay';
+    }
+
+    if (this.auth.user_type == 'pharmacist') {
+      this.activeTab = 'medicine_report';
     }
   },
   methods: {}
@@ -41432,39 +41461,81 @@ var render = function() {
                   }
                 },
                 [
-                  _c(
-                    "option",
-                    { attrs: { value: "Tuberculosis Symptom Form" } },
-                    [_vm._v("Tuberculosis Symptom Form")]
-                  ),
+                  _vm.auth.user_type == "doctor" ||
+                  _vm.auth.user_type == "leader" ||
+                  _vm.auth.user_type == "member"
+                    ? _c(
+                        "option",
+                        { attrs: { value: "Tuberculosis Symptom Form" } },
+                        [
+                          _vm._v(
+                            "\n                            TB-Dots\n                        "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "Pregnancy Form" } }, [
-                    _vm._v("Pregnancy Form")
-                  ]),
+                  _vm.auth.user_type == "nurse" ||
+                  _vm.auth.user_type == "midwife"
+                    ? _c("option", { attrs: { value: "Pregnancy Form" } }, [
+                        _vm._v(
+                          "\n                            Pregnancy Form\n                        "
+                        )
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "option",
-                    { attrs: { value: "Prenatal Registration Form" } },
-                    [_vm._v("Prenatal Registration Form")]
-                  ),
+                  _vm.auth.user_type == "nurse" ||
+                  _vm.auth.user_type == "midwife"
+                    ? _c(
+                        "option",
+                        { attrs: { value: "Prenatal Registration Form" } },
+                        [
+                          _vm._v(
+                            "\n                            Prenatal Registration Form\n                        "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "option",
-                    { attrs: { value: "Postnatal Registration Form" } },
-                    [_vm._v("Postnatal Registration Form")]
-                  ),
+                  _vm.auth.user_type == "nurse" ||
+                  _vm.auth.user_type == "midwife"
+                    ? _c(
+                        "option",
+                        { attrs: { value: "Postnatal Registration Form" } },
+                        [
+                          _vm._v(
+                            "\n                            Postnatal Registration Form\n                        "
+                          )
+                        ]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "Nutrition Form" } }, [
-                    _vm._v("Nutrition Form")
-                  ]),
+                  _vm.auth.user_type == "nurse" ||
+                  _vm.auth.user_type == "midwife"
+                    ? _c("option", { attrs: { value: "Nutrition Form" } }, [
+                        _vm._v(
+                          "\n                            Nutrition Form\n                        "
+                        )
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "Vaccination Form" } }, [
-                    _vm._v("Vaccination Form")
-                  ]),
+                  _vm.auth.user_type == "nurse" ||
+                  _vm.auth.user_type == "midwife"
+                    ? _c("option", { attrs: { value: "Vaccination Form" } }, [
+                        _vm._v(
+                          "\n                            Vaccination Form\n                        "
+                        )
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "Deworming Form" } }, [
-                    _vm._v("Deworming Form")
-                  ])
+                  _vm.auth.user_type == "nurse" ||
+                  _vm.auth.user_type == "midwife"
+                    ? _c("option", { attrs: { value: "Deworming Form" } }, [
+                        _vm._v(
+                          "\n                            Deworming Form\n                        "
+                        )
+                      ])
+                    : _vm._e()
                 ]
               ),
               _vm._v(" "),
@@ -52560,23 +52631,25 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("div", { staticClass: "inline-flex" }, [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "--view__profile my-2 mr-1",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.viewProfile(patient)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n                                                    Forms\n                                                "
+                                    _vm.auth.user_type == "pharmacist"
+                                      ? _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "--view__profile my-2 mr-1",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.viewProfile(patient)
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n                                                    Forms\n                                                "
+                                            )
+                                          ]
                                         )
-                                      ]
-                                    )
+                                      : _vm._e()
                                   ])
                                 ]),
                                 _vm._v(" "),
@@ -52970,24 +53043,26 @@ var render = function() {
               staticStyle: { height: "5vh" }
             },
             [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "w-full flex justify-center items-center text-4xl cursor-pointer",
-                  class: { "--bg_gray": _vm.activeTab == "patient_report" },
-                  on: {
-                    click: function($event) {
-                      _vm.activeTab = "patient_report"
-                    }
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n                    Patient Report\n                "
+              _vm.auth.user_type != "pharmacist"
+                ? _c(
+                    "div",
+                    {
+                      staticClass:
+                        "w-full flex justify-center items-center text-4xl cursor-pointer",
+                      class: { "--bg_gray": _vm.activeTab == "patient_report" },
+                      on: {
+                        click: function($event) {
+                          _vm.activeTab = "patient_report"
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                    Patient Report\n                "
+                      )
+                    ]
                   )
-                ]
-              ),
+                : _vm._e(),
               _vm._v(" "),
               _vm.auth.user_type == "pharmacist" ||
               _vm.auth.user_type == "leader"
@@ -53015,72 +53090,72 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm.activeTab == "medicine_report"
-            ? _c("div", { staticClass: "w-full mt-10" }, [
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.medicine_report_type,
-                        expression: "medicine_report_type"
+          _vm.activeTab == "patient_report"
+            ? _c("div", { staticClass: "w-full flex flex-col" })
+            : _c("div", { staticClass: "w-full flex flex-col" }, [
+                _c("div", { staticClass: "w-full mt-10" }, [
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.medicine_report_type,
+                          expression: "medicine_report_type"
+                        }
+                      ],
+                      staticClass: "float-right mr-5",
+                      staticStyle: {
+                        width: "200px",
+                        height: "40px",
+                        border: "1px solid black"
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.medicine_report_type = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        }
                       }
-                    ],
-                    staticClass: "float-right mr-5",
-                    staticStyle: {
-                      width: "200px",
-                      height: "40px",
-                      border: "1px solid black"
                     },
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.medicine_report_type = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
+                    [
+                      _vm.auth.user_type == "pharmacist"
+                        ? _c("option", { attrs: { value: "individual" } }, [
+                            _vm._v("Individual Report")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("option", { attrs: { value: "barangay" } }, [
+                        _vm._v("Barangay Report")
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "w-full mt-5 px-5" },
                   [
-                    _vm.auth.user_type == "pharmacist"
-                      ? _c("option", { attrs: { value: "individual" } }, [
-                          _vm._v("Individual Report")
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "barangay" } }, [
-                      _vm._v("Barangay Report")
-                    ])
-                  ]
+                    _c("Table", {
+                      attrs: {
+                        columns: _vm.columns,
+                        rows: _vm.rows,
+                        keys: _vm.keys
+                      }
+                    })
+                  ],
+                  1
                 )
               ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.activeTab == "medicine_report"
-            ? _c(
-                "div",
-                { staticClass: "w-full mt-5 px-5" },
-                [
-                  _c("Table", {
-                    attrs: {
-                      columns: _vm.columns,
-                      rows: _vm.rows,
-                      keys: _vm.keys
-                    }
-                  })
-                ],
-                1
-              )
-            : _vm._e()
         ])
       ])
     ],

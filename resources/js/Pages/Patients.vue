@@ -61,7 +61,7 @@
                                             </p>
 
                                             <div class="inline-flex">
-                                                <button class="--view__profile my-2 mr-1" @click="viewProfile(patient)">
+                                                <button class="--view__profile my-2 mr-1" @click="viewProfile(patient)" v-if="auth.user_type == 'pharmacist'">
                                                     Forms
                                                 </button>
 
