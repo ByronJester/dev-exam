@@ -59,16 +59,6 @@
                                             <p>
                                                 Gender :
                                             </p>
-
-                                            <div class="inline-flex">
-                                                <button class="--view__profile my-2 mr-1" @click="viewProfile(patient)" v-if="auth.user_type != 'pharmacist'">
-                                                    Forms
-                                                </button>
-
-                                                <!-- <button class="--view__profile my-2" @click="viewMedicine(patient)">
-                                                    Medicines
-                                                </button> -->
-                                            </div>
                                             
                                         </div>
 
@@ -90,6 +80,17 @@
                                             </p>
                                         </div>
                                     </div> 
+
+                                    <div class="w-full inline-flex ml-2">
+                                        <button class="--view__profile my-2 mr-1" @click="viewProfile(patient)" v-if="auth.user_type != 'pharmacist'">
+                                            Forms
+                                        </button>
+
+                                        <button class="--view__profile my-2" @click="viewMedicalHistory(patient)" v-if="auth.user_type != 'pharmacist'">
+                                            Medical History
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -116,32 +117,6 @@
                                 <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
                             </div>
 
-                            <div class="my-1">
-                                <label class="text-bold">Contact No.:</label><br>
-                                <input type="text" class="--input" v-model="formData.phone">
-                                <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
-                            </div>
-
-                            <div class="my-1">
-                                <label class="text-bold">Age:</label><br>
-                                <input type="text" class="--input" v-model="formData.age">
-                                <span class="text-xs text-red-500 ml-2">{{validationError('age', saveError)}} </span>
-                            </div>
-
-                            <div class="my-1">
-                                <label for="cars">Gender:</label><br>
-                                <select class="--input" v-model="formData.gender">
-                                    <option :value="'Male'">
-                                        Male
-                                    </option>
-
-                                    <option :value="'Female'">
-                                        Female
-                                    </option>
-                                </select>
-                                <span class="text-xs text-red-500 ml-2">{{validationError('place_id', saveError)}} </span>
-                            </div>
-
                             <div class="my-1" v-if="auth.role != 3">
                                 <label for="cars">Barangay:</label><br>
                                 <select class="--input" v-model="formData.place_id">
@@ -153,6 +128,92 @@
                                 </select>
                                 <span class="text-xs text-red-500 ml-2">{{validationError('place_id', saveError)}} </span>
                             </div>
+
+                            <div class="my-1">
+                                <label class="text-bold">Contact No.:</label><br>
+                                <input type="text" class="--input" v-model="formData.phone">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
+                            </div>
+
+                            <div class="w-full flex flex-row">
+                                <div class="my-1 mx-1 w-full">
+                                    <label class="text-bold">Date of Birth:</label><br>
+                                    <input type="date" class="--input" v-model="formData.dob">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('dob', saveError)}} </span>
+                                </div>
+
+                                <div class="my-1 mx-1 w-full">
+                                    <label class="text-bold">Age:</label><br>
+                                    <input type="text" class="--input" v-model="formData.age">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('age', saveError)}} </span>
+                                </div>
+                            </div>
+                            
+                            <div class="w-full flex flex-row">
+                                <div class="my-1 mx-1 w-full">
+                                    <label for="cars">Gender:</label><br>
+                                    <select class="--input" v-model="formData.gender">
+                                        <option :value="'Male'">
+                                            Male
+                                        </option>
+
+                                        <option :value="'Female'">
+                                            Female
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('gender', saveError)}} </span>
+                                </div>
+
+
+                                <div class="my-1 mx-1 w-full">
+                                    <label for="cars">Civil Status:</label><br>
+                                    <select class="--input" v-model="formData.civil_status">
+                                        <option :value="'Single'">
+                                            Single
+                                        </option>
+
+                                        <option :value="'Maried'">
+                                            Maried
+                                        </option>
+
+                                        <option :value="'Separated'">
+                                            Separated
+                                        </option>
+
+                                        <option :value="'Widowed'">
+                                            Widowed
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('civil_status', saveError)}} </span>
+                                </div>
+                            </div>
+
+                            <div class="w-full flex flex-row">
+                                <div class="my-1 mx-1">
+                                    <label class="text-bold">Contact Person:</label><br>
+                                    <input type="text" class="--input" v-model="formData.contact_person">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('contact_person', saveError)}} </span>
+                                </div>
+
+                                <div class="my-1 mx-1">
+                                    <label class="text-bold">Contact Person Address:</label><br>
+                                    <input type="text" class="--input" v-model="formData.contact_person_address">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_address', saveError)}} </span>
+                                </div>
+
+                                <div class="my-1 mx-1">
+                                    <label class="text-bold">Contact Person #:</label><br>
+                                    <input type="text" class="--input" v-model="formData.contact_person_phone">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_phone', saveError)}} </span>
+                                </div>
+                            </div>
+
+                            <div class="my-1">
+                                <label class="text-bold">Philhealth ID #:</label><br>
+                                <input type="text" class="--input" v-model="formData.philhealth">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
+                            </div>
+
 
                             <div class="mt-3 mb-2">
                                 <button class="w-full py-2 px-4 text-white font-bold" 
@@ -196,9 +257,14 @@ export default {
                 place_id: null,
                 name : null,
                 phone : null,
+                dob: null,
                 age: null,
-                gender: 'Male'
-
+                gender: 'Male',
+                civil_status: 'Single',
+                philhealth: null,
+                contact_person: null,
+                contact_person_address: null,
+                contact_person_phone: null
             },
             saveError: null
         }
@@ -244,6 +310,15 @@ export default {
 
             Inertia.get(
                 this.$root.route + '/patients/' + arg.id + '/' + false,
+                {
+                    onSuccess: () => { },
+                },
+            );
+        },
+
+        viewMedicalHistory(arg) {
+            Inertia.get(
+                this.$root.route + '/history/' + arg.id,
                 {
                     onSuccess: () => { },
                 },

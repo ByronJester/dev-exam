@@ -18,10 +18,15 @@ class CreatePatientsTable extends Migration
             $table->bigInteger('place_id')->unsigned()->comment('Foreign key from table places');
             $table->bigInteger('user_id')->unsigned()->nullable()->comment('Foreign key from table users');
             $table->string('name');
-            $table->string('image')->nullable();
             $table->string('phone');
+            $table->date('dob');
             $table->string('age');
             $table->string('gender');
+            $table->string('civil_status')->default('Single');
+            $table->string('philhealth');
+            $table->string('contact_person');
+            $table->string('contact_person_address');
+            $table->string('contact_person_phone');
             $table->boolean('is_rhu')->default(false);
 
             

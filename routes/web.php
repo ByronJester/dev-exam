@@ -33,7 +33,7 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/login', [UserController::class, 'loginAccount']);
         Route::post('/logout', [UserController::class, 'logoutAccount']);
         Route::post('/deactivate-reactivate', [UserController::class, 'changeStatus']);
-        Route::post('/create-account', [UserController::class, 'saveUser']);
+        Route::post('/create-account', [UserController::class, 'saveUser']); 
         Route::post('/change-password', [UserController::class, 'changePassword']);
     });
     
@@ -59,13 +59,24 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/get-units', [MedicineController::class, 'getUnits']);
     });
 
+    Route::prefix('history')->group(function () {
+        Route::get('/{id}', [PatientController::class, 'viewMedicalHistory'])->name('view.history');
+        Route::post('/save-allergy', [PatientController::class, 'saveAllergy']);
+        Route::post('/save-medication', [PatientController::class, 'saveMedication']);
+        Route::post('/save-maintenance', [PatientController::class, 'saveMaintenanceHistory']);
+        Route::post('/save-vaccination', [PatientController::class, 'saveVaccinationHistory']);
+        Route::post('/save-disease', [PatientController::class, 'saveDisease']);
+        Route::post('/save-surgery', [PatientController::class, 'saveSurgery']);
+        Route::post('/save-women', [PatientController::class, 'saveWomen']);
+    });
+
     Route::prefix('maintenance')->group(function () {
         Route::get('/', [UserController::class, 'viewMaitenance'])->name('view.maintenance');
         Route::post('/save-maintenance', [UserController::class, 'saveMaintenance']);
     });
 
     Route::prefix('reports')->group(function () {
-        Route::get('/', [UserController::class, 'viewReports'])->name('view.reports'); 
+        Route::get('/', [UserController::class, 'viewReports'])->name('view.reports');
     });
 });
 

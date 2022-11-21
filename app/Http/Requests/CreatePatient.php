@@ -27,8 +27,14 @@ class CreatePatient extends FormRequest
             'place_id' => "required",
             'name' => "required|string",
             'phone' => "required|numeric",
+            'dob' => "required",
             'age' => "required|numeric",
-            'gender' => "required|string"
+            'gender' => "required|string",
+            'civil_status' => "required|string",
+            'philhealth' => "required|string",
+            'contact_person' => "required|string",
+            'contact_person_address' => "required|string",
+            'contact_person_phone' => "required|numeric"
         ];
 
         return $rules;

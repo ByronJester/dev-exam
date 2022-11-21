@@ -16,6 +16,13 @@ use App\Models\Medicine;
 use App\Models\NutritionForm;
 use App\Models\DewormingForm;
 use App\Models\Vaccination;
+use App\Models\Allergy;
+use App\Models\Medication;
+use App\Models\HealthMaintenanceHistory;
+use App\Models\VaccinationHistory;
+use App\Models\DiseaseHistory;
+use App\Models\Surgery;
+use App\Models\WomenHealthHistory;
 use App\Models\VaccinationForm;
 use App\Http\Requests\CreatePatient;
 use App\Http\Requests\CreatePatientForm;
@@ -27,6 +34,7 @@ use App\Http\Requests\SaveVaccination;
 use App\Http\Requests\SavePostnatal;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class PatientController extends Controller
 {
@@ -62,7 +70,7 @@ class PatientController extends Controller
         return redirect('/');
     }
 
-    public function createPatient(CreatePatient $request)
+    public function createPatient(CreatePatient $request) 
     {
         $auth = Auth::user();
         
@@ -74,7 +82,7 @@ class PatientController extends Controller
             $data['is_rhu'] = true;
         }
 
-        Patient::create($data);
+        Patient::forceCreate($data);
 
         return redirect()->back()->with('errors');
     }
@@ -291,5 +299,170 @@ class PatientController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function viewMedicalHistory($id)
+    {
+        $auth = Auth::user();
+
+        $allergies = Allergy::where('patient_id', $id)->get();
+        $medications = Medication::where('patient_id', $id)->get();
+        $maintenance = HealthMaintenanceHistory::where('patient_id', $id)->get();
+        $vaccinations = VaccinationHistory::where('patient_id', $id)->get();
+        $diseases = DiseaseHistory::where('patient_id', $id)->get();
+        $surgeries = Surgery::where('patient_id', $id)->get();
+        $womens = WomenHealthHistory::where('patient_id', $id)->get();
+
+        return Inertia::render('History', [
+            'auth'    => $auth,
+            'options' => [
+                'allergies' => $allergies,
+                'medications' => $medications,
+                'maintenance' => $maintenance,
+                'vaccinations' => $vaccinations,
+                'diseases' => $diseases,
+                'surgeries' => $surgeries,
+                'womens' => $womens,
+                'patient' => $id
+            ]
+        ]);
+    }
+
+    public function saveAllergy(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'allergy' => "required",
+            'allergic_reaction' => "required"
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
+        }
+
+        $data = $request->toArray();
+
+        Allergy::forceCreate($data);
+
+        return response()->json(['status' => 200], 200);
+
+    }
+
+    public function saveMedication(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'medications' => "required",
+            'dose' => "required|numeric",
+            'times_per_day' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
+        }
+
+        $data = $request->toArray();
+
+        Medication::forceCreate($data);
+
+        return response()->json(['status' => 200], 200);
+
+    }
+
+    public function saveMaintenanceHistory(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'type' => "required",
+            'date' => "required",
+            'facility' => 'required',
+            'abnormal_result' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
+        }
+
+        $data = $request->toArray();
+
+        HealthMaintenanceHistory::forceCreate($data);
+
+        return response()->json(['status' => 200], 200);
+
+    }
+
+    public function saveVaccinationHistory(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'type' => "required",
+            'date' => "required",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
+        }
+
+        $data = $request->toArray();
+
+        VaccinationHistory::forceCreate($data);
+
+        return response()->json(['status' => 200], 200);
+    }
+
+    public function saveDisease(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'disease' => "required",
+            'type' => "nullable",
+            'status' => "required",
+            'comment' => "required",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
+        }
+
+        $data = $request->except(['other']);
+
+        DiseaseHistory::forceCreate($data);
+
+        return response()->json(['status' => 200], 200);
+    }
+
+    public function saveSurgery(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'type' => "required",
+            'date' => "nullable",
+            'facility' => "required",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
+        }
+
+        $data = $request->toArray();
+
+        Surgery::forceCreate($data);
+
+        return response()->json(['status' => 200], 200);
+    }
+
+    public function saveWomen(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'dlmc' => "required",
+            'tnp' => "nullable",
+            'complications' => "required",
+            'afm' => "required|numeric",
+            'am' => "required|numeric",
+            'nlb' => "required|numeric",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
+        }
+
+        $data = $request->toArray();
+
+        WomenHealthHistory::forceCreate($data);
+
+        return response()->json(['status' => 200], 200);
     }
 }

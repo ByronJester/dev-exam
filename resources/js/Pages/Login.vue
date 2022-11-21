@@ -47,27 +47,40 @@
 
 <script>
 import { Inertia } from '@inertiajs/inertia';
+import axios from "axios";
 
 export default {
-	props:['message'],
+	props:[],
 	data(){
 		return {
 			formData : {
 				email: null,
 				password: null 
-			}
+			},
+			message: null
 		}
 	},
 
 	methods: {
 		login() {
-			Inertia.post(this.$root.route + "/users/login", this.formData,
-			{
-				onSuccess: (res) => {
-				},
-				orError: (err) => {
-				}
-			});
+			// Inertia.post(this.$root.route + "/users/login", this.formData,
+			// {
+			// 	onSuccess: (res) => {
+			// 	},
+			// 	orError: (err) => {
+			// 	}
+			// });
+
+			axios.post(this.$root.route + "/users/login", this.formData)
+				.then(response => {
+
+					if(response.data.status == 422) {
+						// this.saveError = response.data.errors
+						this.message = response.data.message
+					} else {
+						location.reload()
+					}
+				})
 		},
 
 		disableButton(){

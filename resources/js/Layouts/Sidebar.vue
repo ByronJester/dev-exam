@@ -54,7 +54,7 @@
                 <p class="mr-2 cursor-pointer" v-if="hasAccess('patients')" @click="changeActive('/patients')">
                     <i class="fa-solid fa-users-rectangle fa-lg mx-2"></i>
                     <span v-if="isHover" class="mx-2"
-                        :style="{'border-bottom': active.includes('patients') && active.includes('false') ? '1px solid white' : 'none'}"
+                        :style="{'border-bottom': (active.includes('patients') && active.includes('false')) || active.includes('patients') || active.includes('history') ? '1px solid white' : 'none'}"
                     > 
                         PATIENTS
                     </span>

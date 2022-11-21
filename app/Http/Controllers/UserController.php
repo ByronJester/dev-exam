@@ -55,6 +55,42 @@ class UserController extends Controller
 
    public function loginAccount(Request $request)
    {
+        // $data = [
+        //     'email' => $request->email,
+        //     'password' => $request->password,
+        // ];
+
+        // $user = User::where('email', $request->email)->first();
+
+        // if(!$user) {
+        //     return redirect()->back()->with('message', 'No account found.');
+        // }
+
+        // if(!$user->is_active) {
+        //     return redirect()->back()->with('message', 'Your account is not verified.');
+        // }
+
+        // if(Auth::attempt($data)) {
+        //     $auth = Auth::user();
+
+        //     $canAccessUsers = ['admin', 'doctor', 'leader'];
+
+        //     if($auth) {
+        //         if(in_array($auth->user_type, $canAccessUsers)) {
+        //             return redirect('/users');
+        //         }
+
+        //         if($auth->user_type == 'pharmacist') {
+        //             return redirect('/medicines');
+        //         }
+
+        //         return redirect('/patients');
+        //     }
+
+        // } else {
+        //     return redirect()->back()->with('message', 'Invalid Credentials.');
+        // }
+
         $data = [
             'email' => $request->email,
             'password' => $request->password,
@@ -63,32 +99,21 @@ class UserController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if(!$user) {
-            return redirect()->back()->with('message', 'No account found.');
+            // return redirect()->back()->with('message', 'No account found.');
+            return response()->json(['status' => 422, 'message' => 'No account found.' ], 200);  
         }
 
         if(!$user->is_active) {
-            return redirect()->back()->with('message', 'Your account is not verified.');
+            // return redirect()->back()->with('message', 'Your account is not verified.');
+            return response()->json(['status' => 422, 'message' => 'Your account is not verified.' ], 200); 
         }
 
-        if(Auth::attempt($data)) {
-            $auth = Auth::user();
-
-            $canAccessUsers = ['admin', 'doctor', 'leader'];
-
-            if($auth) {
-                if(in_array($auth->user_type, $canAccessUsers)) {
-                    return redirect('/users');
-                }
-
-                if($auth->user_type == 'pharmacist') {
-                    return redirect('/medicines');
-                }
-
-                return redirect('/patients');
-            }
-
+        if (Auth::attempt($data)) {
+            // return redirect()->back()->with('message', 'success');
+            return response()->json(['status' => 200, 'message' => 'success' ], 200); 
         } else {
-            return redirect()->back()->with('message', 'Invalid Credentials.');
+            // return redirect()->back()->with('message', 'Invalid Credentials.');
+            return response()->json(['status' => 422, 'message' => 'Invalid Credentials.' ], 200); 
         }
    }
 
