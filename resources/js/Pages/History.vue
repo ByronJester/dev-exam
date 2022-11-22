@@ -18,14 +18,29 @@
                     </div>
                 </div>
 
+                <!--  -->
                 <div class="w-full flex flex-col p-4" v-if="activeTab == 'personal'">
                     <div class="w-full flex flex-col">
-                        <p class="text-2xl">
+                        <p class="text-2xl ml-2">
                             ALLERGIES
                         </p>
 
+                        <div class="w-full mb-2" >
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="!activeAllergy" @click="activeAllergy = true"> 
+                                <i class="fa-solid fa-plus px-2"></i>
+                            </span>
+
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeAllergy" @click="activeAllergy = false"> 
+                                <i class="fa-solid fa-xmark px-2"></i>
+                            </span>
+
+                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('allergy')">
+                                <i class="fa-solid fa-print px-2"></i>
+                            </span>
+                        </div>
+
                         <div class="w-full flex flex-row">
-                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col">
+                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col"  v-if="activeAllergy">
                                 <div class="w-full p-2">
                                     <label class="text-bold text-xl">Allergy:</label><br>
                                     <input type="text" v-model="formAllergy.allergy" placeholder="Allergy" class="--input">
@@ -47,7 +62,43 @@
                                 </div>
                             </div>
 
-                            <div style="width: 70%" class="w-full flex flex-col ml-2">
+                            <VueHtml2pdf
+                                :show-layout="false"
+                                :float-layout="true"
+                                :enable-download="true"
+                                :preview-modal="true"
+                                :paginate-elements-by-height="1000"
+                                :filename="Math.random().toString(36).slice(2)"
+                                :pdf-quality="2"
+                                :manual-pagination="false"
+                                pdf-format="a4"
+                                pdf-orientation="landscape"
+                                pdf-content-width="100%"
+                                ref="allergy"
+                            >
+                                <section slot="pdf-content">
+                                    <div class="w-full p-5">
+                                        <table class="w-full --table">
+                                            <tr class="text-center">
+                                                <th v-for="column in ['ALLERGY', 'ALLERGIC REACTION']" :key="column" class="--th">
+                                                    {{ column }}
+                                                </th>
+                                            </tr>
+
+                                            <tr class="text-center"
+                                                v-for="(l, index) in options.allergies" :key="index"
+                                            >
+                                                <td v-for="(k, i) in [{label: 'allergy'}, {label: 'allergic_reaction'}]" :key="i" class="cursor-pointer --td">
+                                                    <span>{{options.allergies[index][k.label] }}</span> 
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </VueHtml2pdf>
+
+                            <div :style="{width: activeAllergy ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
                                 <table class="w-full">
                                     <tr class="text-center">
                                         <th v-for="column in ['ALLERGY', 'ALLERGIC REACTION']" :key="column">
@@ -67,12 +118,26 @@
                             </div>
                         </div>
 
-                        <p class="text-2xl mt-10">
+                        <p class="text-2xl mt-10 ml-2">
                                 MEDICATIONS
                         </p>
 
-                        <div class="w-full flex flex-row">
-                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col">
+                        <div class="w-full mb-2" >
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="!activeMedication" @click="activeMedication = true"> 
+                                <i class="fa-solid fa-plus px-2"></i>
+                            </span>
+
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeMedication" @click="activeMedication = false"> 
+                                <i class="fa-solid fa-xmark px-2"></i>
+                            </span>
+
+                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('medication')">
+                                <i class="fa-solid fa-print px-2"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row" >
+                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeMedication">
                                 <div class="w-full p-2">
                                     <label class="text-bold text-xl">Medications:</label><br>
                                     <input type="text" v-model="formMedication.medications" placeholder="Medications" class="--input">
@@ -100,7 +165,43 @@
                                 </div>
                             </div>
 
-                            <div style="width: 70%" class="w-full flex flex-col ml-2">
+                            <VueHtml2pdf
+                                :show-layout="false"
+                                :float-layout="true"
+                                :enable-download="true"
+                                :preview-modal="true"
+                                :paginate-elements-by-height="1000"
+                                :filename="Math.random().toString(36).slice(2)"
+                                :pdf-quality="2"
+                                :manual-pagination="false"
+                                pdf-format="a4"
+                                pdf-orientation="landscape"
+                                pdf-content-width="100%"
+                                ref="medication"
+                            >
+                                <section slot="pdf-content">
+                                    <div class="w-full p-5">
+                                        <table class="w-full --table">
+                                            <tr class="text-center">
+                                                <th v-for="column in ['MEDICATIONS', 'DOSE', 'TIMES PER DAY']" :key="column" class="--th">
+                                                    {{ column }}
+                                                </th>
+                                            </tr>
+
+                                            <tr class="text-center"
+                                                v-for="(l, index) in options.medications" :key="index"
+                                            >
+                                                <td v-for="(k, i) in [{label: 'medications'}, {label: 'dose'}, {label: 'times_per_day'}]" :key="i" class="cursor-pointer --td">
+                                                    <span>{{options.medications[index][k.label] }}</span> 
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </VueHtml2pdf>
+
+                            <div :style="{width: activeMedication ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
                                 <table class="w-full">
                                     <tr class="text-center">
                                         <th v-for="column in ['MEDICATIONS', 'DOSE', 'TIMES PER DAY']" :key="column">
@@ -121,12 +222,26 @@
                         </div>
 
 
-                        <p class="text-2xl mt-10">
+                        <p class="text-2xl mt-10 ml-2">
                                 HEALTH MAINTENANCE HISTORY
                         </p>
 
-                        <div class="w-full flex flex-row">
-                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col">
+                        <div class="w-full mb-2" >
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="!activeMaintenance" @click="activeMaintenance = true"> 
+                                <i class="fa-solid fa-plus px-2"></i>
+                            </span>
+
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeMaintenance" @click="activeMaintenance = false"> 
+                                <i class="fa-solid fa-xmark px-2"></i>
+                            </span>
+
+                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('maintenance')">
+                                <i class="fa-solid fa-print px-2"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row" >
+                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeMaintenance">
                                 <div class="w-full p-2">
                                     <label class="text-bold text-xl">Type:</label><br>
                                     <select class="--input" v-model="formMaintenance.type">
@@ -189,7 +304,43 @@
                                 </div>
                             </div>
 
-                            <div style="width: 70%" class="w-full flex flex-col ml-2">
+                            <VueHtml2pdf
+                                :show-layout="false"
+                                :float-layout="true"
+                                :enable-download="true"
+                                :preview-modal="true"
+                                :paginate-elements-by-height="1000"
+                                :filename="Math.random().toString(36).slice(2)"
+                                :pdf-quality="2"
+                                :manual-pagination="false"
+                                pdf-format="a4"
+                                pdf-orientation="landscape"
+                                pdf-content-width="100%"
+                                ref="maintenance"
+                            >
+                                <section slot="pdf-content">
+                                    <div class="w-full p-5">
+                                        <table class="w-full --table">
+                                            <tr class="text-center">
+                                                <th v-for="column in ['TYPE', 'DATE', 'FACILITY/PROVIDER', 'ABNORMAL RESULT']" :key="column" class="--th">
+                                                    {{ column }}
+                                                </th>
+                                            </tr>
+
+                                            <tr class="text-center"
+                                                v-for="(l, index) in options.maintenance" :key="index"
+                                            >
+                                                <td v-for="(k, i) in [{label: 'type'}, {label: 'date'}, {label: 'facility'}, {label: 'abnormal_result'}]" :key="i" class="cursor-pointer --td">
+                                                    <span>{{options.maintenance[index][k.label] }}</span> 
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </VueHtml2pdf>
+
+                            <div :style="{width: activeMaintenance ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
                                 <table class="w-full">
                                     <tr class="text-center">
                                         <th v-for="column in ['TYPE', 'DATE', 'FACILITY/PROVIDER', 'ABNORMAL RESULT']" :key="column">
@@ -209,12 +360,26 @@
                             </div>
                         </div>
 
-                        <p class="text-2xl mt-10">
+                        <p class="text-2xl mt-10 ml-2">
                             VACCINATION HISTORY
                         </p>
 
+                        <div class="w-full mb-2" >
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="!activeVaccination" @click="activeVaccination = true"> 
+                                <i class="fa-solid fa-plus px-2"></i>
+                            </span>
+
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeVaccination" @click="activeVaccination = false"> 
+                                <i class="fa-solid fa-xmark px-2"></i>
+                            </span>
+
+                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('vaccination')">
+                                <i class="fa-solid fa-print px-2"></i>
+                            </span>
+                        </div>
+
                         <div class="w-full flex flex-row">
-                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col">
+                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeVaccination">
                                 <div class="w-full p-2">
                                     <label class="text-bold text-xl">Type:</label><br>
                                     <select class="--input" v-model="formVaccination.type">
@@ -256,7 +421,43 @@
                                 </div>
                             </div>
 
-                            <div style="width: 70%" class="w-full flex flex-col ml-2">
+                            <VueHtml2pdf
+                                :show-layout="false"
+                                :float-layout="true"
+                                :enable-download="true"
+                                :preview-modal="true"
+                                :paginate-elements-by-height="1000"
+                                :filename="Math.random().toString(36).slice(2)"
+                                :pdf-quality="2"
+                                :manual-pagination="false"
+                                pdf-format="a4"
+                                pdf-orientation="landscape"
+                                pdf-content-width="100%"
+                                ref="vaccination"
+                            >
+                                <section slot="pdf-content">
+                                    <div class="w-full p-5">
+                                        <table class="w-full --table">
+                                            <tr class="text-center">
+                                                <th v-for="column in ['TYPE', 'DATE']" :key="column" class="--th">
+                                                    {{ column }}
+                                                </th>
+                                            </tr>
+
+                                            <tr class="text-center"
+                                                v-for="(l, index) in options.vaccinations" :key="index"
+                                            >
+                                                <td v-for="(k, i) in [{label: 'type'}, {label: 'date'}]" :key="i" class="cursor-pointer --td">
+                                                    <span>{{options.vaccinations[index][k.label] }}</span> 
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </VueHtml2pdf>
+
+                            <div :style="{width: activeVaccination ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
                                 <table class="w-full">
                                     <tr class="text-center">
                                         <th v-for="column in ['TYPE', 'DATE']" :key="column">
@@ -276,12 +477,26 @@
                             </div>
                         </div>
 
-                        <p class="text-2xl mt-10">
+                        <p class="text-2xl mt-10 ml-2">
                             DISEASE HISTORY
                         </p>
 
+                        <div class="w-full mb-2" >
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="!activeDisease" @click="activeDisease = true"> 
+                                <i class="fa-solid fa-plus px-2"></i>
+                            </span>
+
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeDisease" @click="activeDisease = false"> 
+                                <i class="fa-solid fa-xmark px-2"></i>
+                            </span>
+
+                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('disease')">
+                                <i class="fa-solid fa-print px-2"></i>
+                            </span>
+                        </div>
+
                         <div class="w-full flex flex-row">
-                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col">
+                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeDisease">
                                 <div class="w-full p-2" v-if="!formDisease.other">
                                     <label class="text-bold text-xl">Disease:</label><br>
                                     <select class="--input" v-model="formDisease.disease">
@@ -384,7 +599,43 @@
                                 </div>
                             </div>
 
-                            <div style="width: 70%" class="w-full flex flex-col ml-2">
+                            <VueHtml2pdf
+                                :show-layout="false"
+                                :float-layout="true"
+                                :enable-download="true"
+                                :preview-modal="true"
+                                :paginate-elements-by-height="1000"
+                                :filename="Math.random().toString(36).slice(2)"
+                                :pdf-quality="2"
+                                :manual-pagination="false"
+                                pdf-format="a4"
+                                pdf-orientation="landscape"
+                                pdf-content-width="100%"
+                                ref="disease"
+                            >
+                                <section slot="pdf-content">
+                                    <div class="w-full p-5">
+                                        <table class="w-full --table">
+                                            <tr class="text-center">
+                                                <th v-for="column in ['DISEASE', 'TYPE', 'STATUS', 'COMMENT']" :key="column" class="--th">
+                                                    {{ column }}
+                                                </th>
+                                            </tr>
+
+                                            <tr class="text-center"
+                                                v-for="(l, index) in options.diseases" :key="index"
+                                            >
+                                                <td v-for="(k, i) in [{label: 'disease'}, {label: 'type'}, {label: 'status'}, {label: 'comment'}]" :key="i" class="cursor-pointer --td">
+                                                    <span>{{options.diseases[index][k.label] }}</span> 
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </VueHtml2pdf>
+
+                            <div :style="{width: activeDisease ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
                                 <table class="w-full">
                                     <tr class="text-center">
                                         <th v-for="column in ['DISEASE', 'TYPE', 'STATUS', 'COMMENT']" :key="column">
@@ -404,12 +655,26 @@
                             </div>
                         </div>
 
-                        <p class="text-2xl mt-10">
+                        <p class="text-2xl mt-10 ml-2">
                             SURGERIES
                         </p>
 
-                        <div class="w-full flex flex-row">
-                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col">
+                        <div class="w-full mb-2" >
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="!activeSurgery" @click="activeSurgery = true"> 
+                                <i class="fa-solid fa-plus px-2"></i>
+                            </span>
+
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeSurgery" @click="activeSurgery = false"> 
+                                <i class="fa-solid fa-xmark px-2"></i>
+                            </span>
+
+                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('surgery')">
+                                <i class="fa-solid fa-print px-2"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row" >
+                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeSurgery">
                                 <div class="w-full p-2">
                                     <label class="text-bold text-xl">Type (specify left/right):</label><br>
                                     <input type="text" v-model="formSurgery.type" placeholder="Type" class="--input">
@@ -437,7 +702,43 @@
                                 </div>
                             </div>
 
-                            <div style="width: 70%" class="w-full flex flex-col ml-2">
+                            <VueHtml2pdf
+                                :show-layout="false"
+                                :float-layout="true"
+                                :enable-download="true"
+                                :preview-modal="true"
+                                :paginate-elements-by-height="1000"
+                                :filename="Math.random().toString(36).slice(2)"
+                                :pdf-quality="2"
+                                :manual-pagination="false"
+                                pdf-format="a4"
+                                pdf-orientation="landscape"
+                                pdf-content-width="100%"
+                                ref="surgery"
+                            >
+                                <section slot="pdf-content">
+                                    <div class="w-full p-5">
+                                        <table class="w-full --table">
+                                            <tr class="text-center">
+                                                <th v-for="column in ['TYPE', 'DATE', 'LOCATION/FACILITY']" :key="column" class="--th">
+                                                    {{ column }}
+                                                </th>
+                                            </tr>
+
+                                            <tr class="text-center"
+                                                v-for="(l, index) in options.surgeries" :key="index"
+                                            >
+                                                <td v-for="(k, i) in [{label: 'type'}, {label: 'date'}, {label: 'facility'}]" :key="i" class="cursor-pointer --td">
+                                                    <span>{{options.surgeries[index][k.label] }}</span> 
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </VueHtml2pdf>
+
+                            <div :style="{width: activeSurgery ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
                                 <table class="w-full">
                                     <tr class="text-center">
                                         <th v-for="column in ['TYPE', 'DATE', 'LOCATION/FACILITY']" :key="column">
@@ -457,12 +758,26 @@
                             </div>
                         </div>
 
-                        <p class="text-2xl mt-10">
+                        <p class="text-2xl mt-10 ml-2" v-if="options.gender != 'Male'">
                             WOMEN’S HEALTH HISTORY
                         </p>
 
-                        <div class="w-full flex flex-row">
-                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col">
+                        <div class="w-full mb-2" v-if="options.gender != 'Male'">
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="!activeWomen" @click="activeWomen = true"> 
+                                <i class="fa-solid fa-plus px-2"></i>
+                            </span>
+
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeWomen" @click="activeWomen = false"> 
+                                <i class="fa-solid fa-xmark px-2"></i>
+                            </span>
+
+                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('women')">
+                                <i class="fa-solid fa-print px-2"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row" v-if="options.gender != 'Male'">
+                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeWomen">
                                 <div class="w-full p-2">
                                     <label class="text-bold text-xl">Date of Last Menstrual Cycle:</label><br>
                                     <input type="date" v-model="formWomen.dlmc" placeholder="Date of Last Menstrual Cycle:" class="--input">
@@ -508,7 +823,43 @@
                                 </div>
                             </div>
 
-                            <div style="width: 70%" class="w-full flex flex-col ml-2">
+                            <VueHtml2pdf
+                                :show-layout="false"
+                                :float-layout="true"
+                                :enable-download="true"
+                                :preview-modal="true"
+                                :paginate-elements-by-height="1000"
+                                :filename="Math.random().toString(36).slice(2)"
+                                :pdf-quality="2"
+                                :manual-pagination="false"
+                                pdf-format="a4"
+                                pdf-orientation="landscape"
+                                pdf-content-width="100%"
+                                ref="women"
+                            >
+                                <section slot="pdf-content">
+                                    <div class="w-full p-5">
+                                        <table class="w-full --table">
+                                            <tr class="text-center">
+                                                <th v-for="column in ['Date of Last Menstrual Cycle', 'Total Number of Pregnancies', 'Pregnancy Complications', 'Age of First Menstruation', 'Age of Menopause', 'Number of Live Births']" :key="column" style="text-transform: capitalize;" class="--th">
+                                                    {{ column }}
+                                                </th>
+                                            </tr>
+
+                                            <tr class="text-center"
+                                                v-for="(l, index) in options.womens" :key="index"
+                                            >
+                                                <td v-for="(k, i) in [{label: 'dlmc'}, {label: 'tnp'}, {label: 'complications'}, {label: 'afm'}, {label: 'am'}, {label: 'nlb'}]" :key="i" class="cursor-pointer --td">
+                                                    <span>{{options.womens[index][k.label] }}</span> 
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </VueHtml2pdf>
+
+                            <div :style="{width: activeWomen ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
                                 <table class="w-full">
                                     <tr class="text-center">
                                         <th v-for="column in ['Date of Last Menstrual Cycle', 'Total Number of Pregnancies', 'Pregnancy Complications', 'Age of First Menstruation', 'Age of Menopause', 'Number of Live Births']" :key="column" style="text-transform: capitalize;">
@@ -521,6 +872,352 @@
                                     >
                                         <td v-for="(k, i) in [{label: 'dlmc'}, {label: 'tnp'}, {label: 'complications'}, {label: 'afm'}, {label: 'am'}, {label: 'nlb'}]" :key="i" class="cursor-pointer">
                                             <span>{{options.womens[index][k.label] }}</span> 
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+
+                        <p class="text-2xl mt-10 ml-2">
+                            RISKY HABITS
+                        </p>
+
+                        <div class="w-full mb-2" >
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="!activeHabits" @click="activeHabits = true"> 
+                                <i class="fa-solid fa-plus px-2"></i>
+                            </span>
+
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeHabits" @click="activeHabits = false"> 
+                                <i class="fa-solid fa-xmark px-2"></i>
+                            </span>
+
+                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('habit')">
+                                <i class="fa-solid fa-print px-2"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row">
+                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeHabits">
+                                <div class="w-full p-2">
+                                    <label class="text-bold text-xl">Risky Habit:</label><br>
+                                    <select class="--input" v-model="formHabits.type">
+                                        <option :value="'Cigarette'">
+                                            Cigarette
+                                        </option>
+
+                                        <option :value="'Alcohol'">
+                                            Alcohol
+                                        </option>
+
+                                        <option :value="'Drugs'">
+                                            Drugs
+                                        </option>
+                                        
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('type', saveError)}} </span> 
+                                </div>
+
+                                <div class="w-full p-2">
+                                    <label class="text-bold text-xl">Status:</label><br>
+                                    <select class="--input" v-model="formHabits.status">
+                                        <option :value="'Past'">
+                                            Past
+                                        </option>
+
+                                        <option :value="'Current'">
+                                            Current
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('status', saveError)}} </span> 
+                                </div>
+
+
+                                <div class="w-full p-2">
+                                    <button class="w-full py-2 text-white" style="background: #366422; border-radius: 10px"
+                                        @click="saveHabit()"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+
+                            <VueHtml2pdf
+                                :show-layout="false"
+                                :float-layout="true"
+                                :enable-download="true"
+                                :preview-modal="true"
+                                :paginate-elements-by-height="1000"
+                                :filename="Math.random().toString(36).slice(2)"
+                                :pdf-quality="2"
+                                :manual-pagination="false"
+                                pdf-format="a4"
+                                pdf-orientation="landscape"
+                                pdf-content-width="100%"
+                                ref="habit"
+                            >
+                                <section slot="pdf-content">
+                                    <div class="w-full p-5">
+                                        <table class="w-full --table">
+                                            <tr class="text-center">
+                                                <th v-for="column in ['RISKY HABIT', 'STATUS']" :key="column" class="--th">
+                                                    {{ column }}
+                                                </th>
+                                            </tr>
+
+                                            <tr class="text-center"
+                                                v-for="(l, index) in options.habits" :key="index"
+                                            >
+                                                <td v-for="(k, i) in [{label: 'type'}, {label: 'status'}]" :key="i" class="cursor-pointer --td">
+                                                    <span>{{options.habits[index][k.label] }}</span> 
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </VueHtml2pdf>
+
+                            <div :style="{width: activeDisease ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
+                                <table class="w-full">
+                                    <tr class="text-center">
+                                        <th v-for="column in ['RISKY HABIT', 'STATUS']" :key="column">
+                                            {{ column }}
+                                        </th>
+                                    </tr>
+
+                                    <tr class="text-center"
+                                        v-for="(l, index) in options.habits" :key="index"
+                                    >
+                                        <td v-for="(k, i) in [{label: 'type'}, {label: 'status'}]" :key="i" class="cursor-pointer">
+                                            <span>{{options.habits[index][k.label] }}</span> 
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!--  -->
+
+
+                <div class="w-full flex flex-col p-4" v-if="activeTab == 'family'">
+                    <div class="w-full flex flex-col">
+                        <p class="text-2xl mt-10 ml-2">
+                            DISEASE HISTORY
+                        </p>
+
+                        <div class="w-full mb-2" >
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="!activeDisease" @click="activeDisease = true"> 
+                                <i class="fa-solid fa-plus px-2"></i>
+                            </span>
+
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeDisease" @click="activeDisease = false"> 
+                                <i class="fa-solid fa-xmark px-2"></i>
+                            </span>
+
+                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('family')">
+                                <i class="fa-solid fa-print px-2"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-row">
+                            <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeDisease">
+                                <div class="w-full p-2">
+                                    <label class="text-bold text-xl">Family Member:</label><br>
+                                    <select class="--input" v-model="formDisease.family">
+                                        <option :value="'Mother'">
+                                            Mother
+                                        </option>
+
+                                        <option :value="'Father'">
+                                            Father
+                                        </option>
+
+                                        <option :value="'Brother'">
+                                            Brother
+                                        </option>
+
+                                        <option :value="'Sister'">
+                                            Sister
+                                        </option>
+
+                                        <option :value="'Grandmother'">
+                                            Grandmother
+                                        </option>
+
+                                        <option :value="'Grandfather'">
+                                            Grandfather
+                                        </option>
+
+                                        <option :value="'Uncle'">
+                                            Uncle
+                                        </option>
+
+                                        <option :value="'Auntie'">
+                                            Auntie
+                                        </option>
+                                        
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('status', saveError)}} </span> 
+                                </div>
+
+
+                                <div class="w-full p-2" v-if="!formDisease.other">
+                                    <label class="text-bold text-xl">Disease:</label><br>
+                                    <select class="--input" v-model="formDisease.disease">
+                                        <option :value="'Asthma'">
+                                            Asthma
+                                        </option>
+
+                                        <option :value="'Cancer'">
+                                            Cancer
+                                        </option>
+                                        
+                                        <option :value="'Depression/Anxiety/Bipolar/Suicidal'">
+                                            Depression/Anxiety/Bipolar/Suicidal
+                                        </option>
+
+                                        <option :value="'Diabetes'">
+                                            Diabetes
+                                        </option>
+
+                                        <option :value="'Emphysema (COPD)'">
+                                            Emphysema (COPD)
+                                        </option>
+
+                                        <option :value="'Heart Disease'">
+                                            Heart Disease
+                                        </option>
+
+                                        <option :value="'High Blood Pressure (hypertension)'">
+                                            High Blood Pressure (hypertension)
+                                        </option>
+
+                                        <option :value="'High Cholesterol'">
+                                            High Cholesterol
+                                        </option>
+
+                                        <option :value="'Hypothyroidism/Thyroid Disease'">
+                                            Hypothyroidism/Thyroid Disease
+                                        </option>
+
+                                        <option :value="'Emphysema (COPD)'">
+                                            Renal (kidney) Disease
+                                        </option>
+
+                                        <option :value="'Stroke'">
+                                           Stroke
+                                        </option>
+
+                                        <option :value="'Emphysema (COPD)'">
+                                            Renal (kidney) Disease
+                                        </option>
+                                        
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('disease', saveError)}} </span> 
+                                </div>
+
+                                <div class="w-full p-2" v-if="formDisease.other">
+                                    <label class="text-bold text-xl">Disease:</label><br>
+                                    <input type="text" v-model="formDisease.disease" placeholder="Disease" class="--input">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('disease', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full p-2">
+                                    <input type="checkbox" v-model="formDisease.other">
+                                    <label for="vehicle1"> Other</label><br>
+                                </div>
+
+                                <div class="w-full p-2" v-if="formDisease.disease == 'Cancer' || formDisease.type == 'Diabetes'">
+                                    <label class="text-bold text-xl">Type:</label><br>
+                                    <input type="text" v-model="formDisease.type" placeholder="Type" class="--input">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('type', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full p-2">
+                                    <label class="text-bold text-xl">Status:</label><br>
+                                    <select class="--input" v-model="formDisease.status">
+                                        <option :value="'Current'">
+                                            Current
+                                        </option>
+
+                                        <option :value="'Past'">
+                                            Past
+                                        </option>
+                                        
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('status', saveError)}} </span> 
+                                </div>
+
+                                <div class="w-full p-2">
+                                    <label class="text-bold text-xl">Comment:</label><br>
+                                    <input type="text" v-model="formDisease.comment" placeholder="Comment" class="--input">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('comment', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full p-2">
+                                    <button class="w-full py-2 text-white" style="background: #366422; border-radius: 10px"
+                                        @click="saveDisease()"
+                                    >
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+
+                            <VueHtml2pdf
+                                :show-layout="false"
+                                :float-layout="true"
+                                :enable-download="true"
+                                :preview-modal="true"
+                                :paginate-elements-by-height="1000"
+                                :filename="Math.random().toString(36).slice(2)"
+                                :pdf-quality="2"
+                                :manual-pagination="false"
+                                pdf-format="a4"
+                                pdf-orientation="landscape"
+                                pdf-content-width="100%"
+                                ref="family"
+                            >
+                                <section slot="pdf-content">
+                                    <div class="w-full p-5">
+                                        <table class="w-full --table">
+                                            <tr class="text-center">
+                                                <th v-for="column in ['Family Member','DISEASE', 'TYPE', 'STATUS', 'COMMENT']" :key="column" class="--th">
+                                                    {{ column }}
+                                                </th>
+                                            </tr>
+
+                                            <tr class="text-center"
+                                                v-for="(l, index) in options.familyDiseases" :key="index"
+                                            >
+                                                <td v-for="(k, i) in [{label: 'family'}, {label: 'disease'}, {label: 'type'}, {label: 'status'}, {label: 'comment'}]" :key="i" class="cursor-pointer --td">
+                                                    <span>{{options.familyDiseases[index][k.label] }}</span> 
+                                                </td>
+                                            </tr>
+
+                                        </table>
+                                    </div>
+                                </section>
+                            </VueHtml2pdf>
+
+                            <div :style="{width: activeDisease ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
+                                <table class="w-full">
+                                    <tr class="text-center">
+                                        <th v-for="column in ['Family Member','DISEASE', 'TYPE', 'STATUS', 'COMMENT']" :key="column">
+                                            {{ column }}
+                                        </th>
+                                    </tr>
+
+                                    <tr class="text-center"
+                                        v-for="(l, index) in options.familyDiseases" :key="index"
+                                    >
+                                        <td v-for="(k, i) in [{label: 'family'}, {label: 'disease'}, {label: 'type'}, {label: 'status'}, {label: 'comment'}]" :key="i" class="cursor-pointer">
+                                            <span>{{options.familyDiseases[index][k.label] }}</span> 
                                         </td>
                                     </tr>
 
@@ -541,13 +1238,15 @@ import Navigation from "../Layouts/Sidebar";
 import Toggle from '../Components/Toggle.vue';
 import Table from "../Components/Table";
 import axios from "axios";
+import VueHtml2pdf from 'vue-html2pdf'
 
 export default {
     props: ['auth', 'options'],
     components: {
         Navigation,
         Toggle,
-        Table
+        Table,
+        VueHtml2pdf
     },
 
     data(){
@@ -582,7 +1281,8 @@ export default {
                 type: null,
                 status: null,
                 comment: null,
-                other: null
+                other: null,
+                family: null
             },
             formSurgery: {
                 patient_id: this.options.patient,
@@ -599,7 +1299,20 @@ export default {
                 am: null,
                 nlb: null
             },
-            saveError: null
+            formHabits: {
+                patient_id: this.options.patient,
+                type: null,
+                status: null
+            },
+            saveError: null,
+            activeAllergy: false,
+            activeMedication: false,
+            activeMaintenance: false,
+            activeVaccination: false,
+            activeDisease: false,
+            activeSurgery: false,
+            activeWomen: false,
+            activeHabits: false
         }
     },
 
@@ -614,10 +1327,12 @@ export default {
     },
 
     mounted(){
-        console.log(this.options)
     },
 
     methods: {
+        printReport(arg){
+            this.$refs[arg].generatePdf()
+        },
         saveAllergy() {
             axios.post(this.$root.route + '/history/save-allergy', this.formAllergy)
 				.then(response => {
@@ -683,7 +1398,18 @@ export default {
 				})
         },
         saveWomen() {
-                axios.post(this.$root.route + '/history/save-women', this.formWomen)
+            axios.post(this.$root.route + '/history/save-women', this.formWomen)
+				.then(response => {
+					if(response.data.status == 422) {
+						this.saveError = response.data.errors 
+					} else {
+                        location.reload()
+					}
+				})
+        },
+
+        saveHabit() {
+            axios.post(this.$root.route + '/history/save-habit', this.formHabits)
 				.then(response => {
 					if(response.data.status == 422) {
 						this.saveError = response.data.errors 
@@ -730,4 +1456,26 @@ th {
 .--active__color {
     background: #B0BEC5;
 }
+
+.--table {
+    border-collapse: collapse;
+    border-radius: 5px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px black;
+}
+
+.--td {
+    border: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.--th {
+    border: 1px solid black;
+    background: 	366422;
+    color: #ffffff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
 </style>

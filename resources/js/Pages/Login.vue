@@ -63,14 +63,6 @@ export default {
 
 	methods: {
 		login() {
-			// Inertia.post(this.$root.route + "/users/login", this.formData,
-			// {
-			// 	onSuccess: (res) => {
-			// 	},
-			// 	orError: (err) => {
-			// 	}
-			// });
-
 			axios.post(this.$root.route + "/users/login", this.formData)
 				.then(response => {
 

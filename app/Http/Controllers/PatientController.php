@@ -23,6 +23,7 @@ use App\Models\VaccinationHistory;
 use App\Models\DiseaseHistory;
 use App\Models\Surgery;
 use App\Models\WomenHealthHistory;
+use App\Models\RiskyHabit;
 use App\Models\VaccinationForm;
 use App\Http\Requests\CreatePatient;
 use App\Http\Requests\CreatePatientForm;
@@ -305,13 +306,17 @@ class PatientController extends Controller
     {
         $auth = Auth::user();
 
+        $patient = Patient::where('id', $id)->first();
+
         $allergies = Allergy::where('patient_id', $id)->get();
         $medications = Medication::where('patient_id', $id)->get();
         $maintenance = HealthMaintenanceHistory::where('patient_id', $id)->get();
         $vaccinations = VaccinationHistory::where('patient_id', $id)->get();
-        $diseases = DiseaseHistory::where('patient_id', $id)->get();
+        $diseases = DiseaseHistory::where('patient_id', $id)->where('family', null)->get();
+        $familyDiseases = DiseaseHistory::orderBy('family')->where('patient_id', $id)->where('family', '!=', null)->get();
         $surgeries = Surgery::where('patient_id', $id)->get();
         $womens = WomenHealthHistory::where('patient_id', $id)->get();
+        $habits = RiskyHabit::where('patient_id', $id)->get();
 
         return Inertia::render('History', [
             'auth'    => $auth,
@@ -321,9 +326,12 @@ class PatientController extends Controller
                 'maintenance' => $maintenance,
                 'vaccinations' => $vaccinations,
                 'diseases' => $diseases,
+                'familyDiseases' => $familyDiseases,
                 'surgeries' => $surgeries,
                 'womens' => $womens,
-                'patient' => $id
+                'habits' => $habits,
+                'patient' => $id,
+                'gender' => $patient->gender
             ]
         ]);
     }
@@ -412,6 +420,7 @@ class PatientController extends Controller
             'type' => "nullable",
             'status' => "required",
             'comment' => "required",
+            'family' => "nullable"
         ]);
 
         if ($validator->fails()) {
@@ -462,6 +471,24 @@ class PatientController extends Controller
         $data = $request->toArray();
 
         WomenHealthHistory::forceCreate($data);
+
+        return response()->json(['status' => 200], 200);
+    }
+
+    public function saveHabit(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'type' => "required",
+            'status' => "required",
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
+        }
+
+        $data = $request->toArray();
+
+        RiskyHabit::forceCreate($data);
 
         return response()->json(['status' => 200], 200);
     }

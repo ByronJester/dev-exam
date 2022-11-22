@@ -68,6 +68,7 @@ Route::middleware(['cors'])->group(function () {
         Route::post('/save-disease', [PatientController::class, 'saveDisease']);
         Route::post('/save-surgery', [PatientController::class, 'saveSurgery']);
         Route::post('/save-women', [PatientController::class, 'saveWomen']);
+        Route::post('/save-habit', [PatientController::class, 'saveHabit']);
     });
 
     Route::prefix('maintenance')->group(function () {

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDiseaseHistoriesTable extends Migration
+class CreateRiskyHabitsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateDiseaseHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('disease_histories', function (Blueprint $table) {
+        Schema::create('risky_habits', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('patient_id')->unsigned()->comment('Foreign key from table patients');
-            $table->string('disease');
-            $table->string('type')->nullable();
+            $table->string('type');
             $table->string('status');
-            $table->string('family')->nullable();
-            $table->longText('comment');
         
             $table->foreign('patient_id')->references('id')->on('patients');
             $table->softDeletes();
@@ -35,6 +32,6 @@ class CreateDiseaseHistoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('disease_histories');
+        Schema::dropIfExists('risky_habits');
     }
 }
