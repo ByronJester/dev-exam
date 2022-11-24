@@ -24,16 +24,16 @@ class CreatePatient extends FormRequest
     public function rules()
     {
         $rules = [
-            'place_id' => "required|max:150",
-            'name' => "required|alpha_spaces|max:150",
-            'phone' => "required|numeric|digits:11|max:150",
-            'dob' => "required|max:150",
-            'age' => "required|numeric|max:150",
-            'gender' => "required|alpha_spaces|max:150",
-            'civil_status' => "required|alpha_spaces|max:150",
+            'place_id' => "required",
+            'name' => "required|alpha_spaces",
+            'phone' => "required|numeric|digits:11",
+            'dob' => "required",
+            'age' => "required|numeric",
+            'gender' => "required|alpha_spaces",
+            'civil_status' => "required|alpha_spaces",
             'philhealth' => "required|numeric|digits:12",
-            'contact_person' => "required|alpha_spaces|max:150",
-            'contact_person_address' => "required|string|max:150",
+            'contact_person' => "required|alpha_spaces",
+            'contact_person_address' => "required|string",
             'contact_person_phone' => "required|numeric|digits:11"
         ];
 

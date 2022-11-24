@@ -25,8 +25,8 @@ class CreatePatientForm extends FormRequest
     {
         $rules = [
             'patient_id' => "required",
-            'name' => "required|alpha_spaces|max:150",
-            'description' => "required|max:150",
+            'name' => "required|alpha_spaces",
+            'description' => "required",
         ];
 
         return $rules;

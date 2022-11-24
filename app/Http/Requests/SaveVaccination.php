@@ -24,12 +24,12 @@ class SaveVaccination extends FormRequest
     public function rules()
     {
         $rules = [
-            'guardian_name' => "required|alpha_spaces|max:150",
+            'guardian_name' => "required|alpha_spaces",
             'dob' => "required",
             'age' => "required|numeric|digits:2",
-            'height' => "required|numeric|max:150",
-            'weight' => "required|numeric|max:150",
-            'bmi' => "required|numeric|max:150",
+            'height' => "required|numeric",
+            'weight' => "required|numeric",
+            'bmi' => "required|numeric",
             'vaccination_id' => "required",
         ];
 
