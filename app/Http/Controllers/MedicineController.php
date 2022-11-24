@@ -84,7 +84,8 @@ class MedicineController extends Controller
                     'patients' => $patients->get(),
                     'categories' => MedicineCategory::get(),
                     'units' => MedicineUnit::get(),
-                    'stocks' => $medicineStocks->pluck('medicine_id')
+                    'stocks' => $medicineStocks->pluck('medicine_id'),
+                    'medicineStocts' => $auth->role == 3 ? $barangayMedicines: $medicineStocks,
                 ]
             ]);
         }

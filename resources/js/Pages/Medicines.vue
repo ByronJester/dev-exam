@@ -53,7 +53,7 @@
                             </div>
                         </div>
 
-                        <div class="flex flex-row">
+                        <div class="flex flex-col">
                             <div class="w-full h-full mr-2">
                                 <Table :columns="columns"  :rows="medecineList" :keys="keys"/>
                             </div>
@@ -68,6 +68,12 @@
                             >
                                 <i class="fa-solid fa-house-chimney-medical fa-2xl"></i>
                             </button>
+                        </div>
+
+                        <div class="flex flex-col">
+                            <div class="w-full h-full mr-2">
+                                <Table :columns="columns"  :rows="options.medicineStocts" :keys="keys"/>
+                            </div>
                         </div>
                     </div>
 
@@ -379,10 +385,108 @@ export default {
         console.log(this.options)
     },
     watch: {
+        activeTab(arg){
+            if(arg == 'stock') {
+                this.columns = [
+                    'Medicine', 'Category', 'Dosage', 'Unit', 'Quantity',  'Date'
+                ]
+
+                this.keys = [
+                    {
+                        label: 'name',
+                    },
+                    {
+                        label: 'category',
+                    },
+                    {
+                        label: 'dosage',
+                    },
+                    {
+                        label: 'unit',
+                    },
+                    {
+                        label: 'deducted_quantity',
+                    },
+                    {
+                        label: 'date',
+                    },
+                ]
+            } else {
+                if(this.dispensed_type == 'barangay') {
+                    this.medecineList = this.options.barangayMedicines.filter((x) => {
+                        return x.place_name == arg;
+                    })
+
+                    this.columns = [
+                        'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Dispensed', 'Date'
+                    ]
+
+                    this.keys = [
+                        {
+                            label: 'name',
+                        },
+                        {
+                            label: 'category',
+                        },
+                        {
+                            label: 'dosage',
+                        },
+                        {
+                            label: 'unit',
+                        },
+                        {
+                            label: 'place_name',
+                        },
+                        {
+                            label: 'quantity',
+                        },
+                        {
+                            label: 'dispensed',
+                        },
+                        {
+                            label: 'date',
+                        },
+                    ]
+                } else {
+                    this.medecineList = this.options.patientMedicines
+
+                    this.columns = [
+                        'Medicine', 'Category', 'Dosage', 'Unit', 'Patient', 'Barangay', 'Quantity', 'Date'
+                    ]
+
+                    this.keys = [
+                        {
+                            label: 'name',
+                        },
+                        {
+                            label: 'category',
+                        },
+                        {
+                            label: 'dosage',
+                        },
+                        {
+                            label: 'unit',
+                        },
+                        {
+                            label: 'patient_name',
+                        },
+                        {
+                            label: 'barangay',
+                        },
+                        {
+                            label: 'quantity',
+                        },
+                        {
+                            label: 'date',
+                        },
+                    ]
+                }
+            }
+        },
         'formData.medicine_id'(arg) {
             var type = null;
 
-            if(this.auth.role == 3) {
+            if(this.auth.role == 3) { 
                 type = 'barangay'
             } else {
                 type = 'stock'

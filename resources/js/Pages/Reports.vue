@@ -17,7 +17,7 @@
                         Medicine Report
                     </div>
 
-                    <div class="w-full flex justify-center items-center text-4xl cursor-pointer" v-if="auth.user_type != 'pharmacist'"
+                    <div class="w-full flex justify-center items-center text-4xl cursor-pointer" v-if="auth.user_type == 'doctor'"
                         :class="{'--bg_gray': activeTab == 'medical_certificate'}"
                         @click="activeTab = 'medical_certificate'"
                     >
@@ -33,11 +33,56 @@
 
                 <div class="w-full flex flex-col" v-if="activeTab == 'medicine_report'">
                     <div class="w-full mt-10" >
+
+                        <span class="float-left cursor-pointer ml-6 text-xl mt-1"
+                            @click="printMedicineReport()"
+                        >
+                            <i class="fa-solid fa-print"></i>
+                        </span>
+
                         <select v-model="medicine_report_type" class="float-right mr-5" style="width: 200px; height: 40px; border: 1px solid black">
                             <option value="individual" v-if="auth.user_type == 'pharmacist'">Individual Report</option>
                             <option value="barangay">Barangay Report</option>
                         </select>
+
+                        
                     </div>
+
+                    <VueHtml2pdf
+                        :show-layout="false"
+                        :float-layout="true"
+                        :enable-download="true"
+                        :preview-modal="true"
+                        :paginate-elements-by-height="1000"
+                        :filename="Math.random().toString(36).slice(2)"
+                        :pdf-quality="2"
+                        :manual-pagination="false"
+                        pdf-format="a4"
+                        pdf-orientation="landscape"
+                        pdf-content-width="100%"
+                        ref="medicine_report"
+                    >
+                        <section slot="pdf-content">
+                            <div class="w-full p-5">
+                                <table class="w-full --table">
+                                    <tr class="text-center">
+                                        <th v-for="column in columns" :key="column" class="--th">
+                                            {{ column }}
+                                        </th>
+                                    </tr>
+
+                                    <tr class="text-center"
+                                        v-for="(l, index) in rows" :key="index"
+                                    >
+                                        <td v-for="(k, i) in keys" :key="i" class="cursor-pointer --td">
+                                            <span>{{rows[index][k.label] }}</span> 
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </section>
+                    </VueHtml2pdf> 
 
 
                     <div class="w-full mt-5 px-5">
@@ -69,6 +114,10 @@
                         <section slot="pdf-content">
                             <div class="w-full p-5">
                                 <div style="width: 100%;" class="flex flex-col">
+                                    <div class="w-full h-full flex justify-center items-center">
+                                        <img src="/images/logo1.png" class="py-1" style="height: 130px; width: 130px"/>
+                                    </div>
+
                                     <div class="w-full text-center">
                                         <p style="font-weight: 500" class="text-lg">
                                             Republic of the Philippines<br>
@@ -160,6 +209,10 @@
 
                     <div style="width: 60%;" class="flex flex-col">
                         <div class="w-full text-center">
+                            <div class="w-full h-full flex justify-center items-center">
+                                <img src="/images/logo1.png" class="py-1" style="height: 130px; width: 130px"/>
+                            </div>
+                            
                             <p style="font-weight: 500" class="text-lg">
                                 Republic of the Philippines<br>
                                 Province of Batangas <br>
@@ -510,6 +563,10 @@ export default {
     methods: {
         printReport(arg) {
             this.$refs[arg].generatePdf()
+        },
+
+        printMedicineReport() {
+            this.$refs.medicine_report.generatePdf()
         }
     }
 }
@@ -531,5 +588,26 @@ input {
 
 .--borderless {
     border: 1px solid transparent;
+}
+
+.--table {
+    border-collapse: collapse;
+    border-radius: 5px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px black;
+}
+
+.--td {
+    border: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.--th {
+    border: 1px solid black;
+    background: #366422;
+    color: #ffffff;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 </style>

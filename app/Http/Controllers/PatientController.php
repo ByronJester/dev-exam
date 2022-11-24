@@ -339,8 +339,8 @@ class PatientController extends Controller
     public function saveAllergy(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'allergy' => "required",
-            'allergic_reaction' => "required"
+            'allergy' => "required|max:150",
+            'allergic_reaction' => "required|max:150"
         ]);
 
         if ($validator->fails()) {
@@ -358,9 +358,9 @@ class PatientController extends Controller
     public function saveMedication(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'medications' => "required",
-            'dose' => "required|numeric",
-            'times_per_day' => 'required|numeric'
+            'medications' => "required|max:150",
+            'dose' => "required|numeric|max:150",
+            'times_per_day' => 'required|numeric|max:150'
         ]);
 
         if ($validator->fails()) {
@@ -380,8 +380,8 @@ class PatientController extends Controller
         $validator = Validator::make($request->all(), [
             'type' => "required",
             'date' => "required",
-            'facility' => 'required',
-            'abnormal_result' => 'required'
+            'facility' => 'required|max:150',
+            'abnormal_result' => 'required|max:150'
         ]);
 
         if ($validator->fails()) {
@@ -419,7 +419,7 @@ class PatientController extends Controller
             'disease' => "required",
             'type' => "nullable",
             'status' => "required",
-            'comment' => "required",
+            'comment' => "required|max:150",
             'family' => "nullable"
         ]);
 
@@ -439,7 +439,7 @@ class PatientController extends Controller
         $validator = Validator::make($request->all(), [
             'type' => "required",
             'date' => "nullable",
-            'facility' => "required",
+            'facility' => "required|max:150",
         ]);
 
         if ($validator->fails()) {

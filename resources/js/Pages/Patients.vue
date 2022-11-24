@@ -86,8 +86,12 @@
                                             Forms
                                         </button>
 
-                                        <button class="--view__profile my-2" @click="viewMedicalHistory(patient)" v-if="auth.user_type != 'pharmacist'">
+                                        <button class="--view__profile my-2 mr-1" @click="viewMedicalHistory(patient)" v-if="auth.user_type != 'pharmacist'">
                                             Medical History
+                                        </button>
+
+                                        <button class="--view__profile my-2" @click="viewPersonalData(patient)" v-if="auth.user_type != 'pharmacist'">
+                                           Profile
                                         </button>
                                     </div>
 
@@ -97,29 +101,166 @@
                     </div>
                 </div>
 
+                <VueHtml2pdf
+                    :show-layout="false"
+                    :float-layout="true"
+                    :enable-download="true"
+                    :preview-modal="true"
+                    :paginate-elements-by-height="1000"
+                    :filename="Math.random().toString(36).slice(2)"
+                    :pdf-quality="2"
+                    :manual-pagination="false"
+                    pdf-format="a4"
+                    pdf-orientation="portrait"
+                    pdf-content-width="100%"
+                    ref="profile"
+                >
+                    <section slot="pdf-content">
+                        <div class="w-full p-5">
+                            <div class="w-full">
+                                <span class="text-lg font-bold">
+                                    {{ isPersonalData ? 'Profile' : 'New Patient' }}
+                                </span>
+                            </div>
+
+                            <div class="w-full flex flex-col">
+                                <div class="my-1">
+                                    <label class="text-bold">Name:</label><br>
+                                    <input type="text" class="--input mt-2" v-model="formData.name" :disabled="isPersonalData">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
+                                </div>
+
+                                <div class="my-1" v-if="auth.role != 3">
+                                    <label for="cars">Barangay:</label><br>
+                                    <select class="--input mt-2" v-model="formData.place_id" :disabled="isPersonalData">
+                                        <option v-for="place in options.places" :key="place.id"
+                                            :value="place.id"
+                                        >
+                                            {{ place.name }}
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('place_id', saveError)}} </span>
+                                </div>
+
+                                <div class="my-1">
+                                    <label class="text-bold">Contact No.:</label><br>
+                                    <input type="text" class="--input mt-2" v-model="formData.phone" :disabled="isPersonalData">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full flex flex-row">
+                                    <div class="my-1 mx-1 w-full">
+                                        <label class="text-bold">Date of Birth:</label><br>
+                                        <input type="date" class="--input mt-2" v-model="formData.dob" :disabled="isPersonalData">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('dob', saveError)}} </span>
+                                    </div>
+
+                                    <div class="my-1 mx-1 w-full">
+                                        <label class="text-bold">Age:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="formData.age" :disabled="isPersonalData">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('age', saveError)}} </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full flex flex-row">
+                                    <div class="my-1 mx-1 w-full">
+                                        <label for="cars">Gender:</label><br>
+                                        <select class="--input mt-2" v-model="formData.gender" :disabled="isPersonalData">
+                                            <option :value="'Male'">
+                                                Male
+                                            </option>
+
+                                            <option :value="'Female'">
+                                                Female
+                                            </option>
+                                        </select>
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('gender', saveError)}} </span>
+                                    </div>
+
+
+                                    <div class="my-1 mx-1 w-full">
+                                        <label for="cars">Civil Status:</label><br>
+                                        <select class="--input mt-2" v-model="formData.civil_status" :disabled="isPersonalData">
+                                            <option :value="'Single'">
+                                                Single
+                                            </option>
+
+                                            <option :value="'Maried'">
+                                                Maried
+                                            </option>
+
+                                            <option :value="'Separated'">
+                                                Separated
+                                            </option>
+
+                                            <option :value="'Widowed'">
+                                                Widowed
+                                            </option>
+                                        </select>
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('civil_status', saveError)}} </span>
+                                    </div>
+                                </div>
+
+                                <div class="w-full flex flex-row">
+                                    <div class="my-1 mx-1">
+                                        <label class="text-bold">Contact Person:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="formData.contact_person" :disabled="isPersonalData">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('contact_person', saveError)}} </span>
+                                    </div>
+
+                                    <div class="my-1 mx-1">
+                                        <label class="text-bold">Contact Person Address:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="formData.contact_person_address" :disabled="isPersonalData">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_address', saveError)}} </span>
+                                    </div>
+
+                                    <div class="my-1 mx-1">
+                                        <label class="text-bold">Contact Person #:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="formData.contact_person_phone" :disabled="isPersonalData">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_phone', saveError)}} </span>
+                                    </div>
+                                </div>
+
+                                <div class="my-1">
+                                    <label class="text-bold">Philhealth ID #:</label><br>
+                                    <input type="text" class="--input mt-2" v-model="formData.philhealth" :disabled="isPersonalData">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </VueHtml2pdf> 
+
                 <div id="patientModal" class="patientModal">
                     <div class="patient-modal-content flex flex-col" style="width: 30%">
                         <div class="w-full">
                             <span class="text-lg font-bold">
-                                New Patient
+                                 {{ isPersonalData ? 'Profile' : 'New Patient' }}
                             </span>
                             <span class="float-right cursor-pointer"
                                 @click="closeModal()"
                             >
                                 <i class="fa-solid fa-xmark"></i>
                             </span>
+
+                            <span class="float-right cursor-pointer mr-5"
+                                @click="printProfile()"
+                                v-if="isPersonalData"
+                            >
+                                <i class="fa-solid fa-print"></i>
+                            </span>
                         </div>
 
                         <div class="w-full flex flex-col">
                             <div class="my-1">
                                 <label class="text-bold">Name:</label><br>
-                                <input type="text" class="--input" v-model="formData.name">
+                                <input type="text" class="--input" v-model="formData.name" :disabled="isPersonalData">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
                             </div>
 
                             <div class="my-1" v-if="auth.role != 3">
                                 <label for="cars">Barangay:</label><br>
-                                <select class="--input" v-model="formData.place_id">
+                                <select class="--input" v-model="formData.place_id" :disabled="isPersonalData">
                                     <option v-for="place in options.places" :key="place.id"
                                         :value="place.id"
                                     >
@@ -131,20 +272,20 @@
 
                             <div class="my-1">
                                 <label class="text-bold">Contact No.:</label><br>
-                                <input type="text" class="--input" v-model="formData.phone">
+                                <input type="text" class="--input" v-model="formData.phone" :disabled="isPersonalData">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
                             </div>
 
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1 w-full">
                                     <label class="text-bold">Date of Birth:</label><br>
-                                    <input type="date" class="--input" v-model="formData.dob">
+                                    <input type="date" class="--input" v-model="formData.dob" :disabled="isPersonalData">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('dob', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1 mx-1 w-full">
                                     <label class="text-bold">Age:</label><br>
-                                    <input type="text" class="--input" v-model="formData.age">
+                                    <input type="text" class="--input" v-model="formData.age" :disabled="isPersonalData">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('age', saveError)}} </span>
                                 </div>
                             </div>
@@ -152,7 +293,7 @@
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1 w-full">
                                     <label for="cars">Gender:</label><br>
-                                    <select class="--input" v-model="formData.gender">
+                                    <select class="--input" v-model="formData.gender" :disabled="isPersonalData">
                                         <option :value="'Male'">
                                             Male
                                         </option>
@@ -167,7 +308,7 @@
 
                                 <div class="my-1 mx-1 w-full">
                                     <label for="cars">Civil Status:</label><br>
-                                    <select class="--input" v-model="formData.civil_status">
+                                    <select class="--input" v-model="formData.civil_status" :disabled="isPersonalData">
                                         <option :value="'Single'">
                                             Single
                                         </option>
@@ -191,26 +332,26 @@
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1">
                                     <label class="text-bold">Contact Person:</label><br>
-                                    <input type="text" class="--input" v-model="formData.contact_person">
+                                    <input type="text" class="--input" v-model="formData.contact_person" :disabled="isPersonalData">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1 mx-1">
                                     <label class="text-bold">Contact Person Address:</label><br>
-                                    <input type="text" class="--input" v-model="formData.contact_person_address">
+                                    <input type="text" class="--input" v-model="formData.contact_person_address" :disabled="isPersonalData">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_address', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1 mx-1">
                                     <label class="text-bold">Contact Person #:</label><br>
-                                    <input type="text" class="--input" v-model="formData.contact_person_phone">
+                                    <input type="text" class="--input" v-model="formData.contact_person_phone" :disabled="isPersonalData">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_phone', saveError)}} </span>
                                 </div>
                             </div>
 
                             <div class="my-1">
                                 <label class="text-bold">Philhealth ID #:</label><br>
-                                <input type="text" class="--input" v-model="formData.philhealth">
+                                <input type="text" class="--input" v-model="formData.philhealth" :disabled="isPersonalData">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
                             </div>
 
@@ -219,6 +360,7 @@
                                 <button class="w-full py-2 px-4 text-white font-bold" 
                                     style="border-radius: 50px; background-color: #4D77FF"
                                     @click="createUser()"
+                                    v-if="!isPersonalData"
                                 >
                                     Create New Patient
                                 </button>
@@ -237,11 +379,13 @@
 <script>
 import { Inertia } from "@inertiajs/inertia";
 import Navigation from "../Layouts/Sidebar";
+import VueHtml2pdf from 'vue-html2pdf'
 
 export default {
     props: ['auth', 'options'],
     components: {
-        Navigation
+        Navigation,
+        VueHtml2pdf
     },
 
     data(){
@@ -266,7 +410,8 @@ export default {
                 contact_person_address: null,
                 contact_person_phone: null
             },
-            saveError: null
+            saveError: null,
+            isPersonalData: false
         }
     },
 
@@ -325,6 +470,14 @@ export default {
             );
         },
 
+        viewPersonalData(arg){
+            this.formData = Object.assign({}, arg)
+
+            this.isPersonalData = true
+
+            this.openModal()
+        },
+
         viewMedicine(arg){
             this.selected = arg
 
@@ -381,10 +534,16 @@ export default {
                 age: null,
                 gender: 'Male'
             }
+
+            this.isPersonalData = false
                 
 
             this.saveError = null
         },
+
+        printProfile() {
+            this.$refs.profile.generatePdf()
+        }
     }
 }
 

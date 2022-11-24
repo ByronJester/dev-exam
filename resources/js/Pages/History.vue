@@ -1203,7 +1203,7 @@
                                         </table>
                                     </div>
                                 </section>
-                            </VueHtml2pdf>
+                            </VueHtml2pdf> 
 
                             <div :style="{width: activeDisease ? '70%' : '100%'}" class="w-full flex flex-col ml-2">
                                 <table class="w-full">
@@ -1472,7 +1472,7 @@ th {
 
 .--th {
     border: 1px solid black;
-    background: 	366422;
+    background: #366422;
     color: #ffffff;
     padding-top: 20px;
     padding-bottom: 20px;

@@ -27,12 +27,12 @@ class RegisterAccount extends FormRequest
     public function rules()
     {
         $rules = [
-            'first_name' => "required|string",
-            'last_name' => "required|string",
-            'phone' => "required|unique:users,phone",
+            'first_name' => "required|alpha_spaces|max:150",
+            'last_name' => "required|alpha_spaces|max:150",
+            'phone' => "required|numeric|digits:11|unique:users,phone",
             'email' => "required|unique:users,email|email:rfc,dns",
             'user_type' => "required",
-            'work_address' => 'sometimes|required'
+            'work_address' => 'sometimes|required|max:150'
         ];
 
         return $rules;

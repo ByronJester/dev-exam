@@ -30,7 +30,8 @@ class BarangayMedicine extends Model
         'dispensed',
         'category',
         'unit',
-        'date'
+        'date',
+        'deducted_quantity'
     ];
 
     public function medicine()
@@ -91,4 +92,10 @@ class BarangayMedicine extends Model
 
         return $date->isoFormat('LL'); 
     }
+
+    public function getDeductedQuantityAttribute()
+    {
+        return $this->quantity - $this->dispensed;
+    }
+
 }

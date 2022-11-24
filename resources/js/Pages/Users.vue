@@ -108,7 +108,7 @@
                             <div class="my-1">
                                 <label class="text-bold">Contact No.:</label><br>
                                 <input type="text" class="--input" v-model="formData.phone"
-                                    placeholder="639xxxxxxxxx"
+                                    placeholder="09xxxxxxxxx"
                                 >
                                 <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
                             </div>
@@ -227,11 +227,6 @@ export default {
         if(this.auth.role == 2) {
             this.userType = [
                 {
-                    label: 'RHU - Doctor', 
-                    value: 'doctor'
-                },
-
-                {
                     label: 'Pharmacist',
                     value: 'pharmacist'
                 },
@@ -250,11 +245,6 @@ export default {
 
         if(this.auth.role == 3) {
             this.userType = [
-                {
-                    label: 'BHW - Leader',
-                    value: 'leader'
-                },
-
                 {
                     label: 'Barangay Midwife',
                     value: 'midwife'
