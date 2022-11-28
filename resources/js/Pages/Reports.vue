@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="w-full inline-flex mt-4" v-if="activeTab == 'patient_report'">
-                    <select class="ml-3" style="width: 150px !important; height: 40px; border: 1px solid black; border-radius: 10px" v-model="barangay" v-if="(auth.user_type == 'doctor' || auth.user_type == 'midwife') && auth.role == 2">
+                    <select class="ml-3" style="width: 150px !important; height: 40px; border: 1px solid black; border-radius: 10px" v-model="barangay">
                         <option v-for="place in options.places" :key="place.name"
                             :value="place.name"
                         >
