@@ -85,7 +85,7 @@ class MedicineController extends Controller
                     'categories' => MedicineCategory::get(),
                     'units' => MedicineUnit::get(),
                     'stocks' => $medicineStocks->pluck('medicine_id'),
-                    'medicineStocts' => $auth->role == 3 ? $barangayMedicines: $medicineStocks,
+                    'medicineStocts' => $auth->role == 3 ? $barangayMedicines: $medicineStocks, 
                 ]
             ]);
         }
@@ -108,6 +108,12 @@ class MedicineController extends Controller
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
+        }
+
+        $patient = null;
+
+        if(!!$request->patient_id) {
+            $patient = Patient::where('id', $request->patient_id)->first();
         }
 
         $dispensed_type = $request->dispensed_type;
@@ -145,15 +151,31 @@ class MedicineController extends Controller
                     ->where('medicine_unit_id', $request->medicine_unit_id)->where('dosage', $request->dosage)
                     ->whereMonth('created_at', Carbon::now()->month)->first();
 
-                if($stock){
-                    if(($stock->quantity - $stock->dispensed) >= $request->quantity) {
-                        $arg->quantity += $request->quantity;
-                        $arg->save(); 
-                    } else {
-                        return response()->json(['status' => 200, 'message' => 'Input quantity is greater than stock quantity.'], 200);  
-                    }
+                if($patient && !!$patient->is_rhu) {
+                    $stock = MedicineStock::where('medicine_id', $request->medicine_id)->where('medicine_category_id', $request->medicine_category_id)
+                        ->where('medicine_unit_id', $request->medicine_unit_id)->where('dosage', $request->dosage)->first();
+
+                        if($stock->quantity >= $request->quantity) {
+                            $arg->quantity += $request->quantity;
+                            $arg->save(); 
+
+                            $stock->quantity -= $request->quantity;
+                            $stock->save();
+                        } else {
+                            return response()->json(['status' => 200, 'message' => 'Input quantity is greater than stock quantity.'], 200);  
+                        }
+                    
                 } else {
-                    return response()->json(['status' => 200, 'message' => "There's no medicine stock found."], 200);  
+                    if($stock){
+                        if(($stock->quantity - $stock->dispensed) >= $request->quantity) {
+                            $arg->quantity += $request->quantity;
+                            $arg->save(); 
+                        } else {
+                            return response()->json(['status' => 200, 'message' => 'Input quantity is greater than stock quantity.'], 200);  
+                        }
+                    } else {
+                        return response()->json(['status' => 200, 'message' => "There's no medicine stock found."], 200);  
+                    }
                 }
             }
         } else {
@@ -175,30 +197,56 @@ class MedicineController extends Controller
                 } else {
                     return response()->json(['status' => 200, 'message' => "There's no medicine stock found."], 200);  
                 }
-
-                  
+            
             } else {
-
                 $stock = BarangayMedicine::where('medicine_id', $request->medicine_id)->where('medicine_category_id', $request->medicine_category_id)
-                    ->where('medicine_unit_id', $request->medicine_unit_id)->where('dosage', $request->dosage)
+                    ->where('medicine_unit_id', $request->medicine_unit_id)->where('dosage', $request->dosage) 
                     ->whereMonth('created_at', Carbon::now()->month)->first();
 
-                if($stock){
-                    if(($stock->quantity - $stock->dispensed) >= $request->quantity) {
-                        $data = $request->only(['patient_id', 'quantity', 'medicine_id', 'medicine_category_id', 'medicine_unit_id', 'dosage']);
+                if($patient && !!$patient->is_rhu) {
+                    $stock = MedicineStock::where('medicine_id', $request->medicine_id)->where('medicine_category_id', $request->medicine_category_id)
+                        ->where('medicine_unit_id', $request->medicine_unit_id)->where('dosage', $request->dosage)->first();
 
-                        $data['is_individual'] = false;
-
-                        if($auth->role == 2) {
+                    if($stock){
+                        if($stock->quantity >= $request->quantity) {
+                            $data = $request->only(['patient_id', 'quantity', 'medicine_id', 'medicine_category_id', 'medicine_unit_id', 'dosage']);
+    
                             $data['is_individual'] = true;
+
+                            $stock->quantity -= $request->quantity;
+                            $stock->save();
+    
+                            // if($auth->role == 2) {
+                            //     $data['is_individual'] = true;
+                            // }
+                            
+                            PatientMedicine::create($data); 
+                        } else {
+                            return response()->json(['status' => 200, 'message' => 'Input quantity is greater than stock quantity.'], 200);  
                         }
-                        
-                        PatientMedicine::create($data); 
                     } else {
-                        return response()->json(['status' => 200, 'message' => 'Input quantity is greater than stock quantity.'], 200);  
+                        return response()->json(['status' => 200, 'message' => "There's no medicine stock found."], 200);  
                     }
+
+
                 } else {
-                    return response()->json(['status' => 200, 'message' => "There's no medicine stock found."], 200);  
+                    if($stock){
+                        if(($stock->quantity - $stock->dispensed) >= $request->quantity) {
+                            $data = $request->only(['patient_id', 'quantity', 'medicine_id', 'medicine_category_id', 'medicine_unit_id', 'dosage']);
+    
+                            $data['is_individual'] = false;
+    
+                            // if($auth->role == 2) {
+                            //     $data['is_individual'] = true;
+                            // }
+                            
+                            PatientMedicine::create($data); 
+                        } else {
+                            return response()->json(['status' => 200, 'message' => 'Input quantity is greater than stock quantity.'], 200);  
+                        }
+                    } else {
+                        return response()->json(['status' => 200, 'message' => "There's no medicine stock found."], 200);  
+                    }
                 }
             }
         }

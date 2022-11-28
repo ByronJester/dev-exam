@@ -284,15 +284,14 @@ class UserController extends Controller
             if($auth->user_type == 'leader') {
                 $patients = Patient::orderBy('created_at', 'desc')
                     ->where('place_id', $auth->work_address)
-                    ->where('role', $auth->role)
-                    ->whereHas('user', function (Builder $query) {
-                        $query->whereIn('user_type', ['member', 'midwife']);
+                    ->whereHas('user', function (Builder $query) use ($auth) {
+                        $query->whereIn('user_type', ['member', 'midwife'])->where('role', $auth->role);
                     });
             }
 
             $patientMedicines = PatientMedicine::orderBy('created_at', 'desc');
 
-            if($auth->user_type == 'doctor') {
+            if($auth->user_type == 'pharmacist') {
                 $patientMedicines = $patientMedicines->where('is_individual', true);
             } else {
                 if($auth->user_type == 'leader') {
@@ -323,7 +322,7 @@ class UserController extends Controller
     public function viewTrails(Request $request)
     {
         $auth = Auth::user();
-        
+
         $logs = Log::orderBy('created_at', 'desc')->get();
 
         return Inertia::render('Trails', [

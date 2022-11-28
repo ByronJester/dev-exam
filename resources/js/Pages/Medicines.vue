@@ -61,10 +61,18 @@
                     </div>
 
                     <div class="w-full flex flex-col" v-else>
-                        <div class="w-full">
+                        <div class="w-full inline-flex mt-4">
+                            <input type="text" class="--search pl-5 mr-2"
+                                v-model="search"
+                                placeholder="Search...."
+                            >
+                        </div>
+
+                        <div class="w-full mt-4">
                             <button class="text-black float-right p-2 mt-2"
                                 style="border: 1px solid black; border-radius: 5px; width: 50px"
                                 @click="openStockModal()"
+                                v-if="auth.user_type == 'pharmacist'"
                             >
                                 <i class="fa-solid fa-house-chimney-medical fa-2xl"></i>
                             </button>
@@ -72,7 +80,7 @@
 
                         <div class="flex flex-col">
                             <div class="w-full h-full mr-2">
-                                <Table :columns="columns"  :rows="options.medicineStocts" :keys="keys"/>
+                                <Table :columns="columns"  :rows="medicineStocts" :keys="keys"/>
                             </div>
                         </div>
                     </div>
@@ -355,7 +363,9 @@ export default {
             medecineList: [],
             categories: [],
             units: [],
-            errorMessage: null
+            errorMessage: null,
+            search: null,
+            medicineStocts: null
         }
     },
     mounted(){
@@ -382,9 +392,20 @@ export default {
         this.formStock.medicine_category_id = this.options.categories[0].id
         this.formStock.medicine_unit_id = this.options.units[0].id
 
-        console.log(this.options)
+        this.medicineStocts = this.options.medicineStocts
     },
     watch: {
+        search(arg) {
+            if(arg) {
+                this.medicineStocts = this.options.medicineStocts.filter(x => {
+                    var name = x.name.toLowerCase();
+                    var search = arg.toLowerCase()
+                    return name.includes(search)
+                });
+            } else {
+                this.medicineStocts = this.options.medicineStocts
+            }
+        },
         activeTab(arg){
             if(arg == 'stock') {
                 this.columns = [

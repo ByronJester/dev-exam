@@ -44,15 +44,7 @@ class PatientController extends Controller
         $auth = Auth::user();
 
         if($auth) {
-            $patients = Patient::orderBy('created_at', 'desc');
-
-            if($auth->role == 3) {
-                $patients = $patients->where('place_id', $auth->work_address)->where('is_rhu', false);
-            } 
-
-            if($auth->role == 2) {
-                $patients = $patients->where('is_rhu', true);
-            } 
+            $patients = Patient::orderBy('created_at', 'desc')->where('user_id', $auth->id);
 
             if($search = $request->search) {
                 $patients = $patients->where('name', 'LIKE', '%' . $search . '%');
@@ -359,7 +351,7 @@ class PatientController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'medications' => "required|alpha_spaces",
-            'dose' => "required|numeric|alpha_spaces",
+            'dose' => "required|numeric",
             'times_per_day' => 'required|numeric'
         ]);
 

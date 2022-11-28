@@ -37,7 +37,6 @@ export default {
     },
 
     created(){
-        console.log(this.options)
     },
 
     methods: {
