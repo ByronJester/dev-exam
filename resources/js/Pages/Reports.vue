@@ -25,6 +25,19 @@
                     </div>
                 </div>
 
+                <div class="w-full inline-flex mt-4" v-if="activeTab == 'patient_report'">
+                    <select class="ml-3" style="width: 150px !important; height: 40px; border: 1px solid black; border-radius: 10px" v-model="barangay" v-if="(auth.user_type == 'doctor' || auth.user_type == 'midwife') && auth.role == 2">
+                        <option v-for="place in options.places" :key="place.name"
+                            :value="place.name"
+                        >
+                            {{ place.name }}
+                        </option>
+                    </select>
+
+                    <input type="text" style="width: 300px !important; height: 40px; border: 1px solid black; border-radius: 10px" class="ml-3 p-1" placeholder="Search...." v-model="search">
+
+                </div>
+
                 <div class="w-full flex flex-col mt-4" v-if="activeTab == 'patient_report'">
                     <div class="w-full px-2">
                         <Table :columns="columns"  :rows="rows" :keys="keys" :selected.sync="selected"/>
@@ -341,7 +354,9 @@ export default {
                 examined_dane: null,
                 diagnosis: null,
                 physician: null
-            }
+            },
+            barangay: null,
+            search: null
         }
     },
 
@@ -353,6 +368,61 @@ export default {
                     onSuccess: () => { },
                 },
             );
+        },
+        barangay(arg){
+            if(this.activeTab == 'patient_report') {
+                if(arg) {
+                    this.rows = this.options.patients.filter( x => { return x.barangay == arg})
+                }
+            } else {
+                if(this.medicine_report_type == 'individual') {
+                    if(arg) {
+                        this.rows = this.options.patientMedicines.filter( x => { return x.place_name == arg})
+                    } 
+                } else {
+                    this.rows = this.options.barangayMedicines.filter( x => { return x.place_name == arg})
+                }
+            }
+        },
+        search(arg) {
+            this.barangay = null
+
+            if(this.activeTab == 'patient_report') {
+                if(arg) {
+                    this.rows = this.options.patients.filter(x => {
+						var name = x.name.toLowerCase();
+						var search = arg.toLowerCase()
+						return name.includes(search)
+					});
+                } else {
+                    this.rows = this.options.patients
+                }
+                
+            } else {
+                if(this.medicine_report_type == 'individual') {
+                    if(arg) {
+                        this.rows = this.options.patientMedicines.filter(x => {
+                            var name = x.name.toLowerCase();
+                            var search = arg.toLowerCase()
+                            return name.includes(search)
+                        });
+                    } else {
+                        this.rows = this.options.patientMedicines
+                    }
+                    
+                } else {
+                    if(arg) {
+                        this.rows = this.options.barangayMedicines.filter(x => {
+                            var name = x.name.toLowerCase();
+                            var search = arg.toLowerCase()
+                            return name.includes(search)
+                        });
+                    } else {
+                        this.rows = this.options.barangayMedicines
+                    }
+                    
+                }
+            }
         },
         activeTab(arg) {
             if(arg == 'medicine_report') {

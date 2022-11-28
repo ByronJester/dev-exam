@@ -248,6 +248,8 @@ class UserController extends Controller
 
             if($auth->user_type == 'leader') {
                 $patients = Patient::orderBy('created_at', 'desc')
+                    ->where('place_id', $auth->work_address)
+                    ->where('role', $auth->role)
                     ->whereHas('user', function (Builder $query) {
                         $query->whereIn('user_type', ['member', 'midwife']);
                     });
@@ -274,7 +276,8 @@ class UserController extends Controller
                 'options' => [
                     'barangayMedicines' => $barangayMedicines->get(),
                     'patientMedicines'  => $patientMedicines->get(),
-                    'patients' => $patients->get()
+                    'patients' => $patients->get(),
+                    'places' => Place::get()
                 ]
             ]);
         }

@@ -24,7 +24,7 @@ class SavePostnatal extends FormRequest
     public function rules()
     {
         $rules = [
-            'hospital_name' => "required|alpha_space",
+            'hospital_name' => "required|alpha_spaces",
             'clients_name' => "required|alpha_spaces",
             'address' => "required",
             'occupation' => "required|alpha_spaces",

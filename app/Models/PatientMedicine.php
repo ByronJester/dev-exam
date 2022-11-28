@@ -31,7 +31,8 @@ class PatientMedicine extends Model
         'patient_name',
         'category',
         'unit',
-        'date'
+        'date',
+        'place_name'
     ];
 
     public function medicine()
@@ -55,6 +56,11 @@ class PatientMedicine extends Model
     }
 
     public function getBarangayAttribute()
+    {
+        return $this->patient->place->name;
+    }
+
+    public function getPlaceNameAttribute()
     {
         return $this->patient->place->name;
     }

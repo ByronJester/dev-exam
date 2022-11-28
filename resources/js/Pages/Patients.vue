@@ -125,7 +125,7 @@
 
                             <div class="w-full flex flex-col">
                                 <div class="my-1">
-                                    <label class="text-bold">Name:</label><br>
+                                    <label class="text-bold">Fullname: (First Name Middle Name Last Name)</label><br>
                                     <input type="text" class="--input mt-2" v-model="formData.name" :disabled="isPersonalData">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
                                 </div>
@@ -221,6 +221,12 @@
                                     </div>
                                 </div>
 
+                                <div class="my-1" v-if="auth.user_type == 'doctor'">
+                                    <label class="text-bold">Diagnosis:</label><br>
+                                    <input type="text" class="--input mt-2" v-model="formData.diagnosis" :disabled="isPersonalData">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
+                                </div>
+
                                 <div class="my-1">
                                     <label class="text-bold">Philhealth ID #:</label><br>
                                     <input type="text" class="--input mt-2" v-model="formData.philhealth" :disabled="isPersonalData">
@@ -253,7 +259,7 @@
 
                         <div class="w-full flex flex-col">
                             <div class="my-1">
-                                <label class="text-bold">Name:</label><br>
+                                <label class="text-bold">Fullname: (First Name Middle Name Last Name)</label><br>
                                 <input type="text" class="--input" v-model="formData.name" :disabled="isPersonalData">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
                             </div>
@@ -349,6 +355,12 @@
                                 </div>
                             </div>
 
+                            <div class="my-1" v-if="auth.user_type == 'doctor'">
+                                <label class="text-bold">Diagnosis:</label><br>
+                                <input type="text" class="--input mt-2" v-model="formData.diagnosis" :disabled="isPersonalData">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
+                            </div>
+
                             <div class="my-1">
                                 <label class="text-bold">Philhealth ID #:</label><br>
                                 <input type="text" class="--input" v-model="formData.philhealth" :disabled="isPersonalData">
@@ -408,7 +420,8 @@ export default {
                 philhealth: null,
                 contact_person: null,
                 contact_person_address: null,
-                contact_person_phone: null
+                contact_person_phone: null,
+                diagnosis: null
             },
             saveError: null,
             isPersonalData: false

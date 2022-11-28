@@ -176,7 +176,7 @@ class MedicineController extends Controller
                     return response()->json(['status' => 200, 'message' => "There's no medicine stock found."], 200);  
                 }
 
-                
+                  
             } else {
 
                 $stock = BarangayMedicine::where('medicine_id', $request->medicine_id)->where('medicine_category_id', $request->medicine_category_id)
@@ -205,28 +205,6 @@ class MedicineController extends Controller
 
         return response()->json(['status' => 200, 'message' => null], 200);  
 
-        // if($arg) {
-        //     $arg->quantity += $request->quantity;
-        //     $arg->save();
-        // } else {
-        //     if($dispensed_type == 'barangay'){
-        //         $data = $request->only(['place_id', 'quantity', 'medicine_id', 'medicine_category_id', 'medicine_unit_id', 'dosage']);
-
-        //         BarangayMedicine::create($data);
-        //     } else {
-        //         $data = $request->only(['patient_id', 'quantity', 'medicine_id', 'medicine_category_id', 'medicine_unit_id', 'dosage']);
-
-        //         $data['is_individual'] = true;
-
-        //         if($auth->role == 3) {
-        //             $data['is_individual'] = false;
-        //         }
-                
-
-        //         PatientMedicine::create($data);
-        //     }
-            
-        // }
     }
 
     public function saveMedicineStock(Request $request)

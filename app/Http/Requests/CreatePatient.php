@@ -31,10 +31,11 @@ class CreatePatient extends FormRequest
             'age' => "required|numeric",
             'gender' => "required|alpha_spaces",
             'civil_status' => "required|alpha_spaces",
-            'philhealth' => "required|numeric|digits:12",
+            'philhealth' => "nullable|numeric|digits:12",
             'contact_person' => "required|alpha_spaces",
             'contact_person_address' => "required|string",
-            'contact_person_phone' => "required|numeric|digits:11"
+            'contact_person_phone' => "required|numeric|digits:11",
+            'diagnosis' => "nullable"
         ];
 
         return $rules;

@@ -23,10 +23,11 @@ class CreatePatientsTable extends Migration
             $table->string('age');
             $table->string('gender');
             $table->string('civil_status')->default('Single');
-            $table->string('philhealth');
+            $table->string('philhealth')->nullable();
             $table->string('contact_person');
             $table->string('contact_person_address');
             $table->string('contact_person_phone');
+            $table->longText('diagnosis')->nullable();
             $table->boolean('is_rhu')->default(false);
 
             

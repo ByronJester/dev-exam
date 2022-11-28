@@ -21,15 +21,15 @@
                                 TB-Dots
                             </option>
 
-                            <option value="Pregnancy Form" v-if="auth.user_type == 'nurse' || auth.user_type == 'midwife'">
+                            <option value="Pregnancy Form" v-if="(auth.user_type == 'nurse' || auth.user_type == 'midwife') && patient.gender != 'Male'">
                                 Pregnancy Form
                             </option>
 
-                            <option value="Prenatal Registration Form" v-if="auth.user_type == 'nurse' || auth.user_type == 'midwife'">
+                            <option value="Prenatal Registration Form" v-if="(auth.user_type == 'nurse' || auth.user_type == 'midwife') && patient.gender != 'Male'">
                                 Prenatal Registration Form
                             </option>
 
-                            <option value="Postnatal Registration Form" v-if="auth.user_type == 'nurse' || auth.user_type == 'midwife'">
+                            <option value="Postnatal Registration Form" v-if="(auth.user_type == 'nurse' || auth.user_type == 'midwife') && patient.gender != 'Male'">
                                 Postnatal Registration Form
                             </option>
 
@@ -852,7 +852,7 @@
 
                                 <div class="w-full flex flex-row mt-2">
                                     <div class="w-full pr-2">
-                                        <label>Provider Name:</label><br>
+                                        <label>Provider Fullname: (First Name Middle Name Last Name)</label><br>
                                         <input type="text" class="--input w-full mt-1" v-model="prenatal.provider_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('provider_name', saveError)}} </span>
                                     </div>
@@ -924,7 +924,7 @@
 
                                 <div class="w-full flex flex-row mt-2">
                                     <div class="w-full pr-2">
-                                        <label>Member Name:</label><br>
+                                        <label>Member Fullname: (First Name Middle Name Last Name)</label><br>
                                         <input type="text" class="--input w-full mt-1" v-model="prenatal.member_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('member_name', saveError)}} </span>
                                     </div>
@@ -995,7 +995,7 @@
 
                                     <div class="w-full pr-2">
                                         <label>EDD:</label><br>
-                                        <input type="text" class="--input w-full mt-1" v-model="prenatal.edd">
+                                        <input type="date" class="--input w-full mt-1" v-model="prenatal.edd">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('edd', saveError)}} </span>
                                     </div>
                                 </div>
@@ -1297,7 +1297,7 @@
 
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
-                                    <label>Provider Name:</label><br>
+                                    <label>Provider Fullname: (First Name Middle Name Last Name)</label><br>
                                     <input type="text" class="--input w-full" v-model="prenatal.provider_name">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('provider_name', saveError)}} </span>
                                 </div>
@@ -1369,7 +1369,7 @@
 
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
-                                    <label>Member Name:</label><br>
+                                    <label>Member Fullname: (First Name Middle Name Last Name)</label><br>
                                     <input type="text" class="--input w-full" v-model="prenatal.member_name">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_name', saveError)}} </span>
                                 </div>
@@ -1440,7 +1440,7 @@
 
                                 <div class="w-full pr-2">
                                     <label>EDD:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.edd">
+                                    <input type="date" class="--input w-full" v-model="prenatal.edd">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('edd', saveError)}} </span>
                                 </div>
                             </div>
@@ -1725,7 +1725,7 @@
                             <div class="w-full p-5">
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Gurdian Name:</label><br>
+                                        <label>Gurdian Fullname: (First Name Middle Name Last Name)</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="nutrition.guardian_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                                     </div>
@@ -1802,7 +1802,7 @@
 
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Gurdian Name:</label><br>
+                                <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
                                 <input type="text" class="--input w-full" v-model="nutrition.guardian_name">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                             </div>
@@ -1875,7 +1875,7 @@
                             <div class="w-full p-5">
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Gurdian Name:</label><br>
+                                        <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="deworming.guardian_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                                     </div>
@@ -1952,7 +1952,7 @@
 
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Gurdian Name:</label><br>
+                                <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
                                 <input type="text" class="--input w-full" v-model="deworming.guardian_name">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                             </div>
@@ -2026,7 +2026,7 @@
                             <div class="w-full p-5">
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Gurdian Name:</label><br>
+                                        <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="vaccination.guardian_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                                     </div>
@@ -2105,7 +2105,7 @@
 
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Gurdian Name:</label><br>
+                                <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
                                 <input type="text" class="--input w-full" v-model="vaccination.guardian_name">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                             </div>
@@ -2186,7 +2186,7 @@
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Client's Name:</label><br>
+                                        <label>Client's Fullname: (First Name Middle Name Last Name)</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.clients_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('clients_name', saveError)}} </span>
                                     </div>
@@ -2481,7 +2481,7 @@
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Client's Name:</label><br>
+                                <label>Client's Fullname: (First Name Middle Name Last Name)</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.clients_name">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('clients_name', saveError)}} </span>
                             </div>
