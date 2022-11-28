@@ -9,6 +9,17 @@ class VaccinationForm extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'patient_id',
+        'guardian_name',
+        'dob',
+        'age',
+        'height',
+        'weight',
+        'bmi',
+        'vaccination_id'
+    ];
+
     protected $appends = [
         'name', 'description'
     ];

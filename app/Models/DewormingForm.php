@@ -9,6 +9,18 @@ class DewormingForm extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'patient_id',
+        'guardian_name',
+        'dob',
+        'age',
+        'height',
+        'weight',
+        'bmi',
+        'deworming_medication'
+    ];
+
+
     protected $appends = [
         'name', 'description'
     ];

@@ -259,10 +259,10 @@ class PatientController extends Controller
     {
         $data = $request->except(['name', 'description']);
 
-        if($request->id != null) {
+        if(!!$request->id) {
             NutritionForm::where('id', $request->id)->update($data);
         } else {
-            NutritionForm::forceCreate($data);
+            NutritionForm::create($data);
         }
 
         return redirect()->back();
@@ -272,10 +272,10 @@ class PatientController extends Controller
     {
         $data = $request->except(['name', 'description']);
 
-        if($request->id != null) {
+        if(!!$request->id) {
             DewormingForm::where('id', $request->id)->update($data);
         } else {
-            DewormingForm::forceCreate($data);
+            DewormingForm::create($data);
         }
 
         return redirect()->back();
@@ -285,10 +285,10 @@ class PatientController extends Controller
     {
         $data = $request->except(['name', 'description']);
 
-        if($request->id != null) {
+        if(!!$request->id) {
             VaccinationForm::where('id', $request->id)->update($data);
         } else {
-            VaccinationForm::forceCreate($data);
+            VaccinationForm::create($data);
         }
 
         return redirect()->back();
