@@ -39,7 +39,7 @@ class SavePostnatal extends FormRequest
             'lmp' => "required",
             'new_born_sex' => "required",
             'days_of_hospital_stay' => "required|numeric",
-            'age' => "required|numeric",
+            'age' => "required|numeric|min:1|max:120",
             'education' => "required|string",
             'obstetrical_score' => "required|numeric",
             'chief_complain' => "required|alpha_spaces",

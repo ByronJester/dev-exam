@@ -28,6 +28,7 @@ class RegisterAccount extends FormRequest
     {
         $rules = [
             'first_name' => "required|alpha_spaces",
+            'middle_name' => "nullable|alpha_spaces",
             'last_name' => "required|alpha_spaces",
             'phone' => "required|numeric|digits:11|unique:users,phone",
             'email' => "required|unique:users,email|email:rfc,dns",

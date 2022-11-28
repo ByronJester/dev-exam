@@ -28,7 +28,7 @@ class CreatePatient extends FormRequest
             'name' => "required|alpha_spaces",
             'phone' => "required|numeric|digits:11",
             'dob' => "required",
-            'age' => "required|numeric",
+            'age' => "required|numeric|min:1|max:120",
             'gender' => "required|alpha_spaces",
             'civil_status' => "required|alpha_spaces",
             'philhealth' => "nullable|numeric|digits:12",
