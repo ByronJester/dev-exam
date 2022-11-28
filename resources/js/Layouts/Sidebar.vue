@@ -202,7 +202,7 @@ export default {
                     this.tabs = ['patients', 'reports'];
                     break;
 
-                case 'members':
+                case 'member':
                     this.tabs = ['patients', 'reports'];
                     break;
             }
