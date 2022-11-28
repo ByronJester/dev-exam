@@ -51,6 +51,16 @@
                     </span>
                 </p>
 
+                <p class="mr-2 cursor-pointer" v-if="hasAccess('trails')" @click="changeActive('/trails')">
+                    <!-- <i class="fa-solid fa-prescription fa-lg mx-2"></i> -->
+                    <i class="fa-solid fa-file fa-lg mx-2"></i>
+                    <span v-if="isHover" class="mx-2"
+                        :style="{'border-bottom': active === '/trails' ? '1px solid white' : 'none'}"
+                    > 
+                        AUDIT TRAILS
+                    </span>
+                </p>
+
                 <p class="mr-2 cursor-pointer" v-if="hasAccess('patients')" @click="changeActive('/patients')">
                     <i class="fa-solid fa-users-rectangle fa-lg mx-2"></i>
                     <span v-if="isHover" class="mx-2"
@@ -162,7 +172,7 @@ export default {
 
     created(){
         if(this.auth.role == 1) {
-            this.tabs = ['users', 'maintenance'];
+            this.tabs = ['users', 'maintenance', 'trails'];
         }
 
         if(this.auth.role == 2) {

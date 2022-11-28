@@ -15,6 +15,7 @@ use App\Models\Vaccination;
 use App\Models\BarangayMedicine;
 use App\Models\PatientMedicine;
 use App\Models\Patient;
+use App\Models\Log;
 use App\Mail\PasswordMail;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\RegisterAccount;
@@ -72,6 +73,13 @@ class UserController extends Controller
         }
 
         if (Auth::attempt($data)) {
+            $auth = Auth::user();
+
+            Log::forceCreate([
+                'user_id' => $auth->id,
+                'description' => $auth->first_name . ' ' . $auth->last_name . ' has logged in.'
+            ]);
+
             return response()->json(['status' => 200, 'message' => 'success' ], 200); 
         } else {
             return response()->json(['status' => 422, 'message' => 'Invalid Credentials.' ], 200); 
@@ -80,7 +88,16 @@ class UserController extends Controller
 
     public function logoutAccount()
     {
-        Auth::logout();
+        $auth = Auth::user();
+
+        $save = Log::forceCreate([
+            'user_id' => $auth->id,
+            'description' => $auth->first_name . ' ' . $auth->last_name . ' has logged out.'
+        ]);
+
+        if($save) {
+            Auth::logout();
+        }
 
         return redirect('/');;
     }
@@ -198,6 +215,7 @@ class UserController extends Controller
     public function saveMaintenance(Request $request)
     {
         $tab = $request->tab;
+        $id = $request->id;
 
         $rules = [
             'name' => "required",
@@ -210,19 +228,36 @@ class UserController extends Controller
         }
 
         if($tab == 'medicine') {
-            Medicine::create($request->only(['name']));
+            if($id) {
+                Medicine::where('id', $id)->update(['name' => $request->name]);
+            } else {
+                Medicine::create($request->only(['name']));
+            }
+            
         }
 
         if($tab == 'category') {
-            MedicineCategory::create($request->only(['name']));
+            if($id) {
+                MedicineCategory::where('id', $id)->update(['name' => $request->name]);
+            } else {
+                MedicineCategory::create($request->only(['name']));
+            }
         }
 
         if($tab == 'unit') {
-            MedicineUnit::create($request->only(['name']));
+            if($id) {
+                MedicineUnit::where('id', $id)->update(['name' => $request->name]);
+            } else {
+                MedicineUnit::create($request->only(['name']));
+            }
         }
 
         if($tab == 'vaccination') {
-            Vaccination::create($request->only(['name']));
+            if($id) {
+                Vaccination::where('id', $id)->update(['name' => $request->name]);
+            } else {
+                Vaccination::create($request->only(['name']));
+            }
         }
 
         return response()->json(['status' => 200], 200); 
@@ -283,6 +318,20 @@ class UserController extends Controller
         }
 
         return redirect('/');
+    }
+
+    public function viewTrails(Request $request)
+    {
+        $auth = Auth::user();
+        
+        $logs = Log::orderBy('created_at', 'desc')->get();
+
+        return Inertia::render('Trails', [
+            'auth'    => $auth,
+            'options' => [
+                'logs' => $logs
+            ]
+        ]);
     }
 } 
  

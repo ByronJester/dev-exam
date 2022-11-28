@@ -48,6 +48,7 @@ const pages = {
   'Maintenance': require('./Pages/Maintenance.vue').default,
   'Reports': require('./Pages/Reports.vue').default,
   'History': require('./Pages/History.vue').default,
+  'Trails': require('./Pages/Trails.vue').default,
 }
 
 new Vue({

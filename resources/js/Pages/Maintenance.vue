@@ -35,7 +35,9 @@
 
                 <div class="w-full h-full px-5 mt-10">
                     <div class="grid grid-cols-10 gap-4" v-if="activeTab == 'medicine'">
-                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.medicines" :key="medicine.id" class="text-center flex justify-center items-center">
+                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.medicines" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
+                            @click="selectItem(medicine, 'medicine')"
+                        >
                             {{ medicine.name }}
                         </div>
 
@@ -45,7 +47,9 @@
                     </div>
 
                     <div class="grid grid-cols-10 gap-4" v-if="activeTab == 'category'">
-                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.categories" :key="medicine.id" class="text-center flex justify-center items-center">
+                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.categories" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
+                            @click="selectItem(medicine, 'category')"
+                        >
                             {{ medicine.name }}
                         </div>
 
@@ -55,7 +59,9 @@
                     </div>
 
                     <div class="grid grid-cols-10 gap-4" v-if="activeTab == 'unit'">
-                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.units" :key="medicine.id" class="text-center flex justify-center items-center">
+                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.units" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
+                            @click="selectItem(medicine, 'unit')"
+                        >
                             {{ medicine.name }}
                         </div>
 
@@ -65,7 +71,9 @@
                     </div>
 
                     <div class="grid grid-cols-10 gap-4" v-if="activeTab == 'vaccination'">
-                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.vaccinations" :key="medicine.id" class="text-center flex justify-center items-center">
+                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.vaccinations" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
+                            @click="selectItem(medicine, 'vaccination')"
+                        >
                             {{ medicine.name }}
                         </div>
 
@@ -107,6 +115,41 @@
                     
                     </div>
                 </div>
+
+                <div id="editModal" class="editModal">
+                    <div class="edit-modal-content flex flex-col" style="width: 20%">
+                        <div class="w-full">
+                            <span class="text-lg font-bold" style="text-transform: uppercase">
+                                Edit {{ activeTab }}
+                            </span>
+                            <span class="float-right cursor-pointer"
+                                @click="closeEditModal()"
+                            >
+                                <i class="fa-solid fa-xmark"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full flex flex-col mt-5" v-if="formSelected.name">
+                            <div class="my-1">
+                                <label class="text-bold">Name:</label><br>
+                                <input type="text" class="--input" v-model="formSelected.name">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
+                            </div>
+
+                            <div class="mt-3 mb-2">
+                                <button class="w-full py-2 px-4 text-white font-bold" 
+                                    style="border-radius: 10px; background-color: #366422"
+                                    @click="edit()"
+                                >
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+
+
             </div>
         </Navigation>
     </div>
@@ -131,9 +174,15 @@ export default {
         return {
             activeTab: 'medicine',
             form: {
+                id: null,
                 name: null
             },
-            saveError: null
+            saveError: null,
+            formSelected : {
+                id: null,
+                name: null,
+                type: null
+            }
         }
     },
 
@@ -175,6 +224,37 @@ export default {
                         location.reload()
 					}
 				})
+        },
+
+        openEditModal(){
+            var modal = document.getElementById("editModal");
+
+            modal.style.display = "block";
+        },
+
+        closeEditModal(){
+            var modal = document.getElementById("editModal");
+
+            modal.style.display = "none";
+        },
+
+        selectItem(item, type) {
+            this.formSelected.id = item.id
+            this.formSelected.name = item.name
+            this.formSelected.type = type
+
+            this.openEditModal()
+        },
+
+        edit(){
+            axios.post(this.$root.route + '/maintenance/save-maintenance', { tab: this.activeTab, id: this.formSelected.id, name: this.formSelected.name })
+				.then(response => {
+					if(response.data.status == 422) {
+						this.saveError = response.data.errors 
+					} else {
+                        location.reload()
+					}
+				})
         }
     }
 }
@@ -202,6 +282,29 @@ export default {
 
 /* Modal Content */
 .form-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 100%;
+}
+
+.editModal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.edit-modal-content {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
