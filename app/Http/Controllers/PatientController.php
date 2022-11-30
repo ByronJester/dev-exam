@@ -205,6 +205,14 @@ class PatientController extends Controller
         if($request->id) {
             PrenatalForm::where('id', $request->id)->update($data);
         } else {
+            $prenatal = PrenatalForm::orderBy('created_at', 'desc')->first();
+
+            if($prenatal) {
+                $data['id'] = $prenatal->id + 1;
+            } else {
+                $data['id'] = 1;
+            }
+
             PrenatalForm::create($data);
         }
 
@@ -216,9 +224,18 @@ class PatientController extends Controller
         $data = $request->except(['name', 'description']);
 
         if($request->id) {
-            PostnatalForm::where('id', $request->id)->update($data);
+            PostnatalForm::where('id', $request->id)->update($data); 
         } else {
+            $postnatal = PostnatalForm::orderBy('created_at', 'desc')->first();
+
+            if($postnatal) {
+                $data['id'] = $postnatal->id + 1;
+            } else {
+                $data['id'] = 1;
+            }
+
             PostnatalForm::create($data);
+            
         }
 
         return redirect()->back();
@@ -351,7 +368,7 @@ class PatientController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'medications' => "required|alpha_spaces",
-            'dose' => "required|numeric",
+            'dose' => "required|string",                           
             'times_per_day' => 'required|numeric'
         ]);
 

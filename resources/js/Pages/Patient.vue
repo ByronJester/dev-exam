@@ -2777,14 +2777,11 @@ export default {
             activeForm: null,
             formName: 'Tuberculosis Symptom Form',
             columns: [
-                'Name', 'Description'
+                'Form'
             ],
             keys : [
                 {
                     label: 'name',
-                },
-                {
-                    label: 'description',
                 }
             ],
             selectedForm: null,
