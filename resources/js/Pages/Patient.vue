@@ -419,27 +419,27 @@
                                     style="width: 70%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="1" v-model="formData.tb">
+                                        <input type="checkbox" value="1" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Ubo</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="2" v-model="formData.tb">
+                                        <input type="checkbox" value="2" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Pag-ubo na may kasamang dugo</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="3" v-model="formData.tb">
+                                        <input type="checkbox" value="3" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Lagnat na di maipaliwanag ang sanhi</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="4" v-model="formData.tb">
+                                        <input type="checkbox" value="4" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Pamamayat na di maipaliwanag ang sanhi</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="5" v-model="formData.tb">
+                                        <input type="checkbox" value="5" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Labis na pagpapawis sa hapon o gabi na walang kinalaman sa init ng panahon</label>
                                     </div>
                                 </div>
@@ -448,27 +448,27 @@
                                     style="width: 10%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="6" v-model="formData.tb">
+                                        <input type="checkbox" value="6" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &gt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="7" v-model="formData.tb">
+                                        <input type="checkbox" value="7" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &gt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="8" v-model="formData.tb">
+                                        <input type="checkbox" value="8" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &gt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="9" v-model="formData.tb">
+                                        <input type="checkbox" value="9" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &gt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="10" v-model="formData.tb">
+                                        <input type="checkbox" value="10" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &gt;2 weeks</label>
                                     </div>
 
@@ -478,27 +478,27 @@
                                     style="width: 10%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="11" v-model="formData.tb">
+                                        <input type="checkbox" value="11" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &lt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="12" v-model="formData.tb">
+                                        <input type="checkbox" value="12" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &lt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="13" v-model="formData.tb">
+                                        <input type="checkbox" value="13" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &lt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="14" v-model="formData.tb">
+                                        <input type="checkbox" value="14" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &lt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="15" v-model="formData.tb">
+                                        <input type="checkbox" value="15" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &lt;2 weeks</label>
                                     </div>
                                 </div>
@@ -507,27 +507,27 @@
                                     style="width: 10%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="16" v-model="formData.tb">
+                                        <input type="checkbox" value="16" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Wala</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="17" v-model="formData.tb">
+                                        <input type="checkbox" value="17" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Wala</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="18" v-model="formData.tb">
+                                        <input type="checkbox" value="18" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Wala</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="19" v-model="formData.tb">
+                                        <input type="checkbox" value="19" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Wala</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="20" v-model="formData.tb">
+                                        <input type="checkbox" value="20" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Wala</label>
                                     </div>
 
@@ -546,22 +546,22 @@
                                     style="width: 70%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="21" v-model="formData.tb">
+                                        <input type="checkbox" value="21" v-model="formData.tb" :disabled="options.isReport"> 
                                         <label> Ubo o kahirapan sa paghinga</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="22" v-model="formData.tb">
+                                        <input type="checkbox" value="22" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Mabilis mapagod</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="23" v-model="formData.tb">
+                                        <input type="checkbox" value="23" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Pananamlay</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="24" v-model="formData.tb">
+                                        <input type="checkbox" value="24" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Walang gana o mahinang kumain</label>
                                     </div>
 
@@ -571,22 +571,22 @@
                                     style="width: 10%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="25" v-model="formData.tb">
+                                        <input type="checkbox" value="25" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &gt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="26" v-model="formData.tb">
+                                        <input type="checkbox" value="26" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &gt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="27" v-model="formData.tb">
+                                        <input type="checkbox" value="27" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &gt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="28" v-model="formData.tb">
+                                        <input type="checkbox" value="28" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &gt;2 weeks</label>
                                     </div>
 
@@ -596,22 +596,22 @@
                                     style="width: 10%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="29" v-model="formData.tb">
+                                        <input type="checkbox" value="29" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &lt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="30" v-model="formData.tb">
+                                        <input type="checkbox" value="30" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &lt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="31" v-model="formData.tb">
+                                        <input type="checkbox" value="31" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &lt;2 weeks</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="32" v-model="formData.tb">
+                                        <input type="checkbox" value="32" v-model="formData.tb" :disabled="options.isReport">
                                         <label> &lt;2 weeks</label>
                                     </div>
                                 </div>
@@ -620,22 +620,22 @@
                                     style="width: 10%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="33" v-model="formData.tb">
+                                        <input type="checkbox" value="33" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Wala</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="32" v-model="formData.tb">
+                                        <input type="checkbox" value="34" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Wala</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="35" v-model="formData.tb">
+                                        <input type="checkbox" value="35" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Wala</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="36" v-model="formData.tb">
+                                        <input type="checkbox" value="36" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Wala</label>
                                     </div>
 
@@ -653,17 +653,17 @@
                                     style="width: 70%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="37" v-model="formData.tb">
+                                        <input type="checkbox" value="37" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Dating nag-gamutan sa sakit na TB</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="38" v-model="formData.tb">
+                                        <input type="checkbox" value="38" v-model="formData.tb" :disabled="options.isReport">
                                         <label> May nakakasamang may sakit na TB sa matagal na panahon</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="39" v-model="formData.tb">
+                                        <input type="checkbox" value="39" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Diabetes | Cancer | Sumasailalim sa dialysis</label>
                                     </div>
                                 </div>
@@ -674,17 +674,17 @@
                                     style="width: 30%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="40" v-model="formData.tb">
+                                        <input type="checkbox" value="40" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Edad 60 anyos pataas</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="41" v-model="formData.tb">
+                                        <input type="checkbox" value="41" v-model="formData.tb" :disabled="options.isReport"> 
                                         <label> Indigent | 4P's/CCT Member</label>
                                     </div>
 
                                     <div class="w-full">
-                                        <input type="checkbox" value="42" v-model="formData.tb">
+                                        <input type="checkbox" value="42" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Naninigarilyo | Madalas uminom ng alak</label>
                                     </div>
                                 </div>
@@ -699,7 +699,7 @@
                                     style="width: 70%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="43" v-model="formData.tb">
+                                        <input type="checkbox" value="43" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Ni-refer sa health center dahil mayroon ng alinman sintomas o risk factor</label>
                                     </div>
                                 </div>
@@ -710,7 +710,7 @@
                                     style="width: 30%"
                                 >
                                     <div class="w-full">
-                                        <input type="checkbox" value="44" v-model="formData.tb">
+                                        <input type="checkbox" value="44" v-model="formData.tb" :disabled="options.isReport">
                                         <label> Hindi ini-refer sa health center</label>
                                     </div>
                                 </div>
@@ -794,17 +794,17 @@
                         >   
                             <div class="w-full">
                                 <label class="text-xl font-bold"> Last Menstrual Period</label> <br>
-                                <input type="date" v-model="formData.lmp" class="mt-2" style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px 5px 10px">
+                                <input type="date" v-model="formData.lmp" class="mt-2" style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px 5px 10px" :disabled="options.isReport"> 
                             </div>
 
                             <div class="w-full">
                                 <label class="text-xl font-bold"> Expected Date of Confinement</label> <br>
-                                <input type="date" v-model="formData.edc" class="mt-2" style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px 5px 10px">
+                                <input type="date" v-model="formData.edc" class="mt-2" style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px 5px 10px" :disabled="options.isReport">
                             </div>
 
                             <div class="w-full">
                                 <label class="text-xl font-bold"> Expected Date of Delivery</label> <br>
-                                <input type="date" v-model="formData.edd" class="mt-2" style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px 5px 10px">
+                                <input type="date" v-model="formData.edd" class="mt-2" style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px 5px 10px" :disabled="options.isReport">
                             </div>
                         </div>
 
@@ -1287,7 +1287,7 @@
 
                             <div class="w-full">
                                 <label>Today's Date:</label><br>
-                                <input type="date" class="--input" v-model="prenatal.date_today"><br>
+                                <input type="date" class="--input" v-model="prenatal.date_today" :disabled="options.isReport"><br>
                                 <span class="text-xs text-red-500 pl-2">{{validationError('date_today', saveError)}} </span>
                             </div>
 
@@ -1298,25 +1298,25 @@
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
                                     <label>Provider Fullname: (First Name Middle Name Last Name)</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.provider_name">
+                                    <input type="text" class="--input w-full" v-model="prenatal.provider_name" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('provider_name', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>NPI #:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.npi">
+                                    <input type="text" class="--input w-full" v-model="prenatal.npi" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('npi', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>PhilHealth ID # or Billing ID #:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.billing_id">
+                                    <input type="text" class="--input w-full" v-model="prenatal.billing_id" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('billing_id', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Tax ID #:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.tax_id">
+                                    <input type="text" class="--input w-full" v-model="prenatal.tax_id" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('tax_id', saveError)}} </span>
                                 </div>
                             </div>
@@ -1324,37 +1324,37 @@
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
                                     <label>Provider Address:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.provider_address">
+                                    <input type="text" class="--input w-full" v-model="prenatal.provider_address" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('provider_address', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>City:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.city">
+                                    <input type="text" class="--input w-full" v-model="prenatal.city" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('city', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Town:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.town">
+                                    <input type="text" class="--input w-full" v-model="prenatal.town" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('town', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>ZIP:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.zip">
+                                    <input type="text" class="--input w-full" v-model="prenatal.zip" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('zip', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Provider Phone:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.provider_phone">
+                                    <input type="text" class="--input w-full" v-model="prenatal.provider_phone" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('provider_phone', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Provider Fax:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.provider_fax">
+                                    <input type="text" class="--input w-full" v-model="prenatal.provider_fax" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('provider_fax', saveError)}} </span>
                                 </div>
                             </div>
@@ -1370,25 +1370,25 @@
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
                                     <label>Member Fullname: (First Name Middle Name Last Name)</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.member_name">
+                                    <input type="text" class="--input w-full" v-model="prenatal.member_name" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_name', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Member ID #:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.member_id">
+                                    <input type="text" class="--input w-full" v-model="prenatal.member_id" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_id', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>DOB:</label><br>
-                                    <input type="date" class="--input w-full" v-model="prenatal.dob">
+                                    <input type="date" class="--input w-full" v-model="prenatal.dob" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Member Address:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.member_address">
+                                    <input type="text" class="--input w-full" v-model="prenatal.member_address" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_address', saveError)}} </span>
                                 </div>
                             </div>
@@ -1396,25 +1396,25 @@
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
                                     <label>Phone:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.member_phone">
+                                    <input type="text" class="--input w-full" v-model="prenatal.member_phone" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_phone', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>City:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.member_city">
+                                    <input type="text" class="--input w-full" v-model="prenatal.member_city" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_city', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Town:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.member_town">
+                                    <input type="text" class="--input w-full" v-model="prenatal.member_town" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_town', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>ZIP:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.member_zip">
+                                    <input type="text" class="--input w-full" v-model="prenatal.member_zip" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_zip', saveError)}} </span>
                                 </div>
                             </div>
@@ -1422,25 +1422,25 @@
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
                                     <label>LMP:</label><br>
-                                    <input type="date" class="--input w-full" v-model="prenatal.lmp">
+                                    <input type="date" class="--input w-full" v-model="prenatal.lmp" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('lmp', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>G:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.g">
+                                    <input type="text" class="--input w-full" v-model="prenatal.g" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('g', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>P:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.p">
+                                    <input type="text" class="--input w-full" v-model="prenatal.p" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('p', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>EDD:</label><br>
-                                    <input type="date" class="--input w-full" v-model="prenatal.edd">
+                                    <input type="date" class="--input w-full" v-model="prenatal.edd" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('edd', saveError)}} </span>
                                 </div>
                             </div>
@@ -1448,31 +1448,31 @@
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
                                     <label>Date of first prenatal visit:</label><br>
-                                    <input type="date" class="--input w-full" v-model="prenatal.first_prenatal">
+                                    <input type="date" class="--input w-full" v-model="prenatal.first_prenatal" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('first_prenatal', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Date of most recent prenatal visit:</label><br>
-                                    <input type="date" class="--input w-full" v-model="prenatal.recent_prenatal">
+                                    <input type="date" class="--input w-full" v-model="prenatal.recent_prenatal" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('recent_prenatal', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Type of last delivery:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.type_of_last_delivery">
+                                    <input type="text" class="--input w-full" v-model="prenatal.type_of_last_delivery" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('type_of_last_delivery', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Date of last delivery:</label><br>
-                                    <input type="date" class="--input w-full" v-model="prenatal.last_delivery">
+                                    <input type="date" class="--input w-full" v-model="prenatal.last_delivery" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('last_delivery', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Expected delivery facility:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.delivery_facility">
+                                    <input type="text" class="--input w-full" v-model="prenatal.delivery_facility" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('delivery_facility', saveError)}} </span>
                                 </div>
                             </div>
@@ -1492,19 +1492,19 @@
                                     </div>
 
                                     <div class="w-full mt-5">
-                                        <input type="checkbox" v-model="prenatal.behavioral_risks"  value="Smokes more than 10 cigarettes per day">
+                                        <input type="checkbox" v-model="prenatal.behavioral_risks"  value="Smokes more than 10 cigarettes per day" :disabled="options.isReport">
                                         <label> Smokes more than 10 cigarettes per day</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.behavioral_risks" value="Less than 2 years since last pregnancy">
+                                        <input type="checkbox" v-model="prenatal.behavioral_risks" value="Less than 2 years since last pregnancy" :disabled="options.isReport">
                                         <label> Less than 2 years since last pregnancy</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.behavioral_risks" value="Directed member to WIC office">
+                                        <input type="checkbox" v-model="prenatal.behavioral_risks" value="Directed member to WIC office" :disabled="options.isReport">
                                         <label> Directed member to WIC office</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.behavioral_risks" value="Offered HIV counseling">
+                                        <input type="checkbox" v-model="prenatal.behavioral_risks" value="Offered HIV counseling" :disabled="options.isReport">
                                         <label> Offered HIV counseling</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.behavioral_risks" value="Substance use in pregnancy">
+                                        <input type="checkbox" v-model="prenatal.behavioral_risks" value="Substance use in pregnancy" :disabled="options.isReport">
                                         <label> Substance use in pregnancy</label><br>
                                     </div>
                                 </div>
@@ -1515,34 +1515,34 @@
                                     </div>
 
                                     <div class="w-full mt-5">
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Adolescent">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Adolescent" :disabled="options.isReport">
                                         <label>Adolescent  </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Inadequate finances">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Inadequate finances" :disabled="options.isReport">
                                         <label>Inadequate finances </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Inadequate housing">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Inadequate housing" :disabled="options.isReport">
                                         <label>Inadequate housing</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Inadequate social supports">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Inadequate social supports" :disabled="options.isReport">
                                         <label>Inadequate social supports</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Involvement with other agencies, e.g., DCF">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Involvement with other agencies, e.g., DCF" :disabled="options.isReport">
                                         <label>Involvement with other agencies, e.g., DCF</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Less than high school education">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Less than high school education" :disabled="options.isReport">
                                         <label>Less than high school education</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Poor nutrition">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Poor nutrition" :disabled="options.isReport">
                                         <label>Poor nutrition</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Psychiatric history">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Psychiatric history" :disabled="options.isReport">
                                         <label>Psychiatric history</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Significant learning disabilities">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Significant learning disabilities" :disabled="options.isReport">
                                         <label>Significant learning disabilities </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Violence/abuse">
+                                        <input type="checkbox" v-model="prenatal.pyschological_risks" value="Violence/abuse" :disabled="options.isReport">
                                         <label>Violence/abuse</label><br>
 
                                     </div>
@@ -1554,34 +1554,34 @@
                                     </div>
 
                                     <div class="w-full mt-5">
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Cardiac disease">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Cardiac disease" :disabled="options.isReport">
                                         <label>Cardiac disease </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Diabetes">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Diabetes" :disabled="options.isReport">
                                         <label>Diabetes </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Endocrine disorders">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Endocrine disorders" :disabled="options.isReport">
                                         <label>Endocrine disorders </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="GI disorders">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="GI disorders" :disabled="options.isReport">
                                         <label>GI disorders </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Hypothyroid">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Hypothyroid" :disabled="options.isReport">
                                         <label>Hypothyroid </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Malignancy">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Malignancy" :disabled="options.isReport">
                                         <label>Malignancy </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Moderate or severe asthma">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Moderate or severe asthma" :disabled="options.isReport">
                                         <label>Moderate or severe asthma</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Renal disease/history of UTIs">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Renal disease/history of UTIs" :disabled="options.isReport">
                                         <label>Renal disease/history of UTIs </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Seizure disorders">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Seizure disorders" :disabled="options.isReport">
                                         <label> Seizure disorders</label><br>
 
-                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Sickle cell disease">
+                                        <input type="checkbox" v-model="prenatal.medical_risks" value="Sickle cell disease" :disabled="options.isReport">
                                         <label> Sickle cell disease</label><br>
 
                                     </div>
@@ -1593,86 +1593,86 @@
                                     </div>
 
                                     <div class="w-full mt-5">
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Abnormal pap smear">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Abnormal pap smear" :disabled="options.isReport">
                                         <label>Abnormal pap smear </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Anemia">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Anemia" :disabled="options.isReport">
                                         <label>Anemia </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="BMI > 30">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="BMI > 30" :disabled="options.isReport">
                                         <label>BMI > 30 </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Gestational diabetes">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Gestational diabetes" :disabled="options.isReport">
                                         <label>Gestational diabetes </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of cervical uterine infections">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of cervical uterine infections" :disabled="options.isReport">
                                         <label>History of cervical uterine infections </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of infant with brain injury, neurological defect or congenial abnormality">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of infant with brain injury, neurological defect or congenial abnormality" :disabled="options.isReport">
                                         <label>
                                             History of infant with brain injury, neurological defect or congenial abnormality
                                         </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of infertility">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of infertility" :disabled="options.isReport">
                                         <label>History of infertility </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Inadequate prenatal care">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Inadequate prenatal care" :disabled="options.isReport">
                                         <label>Inadequate prenatal care </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of low birth weight infant">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="History of low birth weight infant" :disabled="options.isReport">
                                         <label>History of low birth weight infant </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Incompetent cervix">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Incompetent cervix" :disabled="options.isReport">
                                         <label>Incompetent cervix </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Intrauterine growth retardation (IUGR)">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Intrauterine growth retardation (IUGR)" :disabled="options.isReport">
                                         <label>Intrauterine growth retardation (IUGR) </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Placenta Previa/Placenta Abruptia">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Placenta Previa/Placenta Abruptia" :disabled="options.isReport">
                                         <label>Placenta Previa/Placenta Abruptia </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Polyhydramnios/oligohydramnios">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Polyhydramnios/oligohydramnios" :disabled="options.isReport">
                                         <label>Polyhydramnios/oligohydramnios </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Poor weight gain">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Poor weight gain" :disabled="options.isReport">
                                         <label>Poor weight gain </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Postpartum depression – family history">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Postpartum depression – family history" :disabled="options.isReport">
                                         <label>Postpartum depression – family history </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Postpartum depression – personal history">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Postpartum depression – personal history" :disabled="options.isReport">
                                         <label>Postpartum depression – personal history </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Pregnancy-induced hypertension (PIH)">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Pregnancy-induced hypertension (PIH)" :disabled="options.isReport">
                                         <label>Pregnancy-induced hypertension (PIH) </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Pre-pregnancy weight of less than 100 lbs.">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Pre-pregnancy weight of less than 100 lbs." :disabled="options.isReport">
                                         <label>Pre-pregnancy weight of less than 100 lbs. </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Previous pre-term labor (PTL)">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Previous pre-term labor (PTL)" :disabled="options.isReport">
                                         <label>Previous pre-term labor (PTL) </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Previous pre-term delivery (PTD)">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Previous pre-term delivery (PTD)" :disabled="options.isReport">
                                         <label>Previous pre-term delivery (PTD) </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Previous stillborn/neonatal death">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Previous stillborn/neonatal death" :disabled="options.isReport">
                                         <label>Previous stillborn/neonatal death </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Multiple gestation">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Multiple gestation" :disabled="options.isReport">
                                         <label>Multiple gestation </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Rh sensitization">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Rh sensitization" :disabled="options.isReport">
                                         <label>Rh sensitization </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Sexually transmitted disease (STD)">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Sexually transmitted disease (STD)" :disabled="options.isReport">
                                         <label>Sexually transmitted disease (STD) </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="2 or more spontaneous abortions (SABs) or therapeutic abortions (TABs)">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="2 or more spontaneous abortions (SABs) or therapeutic abortions (TABs)" :disabled="options.isReport">
                                         <label>
                                             2 or more spontaneous abortions (SABs) or therapeutic abortions (TABs)
                                         </label><br>
 
-                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Uterine/cervical anomaly">
+                                        <input type="checkbox" v-model="prenatal.obstetrics_risks" value="Uterine/cervical anomaly" :disabled="options.isReport">
                                         <label>
                                             Uterine/cervical anomaly
                                         </label><br>
@@ -1683,13 +1683,13 @@
                             <div class="w-full flex flex-row mt-10">
                                 <div class="w-full pr-2">
                                     <label>OB/GYN provider signature:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.ob_gyn">
+                                    <input type="text" class="--input w-full" v-model="prenatal.ob_gyn" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('ob_gyn', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>Date:</label><br>
-                                    <input type="date" class="--input w-full" v-model="prenatal.date">
+                                    <input type="date" class="--input w-full" v-model="prenatal.date" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('date', saveError)}} </span>
                                 </div>
 
@@ -1803,25 +1803,25 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
-                                <input type="text" class="--input w-full" v-model="nutrition.guardian_name">
+                                <input type="text" class="--input w-full" v-model="nutrition.guardian_name" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Date of Birth:</label><br>
-                                <input type="date" class="--input w-full" v-model="nutrition.dob">
+                                <input type="date" class="--input w-full" v-model="nutrition.dob" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Age:</label><br>
-                                <input type="text" class="--input w-full" v-model="nutrition.age">
+                                <input type="text" class="--input w-full" v-model="nutrition.age" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Height:</label><br>
-                                <input type="text" class="--input w-full" v-model="nutrition.height">
+                                <input type="text" class="--input w-full" v-model="nutrition.height" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
                             </div>
 
@@ -1830,19 +1830,19 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Weight:</label><br>
-                                <input type="text" class="--input w-full" v-model="nutrition.weight">
+                                <input type="text" class="--input w-full" v-model="nutrition.weight" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>BMI:</label><br>
-                                <input type="text" class="--input w-full" v-model="nutrition.bmi">
+                                <input type="text" class="--input w-full" v-model="nutrition.bmi" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('bmi', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Vitamins:</label><br>
-                                <input type="text" class="--input w-full" v-model="nutrition.vitamins">
+                                <input type="text" class="--input w-full" v-model="nutrition.vitamins" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('vitamins', saveError)}} </span>
                             </div>
 
@@ -1953,25 +1953,25 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
-                                <input type="text" class="--input w-full" v-model="deworming.guardian_name">
+                                <input type="text" class="--input w-full" v-model="deworming.guardian_name" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Date of Birth:</label><br>
-                                <input type="date" class="--input w-full" v-model="deworming.dob">
+                                <input type="date" class="--input w-full" v-model="deworming.dob" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Age:</label><br>
-                                <input type="text" class="--input w-full" v-model="deworming.age">
+                                <input type="text" class="--input w-full" v-model="deworming.age" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Height:</label><br>
-                                <input type="text" class="--input w-full" v-model="deworming.height">
+                                <input type="text" class="--input w-full" v-model="deworming.height" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
                             </div>
 
@@ -1980,19 +1980,19 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Weight:</label><br>
-                                <input type="text" class="--input w-full" v-model="deworming.weight">
+                                <input type="text" class="--input w-full" v-model="deworming.weight" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>BMI:</label><br>
-                                <input type="text" class="--input w-full" v-model="deworming.bmi">
+                                <input type="text" class="--input w-full" v-model="deworming.bmi" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('bmi', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Deworming Medication:</label><br>
-                                <input type="text" class="--input w-full" v-model="deworming.deworming_medication">
+                                <input type="text" class="--input w-full" v-model="deworming.deworming_medication" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('deworming_medication', saveError)}} </span>
                             </div>
 
@@ -2106,25 +2106,25 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
-                                <input type="text" class="--input w-full" v-model="vaccination.guardian_name">
+                                <input type="text" class="--input w-full" v-model="vaccination.guardian_name" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Date of Birth:</label><br>
-                                <input type="date" class="--input w-full" v-model="vaccination.dob">
+                                <input type="date" class="--input w-full" v-model="vaccination.dob" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Age:</label><br>
-                                <input type="text" class="--input w-full" v-model="vaccination.age">
+                                <input type="text" class="--input w-full" v-model="vaccination.age" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Height:</label><br>
-                                <input type="text" class="--input w-full" v-model="vaccination.height">
+                                <input type="text" class="--input w-full" v-model="vaccination.height" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
                             </div>
 
@@ -2133,19 +2133,19 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Weight:</label><br>
-                                <input type="text" class="--input w-full" v-model="vaccination.weight">
+                                <input type="text" class="--input w-full" v-model="vaccination.weight" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>BMI:</label><br>
-                                <input type="text" class="--input w-full" v-model="vaccination.bmi">
+                                <input type="text" class="--input w-full" v-model="vaccination.bmi" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('bmi', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Vaccine:</label><br>
-                                <select v-model="vaccination.vaccination_id" class="--input w-full">
+                                <select v-model="vaccination.vaccination_id" class="--input w-full" :disabled="options.isReport">
                                     <option v-for="vaccine in options.vaccinations" :value="vaccine.id" :key="vaccine.id">{{vaccine.name}}</option>
                                 </select>
                                 <span class="text-xs text-red-500 pl-2">{{validationError('vaccination_id', saveError)}} </span>
@@ -2476,31 +2476,31 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Hospital Name:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.hospital_name">
+                                <input type="text" class="--input w-full" v-model="postnatal.hospital_name" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('hospital_name', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Client's Fullname: (First Name Middle Name Last Name)</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.clients_name">
+                                <input type="text" class="--input w-full" v-model="postnatal.clients_name" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('clients_name', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Address:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.address">
+                                <input type="text" class="--input w-full" v-model="postnatal.address" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('address', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Occupation:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.occupation">
+                                <input type="text" class="--input w-full" v-model="postnatal.occupation" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('occupation', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Type of Delivery:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.type_of_delivery">
+                                <input type="text" class="--input w-full" v-model="postnatal.type_of_delivery" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('type_of_delivery', saveError)}} </span>
                             </div>
                         </div>
@@ -2508,31 +2508,31 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Mode of Delivery:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.mode_of_delivery">
+                                <input type="text" class="--input w-full" v-model="postnatal.mode_of_delivery" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('mode_of_delivery', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Total Hours of Labor:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.total_hours_of_labor">
+                                <input type="text" class="--input w-full" v-model="postnatal.total_hours_of_labor" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('total_hours_of_labor', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Postnatal Day:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.postnatal_day">
+                                <input type="text" class="--input w-full" v-model="postnatal.postnatal_day" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('postnatal_day', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Registration #:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.register_no">
+                                <input type="text" class="--input w-full" v-model="postnatal.register_no" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('register_no', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Date of Arrival:</label><br>
-                                <input type="date" class="--input w-full" v-model="postnatal.doa">
+                                <input type="date" class="--input w-full" v-model="postnatal.doa" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('doa', saveError)}} </span>
                             </div>
                         </div>
@@ -2540,31 +2540,31 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Religion:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.religion">
+                                <input type="text" class="--input w-full" v-model="postnatal.religion" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('religion', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Gestational Age:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.gestational_age">
+                                <input type="text" class="--input w-full" v-model="postnatal.gestational_age" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('gestational_age', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Last Menstrual Period:</label><br>
-                                <input type="date" class="--input w-full" v-model="postnatal.lmp">
+                                <input type="date" class="--input w-full" v-model="postnatal.lmp" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('lmp', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>New Born Sex:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.new_born_sex">
+                                <input type="text" class="--input w-full" v-model="postnatal.new_born_sex" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('new_born_sex', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Days of Hospital Stay:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.days_of_hospital_stay">
+                                <input type="text" class="--input w-full" v-model="postnatal.days_of_hospital_stay" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('days_of_hospital_stay', saveError)}} </span>
                             </div>
                         </div>
@@ -2572,31 +2572,31 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Age:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.age">
+                                <input type="text" class="--input w-full" v-model="postnatal.age" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Education:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.education">
+                                <input type="text" class="--input w-full" v-model="postnatal.education" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('education', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Obstetrical Score:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.obstetrical_score">
+                                <input type="text" class="--input w-full" v-model="postnatal.obstetrical_score" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('obstetrical_score', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Chief Complain:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.chief_complain">
+                                <input type="text" class="--input w-full" v-model="postnatal.chief_complain" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('chief_complain', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Estimated Date of Delivery:</label><br>
-                                <input type="date" class="--input w-full" v-model="postnatal.edd">
+                                <input type="date" class="--input w-full" v-model="postnatal.edd" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('edd', saveError)}} </span>
                             </div>
                         </div>
@@ -2604,32 +2604,32 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>New Born Weight:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.newborn_weight">
+                                <input type="text" class="--input w-full" v-model="postnatal.newborn_weight" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('newborn_weight', saveError)}} </span>
                             </div>
 
 
                             <div class="w-full pr-2">
                                 <label>Elimination Pattern:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.elimination_pattern">
+                                <input type="text" class="--input w-full" v-model="postnatal.elimination_pattern" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('elimination_pattern', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Activity and Exercise:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.activity_and_exercise">
+                                <input type="text" class="--input w-full" v-model="postnatal.activity_and_exercise" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('activity_and_exercise', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Menarche Age:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.menarche_age">
+                                <input type="text" class="--input w-full" v-model="postnatal.menarche_age" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('menarche_age', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Period:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.period">
+                                <input type="text" class="--input w-full" v-model="postnatal.period" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('period', saveError)}} </span>
                             </div>
                         </div>
@@ -2637,31 +2637,31 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Bad Habits:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.bad_habits">
+                                <input type="text" class="--input w-full" v-model="postnatal.bad_habits" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('bad_habits', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Nutritional Pattern:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.nutritional_pattern">
+                                <input type="text" class="--input w-full" v-model="postnatal.nutritional_pattern" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('nutritional_pattern', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Sleeping Pattern</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.sleeping_pattern">
+                                <input type="text" class="--input w-full" v-model="postnatal.sleeping_pattern" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('sleeping_pattern', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Cycle:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.cycle">
+                                <input type="text" class="--input w-full" v-model="postnatal.cycle" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('cycle', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Amount of Blood Loss:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.amount_of_blood_loss">
+                                <input type="text" class="--input w-full" v-model="postnatal.amount_of_blood_loss" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('amount_of_blood_loss', saveError)}} </span>
                             </div>
                         </div>
@@ -2669,25 +2669,25 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Duration of Marriage:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.duration_of_marriage">
+                                <input type="text" class="--input w-full" v-model="postnatal.duration_of_marriage" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('duration_of_marriage', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Family Planning Method Adopted:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.family_planning_method_adopted">
+                                <input type="text" class="--input w-full" v-model="postnatal.family_planning_method_adopted" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('family_planning_method_adopted', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Diseases</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.diseases">
+                                <input type="text" class="--input w-full" v-model="postnatal.diseases" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('diseases', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Genitics Condition:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.genitics_condition">
+                                <input type="text" class="--input w-full" v-model="postnatal.genitics_condition" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('genitics_condition', saveError)}} </span>
                             </div>
                         </div>
@@ -2695,25 +2695,25 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Parity:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.parity">
+                                <input type="text" class="--input w-full" v-model="postnatal.parity" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('parity', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Gravidity:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.gravidity">
+                                <input type="text" class="--input w-full" v-model="postnatal.gravidity" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('gravidity', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Miscarriages:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.miscarriages">
+                                <input type="text" class="--input w-full" v-model="postnatal.miscarriages" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('miscarriages', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Terminations</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.terminations">
+                                <input type="text" class="--input w-full" v-model="postnatal.terminations" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('terminations', saveError)}} </span>
                             </div>
                         </div>
@@ -2721,19 +2721,19 @@
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Previous Pregnancy:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.previous_pregnancy">
+                                <input type="text" class="--input w-full" v-model="postnatal.previous_pregnancy" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('previous_pregnancy', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Length of Pregnancy:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.length_of_pregnancy">
+                                <input type="text" class="--input w-full" v-model="postnatal.length_of_pregnancy" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('length_of_pregnancy', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
                                 <label>Induction:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.induction">
+                                <input type="text" class="--input w-full" v-model="postnatal.induction" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('induction', saveError)}} </span>
                             </div>
 

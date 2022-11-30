@@ -18,7 +18,7 @@ class CreateWomenHealthHistoriesTable extends Migration
             $table->bigInteger('patient_id')->unsigned()->comment('Foreign key from table patients');
             $table->date('dlmc');
             $table->string('tnp');
-            $table->string('complications');
+            $table->string('complications')->nullable();
             $table->string('afm');
             $table->string('am');
             $table->string('nlb');

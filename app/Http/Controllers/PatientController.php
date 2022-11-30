@@ -205,7 +205,7 @@ class PatientController extends Controller
         if($request->id) {
             PrenatalForm::where('id', $request->id)->update($data);
         } else {
-            PrenatalForm::forceCreate($data);
+            PrenatalForm::create($data);
         }
 
         return redirect()->back()->with('errors');
@@ -218,7 +218,7 @@ class PatientController extends Controller
         if($request->id) {
             PostnatalForm::where('id', $request->id)->update($data);
         } else {
-            PostnatalForm::forceCreate($data);
+            PostnatalForm::create($data);
         }
 
         return redirect()->back();
@@ -409,7 +409,7 @@ class PatientController extends Controller
     public function saveDisease(Request $request) {
         $validator = Validator::make($request->all(), [
             'disease' => "required",
-            'type' => "nullable",
+            'type' => "nullable|alpha_spaces",
             'status' => "required",
             'comment' => "required",
             'family' => "nullable"
@@ -450,7 +450,7 @@ class PatientController extends Controller
         $validator = Validator::make($request->all(), [
             'dlmc' => "required",
             'tnp' => "required",
-            'complications' => "required",
+            'complications' => "required|alpha_spaces",
             'afm' => "required|numeric",
             'am' => "required|numeric",
             'nlb' => "required|numeric",
