@@ -2931,10 +2931,14 @@ export default {
         this.deworming.patient_id = this.patient.id
         this.vaccination.patient_id = this.patient.id
 
-        if(this.auth.user_type == 'doctor' || this.auth.user_type == 'leader' || this.auth.user_type == 'member') {
-            this.forms = this.options.forms.filter(x => { return x.name == 'Tuberculosis Symptom Form' })
+        if(!this.options.isReport){
+            if(this.auth.user_type == 'doctor' || this.auth.user_type == 'leader' || this.auth.user_type == 'member') {
+                this.forms = this.options.forms.filter(x => { return x.name == 'Tuberculosis Symptom Form' })
+            } else {
+                this.forms = this.options.forms.filter(x => { return x.name != 'Tuberculosis Symptom Form' })
+            }
         } else {
-            this.forms = this.options.forms.filter(x => { return x.name != 'Tuberculosis Symptom Form' })
+            this.forms = this.options.forms
         }
 
 

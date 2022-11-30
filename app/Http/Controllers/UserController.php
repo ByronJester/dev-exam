@@ -285,7 +285,7 @@ class UserController extends Controller
                 $patients = Patient::orderBy('created_at', 'desc')
                     ->where('place_id', $auth->work_address)
                     ->whereHas('user', function (Builder $query) use ($auth) {
-                        $query->whereIn('user_type', ['member', 'midwife'])->where('role', $auth->role);
+                        $query->whereIn('user_type', ['leader', 'member', 'midwife'])->where('role', $auth->role);
                     });
             }
 

@@ -25,8 +25,8 @@
                     </div>
                 </div>
 
-                <div class="w-full inline-flex mt-4" v-if="activeTab == 'patient_report'">
-                    <select class="ml-3" style="width: 150px !important; height: 40px; border: 1px solid black; border-radius: 10px" v-model="barangay">
+                <div class="w-full inline-flex mt-4">
+                    <select class="ml-3" style="width: 150px !important; height: 40px; border: 1px solid black; border-radius: 10px" v-model="barangay" v-if="auth.role != 3">
                         <option v-for="place in options.places" :key="place.name"
                             :value="place.name"
                         >
@@ -53,9 +53,9 @@
                             <i class="fa-solid fa-print"></i>
                         </span>
 
-                        <select v-model="medicine_report_type" class="float-right mr-5" style="width: 200px; height: 40px; border: 1px solid black">
-                            <option value="individual" v-if="auth.user_type == 'pharmacist'">Individual Report</option>
-                            <option value="barangay">Barangay Report</option>
+                        <select v-model="medicine_report_type" class="float-right mr-5" style="width: 200px; height: 40px; border: 1px solid black" >
+                            <option value="individual">Individual Report</option>
+                            <option value="barangay" v-if="auth.role != 3">Barangay Report</option>
                         </select>
 
                         
@@ -372,28 +372,70 @@ export default {
         barangay(arg){
             if(this.activeTab == 'patient_report') {
                 if(arg) {
-                    this.rows = this.options.patients.filter( x => { return x.barangay == arg})
+                    if(this.search) {
+                        this.rows = this.options.patients.filter( x => { return x.barangay == arg})
+                            .filter(x => {
+                                var name = x.name.toLowerCase();
+                                var search = this.search.toLowerCase()
+                                return name.includes(search)
+                            });
+                    } else {
+                        this.rows = this.options.patients.filter( x => { return x.barangay == arg})
+                    }
+                    
                 }
             } else {
                 if(this.medicine_report_type == 'individual') {
                     if(arg) {
-                        this.rows = this.options.patientMedicines.filter( x => { return x.place_name == arg})
+                        if(this.search) {
+                            this.rows = this.options.patientMedicines.filter( x => { return x.place_name == arg})
+                                .filter(x => {
+                                    var name = x.patient_name.toLowerCase();
+                                    var search = this.search.toLowerCase()
+                                    return name.includes(search)
+                                });
+                        } else {
+                            this.rows = this.options.patientMedicines.filter( x => { return x.place_name == arg})
+                        }
                     } 
                 } else {
-                    this.rows = this.options.barangayMedicines.filter( x => { return x.place_name == arg})
+                    if(arg) {
+                        if(this.search) {
+                            this.rows = this.options.barangayMedicines.filter( x => { return x.place_name == arg})
+                                .filter(x => {
+                                    var name = x.name.toLowerCase();
+                                    var search = this.search.toLowerCase()
+                                    return name.includes(search)
+                                });
+                        } else {
+                            this.rows = this.options.barangayMedicines.filter( x => { return x.place_name == arg})
+                        }
+                    } 
+                    
                 }
             }
         },
         search(arg) {
-            this.barangay = null
+            // this.barangay = null
 
             if(this.activeTab == 'patient_report') {
                 if(arg) {
-                    this.rows = this.options.patients.filter(x => {
-						var name = x.name.toLowerCase();
-						var search = arg.toLowerCase()
-						return name.includes(search)
-					});
+                    if(this.barangay) {
+                        this.rows = this.options.patients
+                            .filter( y => { return y.barangay == this.barangay})
+                            .filter(x => {
+                                var name = x.name.toLowerCase();
+                                var search = arg.toLowerCase()
+                                return name.includes(search)
+                            });
+                    } else {
+                        this.rows = this.options.patients.filter(x => {
+                            var name = x.name.toLowerCase();
+                            var search = arg.toLowerCase()
+                            return name.includes(search)
+                        });
+                    }
+                    
                 } else {
                     this.rows = this.options.patients
                 }
@@ -401,24 +443,56 @@ export default {
             } else {
                 if(this.medicine_report_type == 'individual') {
                     if(arg) {
-                        this.rows = this.options.patientMedicines.filter(x => {
-                            var name = x.name.toLowerCase();
-                            var search = arg.toLowerCase()
-                            return name.includes(search)
-                        });
+
+                        if(this.barangay) {
+                            this.rows = this.options.patientMedicines
+                                .filter( y => { return y.place_name == this.barangay})
+                                .filter(x => {
+                                    var name = x.patient_name.toLowerCase();
+                                    var search = arg.toLowerCase()
+                                    return name.includes(search)
+                                });
+                        } else {
+                            this.rows = this.options.patientMedicines.filter(x => {
+                                var name = x.patient_name.toLowerCase();
+                                var search = arg.toLowerCase()
+                                return name.includes(search)
+                            });
+                        }
                     } else {
-                        this.rows = this.options.patientMedicines
+                        if(this.barangay) {
+                            this.rows = this.options.patientMedicines
+                                .filter( y => { return y.place_name == this.barangay})
+                        } else {
+                            this.rows = this.options.patientMedicines
+                        }
                     }
                     
                 } else {
                     if(arg) {
-                        this.rows = this.options.barangayMedicines.filter(x => {
-                            var name = x.name.toLowerCase();
-                            var search = arg.toLowerCase()
-                            return name.includes(search)
-                        });
+
+                        if(this.barangay) {
+                            this.rows = this.options.barangayMedicines
+                                .filter( y => { return y.place_name == this.barangay})
+                                .filter(x => {
+                                    var name = x.name.toLowerCase();
+                                    var search = arg.toLowerCase()
+                                    return name.includes(search)
+                                });
+                        } else {
+                            this.rows = this.options.barangayMedicines.filter(x => {
+                                var name = x.name.toLowerCase();
+                                var search = arg.toLowerCase()
+                                return name.includes(search)
+                            });
+                        }
                     } else {
-                        this.rows = this.options.barangayMedicines
+                        if(this.barangay) {
+                            this.rows = this.options.barangayMedicines
+                                .filter( y => { return y.place_name == this.barangay})
+                        } else {
+                            this.rows = this.options.barangayMedicines
+                        }
                     }
                     
                 }
@@ -426,7 +500,6 @@ export default {
         },
         activeTab(arg) {
             if(arg == 'medicine_report') {
-
                 if(this.medicine_report_type == 'individual') {
                     this.rows = this.options.patientMedicines 
 
@@ -523,6 +596,9 @@ export default {
         },
 
         medicine_report_type(arg) {
+            this.search = null
+            this.barangay = null
+
             if(arg == 'individual') {
                 this.rows = this.options.patientMedicines 
 
@@ -595,7 +671,7 @@ export default {
     },
 
     mounted(){
-        if(this.auth.user_type == 'leader') {
+        if(this.auth.user_type == 'leader' && this.activeTab == 'medicine_report') {
             this.medicine_report_type = 'barangay'
         }
 
@@ -627,6 +703,12 @@ export default {
             ]
 
             this.rows = this.options.patients
+        }
+
+        if(this.auth.user_type == 'pharmacist') {
+            this.activeTab = 'medicine_report'
+        } else {
+            this.activeTab = 'patient_report'
         }
     },
 
