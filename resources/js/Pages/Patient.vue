@@ -387,7 +387,7 @@
 
                     <!-- TB Form -->
                     <div class="w-full flex-col" v-if="activeForm == 'Tuberculosis Symptom Form'">
-                        <div class="w-full">
+                        <div class="w-full" v-if="!options.isReport">
                             <span class="float-right cursor-pointer p-4" 
                                 @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
                             >
@@ -773,7 +773,7 @@
 
                     <!-- Pregnancy Form -->
                     <div class="w-full" v-if="activeForm == 'Pregnancy Form'" style="border: 1px solid black; border-radius: 5px">
-                        <div class="w-full">
+                        <div class="w-full" v-if="!options.isReport">
                             <span class="float-right cursor-pointer p-2" 
                                 @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
                             >
@@ -1266,7 +1266,7 @@
 
                     <!-- Prenatal Registration Form -->
                     <div class="w-full" v-if="activeForm == 'Prenatal Registration Form'" style="border: 1px solid black; border-radius: 5px">
-                        <div class="w-full">
+                        <div class="w-full" v-if="!options.isReport">
                             <span class="float-right cursor-pointer p-4" 
                                 @click="activeForm = null"
                             >
@@ -1784,7 +1784,7 @@
 
                     <!-- Nutrition FOrm -->
                     <div class="w-full flex-col" v-if="activeForm == 'Nutrition Form'" style="border: 1px solid black; border-radius: 5px">
-                        <div class="w-full">
+                        <div class="w-full" v-if="!options.isReport">
                             <span class="float-right cursor-pointer p-2" 
                                 @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
                             >
@@ -1934,7 +1934,7 @@
 
                     <!-- Deworming FOrm -->
                     <div class="w-full flex-col" v-if="activeForm == 'Deworming Form'" style="border: 1px solid black; border-radius: 5px">
-                        <div class="w-full">
+                        <div class="w-full" v-if="!options.isReport">
                             <span class="float-right cursor-pointer p-2" 
                                 @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
                             >
@@ -2087,7 +2087,7 @@
 
                     <!-- Vaccination FOrm -->
                     <div class="w-full flex-col" v-if="activeForm == 'Vaccination Form'" style="border: 1px solid black; border-radius: 5px">
-                        <div class="w-full">
+                        <div class="w-full" v-if="!options.isReport">
                             <span class="float-right cursor-pointer p-2" 
                                 @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
                             >
@@ -2457,7 +2457,7 @@
 
                     <!-- Postnatal Registration Form -->
                     <div class="w-full flex-col" v-if="activeForm == 'Postnatal Registration Form'" style="border: 1px solid black; border-radius: 5px">
-                        <div class="w-full">
+                        <div class="w-full" v-if="!options.isReport">
                             <span class="float-right cursor-pointer p-2" 
                                 @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
                             >
@@ -3084,6 +3084,7 @@ export default {
         border: 1px solid black;
         border-radius: 5px;
         padding: 5px 10px 5px 10px;
+        
     }
 
     label {
@@ -3092,5 +3093,9 @@ export default {
 
     .--main {
 
+    }
+
+    input[type=text] {
+        text-transform: capitalize;
     }
 </style>

@@ -1478,4 +1478,8 @@ th {
     padding-bottom: 20px;
 }
 
+input[type=text] {
+    text-transform: capitalize;
+}
+
 </style>

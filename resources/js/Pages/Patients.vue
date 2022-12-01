@@ -260,7 +260,7 @@
                         <div class="w-full flex flex-col">
                             <div class="my-1">
                                 <label class="text-bold">Fullname: (First Name Middle Name Last Name)</label><br>
-                                <input type="text" class="--input" v-model="formData.name" :disabled="isPersonalData">
+                                <input type="text" class="--input" v-model="formData.name" :disabled="isPersonalData" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
                             </div>
 
@@ -338,13 +338,13 @@
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1">
                                     <label class="text-bold">Contact Person:</label><br>
-                                    <input type="text" class="--input" v-model="formData.contact_person" :disabled="isPersonalData">
+                                    <input type="text" class="--input" v-model="formData.contact_person" :disabled="isPersonalData" style="text-transform: capitalize;">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1 mx-1">
                                     <label class="text-bold">Contact Person Address:</label><br>
-                                    <input type="text" class="--input" v-model="formData.contact_person_address" :disabled="isPersonalData">
+                                    <input type="text" class="--input" v-model="formData.contact_person_address" :disabled="isPersonalData" style="text-transform: capitalize;">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_address', saveError)}} </span>
                                 </div>
 
@@ -357,7 +357,7 @@
 
                             <div class="my-1" v-if="auth.user_type == 'doctor'">
                                 <label class="text-bold">Diagnosis:</label><br>
-                                <input type="text" class="--input mt-2" v-model="formData.diagnosis" :disabled="isPersonalData">
+                                <input type="text" class="--input mt-2" v-model="formData.diagnosis" :disabled="isPersonalData" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
                             </div>
 

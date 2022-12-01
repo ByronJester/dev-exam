@@ -89,19 +89,19 @@
                         <div class="w-full flex flex-col">
                             <div class="my-1">
                                 <label class="text-bold">First Name:</label><br>
-                                <input type="text" class="--input" v-model="formData.first_name">
+                                <input type="text" class="--input" v-model="formData.first_name" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('first_name', saveError)}} </span>
                             </div>
 
                             <div class="my-1">
                                 <label class="text-bold">Middle Name:</label><br>
-                                <input type="text" class="--input" v-model="formData.middle_name">
+                                <input type="text" class="--input" v-model="formData.middle_name" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('middle_name', saveError)}} </span>
                             </div>
 
                             <div class="my-1">
                                 <label class="text-bold">Last Name:</label><br>
-                                <input type="text" class="--input" v-model="formData.last_name">
+                                <input type="text" class="--input" v-model="formData.last_name" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('last_name', saveError)}} </span>
                             </div>
 
