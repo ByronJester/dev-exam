@@ -46,19 +46,44 @@ class Patient extends Model
 
     public function getConsultationFormAttribute()
     {
-        $forms = '';
+        $forms = [];
         
         $tbdots = PatientForm::where('patient_id', $this->id)->where('lmp', null)->first();
         $pregnancy = PatientForm::where('patient_id', $this->id)->where('lmp', '!=', null)->first();
+        $prenatal = PrenatalForm::where('patient_id', $this->id)->first();
+        $postnatal = PostnatalForm::where('patient_id', $this->id)->first();
+        $nutrition = NutritionForm::where('patient_id', $this->id)->first();
+        $vaccination = VaccinationForm::where('patient_id', $this->id)->first();
+        $deworming = DewormingForm::where('patient_id', $this->id)->first();
 
         if($tbdots) {
-            $forms = $forms . 'TB-Dots Form';
+            array_push($forms, "TB-Dots Form");
         }
 
         if($pregnancy) {
-            $forms = $forms . 'Pregnancy Form';
+            array_push($forms, "Pregnancy Form");
         }
 
-        return $forms;
+        if($prenatal) {
+            array_push($forms, "Prenatal Form");
+        }
+
+        if($postnatal) {
+            array_push($forms, "Postnatal Form");
+        }
+
+        if($nutrition) {
+            array_push($forms, "Nutrition Form");
+        }
+
+        if($vaccination) {
+            array_push($forms, "Vaccination Form");
+        }
+
+        if($deworming) {
+            array_push($forms, "Deworming Form");
+        }
+
+        return implode(", ", $forms);
     }
 }

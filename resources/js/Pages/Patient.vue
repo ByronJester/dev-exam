@@ -3249,6 +3249,12 @@ export default {
             this.forms = this.options.forms
         }
 
+        var date = new Date();
+
+        var currentDate = date.toISOString().slice(0,10);
+
+        this.prenatal.date_today = currentDate
+
 
     },
 
@@ -3350,6 +3356,7 @@ export default {
                             location.reload()
                         },
                         onError: (err) => {
+                            this.saveError = err
                         }
                     });
                 } 
@@ -3379,6 +3386,7 @@ export default {
                             location.reload()
                         },
                         onError: (err) => {
+                            this.saveError = err
                         }
                     });
                 } 
@@ -3405,6 +3413,7 @@ export default {
                             location.reload()
                         },
                         onError: (err) => {
+                            this.saveError = err
                         }
                     });
                 } 
@@ -3431,6 +3440,7 @@ export default {
                             location.reload()
                         },
                         onError: (err) => {
+                            this.saveError = err
                         }
                     });
                 } 
@@ -3458,6 +3468,7 @@ export default {
                             location.reload()
                         },
                         onError: (err) => {
+                            this.saveError = err
                         }
                     });
                 } 
@@ -3485,6 +3496,7 @@ export default {
                             location.reload()
                         },
                         onError: (err) => {
+                            this.saveError = err
                         }
                     });
                 } 
