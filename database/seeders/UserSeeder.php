@@ -24,6 +24,7 @@ class UserSeeder extends Seeder
             'last_name' => 'Admin',
             'phone' => random_int(10000000000, 99999999999),
             'email' => 'admin@gmail.com',
+            'username' => 'admin',
             'password' => Hash::make('password'),
             'user_type' => 'admin',
             'role' => '1',

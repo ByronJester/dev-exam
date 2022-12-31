@@ -30,7 +30,7 @@
                         >   
                             <div class="flex flex-row">
                                 <div class="w-2/5 p-2">
-                                    <img src="/images/dp.jpg"
+                                    <img :src="patient.image ? '/images/uploads/'+ patient.image : '/images/dp.jpg'"
                                         class="--display__picture"
                                     />
                                 </div>
@@ -81,7 +81,7 @@
                                         </div>
                                     </div> 
 
-                                    <div class="w-full inline-flex ml-2">
+                                    <div class="w-full inline-flex">
                                         <button class="--view__profile my-2 mr-1" @click="viewProfile(patient)" v-if="auth.user_type != 'pharmacist'">
                                             Forms
                                         </button>
@@ -117,15 +117,32 @@
                 >
                     <section slot="pdf-content">
                         <div class="w-full p-5">
-                            <div class="w-full">
-                                <span class="text-lg font-bold">
-                                    {{ isPersonalData ? 'Profile' : 'New Patient' }}
-                                </span>
-                            </div>
-
                             <div class="w-full flex flex-col">
+                                <div class="w-full  mt-3 mb-3 flex flex-row">
+                                    <div style="width: 80%">
+                                        <div class="w-full text-center">
+                                            <p style="font-weight: 700" class="text-xl ml-32">
+                                                Patient's Profile
+                                            </p>
+
+                                            <p style="font-weight: 500" class="text-lg ml-32">
+                                                Republic of the Philippines<br>
+                                                Province of Batangas <br>
+                                                Municipality Health of Balayan Batangas
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div style="width: 20%">
+                                        <img :src="formData.image ? '/images/uploads/'+ formData.image : '/images/dp.jpg'"
+                                            style="width: 150px; height: 150px; border: 1px solid black"
+                                            class="float-right"
+                                        />
+                                    </div>
+                                </div>
+
                                 <div class="my-1">
-                                    <label class="text-bold">Fullname: (First Name Middle Name Last Name)</label><br>
+                                    <label class="text-bold">Fullname:</label><br>
                                     <input type="text" class="--input mt-2" v-model="formData.name" :disabled="isPersonalData">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
                                 </div>
@@ -142,10 +159,12 @@
                                     <span class="text-xs text-red-500 ml-2">{{validationError('place_id', saveError)}} </span>
                                 </div>
 
-                                <div class="my-1">
-                                    <label class="text-bold">Contact No.:</label><br>
-                                    <input type="text" class="--input mt-2" v-model="formData.phone" :disabled="isPersonalData">
-                                    <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
+                                <div class="my-1 w-full flex flex-row">
+                                    <div class="w-full">
+                                        <label class="text-bold">Contact No.:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="formData.phone" :disabled="isPersonalData">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
+                                    </div>
                                 </div>
 
                                 <div class="w-full flex flex-row">
@@ -241,7 +260,7 @@
                     <div class="patient-modal-content flex flex-col" style="width: 30%">
                         <div class="w-full">
                             <span class="text-lg font-bold">
-                                 {{ isPersonalData ? 'Profile' : 'New Patient' }}
+                                 {{ isPersonalData ? "Patient's Profile" : 'New Patient' }}
                             </span>
                             <span class="float-right cursor-pointer"
                                 @click="closeModal()"
@@ -259,7 +278,7 @@
 
                         <div class="w-full flex flex-col">
                             <div class="my-1">
-                                <label class="text-bold">Fullname: (First Name Middle Name Last Name)</label><br>
+                                <label class="text-bold">Fullname:</label><br>
                                 <input type="text" class="--input" v-model="formData.name" :disabled="isPersonalData" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
                             </div>
@@ -276,10 +295,18 @@
                                 <span class="text-xs text-red-500 ml-2">{{validationError('place_id', saveError)}} </span>
                             </div>
 
-                            <div class="my-1">
-                                <label class="text-bold">Contact No.:</label><br>
-                                <input type="text" class="--input" v-model="formData.phone" :disabled="isPersonalData">
-                                <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
+                            <div class="my-1 w-full flex flex-row">
+                                <div class="w-full">
+                                    <label class="text-bold">Picture:</label><br>
+                                    <input type="file" class="w-full" accept="image/png, image/jpeg" @change="imageChange($event)">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('image', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full">
+                                    <label class="text-bold">Contact No.:</label><br>
+                                    <input type="text" class="--input" v-model="formData.phone" :disabled="isPersonalData">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
+                                </div>
                             </div>
 
                             <div class="w-full flex flex-row">
@@ -291,7 +318,7 @@
 
                                 <div class="my-1 mx-1 w-full">
                                     <label class="text-bold">Age:</label><br>
-                                    <input type="text" class="--input" v-model="formData.age" :disabled="isPersonalData">
+                                    <input type="text" class="--input" v-model="formData.age" :disabled="true">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('age', saveError)}} </span>
                                 </div>
                             </div>
@@ -410,21 +437,23 @@ export default {
             selected: null,
             userType: [],
             formData: {
-                place_id: null,
-                name : null,
-                phone : null,
-                dob: null,
-                age: null,
+                place_id: '',
+                name : '',
+                phone : '',
+                dob: '',
+                age: '',
                 gender: 'Male',
                 civil_status: 'Single',
-                philhealth: null,
-                contact_person: null,
-                contact_person_address: null,
-                contact_person_phone: null,
-                diagnosis: null
+                philhealth: '',
+                contact_person: '',
+                contact_person_address: '',
+                contact_person_phone: '',
+                diagnosis: '',
+                image: null
             },
             saveError: null,
-            isPersonalData: false
+            isPersonalData: false,
+            form_data: new FormData()
         }
     },
 
@@ -437,8 +466,26 @@ export default {
         }
     },
 
-    methods: {
+    watch: {
+        'formData.dob'(arg){
+            this.formData.age = this.calculateBirthday(arg)
+        }
+    },
 
+    methods: {
+        imageChange(e) {
+	      	const image = e.target.files[0];
+
+            const reader = new FileReader();
+
+            reader.readAsDataURL(image);
+
+            reader.onload = e =>{
+            }
+
+            this.form_data.append('image', image)
+	      	
+		},
         initiateSearch() {
             var self = this
 
@@ -507,22 +554,45 @@ export default {
                 this.formData.place_id = this.auth.work_address
             }
 
-            Inertia.post(this.$root.route + '/patients/create-patient', this.formData,
-            {
-                onSuccess: (res) => {
-                    this.formData = {
-                        place_id : null,
-                        name : null,
-                        phone : null,
-                        age: null,
-                        gender: 'Male'
-                    }
+            this.form_data.append('place_id', this.formData.place_id);
+			this.form_data.append('name', this.formData.name);
+			this.form_data.append('phone', this.formData.phone);
+            this.form_data.append('dob', this.formData.dob);
+            this.form_data.append('age', this.formData.age);
+            this.form_data.append('gender', this.formData.gender);
+            this.form_data.append('civil_status', this.formData.civil_status);
+            this.form_data.append('philhealth', this.formData.philhealth);
+            this.form_data.append('contact_person', this.formData.contact_person);
+            this.form_data.append('contact_person_address', this.formData.contact_person_address);
+            this.form_data.append('contact_person_phone', this.formData.contact_person_phone);
+            this.form_data.append('diagnosis', this.formData.diagnosis);
 
-                    location.reload()
-                },
-                onError: (err) => {
-                    this.saveError = err
-                }
+            swal({
+                title: "Are you sure to save this patient?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    Inertia.post(this.$root.route + '/patients/create-patient', this.form_data,
+                    {
+                        onSuccess: (res) => {
+
+                            swal({
+                                title: "Good job!",
+                                text: "You successfuly save this patient",
+                                icon: "success",
+                                button: "Okay",
+                            });
+
+                            location.reload()
+                        },
+                        onError: (err) => {
+                            this.saveError = err
+                        }
+                    });
+                } 
             });
         },
         openModal(){
@@ -573,7 +643,7 @@ export default {
     border-radius: 5px;
     color: white;
     padding: 5px 15px 5px 15px;
-    font-size: 12px;
+    font-size: 0.750em;
 }
 
 .--display__picture {
@@ -641,6 +711,16 @@ export default {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1400px) {
+    .--view__profile {
+        background: #366422;
+        border-radius: 5px;
+        color: white;
+        padding: 5px 15px 5px 15px;
+        font-size: 0.550em;
+    }
 }
 
 </style>

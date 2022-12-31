@@ -31,10 +31,22 @@ class RegisterAccount extends FormRequest
             'middle_name' => "nullable|alpha_spaces",
             'last_name' => "required|alpha_spaces",
             'phone' => "required|numeric|digits:11|unique:users,phone",
-            'email' => "required|unique:users,email|email:rfc,dns",
+            'image' => "nullable",
+            'username' => "required|unique:users,username|min:6|regex:/(^[A-Za-z0-9_]+$)+/", 
             'user_type' => "required",
             'work_address' => 'sometimes|required'
         ];
+
+        if(!!$this->id){
+            $rules = [
+                'first_name' => "required|alpha_spaces",
+                'middle_name' => "nullable|alpha_spaces",
+                'last_name' => "required|alpha_spaces",
+                'phone' => "required|numeric|unique:users,phone," . $this->id,
+                'image' => "nullable",
+                'username' => "required|min:6|regex:/(^[A-Za-z0-9_]+$)+/|unique:users,username," . $this->id,
+            ];
+        }
 
         return $rules;
     }

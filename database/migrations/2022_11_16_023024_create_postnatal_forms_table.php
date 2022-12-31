@@ -30,7 +30,7 @@ class CreatePostnatalFormsTable extends Migration
             $table->longText('gestational_age');
             $table->date('lmp');
             $table->longText('new_born_sex');
-            $table->longText('days_of_hospital_stay');
+            $table->date('dob');
             $table->longText('age');
             $table->longText('education');
             $table->longText('obstetrical_score');

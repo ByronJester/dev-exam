@@ -34,6 +34,12 @@ Vue.mixin({
       }
 
       return null;
+    },
+    calculateBirthday(date){
+      var Bday = +new Date(date);
+      var age = ((Date.now() - Bday) / (31557600000));
+
+      return Math.trunc(age)
     }
   }
 })
@@ -49,6 +55,7 @@ const pages = {
   'Reports': require('./Pages/Reports.vue').default,
   'History': require('./Pages/History.vue').default,
   'Trails': require('./Pages/Trails.vue').default,
+  'Archives': require('./Pages/Archives.vue').default,
 }
 
 new Vue({

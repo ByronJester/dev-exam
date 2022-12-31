@@ -67,12 +67,25 @@ class PatientController extends Controller
     {
         $auth = Auth::user();
         
-        $data = $request->toArray();
+        $data = $request->except(['image']);
 
         $data['user_id'] = $auth->id;
 
         if($auth->role == 2) {
             $data['is_rhu'] = true;
+        }
+
+        if($image = $request->image) {
+                
+            $path = public_path().'/images/uploads';
+
+            $filename = time() . '_' . Str::random(8);
+
+            $extension = $image->getClientOriginalExtension();
+            
+            $uplaod = $image->move($path, $filename . '.' . $extension);
+
+            $data['image'] = $filename . '.' . $extension;
         }
 
         Patient::forceCreate($data);
@@ -118,7 +131,8 @@ class PatientController extends Controller
                 'patient' => $patient,
                 'forms' => $forms,
                 'vaccinations' => Vaccination::get(),
-                'isReport' => $isReport
+                'isReport' => $isReport,
+                'places' => Place::get()
             ]
         ]);
     }
@@ -155,7 +169,7 @@ class PatientController extends Controller
         ]);
     }
 
-    public function createPatientForm(CreatePatientForm $request)  
+    public function createPatientForm(CreatePatientForm $request)   
     {
        $data = $request->except(['tb']);;
 
@@ -164,6 +178,7 @@ class PatientController extends Controller
         }
 
         $data['reference'] = Str::random(8);
+        
 
         if($request->id) {
             PatientForm::where('id', $request->id)->update($data);
@@ -358,7 +373,12 @@ class PatientController extends Controller
 
         $data = $request->toArray();
 
-        Allergy::forceCreate($data);
+        if($request->id) {
+            Allergy::where('id', $request->id)->update($data);
+        } else {
+            Allergy::forceCreate($data);
+        }
+        
 
         return response()->json(['status' => 200], 200);
 
@@ -378,7 +398,11 @@ class PatientController extends Controller
 
         $data = $request->toArray();
 
-        Medication::forceCreate($data);
+        if($request->id) {
+            Medication::where('id', $request->id)->update($data);
+        } else {
+            Medication::forceCreate($data);
+        }
 
         return response()->json(['status' => 200], 200);
 
@@ -399,7 +423,11 @@ class PatientController extends Controller
 
         $data = $request->toArray();
 
-        HealthMaintenanceHistory::forceCreate($data);
+        if($request->id) {
+            HealthMaintenanceHistory::where('id', $request->id)->update($data);
+        } else {
+            HealthMaintenanceHistory::forceCreate($data);
+        }
 
         return response()->json(['status' => 200], 200);
 
@@ -418,7 +446,11 @@ class PatientController extends Controller
 
         $data = $request->toArray();
 
-        VaccinationHistory::forceCreate($data);
+        if($request->id) {
+            VaccinationHistory::where('id', $request->id)->update($data);
+        } else {
+            VaccinationHistory::forceCreate($data);
+        }
 
         return response()->json(['status' => 200], 200);
     }
@@ -438,7 +470,11 @@ class PatientController extends Controller
 
         $data = $request->except(['other']);
 
-        DiseaseHistory::forceCreate($data);
+        if($request->id) {
+            DiseaseHistory::where('id', $request->id)->update($data);
+        } else {
+            DiseaseHistory::forceCreate($data);
+        }
 
         return response()->json(['status' => 200], 200);
     }
@@ -457,7 +493,11 @@ class PatientController extends Controller
 
         $data = $request->toArray();
 
-        Surgery::forceCreate($data);
+        if($request->id) {
+            Surgery::where('id', $request->id)->update($data);
+        } else {
+            Surgery::forceCreate($data);
+        }
 
         return response()->json(['status' => 200], 200);
     }
@@ -479,7 +519,11 @@ class PatientController extends Controller
 
         $data = $request->toArray();
 
-        WomenHealthHistory::forceCreate($data);
+        if($request->id) {
+            WomenHealthHistory::where('id', $request->id)->update($data);
+        } else {
+            WomenHealthHistory::forceCreate($data);
+        }
 
         return response()->json(['status' => 200], 200);
     }
@@ -497,7 +541,11 @@ class PatientController extends Controller
 
         $data = $request->toArray();
 
-        RiskyHabit::forceCreate($data);
+        if($request->id) {
+            RiskyHabit::where('id', $request->id)->update($data);
+        } else {
+            RiskyHabit::forceCreate($data);
+        }
 
         return response()->json(['status' => 200], 200);
     }

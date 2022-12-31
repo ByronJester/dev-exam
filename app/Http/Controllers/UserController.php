@@ -58,11 +58,11 @@ class UserController extends Controller
    {
 
         $data = [
-            'email' => $request->email,
+            'username' => $request->username,
             'password' => $request->password,
         ];
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('username', $request->username)->first();
 
         if(!$user) {
             return response()->json(['status' => 422, 'message' => 'No account found.' ], 200);  
@@ -126,7 +126,41 @@ class UserController extends Controller
             return Inertia::render('Users', [
                 'auth'    => $auth,
                 'options' => [
-                    'users' => $users->get(),
+                    'users' => $users->where('is_active', true)->get(),
+                    'search' => $search,
+                    'places' => Place::get()
+                ]
+            ]);
+        }
+
+        return redirect('/');
+    }
+
+    public function viewArchives(Request $request)
+    { 
+        $auth = Auth::user();
+
+        if($auth) {
+            $users = User::orderBy('created_at', 'desc')->where('role', $auth->role)->whereNotIn('id', [$auth->id])->where('is_active', false);
+
+            if($auth->role == 1) {
+                $users = User::orderBy('created_at', 'desc')->whereIn('user_type', ['leader', 'doctor'])->whereNotIn('id', [$auth->id]);
+            }
+
+            if($search = $request->search) {
+                $users = $users->where(function($q) use ($search){
+                    $q->where('first_name', 'LIKE', '%' . $search . '%')->orWhere('last_name', 'LIKE', '%' . $search . '%');
+                });
+            }
+
+            if($auth->role == 3) {
+                $users = $users->where('work_address', $auth->work_address);
+            }
+
+            return Inertia::render('Archives', [
+                'auth'    => $auth,
+                'options' => [
+                    'users' => $users->where('is_active', false)->get(),
                     'search' => $search,
                     'places' => Place::get()
                 ]
@@ -141,13 +175,13 @@ class UserController extends Controller
         User::where('id', $request->id)->update([
             'is_active' => $request->is_active
         ]);
-
+ 
         return redirect()->back();
     }
 
-    public function saveUser(RegisterAccount $request)
+    public function saveUser(RegisterAccount $request)   
     {
-        $data = $request->toArray();
+        $data = $request->except(['image']);
         $auth = Auth::user();
 
         $password = strtolower($request->last_name);
@@ -160,10 +194,26 @@ class UserController extends Controller
             if(($request->user_type == 'doctor' || $request->user_type == 'midwife' || $request->user_type == 'nurse' || $request->user_type == 'pharmacist') && ($auth->role == 2 || $auth->role == 1)){
                 $data['role'] = 2;
             }
+        }
+
+        if($image = $request->image) {
+                
+            $path = public_path().'/images/uploads';
+
+            $filename = time() . '_' . Str::random(8);
+
+            $extension = $image->getClientOriginalExtension();
             
+            $uplaod = $image->move($path, $filename . '.' . $extension);
+
+            $data['image'] = $filename . '.' . $extension;
         }
         
-        $saveUser = User::create($data);
+        if($request->id) {
+            $saveUser = User::where('id', $request->id)->update($data);
+        } else {
+            $saveUser = User::forceCreate($data);
+        }
         
         return redirect()->back()->with('errors'); 
     }

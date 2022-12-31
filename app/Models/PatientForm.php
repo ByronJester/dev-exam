@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class PatientForm extends Model
 {
@@ -20,10 +21,21 @@ class PatientForm extends Model
         'edd',
     ];
 
+    protected $appends = [
+        'date_issued'
+    ];
+
     public function getTbAttribute($value)
     {
         if(!$value) return $value;
 
         return json_decode($value);
+    }
+
+    public function getDateIssuedAttribute()
+    {
+        $date = Carbon::parse($this->created_at);
+
+        return $date->isoFormat('LL'); 
     }
 }

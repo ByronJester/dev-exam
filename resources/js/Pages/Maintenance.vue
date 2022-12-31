@@ -32,10 +32,21 @@
                     </div>
                 </div>
 
+                <div class="w-full mt-5">
+                    <input type="text" class="--search pl-5 ml-5"
+                        v-model="search"
+                        placeholder="Search...."
+                    >
 
-                <div class="w-full h-full px-5 mt-10">
-                    <div class="grid grid-cols-10 gap-4" v-if="activeTab == 'medicine'">
-                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.medicines" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
+                    <span class="float-right mr-5 cursor-pointer" style="border: 1px solid black" @click="openFormModal()">
+                        <i class="fa-solid fa-plus px-2 py-2"></i>
+                    </span>
+                </div>
+
+
+                <div class="w-full h-full px-5 mt-5">
+                    <div style="width: 100%" v-if="activeTab == 'medicine'">
+                        <!-- <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.medicines" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
                             @click="selectItem(medicine, 'medicine')"
                         >
                             {{ medicine.name }}
@@ -43,11 +54,30 @@
 
                         <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" class="text-center flex justify-center items-center cursor-pointer" @click="openFormModal()">
                             <i class="fa-solid fa-plus"></i>
-                        </div>
+                        </div> -->
+
+                        <table class="w-full">
+                            <tr class="text-center">
+                                <th v-for="column in columns" :key="column">
+                                    {{ column }}
+                                </th>
+                            </tr>
+
+                            <tr class="text-center"
+                                v-for="(l, index) in rows" :key="index"
+                            >
+                                <td v-for="(k, i) in keys" :key="i" class="cursor-pointer"
+                                    :class="{'--active__color': !!selected && selected.id == l.id }"
+                                    @click="selectItem(l, 'medicine')"
+                                >
+                                    <span>{{ rows[index][k.label] }}</span> 
+                                </td>
+                            </tr>
+                        </table>
                     </div>
 
-                    <div class="grid grid-cols-10 gap-4" v-if="activeTab == 'category'">
-                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.categories" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
+                    <div style="width: 100%" v-if="activeTab == 'category'">
+                        <!-- <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.categories" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
                             @click="selectItem(medicine, 'category')"
                         >
                             {{ medicine.name }}
@@ -55,11 +85,29 @@
 
                         <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" class="text-center flex justify-center items-center cursor-pointer" @click="openFormModal()">
                             <i class="fa-solid fa-plus"></i>
-                        </div>
+                        </div> -->
+                        <table class="w-full">
+                            <tr class="text-center">
+                                <th v-for="column in columns" :key="column">
+                                    {{ column }}
+                                </th>
+                            </tr>
+
+                            <tr class="text-center"
+                                v-for="(l, index) in rows" :key="index"
+                            >
+                                <td v-for="(k, i) in keys" :key="i" class="cursor-pointer"
+                                    :class="{'--active__color': !!selected && selected.id == l.id }"
+                                    @click="selectItem(l, 'category')"
+                                >
+                                    <span>{{ rows[index][k.label] }}</span> 
+                                </td>
+                            </tr>
+                        </table>
                     </div>
 
-                    <div class="grid grid-cols-10 gap-4" v-if="activeTab == 'unit'">
-                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.units" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
+                    <div style="width: 100%" v-if="activeTab == 'unit'">
+                        <!-- <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.units" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
                             @click="selectItem(medicine, 'unit')"
                         >
                             {{ medicine.name }}
@@ -67,11 +115,29 @@
 
                         <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" class="text-center flex justify-center items-center cursor-pointer" @click="openFormModal()">
                             <i class="fa-solid fa-plus"></i>
-                        </div>
+                        </div> -->
+                        <table class="w-full">
+                            <tr class="text-center">
+                                <th v-for="column in columns" :key="column">
+                                    {{ column }}
+                                </th>
+                            </tr>
+
+                            <tr class="text-center"
+                                v-for="(l, index) in rows" :key="index"
+                            >
+                                <td v-for="(k, i) in keys" :key="i" class="cursor-pointer"
+                                    :class="{'--active__color': !!selected && selected.id == l.id }"
+                                    @click="selectItem(l, 'unit')"
+                                >
+                                    <span>{{ rows[index][k.label] }}</span> 
+                                </td>
+                            </tr>
+                        </table>
                     </div>
 
-                    <div class="grid grid-cols-10 gap-4" v-if="activeTab == 'vaccination'">
-                        <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.vaccinations" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
+                    <div style="width: 100%" v-if="activeTab == 'vaccination'">
+                        <!-- <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" v-for="medicine in options.vaccinations" :key="medicine.id" class="text-center flex justify-center items-center cursor-pointer"
                             @click="selectItem(medicine, 'vaccination')"
                         >
                             {{ medicine.name }}
@@ -79,7 +145,25 @@
 
                         <div style="border: 1px solid #366422; height: 50px; word-wrap: break-word;" class="text-center flex justify-center items-center cursor-pointer" @click="openFormModal()">
                             <i class="fa-solid fa-plus"></i>
-                        </div>
+                        </div> -->
+                        <table class="w-full">
+                            <tr class="text-center">
+                                <th v-for="column in columns" :key="column">
+                                    {{ column }}
+                                </th>
+                            </tr>
+
+                            <tr class="text-center"
+                                v-for="(l, index) in rows" :key="index"
+                            >
+                                <td v-for="(k, i) in keys" :key="i" class="cursor-pointer"
+                                    :class="{'--active__color': !!selected && selected.id == l.id }"
+                                    @click="selectItem(l, 'vaccination')"
+                                >
+                                    <span>{{ rows[index][k.label] }}</span> 
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
@@ -182,13 +266,83 @@ export default {
                 id: null,
                 name: null,
                 type: null
-            }
+            },
+            columns: ['Name'],
+            keys: [
+                {
+                    label: 'name'
+                }
+            ],
+            search: null
         }
     },
 
     watch: {
         activeTab(arg) {
-            
+            if(arg == 'medicine') {
+                this.rows = this.options.medicines
+            }
+
+            if(arg == 'category') {
+                this.rows = this.options.categories
+            }
+
+            if(arg == 'unit') {
+                this.rows = this.options.units
+            }
+
+            if(arg == 'vaccination') {
+                this.rows = this.options.vaccinations
+            }
+        },
+        search(arg) {
+            if(this.activeTab == 'medicine') {
+                if(arg) {
+                    this.rows = this.options.medicines.filter(x => {
+                        var name = x.name.toLowerCase();
+                        var search = arg.toLowerCase()
+                        return name.includes(search)
+                    });
+                } else {
+                    this.rows = this.options.medicines
+                }
+            }
+
+            if(this.activeTab == 'category') {
+                if(arg) {
+                    this.rows = this.options.categories.filter(x => {
+                        var name = x.name.toLowerCase();
+                        var search = arg.toLowerCase()
+                        return name.includes(search)
+                    });
+                } else {
+                    this.rows = this.options.categories
+                }
+            }
+
+            if(this.activeTab == 'unit') {
+                if(arg) {
+                    this.rows = this.options.units.filter(x => {
+                        var name = x.name.toLowerCase();
+                        var search = arg.toLowerCase()
+                        return name.includes(search)
+                    });
+                } else {
+                    this.rows = this.options.units
+                }
+            }
+
+            if(this.activeTab == 'vaccination') {
+                if(arg) {
+                    this.rows = this.options.vaccinations.filter(x => {
+                        var name = x.name.toLowerCase();
+                        var search = arg.toLowerCase()
+                        return name.includes(search)
+                    });
+                } else {
+                    this.rows = this.options.vaccinations
+                }
+            }
         }
     },
 
@@ -216,14 +370,31 @@ export default {
         },
 
         save() {
-            axios.post(this.$root.route + '/maintenance/save-maintenance', { tab: this.activeTab, name: this.form.name })
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this maintenance?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/maintenance/save-maintenance', { tab: this.activeTab, name: this.form.name })
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this maintenance",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                }
+            });
         },
 
         openEditModal(){
@@ -247,14 +418,32 @@ export default {
         },
 
         edit(){
-            axios.post(this.$root.route + '/maintenance/save-maintenance', { tab: this.activeTab, id: this.formSelected.id, name: this.formSelected.name })
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this maintenance?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/maintenance/save-maintenance', { tab: this.activeTab, id: this.formSelected.id, name: this.formSelected.name })
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this maintenance",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                }
+            });
+            
         }
     }
 }
@@ -333,5 +522,33 @@ export default {
     border: 1px solid black;
     border-radius: 10px;
     text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    border-radius: 5px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px black;
+}
+
+td {
+    border: 1px solid black;
+}
+
+th {
+    border: 1px solid black;
+    background: #366422;
+    color: white;
+}
+
+.--active__color {
+    background: #B0BEC5;
+}
+
+.--search {
+    width: 20%;
+    height: 35px;
+    border: 1px solid black;
+    border-radius: 40px;
 }
 </style>

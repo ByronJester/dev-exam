@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class PrenatalForm extends Model
 {
@@ -49,7 +50,7 @@ class PrenatalForm extends Model
     ];
 
     protected $appends = [
-        'name', 'description'
+        'name', 'description', 'date_issued'
     ];
 
     public function getNameAttribute()
@@ -88,5 +89,12 @@ class PrenatalForm extends Model
         if(!$value) return [];
 
         return json_decode($value);
+    }
+
+    public function getDateIssuedAttribute()
+    {
+        $date = Carbon::parse($this->created_at);
+
+        return $date->isoFormat('LL'); 
     }
 }

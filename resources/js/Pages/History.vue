@@ -30,7 +30,7 @@
                                 <i class="fa-solid fa-plus px-2"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeAllergy" @click="activeAllergy = false"> 
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeAllergy" @click="activeAllergy = false; formAllergy.id = null; formAllergy.allergy = null; formAllergy.allergic_reaction = null;"> 
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
@@ -54,7 +54,7 @@
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <button class="w-full py-2 text-white" style="background: #366422; border-radius: 10px"
+                                    <button class="w-full py-2 text-white" style="background: #366422; border-radius: 10px" 
                                         @click="saveAllergy()"
                                     >
                                         Save
@@ -88,7 +88,7 @@
                                             <tr class="text-center"
                                                 v-for="(l, index) in options.allergies" :key="index"
                                             >
-                                                <td v-for="(k, i) in [{label: 'allergy'}, {label: 'allergic_reaction'}]" :key="i" class="cursor-pointer --td">
+                                                <td v-for="(k, i) in [{label: 'allergy'}, {label: 'allergic_reaction'}]" :key="i" class="cursor-pointer --td"> 
                                                     <span>{{options.allergies[index][k.label] }}</span> 
                                                 </td>
                                             </tr>
@@ -109,7 +109,9 @@
                                     <tr class="text-center"
                                         v-for="(l, index) in options.allergies" :key="index"
                                     >
-                                        <td v-for="(k, i) in [{label: 'allergy'}, {label: 'allergic_reaction'}]" :key="i" class="cursor-pointer">
+                                        <td v-for="(k, i) in [{label: 'allergy'}, {label: 'allergic_reaction'}]" :key="i" class="cursor-pointer"
+                                            @click="formAllergy = Object.assign({}, l); activeAllergy = true"
+                                        >
                                             <span>{{options.allergies[index][k.label] }}</span> 
                                         </td>
                                     </tr>
@@ -127,7 +129,7 @@
                                 <i class="fa-solid fa-plus px-2"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeMedication" @click="activeMedication = false"> 
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeMedication" @click="activeMedication = false; formMedication.id = null; formMedication.medicaions = null; formMedication.dose = null; formMedication.times_per_day = null;"> 
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
@@ -212,7 +214,9 @@
                                     <tr class="text-center"
                                         v-for="(l, index) in options.medications" :key="index"
                                     >
-                                        <td v-for="(k, i) in [{label: 'medications'}, {label: 'dose'}, {label: 'times_per_day'}]" :key="i" class="cursor-pointer">
+                                        <td v-for="(k, i) in [{label: 'medications'}, {label: 'dose'}, {label: 'times_per_day'}]" :key="i" class="cursor-pointer"
+                                            @click="formMedication = Object.assign({}, l); activeMedication = true"
+                                        >
                                             <span>{{options.medications[index][k.label] }}</span> 
                                         </td>
                                     </tr>
@@ -231,7 +235,7 @@
                                 <i class="fa-solid fa-plus px-2"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeMaintenance" @click="activeMaintenance = false"> 
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeMaintenance" @click="activeMaintenance = false; formMaintenance.id = null; formMaintenance.type = null; formMaintenance.facility = null; formMaintenance.abnormal_result = null;"> 
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
@@ -351,7 +355,9 @@
                                     <tr class="text-center"
                                         v-for="(l, index) in options.maintenance" :key="index"
                                     >
-                                        <td v-for="(k, i) in [{label: 'type'}, {label: 'date'}, {label: 'facility'}, {label: 'abnormal_result'}]" :key="i" class="cursor-pointer">
+                                        <td v-for="(k, i) in [{label: 'type'}, {label: 'date'}, {label: 'facility'}, {label: 'abnormal_result'}]" :key="i" class="cursor-pointer"
+                                            @click="formMaintenance = Object.assign({}, l); activeMaintenance = true"
+                                        >
                                             <span>{{options.maintenance[index][k.label] }}</span> 
                                         </td>
                                     </tr>
@@ -369,7 +375,7 @@
                                 <i class="fa-solid fa-plus px-2"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeVaccination" @click="activeVaccination = false"> 
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeVaccination" @click="activeVaccination = false; formVaccination.id = null; formVaccination.type = null; formVaccination.date = null;"> 
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
@@ -468,7 +474,9 @@
                                     <tr class="text-center"
                                         v-for="(l, index) in options.vaccinations" :key="index"
                                     >
-                                        <td v-for="(k, i) in [{label: 'type'}, {label: 'date'}]" :key="i" class="cursor-pointer">
+                                        <td v-for="(k, i) in [{label: 'type'}, {label: 'date'}]" :key="i" class="cursor-pointer"
+                                            @click="formVaccination = Object.assign({}, l); activeVaccination = true"
+                                        >
                                             <span>{{options.vaccinations[index][k.label] }}</span> 
                                         </td>
                                     </tr>
@@ -486,7 +494,7 @@
                                 <i class="fa-solid fa-plus px-2"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeDisease" @click="activeDisease = false"> 
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeDisease" @click="activeDisease = false ; formDisease.id = null; formDisease.disease = null; formDisease.other = null; formDisease.type = null; formDisease.status = null; formDisease.comment = null;"> 
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
@@ -646,7 +654,9 @@
                                     <tr class="text-center"
                                         v-for="(l, index) in options.diseases" :key="index"
                                     >
-                                        <td v-for="(k, i) in [{label: 'disease'}, {label: 'type'}, {label: 'status'}, {label: 'comment'}]" :key="i" class="cursor-pointer">
+                                        <td v-for="(k, i) in [{label: 'disease'}, {label: 'type'}, {label: 'status'}, {label: 'comment'}]" :key="i" class="cursor-pointer"
+                                            @click="formDisease = Object.assign({}, l); activeDisease = true"
+                                        >
                                             <span>{{options.diseases[index][k.label] }}</span> 
                                         </td>
                                     </tr>
@@ -664,7 +674,7 @@
                                 <i class="fa-solid fa-plus px-2"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeSurgery" @click="activeSurgery = false"> 
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeSurgery" @click="activeSurgery = false; formSurgery.id = null; formSurgery.type = null; formSurgery.date = null; formSurgery.facility - null;"> 
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
@@ -749,7 +759,9 @@
                                     <tr class="text-center"
                                         v-for="(l, index) in options.surgeries" :key="index"
                                     >
-                                        <td v-for="(k, i) in [{label: 'type'}, {label: 'date'}, {label: 'facility'}]" :key="i" class="cursor-pointer">
+                                        <td v-for="(k, i) in [{label: 'type'}, {label: 'date'}, {label: 'facility'}]" :key="i" class="cursor-pointer"
+                                            @click="formSurgery = Object.assign({}, l); activeSurgery = true"
+                                        >
                                             <span>{{options.surgeries[index][k.label] }}</span> 
                                         </td>
                                     </tr>
@@ -767,7 +779,7 @@
                                 <i class="fa-solid fa-plus px-2"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeWomen" @click="activeWomen = false"> 
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeWomen" @click="activeWomen = false; formWomen.id = null; formWomen.dlmc = null; formWomen.tnp = null; formWomen.complications = null; formWomen.afm = null; formWomen.am = null; formWomen.nlb = null;"> 
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
@@ -870,7 +882,9 @@
                                     <tr class="text-center"
                                         v-for="(l, index) in options.womens" :key="index"
                                     >
-                                        <td v-for="(k, i) in [{label: 'dlmc'}, {label: 'tnp'}, {label: 'complications'}, {label: 'afm'}, {label: 'am'}, {label: 'nlb'}]" :key="i" class="cursor-pointer">
+                                        <td v-for="(k, i) in [{label: 'dlmc'}, {label: 'tnp'}, {label: 'complications'}, {label: 'afm'}, {label: 'am'}, {label: 'nlb'}]" :key="i" class="cursor-pointer"
+                                            @click="formWomen = Object.assign({}, l); activeWomen = true"
+                                        >
                                             <span>{{options.womens[index][k.label] }}</span> 
                                         </td>
                                     </tr>
@@ -888,7 +902,7 @@
                                 <i class="fa-solid fa-plus px-2"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeHabits" @click="activeHabits = false"> 
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeHabits" @click="activeHabits = false; formHabits.id = null; formHabits.type = null; formHabits.status = null;"> 
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
@@ -989,7 +1003,9 @@
                                     <tr class="text-center"
                                         v-for="(l, index) in options.habits" :key="index"
                                     >
-                                        <td v-for="(k, i) in [{label: 'type'}, {label: 'status'}]" :key="i" class="cursor-pointer">
+                                        <td v-for="(k, i) in [{label: 'type'}, {label: 'status'}]" :key="i" class="cursor-pointer"
+                                            @click="formHabits = Object.assign({}, l); activeHabits = true"
+                                        >
                                             <span>{{options.habits[index][k.label] }}</span> 
                                         </td>
                                     </tr>
@@ -1016,7 +1032,7 @@
                                 <i class="fa-solid fa-plus px-2"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeDisease" @click="activeDisease = false"> 
+                            <span class="float-right cursor-pointer text-xl" style="border: 1px solid black" v-if="activeDisease" @click="activeDisease = false; formDisease.id = null; formDisease.family = null; formDisease.disease = null; formDisease.other = null; formDisease.status = null; formDisease.comment = null; "> 
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
@@ -1177,7 +1193,7 @@
                                 :paginate-elements-by-height="1000"
                                 :filename="Math.random().toString(36).slice(2)"
                                 :pdf-quality="2"
-                                :manual-pagination="false"
+                                :manual-pagination="false" 
                                 pdf-format="a4"
                                 pdf-orientation="landscape"
                                 pdf-content-width="100%"
@@ -1216,7 +1232,9 @@
                                     <tr class="text-center"
                                         v-for="(l, index) in options.familyDiseases" :key="index"
                                     >
-                                        <td v-for="(k, i) in [{label: 'family'}, {label: 'disease'}, {label: 'type'}, {label: 'status'}, {label: 'comment'}]" :key="i" class="cursor-pointer">
+                                        <td v-for="(k, i) in [{label: 'family'}, {label: 'disease'}, {label: 'type'}, {label: 'status'}, {label: 'comment'}]" :key="i" class="cursor-pointer"
+                                            @click="formDisease = Object.assign({}, l); activeDisease = true"
+                                        >
                                             <span>{{options.familyDiseases[index][k.label] }}</span> 
                                         </td>
                                     </tr>
@@ -1253,17 +1271,20 @@ export default {
         return {
             activeTab: 'personal',
             formAllergy: {
+                id: null,
                 patient_id: this.options.patient,
                 allergy: null,
                 allergic_reaction: null
             },
             formMedication: {
+                id: null,
                 patient_id: this.options.patient,
                 medications: null,
                 dose: null,
                 times_per_day: null
             },
             formMaintenance: {
+                id: null,
                 patient_id: this.options.patient,
                 type: null,
                 date: null,
@@ -1271,11 +1292,13 @@ export default {
                 abnormal_result: null
             },
             formVaccination: {
+                id: null,
                 patient_id: this.options.patient,
                 type: null,
                 date: null
             },
             formDisease: {
+                id: null,
                 patient_id: this.options.patient,
                 disease: null,
                 type: null,
@@ -1285,12 +1308,14 @@ export default {
                 family: null
             },
             formSurgery: {
+                id: null,
                 patient_id: this.options.patient,
                 type: null,
                 date: null,
                 facility: null
             },
             formWomen: {
+                id: null,
                 patient_id: this.options.patient,
                 dlmc: null,
                 tnp: null,
@@ -1300,6 +1325,7 @@ export default {
                 nlb: null
             },
             formHabits: {
+                id: null,
                 patient_id: this.options.patient,
                 type: null,
                 status: null
@@ -1334,89 +1360,225 @@ export default {
             this.$refs[arg].generatePdf()
         },
         saveAllergy() {
-            axios.post(this.$root.route + '/history/save-allergy', this.formAllergy)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this history?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/history/save-allergy', this.formAllergy)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this history",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                } 
+            });
         },
 
         saveMedication() {
-            axios.post(this.$root.route + '/history/save-medication', this.formMedication)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this history?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/history/save-medication', this.formMedication)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this history",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                } 
+            });
         },
 
         saveMaintenance() {
-            axios.post(this.$root.route + '/history/save-maintenance', this.formMaintenance)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this history?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/history/save-maintenance', this.formMaintenance)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this history",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                } 
+            });
         },
 
         saveVaccination(){
-            axios.post(this.$root.route + '/history/save-vaccination', this.formVaccination)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this history?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/history/save-vaccination', this.formVaccination)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this history",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                } 
+            });
         },
 
         saveDisease(){
-            axios.post(this.$root.route + '/history/save-disease', this.formDisease)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this history?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/history/save-disease', this.formDisease)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this history",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                }
+            });
         },
         saveSurgery(){
-            axios.post(this.$root.route + '/history/save-surgery', this.formSurgery)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this history?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/history/save-surgery', this.formSurgery)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this history",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                }
+            });
         },
         saveWomen() {
-            axios.post(this.$root.route + '/history/save-women', this.formWomen)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this history?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/history/save-women', this.formWomen)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this history",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                }
+            });
         },
 
         saveHabit() {
-            axios.post(this.$root.route + '/history/save-habit', this.formHabits)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        location.reload()
-					}
-				})
+            swal({
+                title: "Are you sure to save this history?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/history/save-habit', this.formHabits)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly save this history",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                }
+            });
         }
     }
 }

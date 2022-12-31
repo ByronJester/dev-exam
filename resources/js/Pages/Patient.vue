@@ -54,8 +54,174 @@
                 </div>
 
                 
+                <div class="w-full mt-2" v-if="!!options.isReport">
 
-                <div class="w-full mt-5">
+                    <button class="--view__profile my-2 mr-1" @click="printProfile()">
+                        <i class="fa-solid fa-print mr-1"></i> Profile
+                    </button>
+
+                    <button class="--view__profile my-2 mr-1">
+                        <i class="fa-solid fa-print mr-1"></i> Medical History
+                    </button>
+                    
+                </div>
+
+                <VueHtml2pdf
+                    :show-layout="false"
+                    :float-layout="true"
+                    :enable-download="true"
+                    :preview-modal="true"
+                    :paginate-elements-by-height="1000"
+                    :filename="Math.random().toString(36).slice(2)" 
+                    :pdf-quality="2"
+                    :manual-pagination="false"
+                    pdf-format="a4"
+                    pdf-orientation="portrait"
+                    pdf-content-width="100%"
+                    ref="profile"
+                >
+                    <section slot="pdf-content">
+                        <div class="w-full p-5">
+                            <div class="w-full flex flex-col">
+                                <div class="w-full  mt-3 mb-3 flex flex-row">
+                                    <div style="width: 80%">
+                                        <div class="w-full text-center">
+                                            <p style="font-weight: 700" class="text-xl ml-32">
+                                                Patient's Profile
+                                            </p>
+
+                                            <p style="font-weight: 500" class="text-lg ml-32">
+                                                Republic of the Philippines<br>
+                                                Province of Batangas <br>
+                                                Municipality Health of Balayan Batangas
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div style="width: 20%">
+                                        <img :src="patient.image ? '/images/uploads/'+ patient.image : '/images/dp.jpg'"
+                                            style="width: 150px; height: 150px; border: 1px solid black"
+                                            class="float-right"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="my-1">
+                                    <label class="text-bold">Fullname:</label><br>
+                                    <input type="text" class="--input mt-2" v-model="patient.name" :disabled="true">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
+                                </div>
+
+                                <div class="my-1" v-if="auth.role != 3">
+                                    <label for="cars">Barangay:</label><br>
+                                    <select class="--input mt-2" v-model="patient.place_id" :disabled="true">
+                                        <option v-for="place in options.places" :key="place.id"
+                                            :value="place.id"
+                                        >
+                                            {{ place.name }}
+                                        </option>
+                                    </select>
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('place_id', saveError)}} </span>
+                                </div>
+
+                                <div class="my-1 w-full flex flex-row">
+                                    <div class="w-full">
+                                        <label class="text-bold">Contact No.:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="patient.phone" :disabled="true">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
+                                    </div>
+                                </div>
+
+                                <div class="w-full flex flex-row">
+                                    <div class="my-1 mx-1 w-full">
+                                        <label class="text-bold">Date of Birth:</label><br>
+                                        <input type="date" class="--input mt-2" v-model="patient.dob" :disabled="true">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('dob', saveError)}} </span>
+                                    </div>
+
+                                    <div class="my-1 mx-1 w-full">
+                                        <label class="text-bold">Age:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="patient.age" :disabled="true">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('age', saveError)}} </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="w-full flex flex-row">
+                                    <div class="my-1 mx-1 w-full">
+                                        <label for="cars">Gender:</label><br>
+                                        <select class="--input mt-2" v-model="patient.gender" :disabled="true">
+                                            <option :value="'Male'">
+                                                Male
+                                            </option>
+
+                                            <option :value="'Female'">
+                                                Female
+                                            </option>
+                                        </select>
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('gender', saveError)}} </span>
+                                    </div>
+
+
+                                    <div class="my-1 mx-1 w-full">
+                                        <label for="cars">Civil Status:</label><br>
+                                        <select class="--input mt-2" v-model="patient.civil_status" :disabled="true">
+                                            <option :value="'Single'">
+                                                Single
+                                            </option>
+
+                                            <option :value="'Maried'">
+                                                Maried
+                                            </option>
+
+                                            <option :value="'Separated'">
+                                                Separated
+                                            </option>
+
+                                            <option :value="'Widowed'">
+                                                Widowed
+                                            </option>
+                                        </select>
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('civil_status', saveError)}} </span>
+                                    </div>
+                                </div>
+
+                                <div class="w-full flex flex-row">
+                                    <div class="my-1 mx-1">
+                                        <label class="text-bold">Contact Person:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="patient.contact_person" :disabled="true">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('contact_person', saveError)}} </span>
+                                    </div>
+
+                                    <div class="my-1 mx-1">
+                                        <label class="text-bold">Contact Person Address:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="patient.contact_person_address" :disabled="true">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_address', saveError)}} </span>
+                                    </div>
+
+                                    <div class="my-1 mx-1">
+                                        <label class="text-bold">Contact Person #:</label><br>
+                                        <input type="text" class="--input mt-2" v-model="patient.contact_person_phone" :disabled="true">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_phone', saveError)}} </span>
+                                    </div>
+                                </div>
+
+                                <div class="my-1" v-if="auth.user_type == 'doctor'">
+                                    <label class="text-bold">Diagnosis:</label><br>
+                                    <input type="text" class="--input mt-2" v-model="formData.diagnosis" :disabled="true">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
+                                </div>
+
+                                <div class="my-1">
+                                    <label class="text-bold">Philhealth ID #:</label><br>
+                                    <input type="text" class="--input mt-2" v-model="patient.philhealth" :disabled="true">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </VueHtml2pdf> 
+
+                <div class="w-full mt-2">
                     <Table :columns="columns" :rows="forms" :keys="keys" :selected.sync="selectedForm"
                         v-if="!activeForm && !selectedForm"
                     />
@@ -76,6 +242,16 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
+                                <div class="w-full text-2xl font-bold mb-5">
+                                    <span>
+                                        {{ patient.name }} - {{ activeForm }}
+                                    </span>
+
+                                    <span class="float-right mr-4">
+                                        {{ selectedDate }}
+                                    </span>
+                                </div>
+
                                 <p class="mb-2 font-bold">
                                     Lagyan ng <span> <i class="fa-solid fa-check"></i> </span> kung mayroon ng alinman sa mga sumusunod na sintomas at angkop na tagal ng sintomas na nararanasan:
                                 </p>
@@ -409,6 +585,15 @@
                             style="height: auto; border: 1px solid black; border-radius: 5px"
                             id="tb-dots"
                         >
+                            <div class="w-full text-2xl font-bold mb-5">
+                                <span>
+                                    {{ patient.name }} - {{ activeForm }}
+                                </span>
+
+                                <span class="float-right mr-4">
+                                    {{ selectedDate }}
+                                </span>
+                            </div>
 
                             <p class="mb-2 font-bold">
                                 Lagyan ng <span> <i class="fa-solid fa-check"></i> </span> kung mayroon ng alinman sa mga sumusunod na sintomas at angkop na tagal ng sintomas na nararanasan:
@@ -567,7 +752,7 @@
 
                                 </div>
 
-                                <div class="flex flex-col"
+                                <div class="flex flex-col" 
                                     style="width: 10%"
                                 >
                                     <div class="w-full">
@@ -749,6 +934,16 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
+                                <div class="w-full text-2xl font-bold mb-5 ml-4">
+                                    <span>
+                                        {{ patient.name }} - {{ activeForm }}
+                                    </span>
+
+                                    <span class="float-right mr-4">
+                                        {{ selectedDate }}
+                                    </span>
+                                </div>
+
                                 <div class="w-full mt-2 mb-5 px-4 flex flex-row"
                                     style="height: auto;"
                                 >   
@@ -786,6 +981,16 @@
                                 @click="printReport('pregnancy')"
                             >
                                 <i class="fa-solid fa-print"></i>
+                            </span>
+                        </div>
+
+                        <div class="w-full text-2xl font-bold mb-5 ml-4">
+                            <span>
+                                {{ patient.name }} - {{ activeForm }}
+                            </span>
+
+                            <span class="float-right mr-4">
+                                {{ selectedDate }}
                             </span>
                         </div>
 
@@ -839,6 +1044,15 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full flex-col p-1">
+                                <div class="w-full text-2xl font-bold mb-5">
+                                    <span>
+                                        {{ patient.name }} - {{ activeForm }}
+                                    </span>
+
+                                    <span class="float-right mr-4">
+                                        {{ selectedDate }}
+                                    </span>
+                                </div>
 
                                 <div class="w-full">
                                     <label>Today's Date:</label><br>
@@ -852,7 +1066,7 @@
 
                                 <div class="w-full flex flex-row mt-2">
                                     <div class="w-full pr-2">
-                                        <label>Provider Fullname: (First Name Middle Name Last Name)</label><br>
+                                        <label>Provider Fullname:</label><br>
                                         <input type="text" class="--input w-full mt-1" v-model="prenatal.provider_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('provider_name', saveError)}} </span>
                                     </div>
@@ -924,21 +1138,23 @@
 
                                 <div class="w-full flex flex-row mt-2">
                                     <div class="w-full pr-2">
-                                        <label>Member Fullname: (First Name Middle Name Last Name)</label><br>
+                                        <label>Member Fullname:</label><br>
                                         <input type="text" class="--input w-full mt-1" v-model="prenatal.member_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('member_name', saveError)}} </span>
                                     </div>
 
-                                    <div class="w-full pr-2">
-                                        <label>Member ID #:</label><br>
-                                        <input type="text" class="--input w-full mt-1" v-model="prenatal.member_id">
-                                        <span class="text-xs text-red-500 pl-2">{{validationError('member_id', saveError)}} </span>
-                                    </div>
+                                    
 
                                     <div class="w-full pr-2">
                                         <label>DOB:</label><br>
                                         <input type="date" class="--input w-full mt-1" v-model="prenatal.dob">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
+                                    </div>
+
+                                    <div class="w-full pr-2">
+                                        <label>Age:</label><br>
+                                        <input type="text" class="--input w-full mt-1" v-model="prenatal.age">
+                                        <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
                                     </div>
 
                                     <div class="w-full pr-2">
@@ -1283,7 +1499,15 @@
                         </div>
                         
                         <div class="w-full flex-col p-5">
-                            
+                            <div class="w-full text-2xl font-bold mb-5">
+                                <span>
+                                    {{ patient.name }} - {{ activeForm }}
+                                </span>
+
+                                <span class="float-right mr-4">
+                                    {{ selectedDate }}
+                                </span>
+                            </div>
 
                             <div class="w-full">
                                 <label>Today's Date:</label><br>
@@ -1369,21 +1593,21 @@
 
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
-                                    <label>Member Fullname: (First Name Middle Name Last Name)</label><br>
+                                    <label>Member Fullname:</label><br>
                                     <input type="text" class="--input w-full" v-model="prenatal.member_name" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_name', saveError)}} </span>
-                                </div>
-
-                                <div class="w-full pr-2">
-                                    <label>Member ID #:</label><br>
-                                    <input type="text" class="--input w-full" v-model="prenatal.member_id" :disabled="options.isReport">
-                                    <span class="text-xs text-red-500 pl-2">{{validationError('member_id', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
                                     <label>DOB:</label><br>
                                     <input type="date" class="--input w-full" v-model="prenatal.dob" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full pr-2">
+                                    <label>Age:</label><br>
+                                    <input type="text" class="--input w-full" v-model="prenatal.age" :disabled="options.isReport">
+                                    <span class="text-xs text-red-500 pl-2">{{validationError('age', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full pr-2">
@@ -1723,9 +1947,19 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
+                                <div class="w-full text-2xl font-bold mb-5 ml-4">
+                                    <span>
+                                        {{ patient.name }} - {{ activeForm }}
+                                    </span>
+
+                                    <span class="float-right mr-4">
+                                        {{ selectedDate }}
+                                    </span>
+                                </div>
+
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Gurdian Fullname: (First Name Middle Name Last Name)</label><br>
+                                        <label>Gurdian Fullname:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="nutrition.guardian_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                                     </div>
@@ -1800,9 +2034,19 @@
                             </span>
                         </div>
 
+                        <div class="w-full text-2xl font-bold mb-5 ml-4">
+                            <span>
+                                {{ patient.name }} - {{ activeForm }}
+                            </span>
+
+                            <span class="float-right mr-4">
+                                {{ selectedDate }}
+                            </span>
+                        </div>
+
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
+                                <label>Guardian Fullname:</label><br>
                                 <input type="text" class="--input w-full" v-model="nutrition.guardian_name" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                             </div>
@@ -1873,9 +2117,18 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
+                                <div class="w-full text-2xl font-bold mb-5 ml-4">
+                                    <span>
+                                        {{ patient.name }} - {{ activeForm }}
+                                    </span>
+
+                                    <span class="float-right mr-4">
+                                        {{ selectedDate }}
+                                    </span>
+                                </div>
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
+                                        <label>Guardian Fullname:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="deworming.guardian_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                                     </div>
@@ -1950,9 +2203,19 @@
                             </span>
                         </div>
 
+                        <div class="w-full text-2xl font-bold mb-5 ml-4">
+                            <span>
+                                {{ patient.name }} - {{ activeForm }}
+                            </span>
+
+                            <span class="float-right mr-4">
+                                {{ selectedDate }}
+                            </span>
+                        </div>
+
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
+                                <label>Guardian Fullname:</label><br>
                                 <input type="text" class="--input w-full" v-model="deworming.guardian_name" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                             </div>
@@ -2024,9 +2287,19 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
+                                <div class="w-full text-2xl font-bold mb-5 ml-4">
+                                    <span>
+                                        {{ patient.name }} - {{ activeForm }}
+                                    </span>
+
+                                    <span class="float-right mr-4">
+                                        {{ selectedDate }}
+                                    </span>
+                                </div>
+
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
+                                        <label>Guardian Fullname:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="vaccination.guardian_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                                     </div>
@@ -2103,9 +2376,19 @@
                             </span>
                         </div>
 
+                        <div class="w-full text-2xl font-bold mb-5 ml-4">
+                            <span>
+                                {{ patient.name }} - {{ activeForm }}
+                            </span>
+
+                            <span class="float-right mr-4">
+                                {{ selectedDate }}
+                            </span>
+                        </div>
+
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Guardian Fullname: (First Name Middle Name Last Name)</label><br>
+                                <label>Guardian Fullname:</label><br>
                                 <input type="text" class="--input w-full" v-model="vaccination.guardian_name" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('guardian_name', saveError)}} </span>
                             </div>
@@ -2178,6 +2461,16 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
+                                <div class="w-full text-2xl font-bold mb-5 ml-4">
+                                    <span>
+                                        {{ patient.name }} - {{ activeForm }}
+                                    </span>
+
+                                    <span class="float-right mr-4">
+                                        {{ selectedDate }}
+                                    </span>
+                                </div>
+
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
                                         <label>Hospital Name:</label><br>
@@ -2186,7 +2479,7 @@
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Client's Fullname: (First Name Middle Name Last Name)</label><br>
+                                        <label>Client's Fullname:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.clients_name">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('clients_name', saveError)}} </span>
                                     </div>
@@ -2268,9 +2561,9 @@
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Days of Hospital Stay:</label><br>
-                                        <input type="text" class="--input w-full mt-2" v-model="postnatal.days_of_hospital_stay">
-                                        <span class="text-xs text-red-500 pl-2">{{validationError('days_of_hospital_stay', saveError)}} </span>
+                                        <label>DOB:</label><br>
+                                        <input type="date" class="--input w-full mt-2" v-model="postnatal.dob">
+                                        <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
                                     </div>
                                 </div>
 
@@ -2473,6 +2766,16 @@
                             </span>
                         </div>
 
+                        <div class="w-full text-2xl font-bold mb-5 ml-4">
+                            <span>
+                                {{ patient.name }} - {{ activeForm }}
+                            </span>
+
+                            <span class="float-right mr-4">
+                                {{ selectedDate }}
+                            </span>
+                        </div>
+
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
                                 <label>Hospital Name:</label><br>
@@ -2481,7 +2784,7 @@
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Client's Fullname: (First Name Middle Name Last Name)</label><br>
+                                <label>Client's Fullname:</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.clients_name" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('clients_name', saveError)}} </span>
                             </div>
@@ -2563,9 +2866,9 @@
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Days of Hospital Stay:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.days_of_hospital_stay" :disabled="options.isReport">
-                                <span class="text-xs text-red-500 pl-2">{{validationError('days_of_hospital_stay', saveError)}} </span>
+                                <label>DOB:</label><br>
+                                <input type="date" class="--input w-full" v-model="postnatal.dob" :disabled="options.isReport">
+                                <span class="text-xs text-red-500 pl-2">{{validationError('dob', saveError)}} </span>
                             </div>
                         </div>
 
@@ -2777,12 +3080,16 @@ export default {
             activeForm: null,
             formName: 'Tuberculosis Symptom Form',
             columns: [
-                'Form'
+                'Form', 'Date'
             ],
             keys : [
                 {
                     label: 'name',
-                }
+                },
+                {
+                    label: 'date_issued',
+                },
+
             ],
             selectedForm: null,
             formData: {
@@ -2810,7 +3117,7 @@ export default {
                 provider_phone: null,
                 provider_fax: null,
                 member_name: null,
-                member_id: null,
+                age: null,
                 dob: null,
                 member_address: null,
                 member_phone: null,
@@ -2850,7 +3157,7 @@ export default {
                 gestational_age: null,
                 lmp: null,
                 new_born_sex: null,
-                days_of_hospital_stay: null,
+                dob: null,
                 age: null,
                 education: null,
                 obstetrical_score: null,
@@ -2914,7 +3221,8 @@ export default {
             checked: [],
             saveError: null,
             forms: [],
-            activeID: null
+            activeID: null,
+            selectedDate: null
         }
     },
 
@@ -2956,6 +3264,7 @@ export default {
         },
 
         selectedForm(arg) {
+            this.selectedDate = arg.date_issued
             if(arg.name == 'Prenatal Registration Form') {
                 this.prenatal = Object.assign({}, arg);
             }else if (arg.name == 'Postnatal Registration Form') {
@@ -2981,7 +3290,26 @@ export default {
             this.formName = arg.name
             this.activeForm = arg.name
 
-        }
+        },
+        'nutrition.dob'(arg){
+            this.nutrition.age = this.calculateBirthday(arg)
+        },
+
+        'deworming.dob'(arg){
+            this.deworming.age = this.calculateBirthday(arg)
+        },
+
+        'vaccination.dob'(arg){
+            this.vaccination.age = this.calculateBirthday(arg)
+        },
+
+        'prenatal.dob'(arg){
+            this.prenatal.age = this.calculateBirthday(arg)
+        },
+
+        'postnatal.dob'(arg){
+            this.postnatal.age = this.calculateBirthday(arg)
+        },
     },
 
     methods: {
@@ -3002,76 +3330,172 @@ export default {
         generateForm(){
             this.formData.description = this.activeForm
 
-            Inertia.post(this.$root.route + '/patients/create-patient/form', this.formData,
-            {
-                onSuccess: (res) => {
-                    location.reload()
-                },
-                onError: (err) => {
-                }
+            swal({
+                title: "Are you sure to save this form?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    Inertia.post(this.$root.route + '/patients/create-patient/form', this.formData,
+                    {
+                        onSuccess: (res) => {
+                            swal({
+                                title: "Good job!",
+                                text: "You successfuly save this form",
+                                icon: "success",
+                                button: "Okay",
+                            });
+                            location.reload()
+                        },
+                        onError: (err) => {
+                        }
+                    });
+                } 
             });
+
+            
         },
 
         createPrenatal(){
-            Inertia.post(this.$root.route + '/patients/create-patient/prenatal', this.prenatal,
-            {
-                onSuccess: (res) => {
-                    location.reload()
-                },
-                onError: (err) => {
-                    this.saveError = err
-                }
+            swal({
+                title: "Are you sure to save this form?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    Inertia.post(this.$root.route + '/patients/create-patient/prenatal', this.prenatal,
+                    {
+                        onSuccess: (res) => {
+                            swal({
+                                title: "Good job!",
+                                text: "You successfuly save this form",
+                                icon: "success",
+                                button: "Okay",
+                            });
+                            location.reload()
+                        },
+                        onError: (err) => {
+                        }
+                    });
+                } 
             });
         },
         createNutritionForm(){
-            Inertia.post(this.$root.route + '/patients/create-patient/nutrition', this.nutrition,
-            {
-                onSuccess: (res) => {
-                    location.reload()
-                },
-                onError: (err) => {
-                    console.log(err)
-                    this.saveError = err
-                }
+            swal({
+                title: "Are you sure to save this form?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    Inertia.post(this.$root.route + '/patients/create-patient/nutrition', this.nutrition,
+                    {
+                        onSuccess: (res) => {
+                            swal({
+                                title: "Good job!",
+                                text: "You successfuly save this form",
+                                icon: "success",
+                                button: "Okay",
+                            });
+                            location.reload()
+                        },
+                        onError: (err) => {
+                        }
+                    });
+                } 
             });
         },
         createDewormingForm(){
-            Inertia.post(this.$root.route + '/patients/create-patient/deworming', this.deworming,
-            {
-                onSuccess: (res) => {
-                    location.reload()
-                },
-                onError: (err) => {
-                    this.saveError = err
-                }
+            swal({
+                title: "Are you sure to save this form?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    Inertia.post(this.$root.route + '/patients/create-patient/deworming', this.deworming,
+                    {
+                        onSuccess: (res) => {
+                            swal({
+                                title: "Good job!",
+                                text: "You successfuly save this form",
+                                icon: "success",
+                                button: "Okay",
+                            });
+                            location.reload()
+                        },
+                        onError: (err) => {
+                        }
+                    });
+                } 
             });
         },
 
         createVaccinationForm() {
-            Inertia.post(this.$root.route + '/patients/create-patient/vaccination', this.vaccination,
-            {
-                onSuccess: (res) => {
-                    location.reload()
-                },
-                onError: (err) => {
-                    this.saveError = err
-                }
+            swal({
+                title: "Are you sure to save this form?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    Inertia.post(this.$root.route + '/patients/create-patient/vaccination', this.vaccination,
+                    {
+                        onSuccess: (res) => {
+                            swal({
+                                title: "Good job!",
+                                text: "You successfuly save this form",
+                                icon: "success",
+                                button: "Okay",
+                            });
+                            location.reload()
+                        },
+                        onError: (err) => {
+                        }
+                    });
+                } 
             });
         },
 
         createPostnatalForm(){
-            Inertia.post(this.$root.route + '/patients/create-patient/postnatal', this.postnatal,
-            {
-                onSuccess: (res) => {
-                    location.reload()
-                },
-                onError: (err) => {
-                    this.saveError = err
-                }
+            swal({
+                title: "Are you sure to save this form?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    Inertia.post(this.$root.route + '/patients/create-patient/postnatal', this.postnatal,
+                    {
+                        onSuccess: (res) => {
+                            swal({
+                                title: "Good job!",
+                                text: "You successfuly save this form",
+                                icon: "success",
+                                button: "Okay",
+                            });
+                            location.reload()
+                        },
+                        onError: (err) => {
+                        }
+                    });
+                } 
             });
         },
         printReport(arg){
             this.$refs[arg].generatePdf()
+        },
+
+        printProfile() {
+            this.$refs.profile.generatePdf()
         }
     }
 }
@@ -3097,5 +3521,21 @@ export default {
 
     input[type=text] {
         text-transform: capitalize;
+    }
+
+    .--view__profile {
+        background: #366422;
+        border-radius: 5px;
+        color: white;
+        padding: 5px 15px 5px 15px;
+        font-size: 0.750em;
+    }
+
+    .--input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid black;
+        border-radius: 10px;
+        text-align: center;
     }
 </style>

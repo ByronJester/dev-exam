@@ -31,7 +31,7 @@
                         >   
                             <div class="flex flex-row">
                                 <div class="w-2/5 p-2">
-                                    <img src="/images/dp.jpg"
+                                    <img :src="user.image ? '/images/uploads/' + user.image : '/images/dp.jpg'"
                                         class="--display__picture"
                                     />
                                 </div>
@@ -64,8 +64,12 @@
                                         <span class="text-xs font-regular" :class="{'text-sm' : !newUser}">{{ user.phone }}  </span>
                                     </div>
 
-                                    <div class="mt-2 ml-3"> 
+                                    <div class="mt-2 ml-3 inline-flex"> 
                                         <Toggle :value="user.is_active" :url="'/users/deactivate-reactivate'" :id="user.id" />
+
+                                        <button class="--view__profile mx-1" @click="editProfile(user)">
+                                            Edit
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -105,23 +109,31 @@
                                 <span class="text-xs text-red-500 ml-2">{{validationError('last_name', saveError)}} </span>
                             </div>
 
-                            <div class="my-1">
-                                <label class="text-bold">Contact No.:</label><br>
-                                <input type="text" class="--input" v-model="formData.phone"
-                                    placeholder="09xxxxxxxxx"
-                                >
-                                <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
+                            <div class="my-1 w-full flex flex-row">
+                                <div class="w-full">
+                                    <label class="text-bold">Picture:</label><br>
+                                    <input type="file" class="w-full" accept="image/png, image/jpeg" @change="imageChange($event)">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('image', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full">
+                                    <label class="text-bold">Contact No.:</label><br>
+                                    <input type="text" class="--input" v-model="formData.phone"
+                                        placeholder="09xxxxxxxxx"
+                                    >
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
+                                </div>
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold">Email:</label><br>
-                                <input type="text" class="--input" v-model="formData.email"
-                                    placeholder="example@email.com"
+                                <label class="text-bold">Username:</label><br>
+                                <input type="text" class="--input" v-model="formData.username"
+                                    placeholder="Username"
                                 >
-                                <span class="text-xs text-red-500 ml-2">{{validationError('email', saveError)}} </span>
+                                <span class="text-xs text-red-500 ml-2">{{validationError('username', saveError)}} </span>
                             </div>
 
-                            <div class="my-1">
+                            <div class="my-1" v-if="!isEdit">
                                 <label for="cars">User Type:</label><br>
                                 <select class="--input" v-model="formData.user_type">
                                     <option v-for="type in userType" :key="type.value"
@@ -133,7 +145,7 @@
                                 <span class="text-xs text-red-500 ml-2">{{validationError('user_type', saveError)}} </span>
                             </div>
 
-                            <div class="my-1" v-if="auth.role == 1 && formData.user_type != 'doctor'">
+                            <div class="my-1" v-if="auth.role == 1 && formData.user_type != 'doctor' && !isEdit">
                                 <label for="cars">Barangay:</label><br>
                                 <select class="--input" v-model="formData.work_address">
                                     <option v-for="place in options.places" :key="place.id"
@@ -150,7 +162,7 @@
                                     style="border-radius: 50px; background-color: #4D77FF"
                                     @click="createUser()"
                                 >
-                                    Create Account
+                                    Save Account
                                 </button>
                             </div>
                         </div>
@@ -187,15 +199,18 @@ export default {
             selected: null,
             userType: [],
             formData: {
-                first_name : null,
-                middle_name : null,
-                last_name : null,
-                phone : null,
-                email : null,
-                user_type : null,
-                work_address: null
+                id: '',
+                first_name : '',
+                middle_name : '',
+                last_name : '',
+                phone : '',
+                username : '',
+                user_type : '',
+                work_address: ''
             },
-            saveError: null
+            saveError: null,
+            isEdit: false,
+            form_data: new FormData(),
         }
     },
 
@@ -259,6 +274,19 @@ export default {
     },
 
     methods: {
+        imageChange(e) {
+	      	const image = e.target.files[0];
+
+            const reader = new FileReader();
+
+            reader.readAsDataURL(image);
+
+            reader.onload = e =>{
+            }
+
+            this.form_data.append('image', image)
+	      	
+		},
         getUserType(user) {
             var user_type = null;
 
@@ -334,33 +362,84 @@ export default {
             this.viewUser = true
         },
 
+        editProfile(user){
+            this.formData = {
+                id: user.id,
+                first_name : user.first_name,
+                middle_name : user.middle_name,
+                last_name : user.last_name,
+                phone : user.phone,
+                username : user.username,
+            }
+
+            this.isEdit = true
+
+            this.openModal()
+
+        },
+
         createUser(){
             if(this.auth.role == 3) {
                 this.formData.work_address = this.auth.work_address
             }
 
+            this.form_data.append('id', this.formData.id);
+            this.form_data.append('first_name', this.formData.first_name);
+			this.form_data.append('middle_name', this.formData.middle_name);
+			this.form_data.append('last_name', this.formData.last_name);
+            this.form_data.append('phone', this.formData.phone);
+            this.form_data.append('username', this.formData.username);
+            this.form_data.append('user_type', this.formData.user_type);
+            this.form_data.append('work_address', this.formData.work_address);
+
             if((this.formData.user_type == 'doctor' && this.auth.role == 1) || this.auth.role == 2) {
                 delete this.formData.work_address;
+                this.form_data.delete('work_address');
             }
 
-            Inertia.post(this.$root.route + '/users/create-account', this.formData,
-            {
-                onSuccess: (res) => {
-                    this.formData = {
-                        first_name : null,
-                        middle_name : null,
-                        last_name : null,
-                        phone : null,
-                        email : null,
-                        user_type : null,
-                        work_address: null
-                    }
+            if(!!this.isEdit) {
+                delete this.formData.user_type;
+                delete this.formData.work_address;
+                this.form_data.delete('user_type');
+                this.form_data.delete('work_address');
+            }
+            
+            swal({
+                title: "Are you sure to save this user account?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    Inertia.post(this.$root.route + '/users/create-account', this.form_data,
+                    {
+                        onSuccess: (res) => {
+                            // this.formData = {
+                            //     first_name : null,
+                            //     middle_name : null,
+                            //     last_name : null,
+                            //     phone : null,
+                            //     email : null,
+                            //     user_type : null,
+                            //     work_address: null
+                            // }
 
-                    location.reload()
-                },
-                onError: (err) => {
-                    this.saveError = err
-                }
+                            swal({
+                                title: "Good job!",
+                                text: "You successfuly save this user account",
+                                icon: "success",
+                                button: "Okay",
+                            });
+
+                            location.reload()
+                        },
+                        onError: (err) => {
+                            this.saveError = err
+                            console.log(err)
+                        }
+                    });
+                } 
             });
         },
 
@@ -473,6 +552,14 @@ export default {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.--view__profile {
+    background: #366422;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 15px 5px 15px;
+    font-size: 0.750em;
 }
 
 </style>

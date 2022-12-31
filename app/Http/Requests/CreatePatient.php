@@ -35,7 +35,8 @@ class CreatePatient extends FormRequest
             'contact_person' => "required|alpha_spaces",
             'contact_person_address' => "required|string",
             'contact_person_phone' => "required|numeric|digits:11",
-            'diagnosis' => "nullable"
+            'diagnosis' => "nullable",
+            'image' => "nullable"
         ];
 
         return $rules;

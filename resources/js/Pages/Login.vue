@@ -5,20 +5,20 @@
 				<img src="/images/logo1.png" class="py-1" style="height: 15vh;"/>
 			</div>
 
-			<div class="w-4/5 flex" style="font-size: 90px; margin-top: 5rem">
+			<div class="w-4/5 flex" style="font-size: 4vw; margin-top: 5rem">
 				<p class="pl-5"> Municipality of Balayan</p>
 			</div>
 		</div>
 
 		<div class="w-full --panel" style="height: 90vh">
-			<div class="--login__register" style="position: absolute; top: 40%; left: 37%">
+			<div class="--login__register w-full flex justify-center items-center">
 				<div class="py-5 px-10">
 					<div class="w-full flex justify-center items-center mb-5" style="font-size: 80px; color: #366422 !important">
 						<i class="fa-solid fa-user"></i>
 					</div>
 
 					<input type="text" class="w-full  my-2 --login__register--input text-center"
-						placeholder="Email" v-model="formData.email"
+						placeholder="Username" v-model="formData.username"
 						@keyup.enter="login()"
 					>
 
@@ -54,10 +54,10 @@ export default {
 	data(){
 		return {
 			formData : {
-				email: null,
+				username: null,
 				password: null 
 			},
-			message: null
+			message: null,
 		}
 	},
 
@@ -76,7 +76,7 @@ export default {
 		},
 
 		disableButton(){
-			if(!this.formData.email){
+			if(!this.formData.username){
 				return true;
 			}
 

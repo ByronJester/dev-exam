@@ -33,6 +33,7 @@
         "vue-graph": "^0.8.7",
         "vue-html2pdf": "^1.8.0",
         "vue-lodash": "^2.1.2",
+        "vue-simple-search-dropdown": "^1.0.1",
         "vuejs-dialog": "^1.4.2"
     }
 }

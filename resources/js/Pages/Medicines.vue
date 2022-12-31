@@ -23,7 +23,7 @@
                                     placeholder="Search...."
                                 >
 
-                                <select class="--input mr-2" style="width: 150px !important" v-model="dispensed_type" v-if="auth.role != 3">
+                                <select class="mr-2" style="width: 150px !important; height: 35px; border: 1px solid black; border-radius: 3px" v-model="dispensed_type" v-if="auth.role != 3">
                                     <option :value="'barangay'">
                                         Barangay
                                     </option>
@@ -34,13 +34,25 @@
                                 </select>
 
 
-                                <select class="--input" style="width: 150px !important" v-model="barangay" v-if="dispensed_type == 'barangay' && auth.role != 3">
+                                <!-- <select class="--input" style="width: 150px !important" v-model="barangay" v-if="dispensed_type == 'barangay' && auth.role != 3">
                                     <option v-for="place in options.places" :key="place.name"
                                         :value="place.name"
                                     >
                                         {{ place.name }}
                                     </option>
-                                </select>
+                                </select> -->
+
+                                <div style="width: 252px; margin-left: 10px;">
+                                    <Dropdown
+                                        :options="options.places"
+                                        v-on:selected="selectBarangay"
+                                        :disabled="false"
+                                        name="barangay"
+                                        :maxItem="5"
+                                        style="border: 1px solid black; border-radius: 3px"
+                                        placeholder="Please select barangay...">
+                                    </Dropdown>
+                                </div>
                             </div>
 
                             <div class="w-2/12">
@@ -295,12 +307,14 @@ import { Inertia } from "@inertiajs/inertia";
 import Navigation from "../Layouts/Sidebar";
 import Table from "../Components/Table";
 import axios from "axios";
+import Dropdown from 'vue-simple-search-dropdown';
 
 export default {
     props: ['auth','options'],
     components: {
         Navigation,
-        Table
+        Table,
+        Dropdown
     },
     data(){
         return {
@@ -439,7 +453,7 @@ export default {
                     })
 
                     this.columns = [
-                        'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Dispensed', 'Date'
+                        'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Date'
                     ]
 
                     this.keys = [
@@ -460,9 +474,6 @@ export default {
                         },
                         {
                             label: 'quantity',
-                        },
-                        {
-                            label: 'dispensed',
                         },
                         {
                             label: 'date',
@@ -643,49 +654,87 @@ export default {
                 delete this.formData.place_id;
             }
 
-            axios.post(this.$root.route + '/medicines/dispense-barangay-medicine', this.formData)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        if(response.data.message == null) {
-                            this.formData = {
-                                place_id : null,
-                                quantity : null,
-                                medicine_id : null,
-                                dispensed_type: 'barangay',
-                                patient_id: null,
-                                medicine_category_id: null,
-                                medicine_unit_id: null,
-                                dosage: 1
-                            }
+            swal({
+                title: "Are you sure to dispense this medicine?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/medicines/dispense-barangay-medicine', this.formData)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                if(response.data.message == null) {
+                                    this.formData = {
+                                        place_id : null,
+                                        quantity : null,
+                                        medicine_id : null,
+                                        dispensed_type: 'barangay',
+                                        patient_id: null,
+                                        medicine_category_id: null,
+                                        medicine_unit_id: null,
+                                        dosage: 1
+                                    }
 
-                            location.reload()
-                        } else {
-                            this.errorMessage = response.data.message
-                        }
-						
-					}
-				})
+                                    swal({
+                                        title: "Good job!",
+                                        text: "You successfuly dispense this medicine",
+                                        icon: "success",
+                                        button: "Okay",
+                                    });
+
+                                    location.reload()
+                                } else {
+                                    this.errorMessage = response.data.message
+                                }
+                                
+                            }
+                        })
+                }
+            });
+
+            
         },
 
         saveStock(){
-            axios.post(this.$root.route + '/medicines/save-stock', this.formStock)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-						this.formStock ={
-                            medicine_id: null,
-                            quantity : 1,
-                            medicine_category_id: null,
-                            medicine_unit_id: null,
-                            dosage: 1
-                        }
+            swal({
+                title: "Are you sure to save this stock?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + '/medicines/save-stock', this.formStock)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                this.formStock ={
+                                    medicine_id: null,
+                                    quantity : 1,
+                                    medicine_category_id: null,
+                                    medicine_unit_id: null,
+                                    dosage: 1
+                                }
 
-                        location.reload()
-					}
-				})
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly dispense this stock",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+
+                                location.reload()
+                            }
+                        })
+                }
+            });
+
+            
         },
 
         openModal(){
@@ -733,6 +782,10 @@ export default {
 
         arrayUnique(arr){
             return _.uniq(arr)
+        },
+
+        selectBarangay(arg){
+            this.barangay = arg.name
         }
     }
 }
@@ -761,7 +814,7 @@ export default {
 
 .--search {
     width: 20%;
-    height: 40px;
+    height: 35px;
     border: 1px solid black;
     border-radius: 40px;
 }

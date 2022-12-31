@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class NutritionForm extends Model
 {
@@ -21,7 +22,7 @@ class NutritionForm extends Model
     ];
 
     protected $appends = [
-        'name', 'description'
+        'name', 'description', 'date_issued'
     ];
 
     public function getNameAttribute()
@@ -32,5 +33,12 @@ class NutritionForm extends Model
     public function getDescriptionAttribute()
     {
         return 'Nutrition Form';
+    }
+
+    public function getDateIssuedAttribute()
+    {
+        $date = Carbon::parse($this->created_at);
+
+        return $date->isoFormat('LL'); 
     }
 }

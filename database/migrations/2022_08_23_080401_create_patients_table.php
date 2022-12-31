@@ -28,6 +28,7 @@ class CreatePatientsTable extends Migration
             $table->string('contact_person_address');
             $table->string('contact_person_phone');
             $table->longText('diagnosis')->nullable();
+            $table->longText('image')->nullable();
             $table->boolean('is_rhu')->default(false);
 
             

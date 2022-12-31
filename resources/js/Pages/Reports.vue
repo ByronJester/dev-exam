@@ -25,16 +25,27 @@
                     </div>
                 </div>
 
-                <div class="w-full inline-flex mt-4">
-                    <select class="ml-3" style="width: 150px !important; height: 40px; border: 1px solid black; border-radius: 10px" v-model="barangay" v-if="auth.role != 3">
+                <div class="w-full inline-flex mt-4" v-if="activeTab != 'medical_certificate'">
+                    <!-- <select class="ml-3" style="width: 150px !important; height: 40px; border: 1px solid black; border-radius: 10px" v-model="barangay" v-if="auth.role != 3">
                         <option v-for="place in options.places" :key="place.name"
                             :value="place.name"
                         >
                             {{ place.name }}
                         </option>
-                    </select>
+                    </select> -->
+                    <div style="width: 252px; margin-left: 10px;">
+                        <Dropdown
+                            :options="options.places"
+                            v-on:selected="selectBarangay"
+                            :disabled="false"
+                            name="barangay"
+                            :maxItem="5"
+                            style="border: 1px solid black; border-radius: 3px"
+                            placeholder="Please select barangay...">
+                        </Dropdown>
+                    </div>
 
-                    <input type="text" style="width: 300px !important; height: 40px; border: 1px solid black; border-radius: 10px" class="ml-3 p-1" placeholder="Search...." v-model="search">
+                    <input type="text" style="width: 252px !important; height: 35px; border: 1px solid black; border-radius: 3px" class="ml-3 p-1" placeholder="Search...." v-model="search">
 
                 </div>
 
@@ -275,7 +286,7 @@
                                 </span>
 
                                 <input type="date" style="width: 200px; border-bottom: 1px solid black" class="focus:--borderless hover:--borderless text-center float-right mx-2"
-                                    v-model="form.examined_dane"
+                                    v-model="form.examined_date"
                                 >
 
                                 <span class="mx-2">
@@ -295,7 +306,7 @@
                                 </span>
 
                                 <input type="text" style="width: 300px; border-bottom: 1px solid black" class="focus:--borderless hover:--borderless text-center float-right mx-2"
-                                    placeholder="Attending Physician" v-model="form.physician"
+                                    v-model="form.days"
                                 >
 
                                 <span class="mx-2">
@@ -325,6 +336,7 @@ import Toggle from '../Components/Toggle.vue';
 import Table from "../Components/Table";
 import axios from "axios";
 import VueHtml2pdf from 'vue-html2pdf'
+import Dropdown from 'vue-simple-search-dropdown';
 
 export default {
     props: ['auth', 'options'],
@@ -332,7 +344,8 @@ export default {
         Navigation,
         Toggle,
         Table,
-        VueHtml2pdf
+        VueHtml2pdf,
+        Dropdown
     },
 
     data(){
@@ -351,9 +364,10 @@ export default {
                 name: null,
                 address : null,
                 date_now: null,
-                examined_dane: null,
+                examined_date: null,
                 diagnosis: null,
-                physician: null
+                physician: null,
+                days: null
             },
             barangay: null,
             search: null
@@ -426,13 +440,15 @@ export default {
                             .filter(x => {
                                 var name = x.name.toLowerCase();
                                 var search = arg.toLowerCase()
-                                return name.includes(search)
+                                var form = x.consultation_form.toLowerCase()
+                                return name.includes(search) || form.includes(search)
                             });
                     } else {
                         this.rows = this.options.patients.filter(x => {
                             var name = x.name.toLowerCase();
                             var search = arg.toLowerCase()
-                            return name.includes(search)
+                            var form = x.consultation_form.toLowerCase()
+                            return name.includes(search) || form.includes(search)
                         });
                     }
                     
@@ -538,7 +554,7 @@ export default {
                     this.rows = this.options.barangayMedicines
                     
                     this.columns = [
-                        'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Dispensed', 'Date'
+                        'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Date'
                     ]
 
                     this.keys = [
@@ -561,16 +577,13 @@ export default {
                             label: 'quantity',
                         },
                         {
-                            label: 'dispensed',
-                        },
-                        {
                             label: 'date',
                         },
                     ]
                 }
             } else {
                 this.columns = [
-                    'Name', 'Barangay', 'Contact', 'Age', 'Gender'
+                    'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Consultation Forms'
                 ];
 
                 this.keys = [
@@ -588,6 +601,9 @@ export default {
                     },
                     {
                         label: 'gender',
+                    },
+                    {
+                        label: 'consultation_form',
                     }
                 ]
 
@@ -637,7 +653,7 @@ export default {
                 this.rows = this.options.barangayMedicines
                 
                 this.columns = [
-                    'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Dispensed', 'Date'
+                    'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Date'
                 ]
 
                 this.keys = [
@@ -660,9 +676,6 @@ export default {
                         label: 'quantity',
                     },
                     {
-                        label: 'dispensed',
-                    },
-                    {
                         label: 'date',
                     },
                 ]
@@ -681,7 +694,7 @@ export default {
 
         if(this.activeTab == 'patient_report') {
             this.columns = [
-                'Name', 'Barangay', 'Contact', 'Age', 'Gender'
+                'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Consultation Forms'
             ];
 
             this.keys = [
@@ -699,6 +712,9 @@ export default {
                 },
                 {
                     label: 'gender',
+                },
+                {
+                    label: 'consultation_form',
                 }
             ]
 
@@ -710,6 +726,15 @@ export default {
         } else {
             this.activeTab = 'patient_report'
         }
+
+        var date = new Date();
+
+        var currentDate = date.toISOString().slice(0,10);
+
+        this.form.date_now = currentDate
+        this.form.examined_date = currentDate
+
+        this.form.physician = this.auth.first_name + ' ' + this.auth.last_name
     },
 
     methods: {
@@ -719,6 +744,10 @@ export default {
 
         printMedicineReport() {
             this.$refs.medicine_report.generatePdf()
+        },
+
+        selectBarangay(arg){
+            this.barangay = arg.name
         }
     }
 }
@@ -762,4 +791,11 @@ input {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
+input .dropdown-input {
+    min-width: none;
+    max-width: 500px;
+}
+
 </style>
+

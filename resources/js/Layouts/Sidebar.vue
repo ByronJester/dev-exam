@@ -3,13 +3,13 @@
         <div class="--left__panel flex flex-row" @mouseover="biggerWidth()" @mouseleave="smallerWidth()"
         >   
             <div class="w-6/12 inline-flex">
-                <img src="/images/logo.jfif" style="height: 100px; width: 100px; border-radius: 50%" class="m-4"/>
-                <p style="font-size: 50px; font-family: Times New Roman, Times, serif; font-weight: bold; color: white" class="mt-7">
+                <img src="/images/logo.jfif" style="height: 5vw; width: 100px; border-radius: 50%" class="m-4"/>
+                <p style="font-size: 2.5vw; font-family: Times New Roman, Times, serif; font-weight: bold; color: white" class="mt-7">
                     Municipality of Balayan
                 </p>
             </div>
 
-            <div class="w-6/12 inline-flex justify-end items-center text-white" style="font-size: 22px">
+            <div class="w-6/12 inline-flex justify-end items-center text-white" style="font-size: 1vw">
                 <div class="dropdown inline-block relative">
                     <p class="mr-2 cursor-pointer">
                         <i class="fa-solid fa-user-gear fa-lg mx-2"></i>
@@ -39,6 +39,15 @@
                         :style="{'border-bottom': active === '/users' ? '1px solid white' : 'none'}"
                     > 
                         USERS
+                    </span>
+                </p>
+
+                <p class="mr-2 cursor-pointer" v-if="hasAccess('archives')" @click="changeActive('/users/archives')">
+                    <i class="fa-solid fa-user-group fa-lg mx-2"></i> 
+                    <span v-if="isHover" class="mx-2"
+                        :style="{'border-bottom': active === '/users/archives' ? '1px solid white' : 'none'}"
+                    > 
+                        ARCHIVES
                     </span>
                 </p>
 
@@ -141,6 +150,9 @@
 
         <div class="w-full" style="min-height: 87vh; height: 100%" 
         >   
+            <div class="w-full ml-5 mt-5 text-4xl"> 
+                {{ auth.first_name}} {{ auth.last_name}} - {{ getUserType(auth) }}
+            </div>
             <slot></slot>
         </div>
 
@@ -172,13 +184,13 @@ export default {
 
     created(){
         if(this.auth.role == 1) {
-            this.tabs = ['users', 'maintenance', 'trails'];
+            this.tabs = ['users', 'maintenance', 'trails', 'archives'];
         }
 
         if(this.auth.role == 2) {
             switch(this.auth.user_type) {
                 case 'doctor':
-                    this.tabs = ['users', 'patients', 'reports'];
+                    this.tabs = ['users', 'patients', 'reports', 'archives'];
                     break;
                 case 'pharmacist':
                     this.tabs = ['medicines', 'reports'];
@@ -196,7 +208,7 @@ export default {
         if(this.auth.role == 3) {
             switch(this.auth.user_type) {
                 case 'leader':
-                    this.tabs = ['users', 'patients', 'medicines', 'reports'];
+                    this.tabs = ['users', 'patients', 'medicines', 'reports', 'archives'];
                     break;
                 case 'midwife':
                     this.tabs = ['patients', 'reports'];
@@ -258,24 +270,86 @@ export default {
         },
 
         changePassword(){
-            axios.post(this.$root.route + "/users/change-password", this.formData)
-				.then(response => {
-					if(response.data.status == 422) {
-						this.saveError = response.data.errors 
-					} else {
-                        this.formData = {
-                            current_password: null,
-                            new_password: null,
-                            confirm_password: null
-                        }
 
-                        this.closeModal()
-                        this.saveError = null
+            swal({
+                title: "Are you sure to change your password?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    axios.post(this.$root.route + "/users/change-password", this.formData)
+                        .then(response => {
+                            if(response.data.status == 422) {
+                                this.saveError = response.data.errors 
+                            } else {
+                                this.formData = {
+                                    current_password: null,
+                                    new_password: null,
+                                    confirm_password: null
+                                }
 
-                        alert("Successfully changed password");
-					}
-				})
-        }
+                                this.closeModal()
+                                this.saveError = null
+
+                                swal({
+                                    title: "Good job!",
+                                    text: "You successfuly change your password!",
+                                    icon: "success",
+                                    button: "Okay",
+                                });
+                            }
+                        })
+                } 
+            });
+
+            
+        },
+        getUserType(user) {
+            var user_type = null;
+
+            if(user.role == 1) {
+                user_type = 'Admin';
+            }
+
+            if(user.role == 2) {
+                switch(user.user_type) {
+                    case 'doctor':
+                        user_type = 'RHU - Doctor';
+                        break;
+
+                    case 'pharmacist':
+                        user_type = 'Pharmacist';
+                        break;
+
+                    case 'midwife':
+                        user_type = 'Chief Midwife';
+                        break;
+
+                    case 'nurse':
+                        user_type = 'Nurse';
+                        break;
+                }
+            }
+
+            if(user.role == 3) {
+                switch(user.user_type) {
+                    case 'leader':
+                        user_type = 'BHW - Leader';
+                        break;
+                    case 'midwife':
+                        user_type = 'Barangay Midwife';
+                        break;
+
+                    case 'member':
+                        user_type = 'BHW - Member';
+                        break;
+                }
+            }
+
+            return user_type;
+        },
 
 	}
 }

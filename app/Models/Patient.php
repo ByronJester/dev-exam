@@ -25,7 +25,8 @@ class Patient extends Model
     ];
 
     protected $appends = [
-        'barangay'
+        'barangay',
+        'consultation_form'
     ];
 
     public function place()
@@ -41,5 +42,23 @@ class Patient extends Model
     public function getBarangayAttribute()
     {
         return $this->place->name;
+    }
+
+    public function getConsultationFormAttribute()
+    {
+        $forms = '';
+        
+        $tbdots = PatientForm::where('patient_id', $this->id)->where('lmp', null)->first();
+        $pregnancy = PatientForm::where('patient_id', $this->id)->where('lmp', '!=', null)->first();
+
+        if($tbdots) {
+            $forms = $forms . 'TB-Dots Form';
+        }
+
+        if($pregnancy) {
+            $forms = $forms . 'Pregnancy Form';
+        }
+
+        return $forms;
     }
 }

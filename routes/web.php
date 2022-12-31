@@ -22,7 +22,7 @@ Route::middleware(['cors'])->group(function () {
         return redirect()->route('view.login');
     });
     
-    
+     
     Route::prefix('login')->group(function () {
         Route::get('/', [UserController::class, 'loginView'])->name('view.login');
         
@@ -30,6 +30,7 @@ Route::middleware(['cors'])->group(function () {
     
     Route::prefix('users')->group(function () {
         Route::get('/', [UserController::class, 'viewUsers'])->name('view.users');
+        Route::get('/archives', [UserController::class, 'viewArchives'])->name('view.archives');
         Route::post('/login', [UserController::class, 'loginAccount']);
         Route::post('/logout', [UserController::class, 'logoutAccount']);
         Route::post('/deactivate-reactivate', [UserController::class, 'changeStatus']);

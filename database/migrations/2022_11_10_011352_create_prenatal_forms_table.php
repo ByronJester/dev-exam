@@ -28,8 +28,8 @@ class CreatePrenatalFormsTable extends Migration
             $table->string('provider_phone');
             $table->string('provider_fax');
             $table->string('member_name');
-            $table->string('member_id');
             $table->date('dob');
+            $table->string('age');
             $table->string('member_address');
             $table->string('member_phone');
             $table->string('member_city');
