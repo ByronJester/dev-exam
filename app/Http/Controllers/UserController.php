@@ -382,5 +382,10 @@ class UserController extends Controller
             ]
         ]);
     }
+
+    public function alive(Request $request)
+    {
+        return response()->json(['status' => 200], 200);
+    }
 } 
  

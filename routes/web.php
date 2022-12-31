@@ -84,6 +84,10 @@ Route::middleware(['cors'])->group(function () {
     Route::prefix('trails')->group(function () {
         Route::get('/', [UserController::class, 'viewTrails'])->name('view.trails');
     });
+
+    Route::prefix('alive')->group(function () {
+        Route::get('/', [UserController::class, 'alive']);
+    });
 });
 
 
