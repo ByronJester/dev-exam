@@ -911,7 +911,7 @@
                     </VueHtml2pdf>
 
                     <!-- TB Form -->
-                    <div class="w-full flex-col" v-if="activeForm == 'Tuberculosis Symptom Form'">
+                    <div class="w-full flex-col" v-if="activeForm == 'Tuberculosis Symptom Form' || activeForm == 'TB-Dots Form'">
                         <div class="w-full" v-if="!options.isReport">
                             <span class="float-right cursor-pointer p-4" 
                                 @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
@@ -3427,7 +3427,7 @@ export default {
         return {
             patient: null,
             activeForm: null,
-            formName: 'Tuberculosis Symptom Form',
+            formName: 'TB-Dots Form',
             columns: [
                 'Form', 'Date'
             ],

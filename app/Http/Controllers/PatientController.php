@@ -233,7 +233,7 @@ class PatientController extends Controller
             if($prenatal) {
                 $data['id'] = $prenatal->id + 1;
             } else {
-                $data['id'] = 1;
+                $data['id'] = 1; 
             }
 
             PrenatalForm::create($data);

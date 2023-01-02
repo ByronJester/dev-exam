@@ -27,7 +27,7 @@ class PostnatalForm extends Model
         'gestational_age',
         'lmp',
         'new_born_sex',
-        'days_of_hospital_stay',
+        'dob',
         'age',
         'education',
         'obstetrical_score',

@@ -25,7 +25,7 @@ class PrenatalForm extends Model
         'provider_phone',
         'provider_fax',
         'member_name',
-        'member_id',
+        'age',
         'dob',
         'member_address',
         'member_phone',
