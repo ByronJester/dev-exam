@@ -379,7 +379,7 @@ class PatientController extends Controller
             return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
         }
 
-        $data = $request->toArray();
+        $data = $request->except(['id']);
 
         if($request->id) {
             Allergy::where('id', $request->id)->update($data);
@@ -404,7 +404,7 @@ class PatientController extends Controller
             return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
         }
 
-        $data = $request->toArray();
+        $data = $request->except(['id']);
 
         if($request->id) {
             Medication::where('id', $request->id)->update($data);
@@ -429,7 +429,7 @@ class PatientController extends Controller
             return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
         }
 
-        $data = $request->toArray();
+        $data = $request->except(['id']);
 
         if($request->id) {
             HealthMaintenanceHistory::where('id', $request->id)->update($data);
@@ -452,7 +452,7 @@ class PatientController extends Controller
             return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
         }
 
-        $data = $request->toArray();
+        $data = $request->except(['id']);
 
         if($request->id) {
             VaccinationHistory::where('id', $request->id)->update($data);
@@ -476,7 +476,7 @@ class PatientController extends Controller
             return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
         }
 
-        $data = $request->except(['other']);
+        $data = $request->except(['other', 'id']);
 
         if($request->id) {
             DiseaseHistory::where('id', $request->id)->update($data);
@@ -499,7 +499,7 @@ class PatientController extends Controller
             return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
         }
 
-        $data = $request->toArray();
+        $data = $request->except(['id']);
 
         if($request->id) {
             Surgery::where('id', $request->id)->update($data);
@@ -525,7 +525,7 @@ class PatientController extends Controller
             return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
         }
 
-        $data = $request->toArray();
+        $data = $request->except(['id']);
 
         if($request->id) {
             WomenHealthHistory::where('id', $request->id)->update($data);
@@ -547,7 +547,7 @@ class PatientController extends Controller
             return response()->json(['errors' => $validator->messages(), 'status' => 422, 'message' => null], 200);
         }
 
-        $data = $request->toArray();
+        $data = $request->except(['id']);
 
         if($request->id) {
             RiskyHabit::where('id', $request->id)->update($data);

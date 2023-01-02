@@ -1443,7 +1443,7 @@ export default {
             });
         },
 
-        saveVaccination(){
+        saveVaccination(){ 
             swal({
                 title: "Are you sure to save this history?",
                 icon: "warning",

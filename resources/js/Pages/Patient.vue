@@ -92,6 +92,10 @@
                         <div class="w-full px-5 py-5">
                             <div class="w-full text-2xl font-bold">
                                 Patient's Medical History
+
+                                <span class="float-right">
+                                    {{ patient.name }} ({{ patient.place.name }})
+                                </span>
                             </div>
 
                             <table style="width:100%" class="mt-5">
