@@ -44,10 +44,10 @@ class MedicineController extends Controller
                 $patientMedicines = $patientMedicines->whereHas('medicine', function($q) use ($search){
                     $q->where('name', 'LIKE', '%'. $search . '%');
                 })
-                ->whereHas('category', function($q) use ($search){
+                ->orWhereHas('category', function($q) use ($search){
                     $q->where('name', 'LIKE', '%'. $search . '%');
                 })
-                ->whereHas('unit', function($q) use ($search){
+                ->orWhereHas('unit', function($q) use ($search){
                     $q->where('name', 'LIKE', '%'. $search . '%');
                 });
             }
