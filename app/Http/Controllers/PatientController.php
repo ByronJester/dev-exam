@@ -125,22 +125,25 @@ class PatientController extends Controller
 
         $forms = array_merge($tbAndPregForm, $prenatalForm, $postnatalForm, $nutritionForm, $dewormingForm, $vaccinationForm);
 
+        $diseases = DiseaseHistory::where('patient_id', $id)->where('family', null)->get();
+        $familyDiseases = DiseaseHistory::orderBy('family')->where('patient_id', $id)->where('family', '!=', null)->get();
+
         return Inertia::render('Patient', [
             'auth'    => $auth,
             'options' => [
                 'patient' => $patient,
                 'forms' => $forms,
-                'vaccinations' => Vaccination::get(),
+                'vaccinationList' => Vaccination::get(),
                 'isReport' => $isReport,
                 'places' => Place::get(),
                 'allergies' => Allergy::where('patient_id', $id)->get(),
                 'medications' => Medication::where('patient_id', $id)->get(),
                 'maintenance' => HealthMaintenanceHistory::where('patient_id', $id)->get(),
                 'vaccinations' => VaccinationHistory::where('patient_id', $id)->get(),
-                'diseases' => DiseaseHistory::where('patient_id', $id)->where('family', null)->get(),
+                'diseases' => $diseases,
                 'surgeries' => Surgery::where('patient_id', $id)->get(),
                 'habits' => RiskyHabit::where('patient_id', $id)->get(),
-                'families' => DiseaseHistory::where('patient_id', $id)->where('family', '!=', null)->get(),
+                'families' => $familyDiseases,
                 'womens' => WomenHealthHistory::where('patient_id', $id)->get(),
             ]
         ]);

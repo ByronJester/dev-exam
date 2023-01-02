@@ -371,15 +371,15 @@
                                 <tr>
                                     <td>Family Member</td>
                                     <td>
-                                        <p v-for="disease in options.diseases" :key="disease.id">
-                                            {{disease.family}}<span v-if="options.diseases.length > 1">,</span>
+                                        <p v-for="disease in options.families" :key="disease.id">
+                                            {{disease.family}}<span v-if="options.diseases.length > 1">,</span> 
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Disease</td>
                                     <td>
-                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                        <p v-for="disease in options.families" :key="disease.id">
                                             {{disease.disease}}<span v-if="options.diseases.length > 1">,</span>
                                         </p>
                                     </td>
@@ -387,7 +387,7 @@
                                 <tr>
                                     <td>Type</td>
                                     <td>
-                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                        <p v-for="disease in options.families" :key="disease.id">
                                             {{disease.type}}<span v-if="options.diseases.length > 1">,</span>
                                         </p>
                                     </td>
@@ -395,7 +395,7 @@
                                 <tr>
                                     <td>Status</td>
                                     <td>
-                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                        <p v-for="disease in options.families" :key="disease.id">
                                             {{disease.status}}<span v-if="options.diseases.length > 1">,</span>
                                         </p>
                                     </td>
@@ -404,7 +404,7 @@
                                 <tr>
                                     <td>Comment</td>
                                     <td>
-                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                        <p v-for="disease in options.families" :key="disease.id">
                                             {{disease.comment}}<span v-if="options.diseases.length > 1">,</span>
                                         </p>
                                     </td>
@@ -2689,7 +2689,7 @@
                                     <div class="w-full pr-2">
                                         <label>Vaccine:</label><br>
                                         <select v-model="vaccination.vaccination_id" class="--input w-full mt-2">
-                                            <option v-for="vaccine in options.vaccinations" :value="vaccine.id" :key="vaccine.id">{{vaccine.name}}</option>
+                                            <option v-for="vaccine in options.vaccinationList" :value="vaccine.id" :key="vaccine.id">{{vaccine.name}}</option>
                                         </select>
                                         <span class="text-xs text-red-500 pl-2">{{validationError('vaccination_id', saveError)}} </span>
                                     </div>
@@ -2697,7 +2697,7 @@
                                     <div class="w-full pr-2 mt-5">
                                         <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
                                             @click="createVaccinationForm()"
-                                            v-if="!options.isReport"
+                                            v-if="!options.isReport" 
                                         >
                                             Save
                                         </button>
@@ -2778,7 +2778,7 @@
                             <div class="w-full pr-2">
                                 <label>Vaccine:</label><br>
                                 <select v-model="vaccination.vaccination_id" class="--input w-full" :disabled="options.isReport">
-                                    <option v-for="vaccine in options.vaccinations" :value="vaccine.id" :key="vaccine.id">{{vaccine.name}}</option>
+                                    <option v-for="vaccine in options.vaccinationList" :value="vaccine.id" :key="vaccine.id">{{vaccine.name}}</option>
                                 </select>
                                 <span class="text-xs text-red-500 pl-2">{{validationError('vaccination_id', saveError)}} </span>
                             </div>
