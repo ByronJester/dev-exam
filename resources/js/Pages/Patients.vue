@@ -268,24 +268,24 @@
                                 <i class="fa-solid fa-xmark"></i>
                             </span>
 
-                            <span class="float-right cursor-pointer mr-5"
+                            <!-- <span class="float-right cursor-pointer mr-5"
                                 @click="printProfile()"
                                 v-if="isPersonalData"
                             >
                                 <i class="fa-solid fa-print"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-col">
                             <div class="my-1">
                                 <label class="text-bold">Fullname:</label><br>
-                                <input type="text" class="--input" v-model="formData.name" :disabled="isPersonalData" style="text-transform: capitalize;">
+                                <input type="text" class="--input" v-model="formData.name" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
                             </div>
 
                             <div class="my-1" v-if="auth.role != 3">
                                 <label for="cars">Barangay:</label><br>
-                                <select class="--input" v-model="formData.place_id" :disabled="isPersonalData">
+                                <select class="--input" v-model="formData.place_id">
                                     <option v-for="place in options.places" :key="place.id"
                                         :value="place.id"
                                     >
@@ -304,7 +304,7 @@
 
                                 <div class="w-full">
                                     <label class="text-bold">Contact No.:</label><br>
-                                    <input type="text" class="--input" v-model="formData.phone" :disabled="isPersonalData">
+                                    <input type="text" class="--input" v-model="formData.phone">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
                                 </div>
                             </div>
@@ -312,7 +312,7 @@
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1 w-full">
                                     <label class="text-bold">Date of Birth:</label><br>
-                                    <input type="date" class="--input" v-model="formData.dob" :disabled="isPersonalData">
+                                    <input type="date" class="--input" v-model="formData.dob">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('dob', saveError)}} </span>
                                 </div>
 
@@ -326,7 +326,7 @@
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1 w-full">
                                     <label for="cars">Gender:</label><br>
-                                    <select class="--input" v-model="formData.gender" :disabled="isPersonalData">
+                                    <select class="--input" v-model="formData.gender">
                                         <option :value="'Male'">
                                             Male
                                         </option>
@@ -341,7 +341,7 @@
 
                                 <div class="my-1 mx-1 w-full">
                                     <label for="cars">Civil Status:</label><br>
-                                    <select class="--input" v-model="formData.civil_status" :disabled="isPersonalData">
+                                    <select class="--input" v-model="formData.civil_status">
                                         <option :value="'Single'">
                                             Single
                                         </option>
@@ -365,32 +365,32 @@
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1">
                                     <label class="text-bold">Contact Person:</label><br>
-                                    <input type="text" class="--input" v-model="formData.contact_person" :disabled="isPersonalData" style="text-transform: capitalize;">
+                                    <input type="text" class="--input" v-model="formData.contact_person" style="text-transform: capitalize;">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1 mx-1">
                                     <label class="text-bold">Contact Person Address:</label><br>
-                                    <input type="text" class="--input" v-model="formData.contact_person_address" :disabled="isPersonalData" style="text-transform: capitalize;">
+                                    <input type="text" class="--input" v-model="formData.contact_person_address" style="text-transform: capitalize;">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_address', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1 mx-1">
                                     <label class="text-bold">Contact Person #:</label><br>
-                                    <input type="text" class="--input" v-model="formData.contact_person_phone" :disabled="isPersonalData">
+                                    <input type="text" class="--input" v-model="formData.contact_person_phone">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_phone', saveError)}} </span>
                                 </div>
                             </div>
 
                             <div class="my-1" v-if="auth.user_type == 'doctor'">
                                 <label class="text-bold">Diagnosis:</label><br>
-                                <input type="text" class="--input mt-2" v-model="formData.diagnosis" :disabled="isPersonalData" style="text-transform: capitalize;">
-                                <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
+                                <input type="text" class="--input mt-2" v-model="formData.diagnosis" style="text-transform: capitalize;">
+                                <span class="text-xs text-red-500 ml-2">{{validationError('diagnosis', saveError)}} </span>
                             </div>
 
                             <div class="my-1">
                                 <label class="text-bold">Philhealth ID #:</label><br>
-                                <input type="text" class="--input" v-model="formData.philhealth" :disabled="isPersonalData">
+                                <input type="text" class="--input" v-model="formData.philhealth">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
                             </div>
 
@@ -399,9 +399,8 @@
                                 <button class="w-full py-2 px-4 text-white font-bold" 
                                     style="border-radius: 50px; background-color: #4D77FF"
                                     @click="createUser()"
-                                    v-if="!isPersonalData"
                                 >
-                                    Create New Patient
+                                    Save Patient
                                 </button>
                             </div>
                         </div>
@@ -437,6 +436,7 @@ export default {
             selected: null,
             userType: [],
             formData: {
+                id: null,
                 place_id: '',
                 name : '',
                 phone : '',
@@ -534,6 +534,7 @@ export default {
             this.formData = Object.assign({}, arg)
 
             this.isPersonalData = true
+            this.form_data.append('id', arg.id);
 
             this.openModal()
         },
@@ -550,6 +551,10 @@ export default {
         },
 
         createUser(){
+            if(!this.formData.philhealth) {
+                this.formData.philhealth = ''
+            }
+
             if(this.auth.role == 3) {
                 this.formData.place_id = this.auth.work_address
             }

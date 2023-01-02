@@ -67,7 +67,7 @@ class PatientController extends Controller
     {
         $auth = Auth::user();
         
-        $data = $request->except(['image']);
+        $data = $request->except(['image', 'id']);
 
         $data['user_id'] = $auth->id;
 
@@ -88,7 +88,13 @@ class PatientController extends Controller
             $data['image'] = $filename . '.' . $extension;
         }
 
-        Patient::forceCreate($data);
+        if($request->id) {
+            Patient::where('id', $request->id)->update($data);
+        } else {
+            Patient::forceCreate($data);
+        }
+
+        
 
         return redirect()->back()->with('errors');
     }

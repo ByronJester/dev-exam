@@ -34,9 +34,9 @@
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
-                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('allergy')">
+                            <!-- <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('allergy')">
                                 <i class="fa-solid fa-print px-2"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-row">
@@ -133,9 +133,9 @@
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
-                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('medication')">
+                            <!-- <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('medication')">
                                 <i class="fa-solid fa-print px-2"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-row" >
@@ -239,9 +239,9 @@
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
-                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('maintenance')">
+                            <!-- <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('maintenance')">
                                 <i class="fa-solid fa-print px-2"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-row" >
@@ -379,9 +379,9 @@
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
-                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('vaccination')">
+                            <!-- <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('vaccination')">
                                 <i class="fa-solid fa-print px-2"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-row">
@@ -498,9 +498,9 @@
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
-                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('disease')">
+                            <!-- <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('disease')">
                                 <i class="fa-solid fa-print px-2"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-row">
@@ -678,9 +678,9 @@
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
-                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('surgery')">
+                            <!-- <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('surgery')">
                                 <i class="fa-solid fa-print px-2"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-row" >
@@ -783,9 +783,9 @@
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
-                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('women')">
+                            <!-- <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('women')">
                                 <i class="fa-solid fa-print px-2"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-row" v-if="options.gender != 'Male'">
@@ -906,9 +906,9 @@
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
-                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('habit')">
+                            <!-- <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('habit')">
                                 <i class="fa-solid fa-print px-2"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-row">
@@ -1036,9 +1036,9 @@
                                 <i class="fa-solid fa-xmark px-2"></i>
                             </span>
 
-                            <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('family')">
+                            <!-- <span class="float-right text-xl mx-1 cursor-pointer" style="border: 1px solid black;" @click="printReport('family')">
                                 <i class="fa-solid fa-print px-2"></i>
-                            </span>
+                            </span> -->
                         </div>
 
                         <div class="w-full flex flex-row">
