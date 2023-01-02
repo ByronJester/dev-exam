@@ -413,8 +413,10 @@ export default {
             if(arg) {
                 this.medicineStocts = this.options.medicineStocts.filter(x => {
                     var name = x.name.toLowerCase();
+                    var unit = x.unit.toLowerCase();
+                    var category = x.category.toLowerCase();
                     var search = arg.toLowerCase()
-                    return name.includes(search)
+                    return name.includes(search) || unit.includes(search)  || category.includes(search) 
                 });
             } else {
                 this.medicineStocts = this.options.medicineStocts
