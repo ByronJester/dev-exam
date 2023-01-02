@@ -682,7 +682,7 @@ export default {
                                     }
 
                                     swal({
-                                        title: "Good job!",
+                                        title: "Successful",
                                         text: "You successfuly dispense this medicine",
                                         icon: "success",
                                         button: "Okay",
@@ -724,7 +724,7 @@ export default {
                                 }
 
                                 swal({
-                                    title: "Good job!",
+                                    title: "Successful",
                                     text: "You successfuly dispense this stock",
                                     icon: "success",
                                     button: "Okay",

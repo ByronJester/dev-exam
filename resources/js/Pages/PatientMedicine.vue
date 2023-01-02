@@ -117,15 +117,43 @@ export default {
         },
 
         dispenseMedicine() {
-            Inertia.post(this.$root.route + '/patients/dispense-medicine', this.form,
-            {
-                onSuccess: (res) => {
-                    location.reload()
-                },
-                onError: (err) => {
-                    this.saveError = err
-                }
+            swal({
+                title: "Are you sure to dispense this medicine?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((procceed) => {
+                if (procceed) {
+                    Inertia.post(this.$root.route + '/patients/dispense-medicine', this.form,
+                    {
+                        onSuccess: (res) => {
+
+                            swal({
+                                title: "Successful",
+                                text: "You successfuly dispensed medicine",
+                                icon: "success",
+                                button: "Okay",
+                            });
+
+                            location.reload()
+                        },
+                        onError: (err) => {
+                            this.saveError = err
+                        }
+                    });
+                } 
             });
+
+            // Inertia.post(this.$root.route + '/patients/dispense-medicine', this.form,
+            // {
+            //     onSuccess: (res) => {
+            //         location.reload()
+            //     },
+            //     onError: (err) => {
+            //         this.saveError = err
+            //     }
+            // });
         }
     }
 }

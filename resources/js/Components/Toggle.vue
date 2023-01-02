@@ -38,7 +38,7 @@ export default {
               {
                 onSuccess: (res) => {
                   swal({
-                      title: "Good job!",
+                      title: "Successful",
                       icon: "success",
                       button: "Okay",
                   });

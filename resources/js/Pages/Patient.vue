@@ -442,7 +442,7 @@
                                             <p style="font-weight: 500" class="text-lg ml-32">
                                                 Republic of the Philippines<br>
                                                 Province of Batangas <br>
-                                                Municipality Health of Balayan Batangas
+                                                Municipal Health of Balayan Batangas
                                             </p>
                                         </div>
                                     </div>
@@ -591,7 +591,17 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
-                                <div class="w-full text-2xl font-bold mb-5">
+                                <div style="width: 100%">
+                                    <div class="w-full text-center">
+                                        <p style="font-weight: 500" class="text-lg">
+                                            Republic of the Philippines<br>
+                                            Province of Batangas <br>
+                                            Municipal Health of Balayan Batangas
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="w-full text-2xl font-bold mb-5 mt-10">
                                     <span>
                                         {{ patient.name }} - {{ activeForm }}
                                     </span>
@@ -1283,7 +1293,17 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
-                                <div class="w-full text-2xl font-bold mb-5 ml-4">
+                                <div style="width: 100%">
+                                    <div class="w-full text-center">
+                                        <p style="font-weight: 500" class="text-lg">
+                                            Republic of the Philippines<br>
+                                            Province of Batangas <br>
+                                            Municipal Health of Balayan Batangas
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="w-full text-2xl font-bold mb-5 ml-4 mt-10">
                                     <span>
                                         {{ patient.name }} - {{ activeForm }}
                                     </span>
@@ -2296,7 +2316,17 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
-                                <div class="w-full text-2xl font-bold mb-5 ml-4">
+                                <div style="width: 100%">
+                                    <div class="w-full text-center">
+                                        <p style="font-weight: 500" class="text-lg">
+                                            Republic of the Philippines<br>
+                                            Province of Batangas <br>
+                                            Municipal Health of Balayan Batangas
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="w-full text-2xl font-bold mb-5 ml-4 mt-10">
                                     <span>
                                         {{ patient.name }} - {{ activeForm }}
                                     </span>
@@ -2466,7 +2496,17 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
-                                <div class="w-full text-2xl font-bold mb-5 ml-4">
+                                <div style="width: 100%">
+                                    <div class="w-full text-center">
+                                        <p style="font-weight: 500" class="text-lg">
+                                            Republic of the Philippines<br>
+                                            Province of Batangas <br>
+                                            Municipal Health of Balayan Batangas
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="w-full text-2xl font-bold mb-5 ml-4 mt-10">
                                     <span>
                                         {{ patient.name }} - {{ activeForm }}
                                     </span>
@@ -2636,7 +2676,14 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
-                                <div class="w-full text-2xl font-bold mb-5 ml-4">
+                                <div class="w-full text-center">
+                                    <p style="font-weight: 500" class="text-lg">
+                                        Republic of the Philippines<br>
+                                        Province of Batangas <br>
+                                        Municipal Health of Balayan Batangas
+                                    </p>
+                                </div>
+                                <div class="w-full text-2xl font-bold mb-5 ml-4 mt-10">
                                     <span>
                                         {{ patient.name }} - {{ activeForm }}
                                     </span>
@@ -3695,7 +3742,7 @@ export default {
                 url = '/reports'
             }
             Inertia.get(
-                this.$root.route + url,
+                this.$root.route + url, 
                 {
                     onSuccess: () => { },
                 },
@@ -3717,7 +3764,7 @@ export default {
                     {
                         onSuccess: (res) => {
                             swal({
-                                title: "Good job!",
+                                title: "Successful",
                                 text: "You successfuly save this form",
                                 icon: "success",
                                 button: "Okay",
@@ -3747,7 +3794,7 @@ export default {
                     {
                         onSuccess: (res) => {
                             swal({
-                                title: "Good job!",
+                                title: "Successful",
                                 text: "You successfuly save this form",
                                 icon: "success",
                                 button: "Okay",
@@ -3774,7 +3821,7 @@ export default {
                     {
                         onSuccess: (res) => {
                             swal({
-                                title: "Good job!",
+                                title: "Successful",
                                 text: "You successfuly save this form",
                                 icon: "success",
                                 button: "Okay",
@@ -3801,7 +3848,7 @@ export default {
                     {
                         onSuccess: (res) => {
                             swal({
-                                title: "Good job!",
+                                title: "Successful",
                                 text: "You successfuly save this form",
                                 icon: "success",
                                 button: "Okay",
@@ -3829,7 +3876,7 @@ export default {
                     {
                         onSuccess: (res) => {
                             swal({
-                                title: "Good job!",
+                                title: "Successful",
                                 text: "You successfuly save this form",
                                 icon: "success",
                                 button: "Okay",
@@ -3857,7 +3904,7 @@ export default {
                     {
                         onSuccess: (res) => {
                             swal({
-                                title: "Good job!",
+                                title: "Successful",
                                 text: "You successfuly save this form",
                                 icon: "success",
                                 button: "Okay",

@@ -11,14 +11,14 @@
                         >
                     </div>
 
-                    <div class="w-full">
+                    <!-- <div class="w-full">
                         <button class="text-black float-right p-2"
                             style="border: 1px solid black; border-radius: 5px"
                             @click="openModal()"
                         >
                             <i class="fa-solid fa-person-circle-plus fa-2xl"></i>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="flex flex-row" v-if="!newUser">
@@ -439,7 +439,7 @@ export default {
 }
 
 .--search {
-    width: 40%;
+    width: 20%;
     height: 40px;
     border: 1px solid black;
     border-radius: 40px;

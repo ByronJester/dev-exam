@@ -384,7 +384,7 @@ export default {
                                 this.saveError = response.data.errors 
                             } else {
                                 swal({
-                                    title: "Good job!",
+                                    title: "Successful",
                                     text: "You successfuly save this maintenance",
                                     icon: "success",
                                     button: "Okay",
@@ -432,7 +432,7 @@ export default {
                                 this.saveError = response.data.errors 
                             } else {
                                 swal({
-                                    title: "Good job!",
+                                    title: "Successful",
                                     text: "You successfuly save this maintenance",
                                     icon: "success",
                                     button: "Okay",

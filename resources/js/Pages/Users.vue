@@ -364,6 +364,15 @@ export default {
 
         editProfile(user){
             this.formData = {
+                id: '',
+                first_name : '',
+                middle_name : '',
+                last_name : '',
+                phone : '',
+                username : '',
+            }
+
+            this.formData = {
                 id: user.id,
                 first_name : user.first_name,
                 middle_name : user.middle_name,
@@ -427,7 +436,7 @@ export default {
                             // }
 
                             swal({
-                                title: "Good job!",
+                                title: "Successful",
                                 text: "You successfuly save this user account",
                                 icon: "success",
                                 button: "Okay",
@@ -460,16 +469,19 @@ export default {
             this.newUser = false
 
             this.formData = {
-                first_name : null,
-                middle_name : null,
-                last_name : null,
-                phone : null,
-                email : null,
-                user_type : null,
-                work_address: null
+                id: '',
+                first_name : '',
+                middle_name : '',
+                last_name : '',
+                phone : '',
+                username : '',
+                user_type : '',
+                work_address: ''
             }
 
             this.saveError = null
+
+            this.isEdit = false
         },
     }
 }

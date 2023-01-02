@@ -585,7 +585,7 @@ export default {
                         onSuccess: (res) => {
 
                             swal({
-                                title: "Good job!",
+                                title: "Successful",
                                 text: "You successfuly save this patient",
                                 icon: "success",
                                 button: "Okay",
