@@ -181,7 +181,7 @@ class UserController extends Controller
 
     public function saveUser(RegisterAccount $request)   
     {
-        $data = $request->except(['image']);
+        $data = $request->except(['image', 'id']);
         $auth = Auth::user();
 
         $password = strtolower($request->last_name);

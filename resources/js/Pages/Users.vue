@@ -374,6 +374,8 @@ export default {
 
             this.isEdit = true
 
+            this.form_data.append('id', this.formData.id);
+
             this.openModal()
 
         },
@@ -383,7 +385,6 @@ export default {
                 this.formData.work_address = this.auth.work_address
             }
 
-            this.form_data.append('id', this.formData.id);
             this.form_data.append('first_name', this.formData.first_name);
 			this.form_data.append('middle_name', this.formData.middle_name);
 			this.form_data.append('last_name', this.formData.last_name);
