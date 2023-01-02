@@ -18,7 +18,7 @@
                             style="width: 230px; height: 30px; border: 1px solid black"
                         >
                             <option value="Tuberculosis Symptom Form" v-if="auth.user_type == 'doctor' || auth.user_type == 'leader' || auth.user_type == 'member'">
-                                TB-Dots
+                                TB-Dots Form
                             </option>
 
                             <option value="Pregnancy Form" v-if="(auth.user_type == 'nurse' || auth.user_type == 'midwife') && patient.gender != 'Male'">
@@ -60,11 +60,356 @@
                         <i class="fa-solid fa-print mr-1"></i> Profile
                     </button>
 
-                    <button class="--view__profile my-2 mr-1">
-                        <i class="fa-solid fa-print mr-1"></i> Medical History
+                    <button class="--view__profile my-2 mr-1" @click="printHistory()">
+                        <i class="fa-solid fa-print mr-1"></i> Medical History 
                     </button>
+
+                    <select name="yearpicker" id="yearpicker"
+                        style="border: 1px solid black; width: 100px; height: 40px"
+                        class="ml-2 text-center float-right"
+                        v-model="selectedYear"
+                    >
+                        <option :value="year" v-for="year in years" :key="year"> {{ year }}</option>
+                    </select>
                     
                 </div>
+
+                <VueHtml2pdf
+                    :show-layout="false"
+                    :float-layout="true"
+                    :enable-download="true"
+                    :preview-modal="true"
+                    :paginate-elements-by-height="2000"
+                    :filename="Math.random().toString(36).slice(2)" 
+                    :pdf-quality="2"
+                    :manual-pagination="false"
+                    pdf-format="a4"
+                    pdf-orientation="landscape"
+                    pdf-content-width="100%"
+                    ref="history"
+                >
+                    <section slot="pdf-content">
+                        <div class="w-full px-5 py-5">
+                            <div class="w-full text-2xl font-bold">
+                                Patient's Medical History
+                            </div>
+
+                            <table style="width:100%" class="mt-5">
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Allergies
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td>Allergy</td>
+                                    <td>
+                                        <p v-for="allergy in options.allergies" :key="allergy.id">
+                                            {{allergy.allergy}}<span v-if="options.allergies.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Allergic Reaction</td>
+                                    <td>
+                                        <p v-for="allergy in options.allergies" :key="allergy.id">
+                                            {{allergy.allergic_reaction}}<span v-if="options.allergies.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Medications
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td>Medications</td>
+                                    <td>
+                                        <p v-for="medication in options.medications" :key="medication.id">
+                                            {{medication.medications}}<span v-if="options.medications.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Dose</td>
+                                    <td>
+                                        <p v-for="medication in options.medications" :key="medication.id">
+                                            {{medication.dose}}<span v-if="options.medications.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Times Per Day</td>
+                                    <td>
+                                        <p v-for="medication in options.medications" :key="medication.id">
+                                            {{medication.times_per_day}}<span v-if="options.medications.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Health Maintenance
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>
+                                        <p v-for="m in options.maintenance" :key="m.id">
+                                            {{m.type}}<span v-if="options.maintenance.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Date</td>
+                                    <td>
+                                        <p v-for="m in options.maintenance" :key="m.id">
+                                            {{m.date}}<span v-if="options.maintenance.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Facility</td>
+                                    <td>
+                                        <p v-for="m in options.maintenance" :key="m.id">
+                                            {{m.facility}}<span v-if="options.maintenance.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Abnormal Result</td>
+                                    <td>
+                                        <p v-for="m in options.maintenance" :key="m.id">
+                                            {{m.abnormal_result}}<span v-if="options.maintenance.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Vaccination
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>
+                                        <p v-for="vaccination in options.vaccinations" :key="vaccination.id">
+                                            {{vaccination.type}}<span v-if="options.vaccinations.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Date</td>
+                                    <td>
+                                        <p v-for="vaccination in options.vaccinations" :key="vaccination.id">
+                                            {{vaccination.date}}<span v-if="options.vaccinations.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Disease
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td>Disease</td>
+                                    <td>
+                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                            {{disease.disease}}<span v-if="options.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>
+                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                            {{disease.type}}<span v-if="options.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>
+                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                            {{disease.status}}<span v-if="options.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Comment</td>
+                                    <td>
+                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                            {{disease.comment}}<span v-if="options.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Surgery
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>
+                                        <p v-for="surgery in options.surgeries" :key="surgery.id">
+                                            {{surgery.type}}<span v-if="options.surgeries.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Date</td>
+                                    <td>
+                                        <p v-for="surgery in options.surgeries" :key="surgery.id">
+                                            {{surgery.date}}<span v-if="options.surgeries.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Facility</td>
+                                    <td>
+                                        <p v-for="surgery in options.surgeries" :key="surgery.id">
+                                            {{surgery.facility}}<span v-if="options.surgeries.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Risky Habits
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>
+                                        <p v-for="habit in options.habits" :key="habit.id">
+                                            {{habit.type}}<span v-if="options.habits.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>
+                                        <p v-for="habit in options.habits" :key="habit.id">
+                                            {{habit.status}}<span v-if="options.habits.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Women's Health
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td>DLMC</td>
+                                    <td>
+                                        <p v-for="women in options.womens" :key="women.id">
+                                            {{women.dlmc}}<span v-if="options.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>TNP</td>
+                                    <td>
+                                        <p v-for="women in options.womens" :key="women.id">
+                                            {{women.tnp}}<span v-if="options.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Complications</td>
+                                    <td>
+                                        <p v-for="women in options.womens" :key="women.id">
+                                            {{women.complications}}<span v-if="options.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>AFM</td>
+                                    <td>
+                                        <p v-for="women in options.womens" :key="women.id">
+                                            {{women.afm}}<span v-if="options.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>AM</td>
+                                    <td>
+                                        <p v-for="women in options.womens" :key="women.id">
+                                            {{women.am}}<span v-if="options.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>NLB</td>
+                                    <td>
+                                        <p v-for="women in options.womens" :key="women.id">
+                                            {{women.nlb}}<span v-if="options.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Family
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td>Family Member</td>
+                                    <td>
+                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                            {{disease.family}}<span v-if="options.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Disease</td>
+                                    <td>
+                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                            {{disease.disease}}<span v-if="options.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Type</td>
+                                    <td>
+                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                            {{disease.type}}<span v-if="options.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>
+                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                            {{disease.status}}<span v-if="options.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Comment</td>
+                                    <td>
+                                        <p v-for="disease in options.diseases" :key="disease.id">
+                                            {{disease.comment}}<span v-if="options.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </section>
+                </VueHtml2pdf>
 
                 <VueHtml2pdf
                     :show-layout="false"
@@ -3222,7 +3567,11 @@ export default {
             saveError: null,
             forms: [],
             activeID: null,
-            selectedDate: null
+            selectedDate: null,
+            startYear: null,
+            endYear: null,
+            years: [],
+            selectedYear: null,
         }
     },
 
@@ -3239,6 +3588,22 @@ export default {
         this.deworming.patient_id = this.patient.id
         this.vaccination.patient_id = this.patient.id
 
+        var date = new Date();
+
+        var currentDate = date.toISOString().slice(0,10);
+
+        this.prenatal.date_today = currentDate
+
+        this.startYear = 1800;
+        this.endYear = new Date().getFullYear();
+
+        for (var i = this.endYear; i > this.startYear; i--){
+            // $('#yearpicker').append($('<option />').val(i).html(i));
+            this.years.push(i)
+        }
+
+        this.selectedYear = this.years[0]
+
         if(!this.options.isReport){
             if(this.auth.user_type == 'doctor' || this.auth.user_type == 'leader' || this.auth.user_type == 'member') {
                 this.forms = this.options.forms.filter(x => { return x.name == 'Tuberculosis Symptom Form' })
@@ -3246,21 +3611,21 @@ export default {
                 this.forms = this.options.forms.filter(x => { return x.name != 'Tuberculosis Symptom Form' })
             }
         } else {
-            this.forms = this.options.forms
+            this.forms = this.options.forms.filter(x => {
+                return x.display_year == this.selectedYear
+            })
         }
-
-        var date = new Date();
-
-        var currentDate = date.toISOString().slice(0,10);
-
-        this.prenatal.date_today = currentDate
-
-
     },
 
     watch: {
         activeForm(arg) {
             this.formData.name = arg
+        },
+
+        selectedYear(arg) {
+            this.forms = this.options.forms.filter(x => {
+                return x.display_year == this.selectedYear
+            })
         },
 
         'formData.tb': {
@@ -3508,6 +3873,10 @@ export default {
 
         printProfile() {
             this.$refs.profile.generatePdf()
+        },
+
+        printHistory(){
+            this.$refs.history.generatePdf()
         }
     }
 }
@@ -3517,7 +3886,7 @@ export default {
 <style scoped>
     .--input {
         height: 40px;
-        border: 1px solid black;
+        border: 1px solid #366422;
         border-radius: 5px;
         padding: 5px 10px 5px 10px;
         
@@ -3549,5 +3918,27 @@ export default {
         border: 1px solid black;
         border-radius: 10px;
         text-align: center;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-radius: 5px;
+        border-style: hidden;
+        box-shadow: 0 0 0 1px black;
+    }
+
+    td {
+        border: 1px solid black;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: black;
+        font-size: 12px;
+    }
+
+    th {
+        border: 1px solid black;
+        color: black;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
 </style>

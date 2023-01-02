@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Patient extends Model
 {
@@ -26,7 +27,9 @@ class Patient extends Model
 
     protected $appends = [
         'barangay',
-        'consultation_form'
+        'consultation_form',
+        'display_year',
+        'display_date'
     ];
 
     public function place()
@@ -42,6 +45,20 @@ class Patient extends Model
     public function getBarangayAttribute()
     {
         return $this->place->name;
+    }
+
+    public function getDisplayYearAttribute()
+    {
+        $date = Carbon::parse($this->created_at);
+
+        return $date->year;
+    }
+
+    public function getDisplayDateAttribute()
+    {
+        $date = Carbon::parse($this->created_at);
+
+        return $date->isoFormat('LL'); 
     }
 
     public function getConsultationFormAttribute()

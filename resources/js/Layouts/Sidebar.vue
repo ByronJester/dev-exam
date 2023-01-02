@@ -66,7 +66,7 @@
                     <span v-if="isHover" class="mx-2"
                         :style="{'border-bottom': active === '/trails' ? '1px solid white' : 'none'}"
                     > 
-                        AUDIT TRAILS
+                        LOGS
                     </span>
                 </p>
 

@@ -33,6 +33,16 @@
                             {{ place.name }}
                         </option>
                     </select> -->
+
+                    <select name="yearpicker" id="yearpicker"
+                        style="border: 1px solid black; width: 100px"
+                        class="ml-2 text-center"
+                        v-model="selectedYear"
+                        v-if="activeTab == 'patient_report'"
+                    >
+                        <option :value="year" v-for="year in years" :key="year"> {{ year }}</option>
+                    </select>
+
                     <div style="width: 252px; margin-left: 10px;">
                         <Dropdown
                             :options="options.places"
@@ -370,7 +380,11 @@ export default {
                 days: null
             },
             barangay: null,
-            search: null
+            search: null,
+            startYear: null,
+            endYear: null,
+            years: [],
+            selectedYear: null,
         }
     },
 
@@ -515,6 +529,13 @@ export default {
             }
         },
         activeTab(arg) {
+            this.startYear = 1800;
+            this.endYear = new Date().getFullYear();
+
+            for (var i = this.endYear; i > this.startYear; i--){
+                $('#yearpicker').append($('<option />').val(i).html(i));
+            }
+
             if(arg == 'medicine_report') {
                 if(this.medicine_report_type == 'individual') {
                     this.rows = this.options.patientMedicines 
@@ -680,10 +701,55 @@ export default {
                     },
                 ]
             }
+        },
+        selectedYear(arg) {
+            if(this.activeTab == 'patient_report') {
+                this.columns = [
+                    'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Consultation Forms', 'Date Created'
+                ];
+
+                this.keys = [
+                    {
+                        label: 'name',
+                    },
+                    {
+                        label: 'barangay',
+                    },
+                    {
+                        label: 'phone',
+                    },
+                    {
+                        label: 'age',
+                    },
+                    {
+                        label: 'gender',
+                    },
+                    {
+                        label: 'consultation_form',
+                    },
+                    {
+                        label: 'display_date',
+                    }, 
+                ]
+
+                this.rows = this.options.patients.filter(x => {
+                    return x.display_year == arg
+                })
+            }
         }
     },
 
     mounted(){
+        this.startYear = 1800;
+        this.endYear = new Date().getFullYear();
+
+        for (var i = this.endYear; i > this.startYear; i--){
+            // $('#yearpicker').append($('<option />').val(i).html(i));
+            this.years.push(i)
+        }
+
+        this.selectedYear = this.years[0]
+
         if(this.auth.user_type == 'leader' && this.activeTab == 'medicine_report') {
             this.medicine_report_type = 'barangay'
         }
@@ -694,7 +760,7 @@ export default {
 
         if(this.activeTab == 'patient_report') {
             this.columns = [
-                'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Consultation Forms'
+                'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Consultation Forms', 'Date Created'
             ];
 
             this.keys = [
@@ -715,10 +781,15 @@ export default {
                 },
                 {
                     label: 'consultation_form',
-                }
+                },
+                {
+                    label: 'display_date',
+                }, 
             ]
 
-            this.rows = this.options.patients
+            this.rows = this.options.patients.filter(x => {
+                return x.display_year == this.selectedYear
+            })
         }
 
         if(this.auth.user_type == 'pharmacist') {

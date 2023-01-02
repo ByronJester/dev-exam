@@ -132,7 +132,16 @@ class PatientController extends Controller
                 'forms' => $forms,
                 'vaccinations' => Vaccination::get(),
                 'isReport' => $isReport,
-                'places' => Place::get()
+                'places' => Place::get(),
+                'allergies' => Allergy::where('patient_id', $id)->get(),
+                'medications' => Medication::where('patient_id', $id)->get(),
+                'maintenance' => HealthMaintenanceHistory::where('patient_id', $id)->get(),
+                'vaccinations' => VaccinationHistory::where('patient_id', $id)->get(),
+                'diseases' => DiseaseHistory::where('patient_id', $id)->where('family', null)->get(),
+                'surgeries' => Surgery::where('patient_id', $id)->get(),
+                'habits' => RiskyHabit::where('patient_id', $id)->get(),
+                'families' => DiseaseHistory::where('patient_id', $id)->where('family', '!=', null)->get(),
+                'womens' => WomenHealthHistory::where('patient_id', $id)->get(),
             ]
         ]);
     }
@@ -179,7 +188,6 @@ class PatientController extends Controller
 
         $data['reference'] = Str::random(8);
         
-
         if($request->id) {
             PatientForm::where('id', $request->id)->update($data);
         } else {

@@ -22,7 +22,8 @@ class PatientForm extends Model
     ];
 
     protected $appends = [
-        'date_issued'
+        'date_issued',
+        'display_year'
     ];
 
     public function getTbAttribute($value)
@@ -37,5 +38,21 @@ class PatientForm extends Model
         $date = Carbon::parse($this->created_at);
 
         return $date->isoFormat('LL'); 
+    }
+
+    public function getDisplayYearAttribute()
+    {
+        $date = Carbon::parse($this->created_at);
+
+        return $date->year;
+    }
+
+    public function getNameAttribute($value)
+    {
+        if(!!$this->lmp) {
+            return $value;
+        } else {
+            return 'TB-Dots Form';
+        }
     }
 }

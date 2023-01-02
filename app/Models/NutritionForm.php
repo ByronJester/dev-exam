@@ -22,7 +22,7 @@ class NutritionForm extends Model
     ];
 
     protected $appends = [
-        'name', 'description', 'date_issued'
+        'name', 'description', 'date_issued', 'display_year'
     ];
 
     public function getNameAttribute()
@@ -40,5 +40,12 @@ class NutritionForm extends Model
         $date = Carbon::parse($this->created_at);
 
         return $date->isoFormat('LL'); 
+    }
+
+    public function getDisplayYearAttribute()
+    {
+        $date = Carbon::parse($this->created_at);
+
+        return $date->year;
     }
 }
