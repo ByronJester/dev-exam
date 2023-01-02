@@ -322,7 +322,7 @@ export default {
 
         search() {
             Inertia.get(
-                this.$root.route + '/users', this.form,
+                this.$root.route + '/users/archives', this.form, 
                 {
                     onSuccess: () => { },
                 },

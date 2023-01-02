@@ -631,14 +631,14 @@ export default {
 
             this.timeOut = setTimeout(
                 function(){
-                    self.search()
+                    self.searchData()
                 }
             , 2000);
         },
 
-        search() {
+        searchData() {
             Inertia.get(
-                this.$root.route + '/medicines', this.form,
+                this.$root.route + '/medicines', this.form, 
                 {
                     onSuccess: (res) => { 
 

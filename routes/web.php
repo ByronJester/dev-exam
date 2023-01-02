@@ -33,7 +33,7 @@ Route::middleware(['cors'])->group(function () {
         Route::get('/archives', [UserController::class, 'viewArchives'])->name('view.archives');
         Route::post('/login', [UserController::class, 'loginAccount']);
         Route::post('/logout', [UserController::class, 'logoutAccount']);
-        Route::post('/deactivate-reactivate', [UserController::class, 'changeStatus']);
+        Route::post('/deactivate-reactivate', [UserController::class, 'changeStatus']); 
         Route::post('/create-account', [UserController::class, 'saveUser']); 
         Route::post('/change-password', [UserController::class, 'changePassword']);
     });

@@ -39,6 +39,17 @@ class BarangayMedicine extends Model
         return $this->belongsTo(Medicine::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(MedicineCategory::class, 'medicine_category_id');
+    }
+
+
+    public function unit()
+    {
+        return $this->belongsTo(MedicineUnit::class, 'medicine_unit_id');
+    }
+
     public function getNameAttribute()
     {
         return $this->medicine->name;

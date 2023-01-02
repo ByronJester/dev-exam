@@ -33,6 +33,22 @@ class MedicineController extends Controller
             if($search = $request->search) {
                 $barangayMedicines = $barangayMedicines->whereHas('medicine', function($q) use ($search){
                     $q->where('name', 'LIKE', '%'. $search . '%');
+                })
+                ->orWhereHas('category', function($q) use ($search){
+                    $q->where('name', 'LIKE', '%'. $search . '%');
+                })
+                ->orWhereHas('unit', function($q) use ($search){
+                    $q->where('name', 'LIKE', '%'. $search . '%');
+                });
+
+                $patientMedicines = $patientMedicines->whereHas('medicine', function($q) use ($search){
+                    $q->where('name', 'LIKE', '%'. $search . '%');
+                })
+                ->whereHas('category', function($q) use ($search){
+                    $q->where('name', 'LIKE', '%'. $search . '%');
+                })
+                ->whereHas('unit', function($q) use ($search){
+                    $q->where('name', 'LIKE', '%'. $search . '%');
                 });
             }
 
