@@ -35,7 +35,7 @@ class SavePrenatal extends FormRequest
             'town' => "required",
             'zip' => "required|numeric|digits:4",
             'provider_phone' => "required|numeric|digits:11",
-            'provider_fax' => "required",
+            'provider_fax' => "nullable",
             'member_name' => "required|alpha_spaces",
             'age' => "required|numeric",
             'dob' => "required",

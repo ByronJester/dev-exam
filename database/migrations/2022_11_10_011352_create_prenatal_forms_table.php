@@ -26,7 +26,7 @@ class CreatePrenatalFormsTable extends Migration
             $table->string('town');
             $table->string('zip');
             $table->string('provider_phone');
-            $table->string('provider_fax');
+            $table->string('provider_fax')->nullable();
             $table->string('member_name');
             $table->date('dob');
             $table->string('age');

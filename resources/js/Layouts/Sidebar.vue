@@ -150,8 +150,8 @@
 
         <div class="w-full" style="min-height: 87vh; height: 100%" 
         >   
-            <div class="w-full ml-5 mt-5 text-4xl"> 
-                {{ auth.first_name}} {{ auth.last_name}} - {{ getUserType(auth) }}
+            <div class="w-full mt-5 text-4xl"> 
+                <span class="ml-5"> {{ auth.first_name}} {{ auth.last_name}} - {{ getUserType(auth) }} </span>
             </div>
             <slot></slot>
         </div>

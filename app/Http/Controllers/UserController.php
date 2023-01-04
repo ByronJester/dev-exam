@@ -325,18 +325,18 @@ class UserController extends Controller
             $patients = Patient::orderBy('created_at', 'desc')->where('user_id', $auth->id);
 
             if($auth->user_type == 'doctor') {
-                $patients = Patient::orderBy('name');
+                $patients = Patient::orderBy('first_name');
             }
 
             if($auth->user_type == 'midwife' && $auth->role == 2) {
-                $patients = Patient::orderBy('name')
+                $patients = Patient::orderBy('first_name')
                     ->whereHas('user', function (Builder $query) {
                         $query->whereIn('user_type', ['nurse', 'midwife']);
                     });
             }
 
             if($auth->user_type == 'leader') {
-                $patients = Patient::orderBy('name')
+                $patients = Patient::orderBy('first_name')
                     ->where('place_id', $auth->work_address)
                     ->whereHas('user', function (Builder $query) use ($auth) {
                         $query->whereIn('user_type', ['leader', 'member', 'midwife'])->where('role', $auth->role);

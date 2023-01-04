@@ -40,6 +40,33 @@ class Patient extends Model
         return $this->belongsTo(Place::class);
     }
 
+    public function getMiddleNameAttribute($value)
+    {
+        if($value == 'null' || $value == 'Null'){
+            return '';
+        }
+
+        return $value;
+    }
+
+    public function getDiagnosisAttribute($value)
+    {
+        if($value == 'null' || $value == 'Null'){
+            return '';
+        }
+
+        return $value;
+    }
+
+    public function getPhilhealthAttribute($value)
+    {
+        if($value == 'null' || $value == 'Null'){
+            return '';
+        }
+
+        return $value;
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

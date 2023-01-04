@@ -55,4 +55,13 @@ class User extends Authenticatable
         return null;
     }
 
+    public function getMiddleNameAttribute($value)
+    {
+        if($value == 'null' || $value == 'Null'){
+            return '';
+        }
+
+        return $value;
+    }
+
 }

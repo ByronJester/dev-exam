@@ -189,7 +189,7 @@ class PatientController extends Controller
 
     public function createPatientForm(CreatePatientForm $request)   
     {
-       $data = $request->except(['tb']);;
+       $data = $request->except(['tb', 'date_issued' , 'display_year']);
 
         if($request->tb && count($request->tb) > 0) {
             $data['tb'] = json_encode($request->tb);
@@ -208,7 +208,7 @@ class PatientController extends Controller
 
     public function createPrenatalForm(SavePrenatal $request)
     {
-        $data = $request->except(['behavioral_risks', 'pyschological_risks', 'medical_risks', 'obstetrics_risks', 'name', 'description']);
+        $data = $request->except(['behavioral_risks', 'pyschological_risks', 'medical_risks', 'obstetrics_risks', 'name', 'description', 'date_issued', 'display_year']);
 
         if(count($request->behavioral_risks) > 0) {
             $data['behavioral_risks'] = json_encode($request->behavioral_risks);
@@ -253,7 +253,7 @@ class PatientController extends Controller
 
     public function createPostnatalForm(SavePostnatal $request)
     {
-        $data = $request->except(['name', 'description']);
+        $data = $request->except(['name', 'description', 'date_issued', 'display_year']);
 
         if($request->id) {
             PostnatalForm::where('id', $request->id)->update($data); 
@@ -306,7 +306,7 @@ class PatientController extends Controller
 
     public function createNutritionForm(SaveNutrition $request)
     {
-        $data = $request->except(['name', 'description']);
+        $data = $request->except(['name', 'description', 'date_issued', 'display_year']);
 
         if(!!$request->id) {
             NutritionForm::where('id', $request->id)->update($data);
@@ -319,7 +319,7 @@ class PatientController extends Controller
 
     public function createDewormingForm(SaveDeworming $request)
     {
-        $data = $request->except(['name', 'description']);
+        $data = $request->except(['name', 'description', 'date_issued', 'display_year']);
 
         if(!!$request->id) {
             DewormingForm::where('id', $request->id)->update($data);
@@ -332,7 +332,7 @@ class PatientController extends Controller
 
     public function createVaccinationForm(SaveVaccination $request)
     {
-        $data = $request->except(['name', 'description']);
+        $data = $request->except(['name', 'description', 'date_issued', 'display_year']);
 
         if(!!$request->id) {
             VaccinationForm::where('id', $request->id)->update($data);

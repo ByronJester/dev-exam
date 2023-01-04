@@ -80,7 +80,7 @@
                     :enable-download="true"
                     :preview-modal="true"
                     :paginate-elements-by-height="2000"
-                    :filename="Math.random().toString(36).slice(2)"  
+                    :filename="Math.random().toString(36).slice(2)" 
                     :pdf-quality="2"
                     :manual-pagination="false"
                     pdf-format="a4"
@@ -592,11 +592,15 @@
                         <section slot="pdf-content">
                             <div class="w-full p-5">
                                 <div style="width: 100%">
+                                    <div class="w-full h-full flex justify-center items-center">
+                                        <img src="/images/logo1.png" class="py-1" style="height: 100px; width: 100px"/>
+                                    </div>
+
                                     <div class="w-full text-center">
                                         <p style="font-weight: 500" class="text-lg">
                                             Republic of the Philippines<br>
                                             Province of Batangas <br>
-                                            Municipal Health of Balayan Batangas
+                                            Municipal Health Unit of Balayan Batangas
                                         </p>
                                     </div>
                                 </div>
@@ -931,14 +935,12 @@
                         </div>
 
                         <div class="w-full">
-                            <span class="float-right cursor-pointer p-4" v-if="options.isReport" 
+                            <span class="float-right cursor-pointer p-4" 
                                 @click="printReport('tb-dots')"
                             >
                                 <i class="fa-solid fa-print"></i>
                             </span>
                         </div>
-
-                        
 
                         <div class="w-full p-4"
                             style="height: auto; border: 1px solid black; border-radius: 5px"
@@ -1294,11 +1296,15 @@
                         <section slot="pdf-content">
                             <div class="w-full p-5">
                                 <div style="width: 100%">
+                                    <div class="w-full h-full flex justify-center items-center">
+                                        <img src="/images/logo1.png" class="py-1" style="height: 100px; width: 100px"/>
+                                    </div>
+
                                     <div class="w-full text-center">
                                         <p style="font-weight: 500" class="text-lg">
                                             Republic of the Philippines<br>
                                             Province of Batangas <br>
-                                            Municipal Health of Balayan Batangas
+                                            Municipal Health Unit of Balayan Batangas
                                         </p>
                                     </div>
                                 </div>
@@ -1346,7 +1352,7 @@
                         </div>
 
                         <div class="w-full">
-                            <span class="float-right cursor-pointer p-4" v-if="options.isReport" 
+                            <span class="float-right cursor-pointer p-4"
                                 @click="printReport('pregnancy')"
                             >
                                 <i class="fa-solid fa-print"></i>
@@ -1413,6 +1419,20 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full flex-col p-1">
+                                <div style="width: 100%">
+                                    <div class="w-full h-full flex justify-center items-center">
+                                        <img src="/images/logo1.png" class="py-1" style="height: 100px; width: 100px"/>
+                                    </div>
+
+                                    <div class="w-full text-center">
+                                        <p style="font-weight: 500" class="text-lg">
+                                            Republic of the Philippines<br>
+                                            Province of Batangas <br>
+                                            Municipal Health Unit of Balayan Batangas
+                                        </p>
+                                    </div>
+                                </div>
+
                                 <div class="w-full text-2xl font-bold mb-5">
                                     <span>
                                         {{ patient.name }} - {{ activeForm }}
@@ -1425,7 +1445,7 @@
 
                                 <div class="w-full">
                                     <label>Today's Date:</label><br>
-                                    <input type="date" class="--input mt-1" v-model="prenatal.date_today"><br>
+                                    <input type="date" class="--input mt-1" v-model="prenatal.date_today" style="width: 200px"><br>
                                     <span class="text-xs text-red-500 pl-2">{{validationError('date_today', saveError)}} </span>
                                 </div>
 
@@ -1491,7 +1511,7 @@
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Provider Fax:</label><br>
+                                        <label><span style="color:red">*</span>Provider Fax:</label><br>
                                         <input type="text" class="--input w-full mt-1" v-model="prenatal.provider_fax">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('provider_fax', saveError)}} </span>
                                     </div>
@@ -1535,7 +1555,7 @@
 
                                 <div class="w-full flex flex-row mt-2">
                                     <div class="w-full pr-2">
-                                        <label>Phone:</label><br>
+                                        <label>Member Phone:</label><br>
                                         <input type="text" class="--input w-full mt-1" v-model="prenatal.member_phone">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('member_phone', saveError)}} </span>
                                     </div>
@@ -1616,7 +1636,7 @@
                                         <span class="text-xs text-red-500 pl-2">{{validationError('delivery_facility', saveError)}} </span>
                                     </div>
                                 </div>
-
+                                    <div class="html2pdf__page-break mb-24"/>
                                 <div class="w-full mt-2 font-bold">
                                     RISK ASSESSMENT
                                 </div>
@@ -1853,14 +1873,14 @@
                     <div class="w-full" v-if="activeForm == 'Prenatal Registration Form'" style="border: 1px solid black; border-radius: 5px">
                         <div class="w-full" v-if="!options.isReport">
                             <span class="float-right cursor-pointer p-4" 
-                                @click="activeForm = null"
+                                @click="activeForm = null; formData.tb = []; formData.lmp = null; formData.edc = null; formData.edd = null; selectedForm = null;"
                             >
                                 <i class="fa-solid fa-xmark"></i>
                             </span>
                         </div>
 
                         <div class="w-full">
-                            <span class="float-right cursor-pointer p-4" v-if="options.isReport" 
+                            <span class="float-right cursor-pointer p-4"
                                 @click="printReport('prenatal')"
                             >
                                 <i class="fa-solid fa-print"></i>
@@ -1877,10 +1897,10 @@
                                     {{ selectedDate }}
                                 </span>
                             </div>
-
+                            
                             <div class="w-full">
                                 <label>Today's Date:</label><br>
-                                <input type="date" class="--input" v-model="prenatal.date_today" :disabled="options.isReport"><br>
+                                <input type="date" class="--input" v-model="prenatal.date_today" :disabled="options.isReport" style="width:200px"><br>
                                 <span class="text-xs text-red-500 pl-2">{{validationError('date_today', saveError)}} </span>
                             </div>
 
@@ -1946,7 +1966,7 @@
                                 </div>
 
                                 <div class="w-full pr-2">
-                                    <label>Provider Fax:</label><br>
+                                    <label><span style="color:red">*</span>Provider Fax:</label><br>
                                     <input type="text" class="--input w-full" v-model="prenatal.provider_fax" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('provider_fax', saveError)}} </span>
                                 </div>
@@ -1988,7 +2008,7 @@
 
                             <div class="w-full flex flex-row mt-4">
                                 <div class="w-full pr-2">
-                                    <label>Phone:</label><br>
+                                    <label>Member Phone:</label><br>
                                     <input type="text" class="--input w-full" v-model="prenatal.member_phone" :disabled="options.isReport">
                                     <span class="text-xs text-red-500 pl-2">{{validationError('member_phone', saveError)}} </span>
                                 </div>
@@ -2317,11 +2337,15 @@
                         <section slot="pdf-content">
                             <div class="w-full p-5">
                                 <div style="width: 100%">
+                                    <div class="w-full h-full flex justify-center items-center">
+                                        <img src="/images/logo1.png" class="py-1" style="height: 100px; width: 100px"/>
+                                    </div>
+
                                     <div class="w-full text-center">
                                         <p style="font-weight: 500" class="text-lg">
                                             Republic of the Philippines<br>
                                             Province of Batangas <br>
-                                            Municipal Health of Balayan Batangas
+                                            Municipal Health Unit of Balayan Batangas
                                         </p>
                                     </div>
                                 </div>
@@ -2356,7 +2380,7 @@
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Height:</label><br>
+                                        <label>Height (cm):</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="nutrition.height">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
                                     </div>
@@ -2365,7 +2389,7 @@
 
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Weight:</label><br>
+                                        <label>Weight (kg):</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="nutrition.weight">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
                                     </div>
@@ -2382,14 +2406,7 @@
                                         <span class="text-xs text-red-500 pl-2">{{validationError('vitamins', saveError)}} </span>
                                     </div>
 
-                                    <div class="w-full pr-2 mt-5">
-                                        <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
-                                            @click="createNutritionForm()"
-                                            v-if="!options.isReport"
-                                        >
-                                            Save
-                                        </button>
-                                    </div>
+  
                                 </div>
                             </div>
                         </section>
@@ -2406,7 +2423,7 @@
                         </div>
 
                         <div class="w-full">
-                            <span class="float-right cursor-pointer p-4" v-if="options.isReport" 
+                            <span class="float-right cursor-pointer p-4"
                                 @click="printReport('nutrition')"
                             >
                                 <i class="fa-solid fa-print"></i>
@@ -2443,7 +2460,7 @@
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Height:</label><br>
+                                <label>Height (cm):</label><br>
                                 <input type="text" class="--input w-full" v-model="nutrition.height" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
                             </div>
@@ -2452,7 +2469,7 @@
 
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Weight:</label><br>
+                                <label>Weight (kg):</label><br>
                                 <input type="text" class="--input w-full" v-model="nutrition.weight" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
                             </div>
@@ -2497,11 +2514,15 @@
                         <section slot="pdf-content">
                             <div class="w-full p-5">
                                 <div style="width: 100%">
+                                    <div class="w-full h-full flex justify-center items-center">
+                                        <img src="/images/logo1.png" class="py-1" style="height: 100px; width: 100px"/>
+                                    </div>
+
                                     <div class="w-full text-center">
                                         <p style="font-weight: 500" class="text-lg">
                                             Republic of the Philippines<br>
                                             Province of Batangas <br>
-                                            Municipal Health of Balayan Batangas
+                                            Municipal Health Unit of Balayan Batangas
                                         </p>
                                     </div>
                                 </div>
@@ -2535,7 +2556,7 @@
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Height:</label><br>
+                                        <label>Height (cm):</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="deworming.height">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
                                     </div>
@@ -2544,7 +2565,7 @@
 
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Weight:</label><br>
+                                        <label>Weight (kg):</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="deworming.weight">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
                                     </div>
@@ -2559,15 +2580,6 @@
                                         <label>Deworming Medication:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="deworming.deworming_medication">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('deworming_medication', saveError)}} </span>
-                                    </div>
-
-                                    <div class="w-full pr-2 mt-5">
-                                        <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
-                                            @click="createDewormingForm()"
-                                            v-if="!options.isReport"
-                                        >
-                                            Save
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -2585,7 +2597,7 @@
                         </div>
 
                         <div class="w-full">
-                            <span class="float-right cursor-pointer p-4" v-if="options.isReport" 
+                            <span class="float-right cursor-pointer p-4"
                                 @click="printReport('deworming')"
                             >
                                 <i class="fa-solid fa-print"></i>
@@ -2622,7 +2634,7 @@
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Height:</label><br>
+                                <label>Height (cm):</label><br>
                                 <input type="text" class="--input w-full" v-model="deworming.height" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
                             </div>
@@ -2631,7 +2643,7 @@
 
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Weight:</label><br>
+                                <label>Weight (kg):</label><br>
                                 <input type="text" class="--input w-full" v-model="deworming.weight" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
                             </div>
@@ -2676,13 +2688,20 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
-                                <div class="w-full text-center">
-                                    <p style="font-weight: 500" class="text-lg">
-                                        Republic of the Philippines<br>
-                                        Province of Batangas <br>
-                                        Municipal Health of Balayan Batangas
-                                    </p>
+                                <div style="width: 100%">
+                                    <div class="w-full h-full flex justify-center items-center">
+                                        <img src="/images/logo1.png" class="py-1" style="height: 100px; width: 100px"/>
+                                    </div>
+
+                                    <div class="w-full text-center">
+                                        <p style="font-weight: 500" class="text-lg">
+                                            Republic of the Philippines<br>
+                                            Province of Batangas <br>
+                                            Municipal Health Unit of Balayan Batangas
+                                        </p>
+                                    </div>
                                 </div>
+
                                 <div class="w-full text-2xl font-bold mb-5 ml-4 mt-10">
                                     <span>
                                         {{ patient.name }} - {{ activeForm }}
@@ -2713,7 +2732,7 @@
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Height:</label><br>
+                                        <label>Height (cm):</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="vaccination.height">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
                                     </div>
@@ -2722,7 +2741,7 @@
 
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Weight:</label><br>
+                                        <label>Weight (kg):</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="vaccination.weight">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
                                     </div>
@@ -2740,15 +2759,6 @@
                                         </select>
                                         <span class="text-xs text-red-500 pl-2">{{validationError('vaccination_id', saveError)}} </span>
                                     </div>
-
-                                    <div class="w-full pr-2 mt-5">
-                                        <button class="w-full mx-2" style="background: black; color: white; border: 1px solid white; border-radius: 5px; height: 43px;"
-                                            @click="createVaccinationForm()"
-                                            v-if="!options.isReport" 
-                                        >
-                                            Save
-                                        </button>
-                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -2765,7 +2775,7 @@
                         </div>
 
                         <div class="w-full">
-                            <span class="float-right cursor-pointer p-4" v-if="options.isReport" 
+                            <span class="float-right cursor-pointer p-4"
                                 @click="printReport('vaccination')"
                             >
                                 <i class="fa-solid fa-print"></i>
@@ -2802,7 +2812,7 @@
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Height:</label><br>
+                                <label>Height (cm):</label><br>
                                 <input type="text" class="--input w-full" v-model="vaccination.height" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('height', saveError)}} </span>
                             </div>
@@ -2811,7 +2821,7 @@
 
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Weight:</label><br>
+                                <label>Weight (kg):</label><br>
                                 <input type="text" class="--input w-full" v-model="vaccination.weight" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('weight', saveError)}} </span>
                             </div>
@@ -2857,6 +2867,20 @@
                     >
                         <section slot="pdf-content">
                             <div class="w-full p-5">
+                                <div style="width: 100%">
+                                    <div class="w-full h-full flex justify-center items-center">
+                                        <img src="/images/logo1.png" class="py-1" style="height: 100px; width: 100px"/>
+                                    </div>
+
+                                    <div class="w-full text-center">
+                                        <p style="font-weight: 500" class="text-lg">
+                                            Republic of the Philippines<br>
+                                            Province of Batangas <br>
+                                            Municipal Health Unit of Balayan Batangas
+                                        </p>
+                                    </div>
+                                </div>
+                                
                                 <div class="w-full text-2xl font-bold mb-5 ml-4">
                                     <span>
                                         {{ patient.name }} - {{ activeForm }}
@@ -2943,7 +2967,7 @@
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.gestational_age">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('gestational_age', saveError)}} </span>
                                     </div>
-
+                                    
                                     <div class="w-full pr-2">
                                         <label>Last Menstrual Period:</label><br>
                                         <input type="date" class="--input w-full mt-2" v-model="postnatal.lmp">
@@ -2952,7 +2976,11 @@
 
                                     <div class="w-full pr-2">
                                         <label>New Born Sex:</label><br>
-                                        <input type="text" class="--input w-full mt-2" v-model="postnatal.new_born_sex">
+                                        <!-- <input type="text" class="--input w-full mt-2" v-model="postnatal.new_born_sex"> -->
+                                        <select v-model="postnatal.new_born_sex" class="--input w-full">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
                                         <span class="text-xs text-red-500 pl-2">{{validationError('new_born_sex', saveError)}} </span>
                                     </div>
 
@@ -2983,7 +3011,7 @@
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Chief Complain:</label><br>
+                                        <label><span style="color:red">*</span>Chief Complain:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.chief_complain">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('chief_complain', saveError)}} </span>
                                     </div>
@@ -2997,20 +3025,20 @@
 
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>New Born Weight:</label><br>
+                                        <label>New Born Weight (kg):</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.newborn_weight">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('newborn_weight', saveError)}} </span>
                                     </div>
 
 
                                     <div class="w-full pr-2">
-                                        <label>Elimination Pattern:</label><br>
+                                        <label><span style="color:red">*</span>Elimination Pattern:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.elimination_pattern">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('elimination_pattern', saveError)}} </span>
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Activity and Exercise:</label><br>
+                                        <label><span style="color:red">*</span>Activity and Exercise:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.activity_and_exercise">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('activity_and_exercise', saveError)}} </span>
                                     </div>
@@ -3030,19 +3058,19 @@
 
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Bad Habits:</label><br>
+                                        <label><span style="color:red">*</span>Bad Habits:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.bad_habits">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('bad_habits', saveError)}} </span>
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Nutritional Pattern:</label><br>
+                                        <label><span style="color:red">*</span>Nutritional Pattern:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.nutritional_pattern">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('nutritional_pattern', saveError)}} </span>
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Sleeping Pattern</label><br>
+                                        <label><span style="color:red">*</span>Sleeping Pattern</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.sleeping_pattern">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('sleeping_pattern', saveError)}} </span>
                                     </div>
@@ -3054,27 +3082,27 @@
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Amount of Blood Loss:</label><br>
+                                        <label>Amount of Blood Loss (ml):</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.amount_of_blood_loss">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('amount_of_blood_loss', saveError)}} </span>
                                     </div>
                                 </div>
-
+                                    <div class="html2pdf__page-break mb-24"/>
                                 <div class="w-full flex flex-row p-4">
                                     <div class="w-full pr-2">
-                                        <label>Duration of Marriage:</label><br>
+                                        <label><span style="color:red">*</span>Duration of Marriage:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.duration_of_marriage">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('duration_of_marriage', saveError)}} </span>
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Family Planning Method Adopted:</label><br>
+                                        <label><span style="color:red">*</span>Family Planning Method Adopted:</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.family_planning_method_adopted">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('family_planning_method_adopted', saveError)}} </span>
                                     </div>
 
                                     <div class="w-full pr-2">
-                                        <label>Diseases</label><br>
+                                        <label><span style="color:red">*</span>Diseases</label><br>
                                         <input type="text" class="--input w-full mt-2" v-model="postnatal.diseases">
                                         <span class="text-xs text-red-500 pl-2">{{validationError('diseases', saveError)}} </span>
                                     </div>
@@ -3155,7 +3183,7 @@
                         </div>
 
                         <div class="w-full">
-                            <span class="float-right cursor-pointer p-4" v-if="options.isReport" 
+                            <span class="float-right cursor-pointer p-4"
                                 @click="printReport('postnatal')"
                             >
                                 <i class="fa-solid fa-print"></i>
@@ -3257,7 +3285,11 @@
 
                             <div class="w-full pr-2">
                                 <label>New Born Sex:</label><br>
-                                <input type="text" class="--input w-full" v-model="postnatal.new_born_sex" :disabled="options.isReport">
+                                <!-- <input type="text" class="--input w-full" v-model="postnatal.new_born_sex" :disabled="options.isReport"> -->
+                                <select v-model="postnatal.new_born_sex" class="--input w-full">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
                                 <span class="text-xs text-red-500 pl-2">{{validationError('new_born_sex', saveError)}} </span>
                             </div>
 
@@ -3288,7 +3320,7 @@
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Chief Complain:</label><br>
+                                <label><span style="color:red">*</span>Chief Complain:</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.chief_complain" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('chief_complain', saveError)}} </span>
                             </div>
@@ -3302,20 +3334,20 @@
 
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>New Born Weight:</label><br>
+                                <label>New Born Weight (kg):</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.newborn_weight" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('newborn_weight', saveError)}} </span>
                             </div>
 
 
                             <div class="w-full pr-2">
-                                <label>Elimination Pattern:</label><br>
+                                <label><span style="color:red">*</span>Elimination Pattern:</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.elimination_pattern" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('elimination_pattern', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Activity and Exercise:</label><br>
+                                <label><span style="color:red">*</span>Activity and Exercise:</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.activity_and_exercise" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('activity_and_exercise', saveError)}} </span>
                             </div>
@@ -3335,19 +3367,19 @@
 
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Bad Habits:</label><br>
+                                <label><span style="color:red">*</span>Bad Habits:</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.bad_habits" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('bad_habits', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Nutritional Pattern:</label><br>
+                                <label><span style="color:red">*</span>Nutritional Pattern:</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.nutritional_pattern" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('nutritional_pattern', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Sleeping Pattern</label><br>
+                                <label><span style="color:red">*</span>Sleeping Pattern</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.sleeping_pattern" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('sleeping_pattern', saveError)}} </span>
                             </div>
@@ -3359,7 +3391,7 @@
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Amount of Blood Loss:</label><br>
+                                <label>Amount of Blood Loss (ml):</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.amount_of_blood_loss" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('amount_of_blood_loss', saveError)}} </span>
                             </div>
@@ -3367,25 +3399,25 @@
 
                         <div class="w-full flex flex-row p-4">
                             <div class="w-full pr-2">
-                                <label>Duration of Marriage:</label><br>
+                                <label><span style="color:red">*</span>Duration of Marriage:</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.duration_of_marriage" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('duration_of_marriage', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Family Planning Method Adopted:</label><br>
+                                <label><span style="color:red">*</span>Family Planning Method Adopted:</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.family_planning_method_adopted" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('family_planning_method_adopted', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Diseases</label><br>
+                                <label><span style="color:red">*</span>Diseases</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.diseases" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('diseases', saveError)}} </span>
                             </div>
 
                             <div class="w-full pr-2">
-                                <label>Genitics Condition:</label><br>
+                                <label><span style="color:red">*</span>Genitics Condition:</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.genitics_condition" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('genitics_condition', saveError)}} </span>
                             </div>
@@ -3627,7 +3659,68 @@ export default {
     },
 
     created() {
+        var date = new Date();
+
+        var currentDate = date.toISOString().slice(0,10);
+
         this.patient = this.options.patient
+
+        this.nutrition = {
+            id: null,
+            patient_id: null,
+            guardian_name: this.patient.contact_person,
+            dob: this.patient.dob,
+            age: this.patient.age,
+            height: null,
+            weight: null,
+            bmi: null,
+            vitamins: null,
+        }
+
+        this.deworming = {
+            id: null,
+            patient_id: null,
+            guardian_name: this.patient.contact_person,
+            dob: this.patient.dob,
+            age: this.patient.age,
+            height: null,
+            weight: null,
+            bmi: null,
+            deworming_medication: null,
+        }
+
+        this.vaccination ={
+            id: null,
+            patient_id: null,
+            guardian_name: this.patient.contact_person,
+            dob: this.patient.dob,
+            age: this.patient.age,
+            height: null,
+            weight: null, 
+            bmi: null,
+            vaccination_id: null,
+        }
+
+        this.prenatal.city = 'Batangas'
+        this.prenatal.town = 'Balayan'
+        this.prenatal.provider_name = this.patient.name 
+        this.prenatal.provider_address = this.patient.barangay + ', Balayan, Batangas'
+        this.prenatal.provider_phone = this.patient.phone 
+        this.prenatal.member_name = this.patient.name
+        this.prenatal.dob = this.patient.dob
+        this.prenatal.age = this.patient.age
+        this.prenatal.member_address = this.patient.barangay + ', Balayan, Batangas',
+        this.prenatal.member_city = 'Batangas'
+        this.prenatal.member_town = 'Balayan'
+        this.prenatal.member_phone = this.patient.phone 
+        this.prenatal.date = currentDate
+        this.prenatal.date_today = currentDate
+
+        this.postnatal.clients_name = this.patient.name
+        this.postnatal.address = this.patient.barangay + ', Balayan, Batangas'
+        this.postnatal.dob = this.patient.dob
+        this.postnatal.age = this.patient.age
+
 
         this.formData.patient_id = this.patient.id
 
@@ -3639,11 +3732,6 @@ export default {
         this.deworming.patient_id = this.patient.id
         this.vaccination.patient_id = this.patient.id
 
-        var date = new Date();
-
-        var currentDate = date.toISOString().slice(0,10);
-
-        this.prenatal.date_today = currentDate
 
         this.startYear = 1800;
         this.endYear = new Date().getFullYear();
@@ -3669,6 +3757,42 @@ export default {
     },
 
     watch: {
+        'nutrition.height'(arg){
+            if(this.nutrition.weight) {
+                this.nutrition.bmi = parseFloat(((this.nutrition.weight / arg) / arg) * 10000).toFixed(1)
+            }
+        },
+
+        'nutrition.weight'(arg){
+            if(this.nutrition.height) {
+                this.nutrition.bmi = parseFloat(((arg / this.nutrition.height) / this.nutrition.height) * 10000).toFixed(1)
+            }
+        },
+
+        'vaccination.height'(arg){
+            if(this.vaccination.weight) {
+                this.vaccination.bmi = parseFloat(((this.vaccination.weight / arg) / arg) * 10000).toFixed(1)
+            }
+        },
+
+        'vaccination.weight'(arg){
+            if(this.vaccination.height) {
+                this.vaccination.bmi = parseFloat(((arg / this.vaccination.height) / this.vaccination.height) * 10000).toFixed(1)
+            }
+        },
+
+        'deworming.height'(arg){
+            if(this.deworming.weight) {
+                this.deworming.bmi = parseFloat(((this.deworming.weight / arg) / arg) * 10000).toFixed(1)
+            }
+        },
+
+        'deworming.weight'(arg){
+            if(this.deworming.height) {
+                this.deworming.bmi = parseFloat(((arg / this.deworming.height) / this.deworming.height) * 10000).toFixed(1)
+            }
+        },
+
         activeForm(arg) {
             this.formData.name = arg
         },
