@@ -23,6 +23,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -251,10 +253,10 @@ class UserController extends Controller
             return Inertia::render('Maintenance', [
                 'auth'    => $auth,
                 'options' => [
-                    'medicines' => Medicine::get(),
-                    'categories' => MedicineCategory::get(),
-                    'units' => MedicineUnit::get(),
-                    'vaccinations' => Vaccination::get()
+                    'medicines' => Medicine::orderBy('name')->get(),
+                    'categories' => MedicineCategory::orderBy('name')->get(),
+                    'units' => MedicineUnit::orderBy('name')->get(),
+                    'vaccinations' => Vaccination::orderBy('name')->get()
                 ]
             ]);
         }
@@ -317,22 +319,24 @@ class UserController extends Controller
     {
         $auth = Auth::user();
 
+        $patientData = [];
+
         if($auth) {
             $patients = Patient::orderBy('created_at', 'desc')->where('user_id', $auth->id);
 
             if($auth->user_type == 'doctor') {
-                $patients = Patient::orderBy('created_at', 'desc');
+                $patients = Patient::orderBy('name');
             }
 
             if($auth->user_type == 'midwife' && $auth->role == 2) {
-                $patients = Patient::orderBy('created_at', 'desc')
+                $patients = Patient::orderBy('name')
                     ->whereHas('user', function (Builder $query) {
                         $query->whereIn('user_type', ['nurse', 'midwife']);
                     });
             }
 
             if($auth->user_type == 'leader') {
-                $patients = Patient::orderBy('created_at', 'desc')
+                $patients = Patient::orderBy('name')
                     ->where('place_id', $auth->work_address)
                     ->whereHas('user', function (Builder $query) use ($auth) {
                         $query->whereIn('user_type', ['leader', 'member', 'midwife'])->where('role', $auth->role);
@@ -353,15 +357,80 @@ class UserController extends Controller
 
             if($auth->user_type == 'leader') {
                 $barangayMedicines = $barangayMedicines->where('place_id', $auth->work_address);
-            } 
+            }
+
+            $date_start = $request->date_start;
+            $date_end = $request->date_end;
+            $age_start = $request->age_start;
+            $age_end = $request->age_end;
+            $gender = $request->gender;
+            $formType = $request->formType;
+            $barangay = $request->barangay;
+
+            // if($age_start && $age_end){
+            //     $patients = $patients->where(function ($query) use ($age_start, $age_end) {
+            //         $query->where('age',  '>=', $age_start)
+            //           ->where('age',  '<=', $age_end);
+            //     });
+            // }
+
+            if($date_start && $date_end){
+                $from = Carbon::parse($date_start)->startOfDay()->toDateTimeString(); // 2018-09-29 00:00:00
+                $to = Carbon::parse($date_end)->endOfDay()->toDateTimeString(); // 2018-09-29 00:00:00
+
+                $patients = $patients->whereBetween('created_at', [$from, $to]);
+            }
+
+            if($gender){
+                $patients = $patients->where('gender', $gender);
+            }
+            
+            $patientData = $patients->get();
+
+            $isFiltered = false;
+
+            if($age_start && $age_end){
+                $patientData = $patientData->filter(function ($value, $key) use ($age_start, $age_end) {
+                    return $value->age >= $age_start && $value->age <= $age_end;
+                });
+
+                $isFiltered = true;
+            }
+
+            if($formType) {
+                $patientData = $patientData->filter(function ($value, $key) use ($formType) {
+                    return in_array($formType, $value->consultation_form);
+                });
+
+                $isFiltered = true;
+            }
+
+            if($barangay) {
+                $patientData = $patientData->filter(function ($value, $key) use ($barangay) {
+                    return strtolower($value->barangay) == strtolower($barangay);
+                });
+
+                $isFiltered = true;
+            }
+
+            $now = Carbon::now();
 
             return Inertia::render('Reports', [
                 'auth'    => $auth,
                 'options' => [
                     'barangayMedicines' => $barangayMedicines->get(),
                     'patientMedicines'  => $patientMedicines->get(),
-                    'patients' => $patients->get(),
-                    'places' => Place::get()
+                    'patients' => $patientData,
+                    'places' => Place::get(),
+                    'date_start' => $date_start,
+                    'date_end' => $date_end,
+                    'age_start' => $age_start,
+                    'age_end' => $age_end,
+                    'gender' => $gender,
+                    'formType' => $formType,
+                    'barangay' => $barangay,
+                    'now' => $now->isoFormat('LL'),
+                    'reportCount' => !!$isFiltered ? $patientData->count() : count($patientData)
                 ]
             ]);
         }

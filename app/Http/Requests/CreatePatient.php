@@ -25,7 +25,9 @@ class CreatePatient extends FormRequest
     {
         $rules = [
             'place_id' => "required",
-            'name' => "required|alpha_spaces",
+            'first_name' => "required|alpha_spaces",
+            'middle_name' => "nullable|alpha_spaces",
+            'last_name' => "required|alpha_spaces",
             'phone' => "required|numeric|digits:11",
             'dob' => "required",
             'age' => "required|numeric|min:1|max:120",

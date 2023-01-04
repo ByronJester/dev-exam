@@ -25,61 +25,136 @@
                     </div>
                 </div>
 
-                <div class="w-full inline-flex mt-4" v-if="activeTab != 'medical_certificate'">
-                    <!-- <select class="ml-3" style="width: 150px !important; height: 40px; border: 1px solid black; border-radius: 10px" v-model="barangay" v-if="auth.role != 3">
-                        <option v-for="place in options.places" :key="place.name"
-                            :value="place.name"
-                        >
-                            {{ place.name }}
-                        </option>
-                    </select> -->
+                <div class="flex flex-row mt-20" v-if="activeTab != 'medical_certificate'" :style="{'width': activeTab == 'patient_report' ? '70%' : '50%'}">
+                    <div class="w-3/4 flex flex-col">
+                        <div class="ml-3 font-bold">
+                            Select Barangay:
+                        </div>
 
-                    <select name="yearpicker" id="yearpicker"
-                        style="border: 1px solid black; width: 100px"
-                        class="ml-2 text-center"
-                        v-model="selectedYear"
-                        v-if="activeTab == 'patient_report'"
-                    >
-                        <option :value="year" v-for="year in years" :key="year"> {{ year }}</option>
-                    </select>
-
-                    <div style="width: 252px; margin-left: 10px;">
-                        <Dropdown
-                            :options="options.places"
-                            v-on:selected="selectBarangay"
-                            :disabled="false"
-                            name="barangay"
-                            :maxItem="5"
-                            style="border: 1px solid black; border-radius: 3px"
-                            placeholder="Please select barangay...">
-                        </Dropdown>
+                        <div style="width: 252px;" class="ml-3">
+                            <Dropdown
+                                :options="options.places"
+                                v-on:selected="selectBarangay"
+                                :disabled="false"
+                                name="barangay"
+                                :maxItem="options.places.length"
+                                style="border: 1px solid black; border-radius: 3px"
+                                :placeholder="barangay">
+                            </Dropdown>
+                        </div>
                     </div>
 
-                    <input type="text" style="width: 252px !important; height: 35px; border: 1px solid black; border-radius: 3px" class="ml-3 p-1" placeholder="Search...." v-model="search">
+                    <div class="w-1/4 flex flex-col ml-3" v-if="activeTab == 'patient_report'">
+                        <div class="font-bold">
+                            Age From:
+                        </div>
 
+                        <div style="width: 100%;">
+                            <input type="text" style="width: 100% !important; height: 35px; border: 1px solid black; border-radius: 3px" class="p-1 text-center" v-model="age.start" @keypress="validateNumber($event)">
+                        </div>
+                    </div>
+
+                    <div class="w-1/5 flex flex-col ml-3" v-if="activeTab == 'patient_report'">
+                        <div class="font-bold">
+                            Age To:
+                        </div>
+
+                        <div style="width: 100%">
+                            <input type="text" style="width: 100% !important; height: 35px; border: 1px solid black; border-radius: 3px" class="p-1 text-center" v-model="age.end" @keypress="validateNumber($event)">
+                        </div>
+                    </div>
+
+                    <div class="w-2/5 flex flex-col ml-3" v-if="activeTab == 'medicine_report'">
+                        <div class="font-bold">
+                            Search:
+                        </div>
+
+                        <div style="width: 100%;">
+                            <input type="text" style="width: 252px !important; height: 35px; border: 1px solid black; border-radius: 3px" class="ml-3 p-1" placeholder="Search...." v-model="search">
+                        </div>
+                    </div>
+
+                    <div class="w-2/5 flex flex-col ml-3">
+                        <div class="font-bold">
+                            Date From:
+                        </div>
+
+                        <div style="width: 100%;">
+                            <input type="date" style="width: 100% !important; height: 35px; border: 1px solid black; border-radius: 3px" class="p-1 text-center" v-model="date.start">
+                        </div>
+                    </div>
+
+                    <div class="w-2/5 flex flex-col ml-3">
+                        <div class="font-bold">
+                            Date To:
+                        </div>
+
+                        <div style="width: 100%;">
+                            <input type="date" style="width: 100% !important; height: 35px; border: 1px solid black; border-radius: 3px" class="p-1 text-center" v-model="date.end">
+                        </div>
+                    </div>
+
+                    <div class="w-2/5 flex flex-col ml-3" v-if="activeTab == 'patient_report'">
+                        <div class="font-bold">
+                            Gender:
+                        </div>
+
+                        <div style="width: 100%;">
+                            <!-- <input type="text" style="width: 100% !important; height: 35px; border: 1px solid black; border-radius: 3px" class="p-1 text-center" v-model="date.end"> -->
+                            <select style="width: 100% !important; height: 35px; border: 1px solid black; border-radius: 3px" class="text-center" v-model="gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="w-2/5 flex flex-col ml-3" v-if="activeTab == 'patient_report'">
+                        <div class="font-bold">
+                            Form:
+                        </div>
+
+                        <div style="width: 100%;">
+                            <!-- <input type="text" style="width: 100% !important; height: 35px; border: 1px solid black; border-radius: 3px" class="p-1 text-center" v-model="date.end"> -->
+                            <select style="width: 100% !important; height: 35px; border: 1px solid black; border-radius: 3px" class="text-center" v-model="formType">
+                                <option value="TB-Dots Form">TB-Dots Form</option>
+                                <option value="Pregnancy Form">Pregnancy Form</option>
+                                <option value="Prenatal Form">Prenatal Form</option>
+                                <option value="Postnatal Form">Postnatal Form</option>
+                                <option value="Nutrition Form">Nutrition Form</option>
+                                <option value="Vaccination Form">Vaccination Form</option>
+                                <option value="Deworming Form">Deworming Form</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="w-2/5 flex flex-col ml-3">
+
+                        <button style="background: #BB5A5A; width: 100%; height: 35px; border-radius: 3px" class="text-center text-xs py-2 text-white mt-6 "
+                            @click="clearFilter()"
+                        >
+                            Clear
+                        </button>
+                    </div>
+
+                    <div class="w-2/5 flex flex-col ml-3">
+
+                        <button style="background: #366422; width: 100%; height: 35px; border-radius: 3px" class="text-center text-xs py-2 text-white mt-6 "
+                            @click="filterRows()"
+                        >
+                            Filter
+                        </button>
+                    </div>
                 </div>
+
+                
 
                 <div class="w-full flex flex-col mt-4" v-if="activeTab == 'patient_report'">
-                    <div class="w-full px-2">
-                        <Table :columns="columns"  :rows="rows" :keys="keys" :selected.sync="selected"/>
-                    </div>
-                </div>
-
-                <div class="w-full flex flex-col" v-if="activeTab == 'medicine_report'">
-                    <div class="w-full mt-10" >
-
-                        <span class="float-left cursor-pointer ml-6 text-xl mt-1"
-                            @click="printMedicineReport()"
+                    <div class="w-full mt-2" >
+                        <span class="float-right cursor-pointer mr-3 text-xl mt-1"
+                            @click="printPatientReport()"
                         >
                             <i class="fa-solid fa-print"></i>
                         </span>
-
-                        <select v-model="medicine_report_type" class="float-right mr-5" style="width: 200px; height: 40px; border: 1px solid black" >
-                            <option value="individual">Individual Report</option>
-                            <option value="barangay" v-if="auth.role != 3">Barangay Report</option>
-                        </select>
-
-                        
                     </div>
 
                     <VueHtml2pdf
@@ -92,28 +167,195 @@
                         :pdf-quality="2"
                         :manual-pagination="false"
                         pdf-format="a4"
-                        pdf-orientation="landscape"
+                        pdf-orientation="portrait"
+                        pdf-content-width="100%"
+                        ref="patient_report"
+                    >
+                        <section slot="pdf-content">
+                            <div class="w-full flex flex-col p-5">
+                                <div class="w-full">
+                                    <!-- <span class="text-sm font-bold float-left">
+                                       Total Reports: {{ options.reportCount }}
+                                    </span> -->
+
+                                    <span class="text-sm font-bold float-right">
+                                       {{ options.now }}
+                                    </span>
+                                </div>
+
+                                <div class="w-full h-full flex justify-center items-center">
+                                    <img src="/images/logo1.png" class="py-1" style="height: 80px; width: 80px"/>
+                                </div>
+
+                                <div class="w-full text-center">
+                                    <p style="font-weight: 500; letter-spacing: 1.5px" class="text-sm">
+                                        Republic of the Philippines<br>
+                                        Province of Batangas <br>
+                                        Municipal Health Unit of Balayan Batangas
+                                    </p>
+                                </div>
+
+                                <div class="w-full text-center mt-5">
+                                    <p style="font-weight: 700; letter-spacing: 2px" class="text-md">
+                                        <!-- PATIENT REPORTS --> {{ formType ? formType.replace('Form', ''): 'Patients' }} Report
+                                    </p>
+                                </div>
+
+                                <div class="w-full mt-5">
+                                    <span class="text-sm font-bold float-left">
+                                        {{ auth.first_name + ' ' + auth.last_name }} ({{ getUserType(auth) }})
+                                    </span>
+                                </div>
+
+                                <div class="w-full mt-5 inline-flex">
+                                    <p class="text-xs float-left" v-if="barangay">
+                                        <span class="font-bold">Barangay:</span> {{ barangay }}
+                                    </p>
+
+                                    <p class="text-xs float-left ml-3" v-if="date.start && date.end">
+                                        <span class="font-bold">Date:</span> {{ new Date(date.start).toDateString().substring(3) }} - {{ new Date(date.end).toDateString().substring(3) }}
+                                    </p>
+
+                                    <p class="text-xs float-left ml-3" v-if="age.start && age.end">
+                                       <span class="font-bold">Age:</span> {{age.start}} - {{age.end}}
+                                    </p>
+
+                                    <p class="text-xs float-left ml-3" v-if="gender">
+                                        <span class="font-bold">Gender:</span> {{gender}}
+                                    </p>
+                                </div>
+
+                                <div class="w-full mt-5">
+                                    <table class="w-full --table">
+                                        <tr class="text-center text-sm">
+                                            <th v-for="column in columns" :key="column" class="--th">
+                                                {{ column }}
+                                            </th>
+                                        </tr>
+
+                                        <tr class="text-center text-xs"
+                                            v-for="(l, index) in rows" :key="index"
+                                        >
+                                            <td v-for="(k, i) in keys" :key="i" class="cursor-pointer --td">
+                                                <span>{{rows[index][k.label] }}</span> 
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+                                <div class="w-full">
+                                    <p class="float-right">
+                                       <span class="font-bold">Total:</span> {{ options.reportCount }}
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+                    </VueHtml2pdf> 
+                    
+                    <div class="w-full px-2">
+                        <Table :columns="columns"  :rows="rows" :keys="keys"/>
+                    </div>
+                </div>
+
+                <div class="w-full flex flex-col" v-if="activeTab == 'medicine_report'">
+                    <div class="w-full mt-5" >
+                        <span class="float-left cursor-pointer ml-6 text-xl mt-1"
+                            @click="printMedicineReport()"
+                        >
+                            <i class="fa-solid fa-print"></i>
+                        </span>
+
+                        <select v-model="medicine_report_type" class="float-right mr-5" style="width: 200px; height: 40px; border: 1px solid black" >
+                            <option value="individual">Individual Report</option>
+                            <option value="barangay" v-if="auth.role != 3">Barangay Report</option>
+                        </select>
+                    </div>
+
+                    <VueHtml2pdf
+                        :show-layout="false"
+                        :float-layout="true"
+                        :enable-download="true"
+                        :preview-modal="true"
+                        :paginate-elements-by-height="1000"
+                        :filename="Math.random().toString(36).slice(2)"
+                        :pdf-quality="2"
+                        :manual-pagination="false"
+                        pdf-format="a4"
+                        pdf-orientation="portrait"
                         pdf-content-width="100%"
                         ref="medicine_report"
                     >
                         <section slot="pdf-content">
-                            <div class="w-full p-5">
-                                <table class="w-full --table">
-                                    <tr class="text-center">
-                                        <th v-for="column in columns" :key="column" class="--th">
-                                            {{ column }}
-                                        </th>
-                                    </tr>
+                            <div class="w-full flex flex-col p-5">
+                                <div class="w-full">
+                                    <!-- <span class="text-sm font-bold float-left">
+                                       Total Reports: {{ rows.length }}
+                                    </span> -->
 
-                                    <tr class="text-center"
-                                        v-for="(l, index) in rows" :key="index"
-                                    >
-                                        <td v-for="(k, i) in keys" :key="i" class="cursor-pointer --td">
-                                            <span>{{rows[index][k.label] }}</span> 
-                                        </td>
-                                    </tr>
+                                    <span class="text-sm font-bold float-right">
+                                       {{ options.now }}
+                                    </span>
+                                </div>
 
-                                </table>
+                                <div class="w-full h-full flex justify-center items-center">
+                                    <img src="/images/logo1.png" class="py-1" style="height: 80px; width: 80px"/>
+                                </div>
+
+                                <div class="w-full text-center">
+                                    <p style="font-weight: 500; letter-spacing: 1.5px" class="text-sm">
+                                        Republic of the Philippines<br>
+                                        Province of Batangas <br>
+                                        Municipal Health Unit of Balayan Batangas
+                                    </p>
+                                </div>
+
+                                <div class="w-full text-center mt-5">
+                                    <p style="font-weight: 700; letter-spacing: 2px" class="text-md">
+                                        Medicines Report
+                                    </p>
+                                </div>
+
+                                <div class="w-full mt-5">
+                                    <span class="text-sm font-bold float-left">
+                                        {{ auth.first_name + ' ' + auth.last_name }} ({{ getUserType(auth) }})
+                                    </span>
+                                </div>
+
+                                <div class="w-full mt-5 inline-flex">
+                                    <p class="text-xs float-left" v-if="barangay">
+                                        <span class="font-bold">Barangay:</span> {{ barangay }}
+                                    </p>
+
+                                    <p class="text-xs float-left ml-3" v-if="date.start && date.end">
+                                        <span class="font-bold">Date:</span> {{ new Date(date.start).toDateString().substring(3) }} - {{ new Date(date.end).toDateString().substring(3) }}
+                                    </p>
+                                </div>
+
+                                <div class="w-full mt-2">
+                                    <table class="w-full --table">
+                                        <tr class="text-center text-sm">
+                                            <th v-for="column in columns" :key="column" class="--th">
+                                                {{ column }}
+                                            </th>
+                                        </tr>
+
+                                        <tr class="text-center text-xs"
+                                            v-for="(l, index) in rows" :key="index"
+                                        >
+                                            <td v-for="(k, i) in keys" :key="i" class="cursor-pointer --td">
+                                                <span>{{rows[index][k.label] }}</span> 
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+
+                                <div class="w-full">
+                                    <span class="float-right">
+                                       <span class="font-bold">Total:</span> {{ rows.length }}
+                                    </span>
+                                </div>
                             </div>
                         </section>
                     </VueHtml2pdf> 
@@ -156,8 +398,7 @@
                                         <p style="font-weight: 500" class="text-lg">
                                             Republic of the Philippines<br>
                                             Province of Batangas <br>
-                                            Municipal Health Unit <br>
-                                            Balayan Batangas
+                                            Municipal Health Unit of Balayan Batangas
                                         </p>
                                     </div>
 
@@ -385,6 +626,17 @@ export default {
             endYear: null,
             years: [],
             selectedYear: null,
+            date: {
+                start: null,
+                end: null
+            },
+            age: {
+                start: null,
+                end: null
+            },
+            gender: null,
+            formType: null,
+            hasSelectedBarangay: false
         }
     },
 
@@ -399,19 +651,19 @@ export default {
         },
         barangay(arg){
             if(this.activeTab == 'patient_report') {
-                if(arg) {
-                    if(this.search) {
-                        this.rows = this.options.patients.filter( x => { return x.barangay == arg})
-                            .filter(x => {
-                                var name = x.name.toLowerCase();
-                                var search = this.search.toLowerCase()
-                                return name.includes(search)
-                            });
-                    } else {
-                        this.rows = this.options.patients.filter( x => { return x.barangay == arg})
-                    }
+                // if(arg) {
+                //     if(this.search) {
+                //         this.rows = this.options.patients.filter( x => { return x.barangay == arg})
+                //             .filter(x => {
+                //                 var name = x.name.toLowerCase();
+                //                 var search = this.search.toLowerCase()
+                //                 return name.includes(search)
+                //             });
+                //     } else {
+                //         this.rows = this.options.patients.filter( x => { return x.barangay == arg})
+                //     }
                     
-                }
+                // }
             } else {
                 if(this.medicine_report_type == 'individual') {
                     if(arg) {
@@ -479,14 +731,18 @@ export default {
                                 .filter( y => { return y.place_name == this.barangay})
                                 .filter(x => {
                                     var name = x.patient_name.toLowerCase();
+                                    var category = x.category.toLowerCase();
+                                    var unit = x.unit.toLowerCase();
                                     var search = arg.toLowerCase()
-                                    return name.includes(search)
+                                    return name.includes(search) || category.includes(search) || unit.includes(search);
                                 });
                         } else {
                             this.rows = this.options.patientMedicines.filter(x => {
                                 var name = x.patient_name.toLowerCase();
+                                var category = x.category.toLowerCase();
+                                var unit = x.unit.toLowerCase();
                                 var search = arg.toLowerCase()
-                                return name.includes(search)
+                                return name.includes(search) || category.includes(search) || unit.includes(search);
                             });
                         }
                     } else {
@@ -506,14 +762,18 @@ export default {
                                 .filter( y => { return y.place_name == this.barangay})
                                 .filter(x => {
                                     var name = x.name.toLowerCase();
+                                    var category = x.category.toLowerCase();
+                                    var unit = x.unit.toLowerCase();
                                     var search = arg.toLowerCase()
-                                    return name.includes(search)
+                                    return name.includes(search) || category.includes(search) || unit.includes(search);
                                 });
                         } else {
                             this.rows = this.options.barangayMedicines.filter(x => {
                                 var name = x.name.toLowerCase();
+                                var category = x.category.toLowerCase();
+                                var unit = x.unit.toLowerCase();
                                 var search = arg.toLowerCase()
-                                return name.includes(search)
+                                return name.includes(search) || category.includes(search) || unit.includes(search);
                             });
                         }
                     } else {
@@ -604,7 +864,7 @@ export default {
                 }
             } else {
                 this.columns = [
-                    'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Consultation Forms'
+                    'Name', 'Barangay', 'Contact', 'Age', 'Gender'
                 ];
 
                 this.keys = [
@@ -622,9 +882,6 @@ export default {
                     },
                     {
                         label: 'gender',
-                    },
-                    {
-                        label: 'consultation_form',
                     }
                 ]
 
@@ -705,7 +962,7 @@ export default {
         selectedYear(arg) {
             if(this.activeTab == 'patient_report') {
                 this.columns = [
-                    'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Consultation Forms', 'Date Created'
+                    'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Date'
                 ];
 
                 this.keys = [
@@ -723,9 +980,6 @@ export default {
                     },
                     {
                         label: 'gender',
-                    },
-                    {
-                        label: 'consultation_form',
                     },
                     {
                         label: 'display_date',
@@ -748,7 +1002,7 @@ export default {
             this.years.push(i)
         }
 
-        this.selectedYear = this.years[0]
+        // this.selectedYear = this.years[0]
 
         if(this.auth.user_type == 'leader' && this.activeTab == 'medicine_report') {
             this.medicine_report_type = 'barangay'
@@ -760,7 +1014,7 @@ export default {
 
         if(this.activeTab == 'patient_report') {
             this.columns = [
-                'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Consultation Forms', 'Date Created'
+                'Name', 'Barangay', 'Contact', 'Age', 'Gender', 'Date'
             ];
 
             this.keys = [
@@ -780,16 +1034,11 @@ export default {
                     label: 'gender',
                 },
                 {
-                    label: 'consultation_form',
-                },
-                {
                     label: 'display_date',
                 }, 
             ]
 
-            this.rows = this.options.patients.filter(x => {
-                return x.display_year == this.selectedYear
-            })
+            this.rows = this.options.patients
         }
 
         if(this.auth.user_type == 'pharmacist') {
@@ -806,6 +1055,14 @@ export default {
         this.form.examined_date = currentDate
 
         this.form.physician = this.auth.first_name + ' ' + this.auth.last_name
+
+        this.date.start = this.options.date_start
+        this.date.end = this.options.date_end
+        this.age.start = this.options.age_start
+        this.age.end = this.options.age_end
+        this.gender = this.options.gender
+        this.formType = this.options.formType
+        this.barangay = this.options.barangay
     },
 
     methods: {
@@ -817,9 +1074,121 @@ export default {
             this.$refs.medicine_report.generatePdf()
         },
 
+        printPatientReport() {
+            this.$refs.patient_report.generatePdf()
+        },
+
         selectBarangay(arg){
-            this.barangay = arg.name
-        }
+            if(arg) {
+                this.barangay = arg.name
+
+                this.hasSelectedBarangay = true
+            }
+        },
+
+        validateNumber(evt) {
+            var theEvent = evt || window.event;
+
+            // Handle paste
+            if (theEvent.type === 'paste') {
+                key = event.clipboardData.getData('text/plain');
+            } else {
+            // Handle key press
+                var key = theEvent.keyCode || theEvent.which;
+                key = String.fromCharCode(key);
+            }
+            var regex = /[0-9]|\./;
+            if( !regex.test(key) ) {
+                theEvent.returnValue = false;
+                if(theEvent.preventDefault) theEvent.preventDefault();
+            }
+        },
+
+        filterRows() {
+            if(this.activeTab == 'medicine_report') {
+                this.rows = this.rows.filter(x => {
+                    var createdAt = new Date(x.created_at);
+                    return createdAt >= new Date(this.date.start) && createdAt <= new Date(this.date.end);
+                })
+            }
+
+            if(this.activeTab == 'patient_report') {
+                var res = {
+                    date_start: this.date.start,
+                    date_end: this.date.end,
+                    age_start: this.age.start,
+                    age_end: this.age.end,
+                    gender: this.gender,
+                    formType: this.formType,
+                    barangay: this.barangay
+                }
+
+                Inertia.get(
+                    this.$root.route + '/reports', res, 
+                    {
+                        onSuccess: (res) => { 
+
+                        },
+                    },
+                );
+            }
+        },
+
+        clearFilter(){
+            Inertia.get(
+                this.$root.route + '/reports',
+                {
+                    onSuccess: (res) => { 
+
+                    },
+                },
+            );
+        },
+
+        getUserType(user) {
+            var user_type = null;
+
+            if(user.role == 1) {
+                user_type = 'Admin';
+            }
+
+            if(user.role == 2) {
+                switch(user.user_type) {
+                    case 'doctor':
+                        user_type = 'RHU - Doctor';
+                        break;
+
+                    case 'pharmacist':
+                        user_type = 'Pharmacist';
+                        break;
+
+                    case 'midwife':
+                        user_type = 'Chief Midwife';
+                        break;
+
+                    case 'nurse':
+                        user_type = 'Nurse';
+                        break;
+                }
+            }
+
+            if(user.role == 3) {
+                switch(user.user_type) {
+                    case 'leader':
+                        user_type = 'BHW - Leader';
+                        break;
+                    case 'midwife':
+                        user_type = 'Barangay Midwife';
+                        break;
+
+                    case 'member':
+                        user_type = 'BHW - Member';
+                        break;
+                }
+            }
+
+            return user_type;
+        },
     }
 }
 
@@ -830,9 +1199,9 @@ export default {
     background: #C0C0C0;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+/* input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
-}
+} */
 
 input {
     outline: none;
@@ -851,16 +1220,16 @@ input {
 
 .--td {
     border: 1px solid black;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .--th {
     border: 1px solid black;
     background: #366422;
     color: #ffffff;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 input .dropdown-input {

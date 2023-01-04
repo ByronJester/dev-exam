@@ -128,7 +128,7 @@
                                             <p style="font-weight: 500" class="text-lg ml-32">
                                                 Republic of the Philippines<br>
                                                 Province of Batangas <br>
-                                                Municipality Health of Balayan Batangas
+                                                Municipal Health Unit of Balayan Batangas
                                             </p>
                                         </div>
                                     </div>
@@ -141,10 +141,24 @@
                                     </div>
                                 </div>
 
-                                <div class="my-1">
-                                    <label class="text-bold">Fullname:</label><br>
-                                    <input type="text" class="--input mt-2" v-model="formData.name" :disabled="isPersonalData">
-                                    <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
+                                <div class="my-1 flex flex-row">
+                                    <div class="w-full">
+                                        <label class="text-bold">First Name:</label><br>
+                                        <input type="text" class="--input" v-model="formData.first_name" style="text-transform: capitalize;">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('first_name', saveError)}} </span>
+                                    </div>
+
+                                    <div class="w-full mx-2">
+                                        <label class="text-bold"><span style="color:red">*</span>Middle Name:</label><br>
+                                        <input type="text" class="--input" v-model="formData.middle_name" style="text-transform: capitalize;">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('middle_name', saveError)}} </span>
+                                    </div>
+
+                                    <div class="w-full">
+                                        <label class="text-bold">Last Name:</label><br>
+                                        <input type="text" class="--input" v-model="formData.last_name" style="text-transform: capitalize;">
+                                        <span class="text-xs text-red-500 ml-2">{{validationError('last_name', saveError)}} </span>
+                                    </div>
                                 </div>
 
                                 <div class="my-1" v-if="auth.role != 3">
@@ -268,19 +282,33 @@
                                 <i class="fa-solid fa-xmark"></i>
                             </span>
 
-                            <!-- <span class="float-right cursor-pointer mr-5"
+                            <span class="float-right cursor-pointer mr-5"
                                 @click="printProfile()"
                                 v-if="isPersonalData"
                             >
                                 <i class="fa-solid fa-print"></i>
-                            </span> -->
+                            </span>
                         </div>
 
                         <div class="w-full flex flex-col">
-                            <div class="my-1">
-                                <label class="text-bold">Fullname:</label><br>
-                                <input type="text" class="--input" v-model="formData.name" style="text-transform: capitalize;">
-                                <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
+                            <div class="my-1 flex flex-row">
+                                <div class="w-full">
+                                    <label class="text-bold">First Name:</label><br>
+                                    <input type="text" class="--input" v-model="formData.first_name" style="text-transform: capitalize;">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('first_name', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full mx-2">
+                                    <label class="text-bold"><span style="color:red">*</span>Middle Name:</label><br>
+                                    <input type="text" class="--input" v-model="formData.middle_name" style="text-transform: capitalize;">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('middle_name', saveError)}} </span>
+                                </div>
+
+                                <div class="w-full">
+                                    <label class="text-bold">Last Name:</label><br>
+                                    <input type="text" class="--input" v-model="formData.last_name" style="text-transform: capitalize;">
+                                    <span class="text-xs text-red-500 ml-2">{{validationError('last_name', saveError)}} </span>
+                                </div>
                             </div>
 
                             <div class="my-1" v-if="auth.role != 3">
@@ -383,17 +411,16 @@
                             </div>
 
                             <div class="my-1" v-if="auth.user_type == 'doctor'">
-                                <label class="text-bold">Diagnosis:</label><br>
+                                <label class="text-bold"><span style="color:red">*</span>Diagnosis</label><br>
                                 <input type="text" class="--input mt-2" v-model="formData.diagnosis" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('diagnosis', saveError)}} </span>
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold">Philhealth ID #:</label><br>
+                                <label class="text-bold"><span style="color:red">*</span>Philhealth ID #:</label><br>
                                 <input type="text" class="--input" v-model="formData.philhealth">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
                             </div>
-
 
                             <div class="mt-3 mb-2">
                                 <button class="w-full py-2 px-4 text-white font-bold" 
@@ -438,7 +465,9 @@ export default {
             formData: {
                 id: null,
                 place_id: '',
-                name : '',
+                first_name : '',
+                middle_name : '',
+                last_name : '',
                 phone : '',
                 dob: '',
                 age: '',
@@ -531,10 +560,30 @@ export default {
         },
 
         viewPersonalData(arg){
-            this.formData = Object.assign({}, arg)
+            this.formData = {
+                id: arg.id,
+                place_id: arg.place_id,
+                first_name : arg.first_name,
+                middle_name : arg.middle_name,
+                last_name : arg.last_name,
+                phone : arg.phone,
+                dob: arg.dob,
+                age: arg.age,
+                gender: arg.gender,
+                civil_status: arg.civil_status,
+                philhealth: arg.philhealth,
+                contact_person: arg.contact_person,
+                contact_person_address: arg.contact_person_address,
+                contact_person_phone: arg.contact_person_phone,
+                diagnosis: arg.diagnosis
+            },
+
+            // this.formData = Object.assign({}, arg)
 
             this.isPersonalData = true
             this.form_data.append('id', arg.id);
+
+            
 
             this.openModal()
         },
@@ -560,7 +609,9 @@ export default {
             }
 
             this.form_data.append('place_id', this.formData.place_id);
-			this.form_data.append('name', this.formData.name);
+			this.form_data.append('first_name', this.formData.first_name);
+            this.form_data.append('middle_name', this.formData.middle_name);
+            this.form_data.append('last_name', this.formData.last_name);
 			this.form_data.append('phone', this.formData.phone);
             this.form_data.append('dob', this.formData.dob);
             this.form_data.append('age', this.formData.age);

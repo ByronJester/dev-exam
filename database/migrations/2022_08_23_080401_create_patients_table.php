@@ -17,7 +17,9 @@ class CreatePatientsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('place_id')->unsigned()->comment('Foreign key from table places');
             $table->bigInteger('user_id')->unsigned()->nullable()->comment('Foreign key from table users');
-            $table->string('name');
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->string('last_name');
             $table->string('phone');
             $table->date('dob');
             $table->string('age');

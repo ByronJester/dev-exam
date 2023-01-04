@@ -343,7 +343,7 @@ class PatientController extends Controller
         return redirect()->back();
     }
 
-    public function viewMedicalHistory($id)
+    public function viewMedicalHistory($id) 
     {
         $auth = Auth::user();
 
@@ -373,6 +373,18 @@ class PatientController extends Controller
                 'habits' => $habits,
                 'patient' => $id,
                 'gender' => $patient->gender
+            ],
+            'print' => [
+                'allergies' => Allergy::where('patient_id', $id)->get(),
+                'medications' => Medication::where('patient_id', $id)->get(),
+                'maintenance' => HealthMaintenanceHistory::where('patient_id', $id)->get(),
+                'vaccinations' => VaccinationHistory::where('patient_id', $id)->get(),
+                'diseases' => DiseaseHistory::where('patient_id', $id)->where('family', null)->get(),
+                'surgeries' => Surgery::where('patient_id', $id)->get(),
+                'habits' => RiskyHabit::where('patient_id', $id)->get(),
+                'families' => DiseaseHistory::orderBy('family')->where('patient_id', $id)->where('family', '!=', null)->get(),
+                'womens' => WomenHealthHistory::where('patient_id', $id)->get(),
+                'patient' => $patient
             ]
         ]);
     }

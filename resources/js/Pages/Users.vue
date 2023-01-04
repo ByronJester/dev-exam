@@ -81,7 +81,7 @@
                     <div class="user-modal-content flex flex-col" style="width: 30%">
                         <div class="w-full">
                             <span class="text-lg font-bold">
-                                New User
+                                Update User
                             </span>
                             <span class="float-right cursor-pointer"
                                 @click="closeModal()"

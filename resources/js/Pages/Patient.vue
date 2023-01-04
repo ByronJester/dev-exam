@@ -80,7 +80,7 @@
                     :enable-download="true"
                     :preview-modal="true"
                     :paginate-elements-by-height="2000"
-                    :filename="Math.random().toString(36).slice(2)" 
+                    :filename="Math.random().toString(36).slice(2)"  
                     :pdf-quality="2"
                     :manual-pagination="false"
                     pdf-format="a4"

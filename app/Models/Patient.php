@@ -13,7 +13,9 @@ class Patient extends Model
     protected $fillable = [
         'place_id',
         'user_id',
-        'name',
+        'first_name',
+        'middle_name',
+        'last_name',
         'phone', 
         'age',
         'gender',
@@ -29,7 +31,8 @@ class Patient extends Model
         'barangay',
         'consultation_form',
         'display_year',
-        'display_date'
+        'display_date',
+        'name'
     ];
 
     public function place()
@@ -40,6 +43,15 @@ class Patient extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getNameAttribute()
+    {
+        if(!!$this->middle_name) {
+            return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+        }
+
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     public function getBarangayAttribute()
@@ -101,6 +113,8 @@ class Patient extends Model
             array_push($forms, "Deworming Form");
         }
 
-        return implode(", ", $forms);
+        // return implode(", ", $forms);
+
+        return $forms;
     }
 }

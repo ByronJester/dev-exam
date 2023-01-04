@@ -2,6 +2,368 @@
     <div class="w-full h-screen">
         <Navigation :auth="auth">
             <div class="w-full flex flex-col">
+                <div class="w-full">
+                    <button class="--view__profile my-2 mr-1 float-right" @click="printHistory()">
+                        <i class="fa-solid fa-print mr-1 fa-2xl"></i>
+                    </button>
+                </div>
+
+                <VueHtml2pdf
+                    :show-layout="false"
+                    :float-layout="true"
+                    :enable-download="true"
+                    :preview-modal="true"
+                    :paginate-elements-by-height="2000"
+                    :filename="Math.random().toString(36).slice(2)"  
+                    :pdf-quality="2"
+                    :manual-pagination="false"
+                    pdf-format="a4"
+                    pdf-orientation="portrait"
+                    pdf-content-width="100%"
+                    ref="history"
+                >
+                    <section slot="pdf-content">
+                        <div class="w-full px-5 py-5">
+                            <div class="w-full flex flex-col">
+                                <div class="w-full h-full flex justify-center items-center">
+                                    <img src="/images/logo1.png" class="py-1" style="height: 80px; width: 80px"/>
+                                </div>
+
+                                <div class="w-full text-center">
+                                    <p style="font-weight: 500; letter-spacing: 1.5px" class="text-sm">
+                                        Republic of the Philippines<br>
+                                        Province of Batangas <br>
+                                        Municipal Health Unit of Balayan Batangas
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="w-full text-2xl font-bold mt-10">
+                                Patient's Medical History
+
+                                <span class="float-right">
+                                    {{ print.patient.name }} ({{ print.patient.place.name }})
+                                </span>
+                            </div>
+
+                            <table style="width:100%" class="mt-5 ---table">
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" :class="{'---td': true}" colspan="2">
+                                        Allergies
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Allergy</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="allergy in print.allergies" :key="allergy.id">
+                                            {{allergy.allergy}}<span v-if="print.allergies.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Allergic Reaction</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="allergy in print.allergies" :key="allergy.id">
+                                            {{allergy.allergic_reaction}}<span v-if="print.allergies.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2" :class="{'---td': true}"> 
+                                        Medications
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Medications</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="medication in print.medications" :key="medication.id">
+                                            {{medication.medications}}<span v-if="print.medications.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Dose</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="medication in print.medications" :key="medication.id">
+                                            {{medication.dose}}<span v-if="print.medications.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Times Per Day</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="medication in print.medications" :key="medication.id">
+                                            {{medication.times_per_day}}<span v-if="print.medications.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}" style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Health Maintenance
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Type</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="m in print.maintenance" :key="m.id">
+                                            {{m.type}}<span v-if="print.maintenance.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Date</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="m in print.maintenance" :key="m.id">
+                                            {{m.date}}<span v-if="print.maintenance.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Facility</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="m in print.maintenance" :key="m.id">
+                                            {{m.facility}}<span v-if="print.maintenance.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Abnormal Result</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="m in print.maintenance" :key="m.id">
+                                            {{m.abnormal_result}}<span v-if="print.maintenance.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}" style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Vaccination
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Type</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="vaccination in print.vaccinations" :key="vaccination.id">
+                                            {{vaccination.type}}<span v-if="print.vaccinations.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Date</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="vaccination in print.vaccinations" :key="vaccination.id">
+                                            {{vaccination.date}}<span v-if="print.vaccinations.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                    <div class="html2pdf__page-break mb-24"/>
+                                <tr class="">
+                                    <td :class="{'---td': true}" style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Disease
+                                    </td> 
+                                </tr>
+                                <tr :class="{'---td': true}">
+                                    <td>Disease</td>
+                                    <td>
+                                        <p v-for="disease in print.diseases" :key="disease.id">
+                                            {{disease.disease}}<span v-if="print.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                
+                                <tr :class="{'---td': true}">
+                                    <td>Type</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="disease in print.diseases" :key="disease.id">
+                                            {{disease.type}}<span v-if="print.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Status</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="disease in print.diseases" :key="disease.id">
+                                            {{disease.status}}<span v-if="print.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}">Comment</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="disease in print.diseases" :key="disease.id">
+                                            {{disease.comment}}<span v-if="print.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}" style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Surgery
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Type</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="surgery in print.surgeries" :key="surgery.id">
+                                            {{surgery.type}}<span v-if="print.surgeries.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Date</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="surgery in print.surgeries" :key="surgery.id">
+                                            {{surgery.date}}<span v-if="print.surgeries.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Facility</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="surgery in print.surgeries" :key="surgery.id">
+                                            {{surgery.facility}}<span v-if="print.surgeries.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}" style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Risky Habits
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Type</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="habit in print.habits" :key="habit.id">
+                                            {{habit.type}}<span v-if="print.habits.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Status</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="habit in print.habits" :key="habit.id">
+                                            {{habit.status}}<span v-if="print.habits.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}" style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Women's Health
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">DLMC</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="women in print.womens" :key="women.id">
+                                            {{women.dlmc}}<span v-if="print.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}">TNP</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="women in print.womens" :key="women.id">
+                                            {{women.tnp}}<span v-if="print.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}">Complications</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="women in print.womens" :key="women.id">
+                                            {{women.complications}}<span v-if="print.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}">AFM</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="women in print.womens" :key="women.id">
+                                            {{women.afm}}<span v-if="print.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}">AM</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="women in print.womens" :key="women.id">
+                                            {{women.am}}<span v-if="print.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}">NLB</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="women in print.womens" :key="women.id">
+                                            {{women.nlb}}<span v-if="print.womens.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td :class="{'---td': true}" style="background: #366422" class="text-center text-white text-2xl font-bold" colspan="2">
+                                        Family
+                                    </td> 
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Family Member</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="disease in print.families" :key="disease.id">
+                                            {{disease.family}}<span v-if="print.diseases.length > 1">,</span> 
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Disease</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="disease in print.families" :key="disease.id">
+                                            {{disease.disease}}<span v-if="print.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Type</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="disease in print.families" :key="disease.id">
+                                            {{disease.type}}<span v-if="print.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td :class="{'---td': true}">Status</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="disease in print.families" :key="disease.id">
+                                            {{disease.status}}<span v-if="print.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td :class="{'---td': true}">Comment</td>
+                                    <td :class="{'---td': true}">
+                                        <p v-for="disease in print.families" :key="disease.id">
+                                            {{disease.comment}}<span v-if="print.diseases.length > 1">,</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                
+                            </table>
+                        </div>
+                    </section>
+                </VueHtml2pdf>
+
                 <div class="w-full flex flex-row mt-8" style="height: 5vh;">
                     <div class="w-full flex justify-center items-center text-4xl cursor-pointer"
                         @click="activeTab = 'personal'"
@@ -1259,7 +1621,7 @@ import axios from "axios";
 import VueHtml2pdf from 'vue-html2pdf'
 
 export default {
-    props: ['auth', 'options'],
+    props: ['auth', 'options', 'print'],
     components: {
         Navigation,
         Toggle,
@@ -1579,6 +1941,10 @@ export default {
                         })
                 }
             });
+        },
+
+        printHistory(){
+            this.$refs.history.generatePdf()
         }
     }
 }
@@ -1642,6 +2008,28 @@ th {
 
 input[type=text] {
     text-transform: capitalize;
+}
+
+.---table {
+    border-collapse: collapse;
+    border-radius: 5px;
+    border-style: hidden;
+    box-shadow: 0 0 0 1px black;
+}
+
+.---td {
+    border: 1px solid black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    color: black;
+    font-size: 12px;
+}
+
+.---th {
+    border: 1px solid black;
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 </style>

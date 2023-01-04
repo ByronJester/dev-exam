@@ -48,7 +48,7 @@
                                         v-on:selected="selectBarangay"
                                         :disabled="false"
                                         name="barangay"
-                                        :maxItem="5"
+                                        :maxItem="options.places.length"
                                         style="border: 1px solid black; border-radius: 3px"
                                         placeholder="Please select barangay...">
                                     </Dropdown>
@@ -374,7 +374,7 @@ export default {
             ],
             dispensed_type: 'barangay',
             barangay: null,
-            medecineList: [],
+            medecineList: null,
             categories: [],
             units: [],
             errorMessage: null,
@@ -382,15 +382,13 @@ export default {
             medicineStocts: null
         }
     },
-    mounted(){
+    created(){
         this.form.search = this.options.search
         this.formData.medicine_id = this.options.medicines.length > 0 ? this.options.medicines[0].id : null
         this.formData.place_id = this.options.places[0].id
-        this.barangay = this.options.places[0].name
+        // this.barangay = this.options.places[0].name
 
-        this.medecineList = this.options.barangayMedicines.filter((x) => {
-            return x.place_name == this.barangay;
-        })
+        this.medecineList = this.options.barangayMedicines
 
         if(this.auth.role == 3) {
             this.dispensed_type = 'individual';
@@ -398,6 +396,8 @@ export default {
 
             this.medecineList = this.options.patientMedicines
         }
+
+        console.log(this.medecineList)
 
         this.formData.medicine_category_id = this.options.categories[0].id
         this.formData.medicine_unit_id = this.options.units[0].id
@@ -448,11 +448,11 @@ export default {
                         label: 'date',
                     },
                 ]
+
+                // this.medicineStocts = this.options.medicineStocts
             } else {
                 if(this.dispensed_type == 'barangay') {
-                    this.medecineList = this.options.barangayMedicines.filter((x) => {
-                        return x.place_name == arg;
-                    })
+                    this.medecineList = this.options.barangayMedicines
 
                     this.columns = [
                         'Medicine', 'Category', 'Dosage', 'Unit', 'Barangay', 'Quantity', 'Date'
@@ -532,7 +532,7 @@ export default {
 						this.saveError = response.data.errors 
 					} else {
                         this.categories = response.data.data
-                        console.log(this.categories)
+                        
 					}
 				})
 
@@ -542,14 +542,16 @@ export default {
 						this.saveError = response.data.errors 
 					} else {
                         this.units = response.data.data
-                        console.log(this.units)
 					}
 				})
         },
         barangay(arg){
-            this.medecineList = this.options.barangayMedicines.filter((x) => {
-                return x.place_name == arg;
-            })
+            if(!!arg) {
+                this.medecineList = this.options.barangayMedicines.filter((x) => {
+                    return x.place_name == arg;
+                })
+            }
+            
         },
         dispensed_type(arg) {
             if(arg == 'barangay') {
