@@ -42,7 +42,7 @@ class Patient extends Model
 
     public function getMiddleNameAttribute($value)
     {
-        if($value == 'null' || $value == 'Null'){
+        if($value == 'null' || $value == 'Null' || $value == 'undefined'){
             return '';
         }
 
@@ -51,7 +51,7 @@ class Patient extends Model
 
     public function getDiagnosisAttribute($value)
     {
-        if($value == 'null' || $value == 'Null'){
+        if($value == 'null' || $value == 'Null' || $value == 'undefined'){
             return '';
         }
 
@@ -60,7 +60,7 @@ class Patient extends Model
 
     public function getPhilhealthAttribute($value)
     {
-        if($value == 'null' || $value == 'Null'){
+        if($value == 'null' || $value == 'Null' || $value == 'undefined'){
             return '';
         }
 

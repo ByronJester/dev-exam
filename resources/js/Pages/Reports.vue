@@ -35,11 +35,11 @@
                             <Dropdown
                                 :options="options.places"
                                 v-on:selected="selectBarangay"
-                                :disabled="false"
+                                :disabled="auth.role == 3"
                                 name="barangay"
                                 :maxItem="options.places.length"
                                 style="border: 1px solid black; border-radius: 3px"
-                                :placeholder="barangay">
+                                :placeholder="barangay"> 
                             </Dropdown>
                         </div>
                     </div>
@@ -443,7 +443,7 @@
                                             </span>
 
                                             <input type="date" style="width: 200px; border-bottom: 1px solid black" class="focus:--borderless hover:--borderless text-center float-right mx-2"
-                                                v-model="form.examined_dane"
+                                                v-model="form.examined_date"
                                             >
 
                                             <span class="mx-2 text-sm">
@@ -463,7 +463,7 @@
                                             </span>
 
                                             <input type="text" style="width: 300px; border-bottom: 1px solid black" class="focus:--borderless hover:--borderless text-center float-right mx-2"
-                                                placeholder="Attending Physician" v-model="form.physician"
+                                                placeholder="Days" v-model="form.days"
                                             >
 
                                             <span class="mx-2 text-sm">

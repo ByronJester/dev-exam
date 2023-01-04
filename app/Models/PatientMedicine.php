@@ -51,8 +51,6 @@ class PatientMedicine extends Model
         return $this->belongsTo(MedicineUnit::class, 'medicine_unit_id');
     }
 
-
-
     public function getNameAttribute()
     {
         return $this->medicine->name;

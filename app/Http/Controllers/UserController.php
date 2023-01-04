@@ -130,7 +130,7 @@ class UserController extends Controller
                 'options' => [
                     'users' => $users->where('is_active', true)->get(),
                     'search' => $search,
-                    'places' => Place::get()
+                    'places' => Place::orderBy('name')->get()
                 ]
             ]);
         }
@@ -164,7 +164,7 @@ class UserController extends Controller
                 'options' => [
                     'users' => $users->where('is_active', false)->get(),
                     'search' => $search,
-                    'places' => Place::get()
+                    'places' => Place::orderBy('name')->get()
                 ]
             ]);
         }
@@ -421,7 +421,7 @@ class UserController extends Controller
                     'barangayMedicines' => $barangayMedicines->get(),
                     'patientMedicines'  => $patientMedicines->get(),
                     'patients' => $patientData,
-                    'places' => Place::get(),
+                    'places' => Place::orderBy('name')->get(),
                     'date_start' => $date_start,
                     'date_end' => $date_end,
                     'age_start' => $age_start,

@@ -3337,7 +3337,7 @@
                                 <label>New Born Weight (kg):</label><br>
                                 <input type="text" class="--input w-full" v-model="postnatal.newborn_weight" :disabled="options.isReport">
                                 <span class="text-xs text-red-500 pl-2">{{validationError('newborn_weight', saveError)}} </span>
-                            </div>
+                            </div> 
 
 
                             <div class="w-full pr-2">

@@ -24,6 +24,11 @@
                 >
                     <section slot="pdf-content">
                         <div class="w-full px-5 py-5">
+                            <div class="w-full">
+                                <span class="text-sm font-bold float-right">
+                                    {{ options.now }}
+                                </span>
+                            </div>
                             <div class="w-full flex flex-col">
                                 <div class="w-full h-full flex justify-center items-center">
                                     <img src="/images/logo1.png" class="py-1" style="height: 80px; width: 80px"/>

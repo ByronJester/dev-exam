@@ -55,7 +55,7 @@ class PatientController extends Controller
                 'options' => [
                     'patients' => $patients->get(),
                     'search' => $search,
-                    'places' => Place::get()
+                    'places' => Place::orderBy('name')->get()
                 ]
             ]);
         }
@@ -141,7 +141,7 @@ class PatientController extends Controller
                 'forms' => $forms,
                 'vaccinationList' => Vaccination::get(),
                 'isReport' => $isReport,
-                'places' => Place::get(),
+                'places' => Place::orderBy('name')->get(),
                 'allergies' => Allergy::where('patient_id', $id)->get(),
                 'medications' => Medication::where('patient_id', $id)->get(),
                 'maintenance' => HealthMaintenanceHistory::where('patient_id', $id)->get(),
@@ -359,6 +359,8 @@ class PatientController extends Controller
         $womens = WomenHealthHistory::where('patient_id', $id)->get();
         $habits = RiskyHabit::where('patient_id', $id)->get();
 
+        $now = Carbon::now();
+
         return Inertia::render('History', [
             'auth'    => $auth,
             'options' => [
@@ -372,7 +374,8 @@ class PatientController extends Controller
                 'womens' => $womens,
                 'habits' => $habits,
                 'patient' => $id,
-                'gender' => $patient->gender
+                'gender' => $patient->gender,
+                'now' => $now->isoFormat('LL')
             ],
             'print' => [
                 'allergies' => Allergy::where('patient_id', $id)->get(),

@@ -98,7 +98,7 @@
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold">Middle Name:</label><br>
+                                <label class="text-bold"><span style="color:red">*</span>Middle Name:</label><br>
                                 <input type="text" class="--input" v-model="formData.middle_name" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('middle_name', saveError)}} </span>
                             </div>
@@ -482,6 +482,8 @@ export default {
             this.saveError = null
 
             this.isEdit = false
+
+            this.form_data.delete('id');
         },
     }
 }

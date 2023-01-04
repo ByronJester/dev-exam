@@ -27,8 +27,8 @@ class MedicineController extends Controller
             $medicines = Medicine::orderBy('name')->get();
             $availableMedicines = [];
             
-            $barangayMedicines = BarangayMedicine::orderBy('created_at', 'desc')->whereMonth('created_at', Carbon::now()->month); 
-            $patientMedicines = PatientMedicine::orderBy('created_at', 'desc')->whereMonth('created_at', Carbon::now()->month);
+            $barangayMedicines = BarangayMedicine::whereMonth('created_at', Carbon::now()->month); 
+            $patientMedicines = PatientMedicine::whereMonth('created_at', Carbon::now()->month);
 
             if($search = $request->search) {
                 $barangayMedicines = $barangayMedicines->whereHas('medicine', function($q) use ($search){
@@ -90,18 +90,18 @@ class MedicineController extends Controller
             return Inertia::render('Medicines', [
                 'auth'    => $auth,
                 'options' => [
-                    'places' => Place::get(),
+                    'places' => Place::orderBy('name')->get(),
                     'medicines' => $auth->role == 3 ? $availableMedicines : $medicines,
                     'search' => $search,
-                    'barangayMedicines' => $barangayMedicines,
-                    'patientMedicines' => $patientMedicines,
+                    'barangayMedicines' => $barangayMedicines->sortBy('name')->values()->all(),
+                    'patientMedicines' => $patientMedicines->sortBy('name')->values()->all(),
                     'month' => date('F'),
                     'year' => date('Y'),
                     'patients' => $patients->get(),
                     'categories' => MedicineCategory::get(),
                     'units' => MedicineUnit::get(),
                     'stocks' => $medicineStocks->pluck('medicine_id'),
-                    'medicineStocts' => $auth->role == 3 ? $barangayMedicines: $medicineStocks, 
+                    'medicineStocts' => $auth->role == 3 ? $barangayMedicines->sortBy('name')->values()->all() : $medicineStocks->sortBy('name')->values()->all(), 
                 ]
             ]);
         }
