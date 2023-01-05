@@ -409,13 +409,13 @@
                         <div class="w-full flex flex-row">
                             <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col"  v-if="activeAllergy">
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Allergy:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Allergy:</label><br>
                                     <input type="text" v-model="formAllergy.allergy" placeholder="Allergy" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('allergy', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Allergic Reaction:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Allergic Reaction:</label><br>
                                     <input type="text" v-model="formAllergy.allergic_reaction" placeholder="Allergic Reaction" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('allergic_reaction', saveError)}} </span>
                                 </div>
@@ -508,19 +508,19 @@
                         <div class="w-full flex flex-row" >
                             <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeMedication">
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Medications:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Medications:</label><br>
                                     <input type="text" v-model="formMedication.medications" placeholder="Medications" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('medicaions', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Dose:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Dose:</label><br>
                                     <input type="text" v-model="formMedication.dose" placeholder="Dose" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('dose', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Times Per Day:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Times Per Day:</label><br>
                                     <input type="text" v-model="formMedication.times_per_day" placeholder="Times Per Day" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('times_per_day', saveError)}} </span>
                                 </div>
@@ -614,7 +614,7 @@
                         <div class="w-full flex flex-row" >
                             <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeMaintenance">
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Type:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Type:</label><br>
                                     <select class="--input" v-model="formMaintenance.type">
                                         <option :value="'CHOLESTEROL'">
                                             CHOLESTEROL
@@ -640,19 +640,19 @@
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Date:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Date:</label><br>
                                     <input type="date" v-model="formMaintenance.date" placeholder="Date" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('date', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Facility/Provider:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Facility/Provider:</label><br>
                                     <input type="text" v-model="formMaintenance.facility" placeholder="Facility/Provider" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('facility', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Abnormal Result:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Abnormal Result:</label><br>
                                     <select class="--input" v-model="formMaintenance.abnormal_result">
                                         <option :value="'YES'">
                                             YES
@@ -754,7 +754,7 @@
                         <div class="w-full flex flex-row">
                             <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeVaccination">
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Type:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Type:</label><br>
                                     <select class="--input" v-model="formVaccination.type">
                                         <option :value="'Last Tetanus Booster or TdaP'">
                                             Last Tetanus Booster or TdaP
@@ -780,7 +780,7 @@
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Date:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Date:</label><br>
                                     <input type="date" v-model="formVaccination.date" placeholder="Date" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('date', saveError)}} </span>
                                 </div>
@@ -873,7 +873,7 @@
                         <div class="w-full flex flex-row">
                             <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeDisease">
                                 <div class="w-full p-2" v-if="!formDisease.other">
-                                    <label class="text-bold text-xl">Disease:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Disease:</label><br>
                                     <select class="--input" v-model="formDisease.disease">
                                         <option :value="'Asthma'">
                                             Asthma
@@ -928,7 +928,7 @@
                                 </div>
 
                                 <div class="w-full p-2" v-if="formDisease.other">
-                                    <label class="text-bold text-xl">Disease:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Disease:</label><br>
                                     <input type="text" v-model="formDisease.disease" placeholder="Disease" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('disease', saveError)}} </span>
                                 </div>
@@ -939,7 +939,7 @@
                                 </div>
 
                                 <div class="w-full p-2" v-if="formDisease.disease == 'Cancer' || formDisease.type == 'Diabetes'">
-                                    <label class="text-bold text-xl">Type:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Type:</label><br>
                                     <input type="text" v-model="formDisease.type" placeholder="Type" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('type', saveError)}} </span>
                                 </div>
@@ -960,7 +960,7 @@
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Comment:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Comment:</label><br>
                                     <input type="text" v-model="formDisease.comment" placeholder="Comment" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('comment', saveError)}} </span>
                                 </div>
@@ -1053,19 +1053,19 @@
                         <div class="w-full flex flex-row" >
                             <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeSurgery">
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Type (specify left/right):</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Type (specify left/right):</label><br>
                                     <input type="text" v-model="formSurgery.type" placeholder="Type" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('type', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Date:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Date:</label><br>
                                     <input type="date" v-model="formSurgery.date" placeholder="Date" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('date', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">LOCATION/FACILITY:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>LOCATION/FACILITY:</label><br>
                                     <input type="text" v-model="formSurgery.facility" placeholder="LOCATION/FACILITY" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('facility', saveError)}} </span>
                                 </div>
@@ -1158,37 +1158,37 @@
                         <div class="w-full flex flex-row" v-if="options.gender != 'Male'">
                             <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeWomen">
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Date of Last Menstrual Cycle:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Date of Last Menstrual Cycle:</label><br>
                                     <input type="date" v-model="formWomen.dlmc" placeholder="Date of Last Menstrual Cycle:" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('dlmc', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Total Number of Pregnancy:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Total Number of Pregnancy:</label><br>
                                     <input type="text" v-model="formWomen.tnp" placeholder="Total Number of Pregnancy" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('tnp', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Pregnancy Complications:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Pregnancy Complications:</label><br>
                                     <input type="text" v-model="formWomen.complications" placeholder="Pregnancy Complications" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('complications', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Age of First Menstruation:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Age of First Menstruation:</label><br>
                                     <input type="text" v-model="formWomen.afm" placeholder="Age of First Menstruation" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('afm', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Age of Menopause:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Age of Menopause:</label><br>
                                     <input type="text" v-model="formWomen.am" placeholder="Number of Live Births" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('am', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Number of Live Births:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Number of Live Births:</label><br>
                                     <input type="text" v-model="formWomen.nlb" placeholder="Pregnancy Complications" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('nlb', saveError)}} </span>
                                 </div>
@@ -1281,7 +1281,7 @@
                         <div class="w-full flex flex-row">
                             <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeHabits">
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Risky Habit:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Risky Habit:</label><br>
                                     <select class="--input" v-model="formHabits.type">
                                         <option :value="'Cigarette'">
                                             Cigarette
@@ -1300,7 +1300,7 @@
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Status:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Status:</label><br>
                                     <select class="--input" v-model="formHabits.status">
                                         <option :value="'Past'">
                                             Past
@@ -1411,7 +1411,7 @@
                         <div class="w-full flex flex-row">
                             <div style="width: 30%; border: 1px solid black; border-radius: 5px" class="w-full flex flex-col" v-if="activeDisease">
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Family Member:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Family Member:</label><br>
                                     <select class="--input" v-model="formDisease.family">
                                         <option :value="'Mother'">
                                             Mother
@@ -1451,7 +1451,7 @@
 
 
                                 <div class="w-full p-2" v-if="!formDisease.other">
-                                    <label class="text-bold text-xl">Disease:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Disease:</label><br>
                                     <select class="--input" v-model="formDisease.disease">
                                         <option :value="'Asthma'">
                                             Asthma
@@ -1506,7 +1506,7 @@
                                 </div>
 
                                 <div class="w-full p-2" v-if="formDisease.other">
-                                    <label class="text-bold text-xl">Disease:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Disease:</label><br>
                                     <input type="text" v-model="formDisease.disease" placeholder="Disease" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('disease', saveError)}} </span>
                                 </div>
@@ -1517,13 +1517,13 @@
                                 </div>
 
                                 <div class="w-full p-2" v-if="formDisease.disease == 'Cancer' || formDisease.type == 'Diabetes'">
-                                    <label class="text-bold text-xl">Type:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Type:</label><br>
                                     <input type="text" v-model="formDisease.type" placeholder="Type" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('type', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Status:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Status:</label><br>
                                     <select class="--input" v-model="formDisease.status">
                                         <option :value="'Current'">
                                             Current
@@ -1538,7 +1538,7 @@
                                 </div>
 
                                 <div class="w-full p-2">
-                                    <label class="text-bold text-xl">Comment:</label><br>
+                                    <label class="text-bold text-xl"><span style="color:red">*</span>Comment:</label><br>
                                     <input type="text" v-model="formDisease.comment" placeholder="Comment" class="--input">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('comment', saveError)}} </span>
                                 </div>

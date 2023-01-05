@@ -92,19 +92,19 @@
 
                         <div class="w-full flex flex-col">
                             <div class="my-1">
-                                <label class="text-bold">First Name:</label><br>
+                                <label class="text-bold"><span style="color:red">*</span>First Name:</label><br>
                                 <input type="text" class="--input" v-model="formData.first_name" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('first_name', saveError)}} </span>
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold"><span style="color:red">*</span>Middle Name:</label><br>
+                                <label class="text-bold">Middle Name:</label><br>
                                 <input type="text" class="--input" v-model="formData.middle_name" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('middle_name', saveError)}} </span>
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold">Last Name:</label><br>
+                                <label class="text-bold"><span style="color:red">*</span>Last Name:</label><br>
                                 <input type="text" class="--input" v-model="formData.last_name" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('last_name', saveError)}} </span>
                             </div>
@@ -117,7 +117,7 @@
                                 </div>
 
                                 <div class="w-full">
-                                    <label class="text-bold">Contact No.:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Contact No.:</label><br>
                                     <input type="text" class="--input" v-model="formData.phone"
                                         placeholder="09xxxxxxxxx"
                                     >
@@ -126,7 +126,7 @@
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold">Username:</label><br>
+                                <label class="text-bold"><span style="color:red">*</span>Username:</label><br>
                                 <input type="text" class="--input" v-model="formData.username"
                                     placeholder="Username"
                                 >
@@ -134,7 +134,7 @@
                             </div>
 
                             <div class="my-1" v-if="!isEdit">
-                                <label for="cars">User Type:</label><br>
+                                <label for="cars"><span style="color:red">*</span>User Type:</label><br>
                                 <select class="--input" v-model="formData.user_type">
                                     <option v-for="type in userType" :key="type.value"
                                         :value="type.value"
@@ -146,7 +146,7 @@
                             </div>
 
                             <div class="my-1" v-if="auth.role == 1 && formData.user_type != 'doctor' && !isEdit">
-                                <label for="cars">Barangay:</label><br>
+                                <label for="cars"><span style="color:red">*</span>Barangay:</label><br>
                                 <select class="--input" v-model="formData.work_address">
                                     <option v-for="place in options.places" :key="place.id"
                                         :value="place.id"

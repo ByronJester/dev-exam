@@ -182,7 +182,7 @@
 
                         <div class="w-full flex flex-col mt-5">
                             <div class="my-1">
-                                <label class="text-bold">Name:</label><br>
+                                <label class="text-bold"><span style="color:red">*</span>Name:</label><br>
                                 <input type="text" class="--input" v-model="form.name">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('name', saveError)}} </span>
                             </div>

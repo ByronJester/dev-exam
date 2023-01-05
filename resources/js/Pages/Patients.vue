@@ -143,26 +143,26 @@
 
                                 <div class="my-1 flex flex-row">
                                     <div class="w-full">
-                                        <label class="text-bold">First Name:</label><br>
+                                        <label class="text-bold"><span style="color:red">*</span>First Name:</label><br>
                                         <input type="text" class="--input" v-model="formData.first_name" style="text-transform: capitalize;">
                                         <span class="text-xs text-red-500 ml-2">{{validationError('first_name', saveError)}} </span>
                                     </div>
 
                                     <div class="w-full mx-2">
-                                        <label class="text-bold"><span style="color:red">*</span>Middle Name:</label><br>
+                                        <label class="text-bold">Middle Name:</label><br>
                                         <input type="text" class="--input" v-model="formData.middle_name" style="text-transform: capitalize;">
                                         <span class="text-xs text-red-500 ml-2">{{validationError('middle_name', saveError)}} </span>
                                     </div>
 
                                     <div class="w-full">
-                                        <label class="text-bold">Last Name:</label><br>
+                                        <label class="text-bold"><span style="color:red">*</span>Last Name:</label><br>
                                         <input type="text" class="--input" v-model="formData.last_name" style="text-transform: capitalize;">
                                         <span class="text-xs text-red-500 ml-2">{{validationError('last_name', saveError)}} </span>
                                     </div>
                                 </div>
 
                                 <div class="my-1" v-if="auth.role != 3">
-                                    <label for="cars">Barangay:</label><br>
+                                    <label for="cars"><span style="color:red">*</span>Barangay:</label><br>
                                     <select class="--input mt-2" v-model="formData.place_id" :disabled="isPersonalData">
                                         <option v-for="place in options.places" :key="place.id"
                                             :value="place.id"
@@ -175,7 +175,7 @@
 
                                 <div class="my-1 w-full flex flex-row">
                                     <div class="w-full">
-                                        <label class="text-bold">Contact No.:</label><br>
+                                        <label class="text-bold"><span style="color:red">*</span>Contact No.:</label><br>
                                         <input type="text" class="--input mt-2" v-model="formData.phone" :disabled="isPersonalData">
                                         <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
                                     </div>
@@ -183,13 +183,13 @@
 
                                 <div class="w-full flex flex-row">
                                     <div class="my-1 mx-1 w-full">
-                                        <label class="text-bold">Date of Birth:</label><br>
+                                        <label class="text-bold"><span style="color:red">*</span>Date of Birth:</label><br>
                                         <input type="date" class="--input mt-2" v-model="formData.dob" :disabled="isPersonalData">
                                         <span class="text-xs text-red-500 ml-2">{{validationError('dob', saveError)}} </span>
                                     </div>
 
                                     <div class="my-1 mx-1 w-full">
-                                        <label class="text-bold">Age:</label><br>
+                                        <label class="text-bold"><span style="color:red">*</span>Age:</label><br>
                                         <input type="text" class="--input mt-2" v-model="formData.age" :disabled="isPersonalData">
                                         <span class="text-xs text-red-500 ml-2">{{validationError('age', saveError)}} </span>
                                     </div>
@@ -197,7 +197,7 @@
                                 
                                 <div class="w-full flex flex-row">
                                     <div class="my-1 mx-1 w-full">
-                                        <label for="cars">Gender:</label><br>
+                                        <label for="cars"><span style="color:red">*</span>Gender:</label><br>
                                         <select class="--input mt-2" v-model="formData.gender" :disabled="isPersonalData">
                                             <option :value="'Male'">
                                                 Male
@@ -212,7 +212,7 @@
 
 
                                     <div class="my-1 mx-1 w-full">
-                                        <label for="cars">Civil Status:</label><br>
+                                        <label for="cars"><span style="color:red">*</span>Civil Status:</label><br>
                                         <select class="--input mt-2" v-model="formData.civil_status" :disabled="isPersonalData">
                                             <option :value="'Single'">
                                                 Single
@@ -236,19 +236,19 @@
 
                                 <div class="w-full flex flex-row">
                                     <div class="my-1 mx-1">
-                                        <label class="text-bold">Contact Person:</label><br>
+                                        <label class="text-bold"><span style="color:red">*</span>Contact Person:</label><br>
                                         <input type="text" class="--input mt-2" v-model="formData.contact_person" :disabled="isPersonalData">
                                         <span class="text-xs text-red-500 ml-2">{{validationError('contact_person', saveError)}} </span>
                                     </div>
 
                                     <div class="my-1 mx-1">
-                                        <label class="text-bold">Contact Person Address:</label><br>
+                                        <label class="text-bold"><span style="color:red">*</span>Contact Person Address:</label><br>
                                         <input type="text" class="--input mt-2" v-model="formData.contact_person_address" :disabled="isPersonalData">
                                         <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_address', saveError)}} </span>
                                     </div>
 
                                     <div class="my-1 mx-1">
-                                        <label class="text-bold">Contact Person #:</label><br>
+                                        <label class="text-bold"><span style="color:red">*</span>Contact Person #:</label><br>
                                         <input type="text" class="--input mt-2" v-model="formData.contact_person_phone" :disabled="isPersonalData">
                                         <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_phone', saveError)}} </span>
                                     </div>
@@ -293,26 +293,26 @@
                         <div class="w-full flex flex-col">
                             <div class="my-1 flex flex-row">
                                 <div class="w-full">
-                                    <label class="text-bold">First Name:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>First Name:</label><br>
                                     <input type="text" class="--input" v-model="formData.first_name" style="text-transform: capitalize;">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('first_name', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full mx-2">
-                                    <label class="text-bold"><span style="color:red">*</span>Middle Name:</label><br>
+                                    <label class="text-bold">Middle Name:</label><br>
                                     <input type="text" class="--input" v-model="formData.middle_name" style="text-transform: capitalize;">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('middle_name', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full">
-                                    <label class="text-bold">Last Name:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Last Name:</label><br>
                                     <input type="text" class="--input" v-model="formData.last_name" style="text-transform: capitalize;">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('last_name', saveError)}} </span>
                                 </div>
                             </div>
 
                             <div class="my-1" v-if="auth.role != 3">
-                                <label for="cars">Barangay:</label><br>
+                                <label for="cars"><span style="color:red">*</span>Barangay:</label><br>
                                 <select class="--input" v-model="formData.place_id">
                                     <option v-for="place in options.places" :key="place.id"
                                         :value="place.id"
@@ -331,7 +331,7 @@
                                 </div>
 
                                 <div class="w-full">
-                                    <label class="text-bold">Contact No.:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Contact No.:</label><br>
                                     <input type="text" class="--input" v-model="formData.phone">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('phone', saveError)}} </span>
                                 </div>
@@ -339,13 +339,13 @@
 
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1 w-full">
-                                    <label class="text-bold">Date of Birth:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Date of Birth:</label><br>
                                     <input type="date" class="--input" v-model="formData.dob">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('dob', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1 mx-1 w-full">
-                                    <label class="text-bold">Age:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Age:</label><br>
                                     <input type="text" class="--input" v-model="formData.age" :disabled="true">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('age', saveError)}} </span>
                                 </div>
@@ -353,7 +353,7 @@
                             
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1 w-full">
-                                    <label for="cars">Gender:</label><br>
+                                    <label for="cars"><span style="color:red">*</span>Gender:</label><br>
                                     <select class="--input" v-model="formData.gender">
                                         <option :value="'Male'">
                                             Male
@@ -368,7 +368,7 @@
 
 
                                 <div class="my-1 mx-1 w-full">
-                                    <label for="cars">Civil Status:</label><br>
+                                    <label for="cars"><span style="color:red">*</span>Civil Status:</label><br>
                                     <select class="--input" v-model="formData.civil_status">
                                         <option :value="'Single'">
                                             Single
@@ -392,32 +392,32 @@
 
                             <div class="w-full flex flex-row">
                                 <div class="my-1 mx-1">
-                                    <label class="text-bold">Contact Person:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Contact Person:</label><br>
                                     <input type="text" class="--input" v-model="formData.contact_person" style="text-transform: capitalize;">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1 mx-1">
-                                    <label class="text-bold">Contact Person Address:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Contact Person Address:</label><br>
                                     <input type="text" class="--input" v-model="formData.contact_person_address" style="text-transform: capitalize;">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_address', saveError)}} </span>
                                 </div>
 
                                 <div class="my-1 mx-1">
-                                    <label class="text-bold">Contact Person #:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Contact Person #:</label><br>
                                     <input type="text" class="--input" v-model="formData.contact_person_phone">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('contact_person_phone', saveError)}} </span>
                                 </div>
                             </div>
 
                             <div class="my-1" v-if="auth.user_type == 'doctor'">
-                                <label class="text-bold"><span style="color:red">*</span>Diagnosis</label><br>
+                                <label class="text-bold">Diagnosis</label><br>
                                 <input type="text" class="--input mt-2" v-model="formData.diagnosis" style="text-transform: capitalize;">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('diagnosis', saveError)}} </span>
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold"><span style="color:red">*</span>Philhealth ID #:</label><br>
+                                <label class="text-bold">Philhealth ID #:</label><br>
                                 <input type="text" class="--input" v-model="formData.philhealth">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('philhealth', saveError)}} </span>
                             </div>

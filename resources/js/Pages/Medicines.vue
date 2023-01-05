@@ -116,7 +116,7 @@
                             <div class="my-1 flex flex-row">
 
                                 <div class="w-full mr-2" v-if="auth.role != '3'">
-                                    <label class="text-bold">Medicine:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Medicine:</label><br>
                                     <select class="--input" v-model="formData.medicine_id">
                                         <option v-for="medicine in options.medicines.filter(x => {return options.stocks.includes(x.id)})" :key="medicine.id" :value="medicine.id">
                                             {{ medicine.name}}
@@ -126,7 +126,7 @@
                                 </div>
 
                                 <div class="w-full mr-2" v-else>
-                                    <label class="text-bold">Medicine:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Medicine:</label><br>
                                     <select class="--input" v-model="formData.medicine_id">
                                         <option v-for="medicine in options.medicines" :key="medicine.id" :value="medicine.id">
                                             {{ medicine.name}}
@@ -136,7 +136,7 @@
                                 </div>
 
                                 <div class="w-full mr-2">
-                                    <label class="text-bold">Category:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Category:</label><br>
                                     <select class="--input" v-model="formData.medicine_category_id">
                                         <option v-for="category in options.categories.filter(x => {return categories.includes(x.id)})" :key="category.id" :value="category.id">
                                             {{ category.name}}
@@ -146,13 +146,13 @@
                                 </div>
 
                                 <div class="mr-2">
-                                    <label class="text-bold">Dosage:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Dosage:</label><br>
                                     <input type="number" class="--input" v-model="formData.dosage">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('dosage', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full mr-2">
-                                    <label class="text-bold">Unit:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Unit:</label><br>
                                     <select class="--input" v-model="formData.medicine_unit_id">
                                         <option v-for="unit in options.units.filter(x => {return units.includes(x.id)})" :key="unit.id" :value="unit.id">
                                             {{ unit.name}}
@@ -164,13 +164,13 @@
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold">Quantity:</label><br>
+                                <label class="text-bold"><span style="color:red">*</span>Quantity:</label><br>
                                 <input type="number" class="--input" v-model="formData.quantity">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('quantity', saveError)}} </span>
                             </div>
 
                             <div class="my-1" v-if="auth.role != 3">
-                                <label for="cars">Dispensed Type:</label><br>
+                                <label for="cars"><span style="color:red">*</span>Dispensed Type:</label><br>
                                 <select class="--input" v-model="formData.dispensed_type">
                                     <option :value="'barangay'">
                                         Barangay
@@ -184,7 +184,7 @@
                             </div>
 
                             <div class="my-1" v-if="auth.role != 3 && formData.dispensed_type == 'barangay'">
-                                <label for="cars">Barangay:</label><br>
+                                <label for="cars"><span style="color:red">*</span>Barangay:</label><br>
                                 <select class="--input" v-model="formData.place_id">
                                     <option v-for="place in options.places" :key="place.id"
                                         :value="place.id"
@@ -196,7 +196,7 @@
                             </div>
 
                             <div class="my-1" v-if="formData.dispensed_type == 'individual'">
-                                <label for="cars">Patients:</label><br>
+                                <label for="cars"><span style="color:red">*</span>Patients:</label><br>
                                 <select class="--input" v-model="formData.patient_id">
                                     <option v-for="patient in options.patients" :key="patient.id"
                                         :value="patient.id"
@@ -240,7 +240,7 @@
                         <div class="w-full flex flex-col">
                             <div class="my-1 flex flex-row">
                                 <div class="w-full mr-2">
-                                    <label class="text-bold">Medicine:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Medicine:</label><br>
                                     <select class="--input" v-model="formStock.medicine_id">
                                         <option v-for="medicine in options.medicines" :key="medicine.id" :value="medicine.id">
                                             {{ medicine.name}}
@@ -250,7 +250,7 @@
                                 </div>
 
                                 <div class="w-full mr-2">
-                                    <label class="text-bold">Category:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Category:</label><br>
                                     <select class="--input" v-model="formStock.medicine_category_id">
                                         <option v-for="category in options.categories" :key="category.id" :value="category.id">
                                             {{ category.name}}
@@ -260,13 +260,13 @@
                                 </div>
 
                                 <div class="mr-2">
-                                    <label class="text-bold">Dosage:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Dosage:</label><br>
                                     <input type="number" class="--input" v-model="formStock.dosage">
                                     <span class="text-xs text-red-500 ml-2">{{validationError('dosage', saveError)}} </span>
                                 </div>
 
                                 <div class="w-full mr-2">
-                                    <label class="text-bold">Unit:</label><br>
+                                    <label class="text-bold"><span style="color:red">*</span>Unit:</label><br>
                                     <select class="--input" v-model="formStock.medicine_unit_id">
                                         <option v-for="unit in options.units" :key="unit.id" :value="unit.id">
                                             {{ unit.name}}
@@ -278,7 +278,7 @@
                             </div>
 
                             <div class="my-1">
-                                <label class="text-bold">Quantity:</label><br>
+                                <label class="text-bold"><span style="color:red">*</span>Quantity:</label><br>
                                 <input type="number" class="--input" v-model="formStock.quantity">
                                 <span class="text-xs text-red-500 ml-2">{{validationError('quantity', saveError)}} </span>
                             </div>

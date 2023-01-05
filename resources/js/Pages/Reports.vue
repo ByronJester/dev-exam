@@ -254,7 +254,21 @@
                     </VueHtml2pdf> 
                     
                     <div class="w-full px-2">
-                        <Table :columns="columns"  :rows="rows" :keys="keys"/>
+                        <Table :columns="columns"  :rows="rows" :keys="keys" class="w-full"/>
+
+                        <div class="w-full flex justify-center items-center mt-2">
+                            <button style="width: 50px; height: 50px" @click="prev()">
+                                <i class="fa-solid fa-arrow-left"></i>
+                            </button>
+
+                            <button style="width: 50px; height: 50px "  class="cursor-help">
+                                {{ options.page }}
+                            </button>
+
+                            <button style="width: 50px; height: 50px" @click="next()">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -278,7 +292,7 @@
                         :enable-download="true"
                         :preview-modal="true"
                         :paginate-elements-by-height="1000"
-                        :filename="Math.random().toString(36).slice(2)"
+                        :filename="Math.random().toString(36).slice(2)" 
                         :pdf-quality="2"
                         :manual-pagination="false"
                         pdf-format="a4"
@@ -376,7 +390,7 @@
                     <VueHtml2pdf
                         :show-layout="false"
                         :float-layout="true"
-                        :enable-download="true"
+                        :enable-download="false"
                         :preview-modal="true"
                         :paginate-elements-by-height="1000"
                         :filename="Math.random().toString(36).slice(2)"
@@ -477,6 +491,13 @@
                                             placeholder="Attending Physician" v-model="form.physician"
                                         >
                                     </div>
+
+                                    <div class="w-full mt-10">
+                                        <input type="text" style="width: 200px; border-bottom: 1px solid black" class="focus:--borderless hover:--borderless text-center float-right mr-2"
+                                            placeholder="License No." v-model="form.license"
+                                        >
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </section>
@@ -571,6 +592,12 @@
                                 placeholder="Attending Physician" v-model="form.physician"
                             >
                         </div>
+
+                        <div class="w-full mt-10">
+                            <input type="text" style="width: 200px; border-bottom: 1px solid black" class="focus:--borderless hover:--borderless text-center float-right mr-2"
+                                placeholder="License No." v-model="form.license"
+                            >
+                        </div>
                     </div>
 
                 </div>
@@ -618,7 +645,8 @@ export default {
                 examined_date: null,
                 diagnosis: null,
                 physician: null,
-                days: null
+                days: null,
+                license: null
             },
             barangay: null,
             search: null,
@@ -636,7 +664,8 @@ export default {
             },
             gender: null,
             formType: null,
-            hasSelectedBarangay: false
+            hasSelectedBarangay: false,
+            page: 1
         }
     },
 
@@ -925,7 +954,7 @@ export default {
                     {
                         label: 'date',
                     },
-                ]
+                ] 
                 
             } else {
                 this.rows = this.options.barangayMedicines
@@ -1063,6 +1092,15 @@ export default {
         this.gender = this.options.gender
         this.formType = this.options.formType
         this.barangay = this.options.barangay
+        this.page = this.options.page
+
+        var today = new Date();
+
+        var start = new Date(today.getFullYear(), today.getMonth(), 2).toISOString().slice(0,10);
+        var end = new Date(today.getFullYear(), today.getMonth() + 1, 1).toISOString().slice(0,10);
+
+        this.date.start = start
+        this.date.end = end
     },
 
     methods: {
@@ -1128,6 +1166,56 @@ export default {
                     {
                         onSuccess: (res) => { 
 
+                        },
+                    },
+                );
+            }
+        },
+
+        prev(){
+            if(this.page > 1) {
+                var res = {
+                    date_start: this.date.start,
+                    date_end: this.date.end,
+                    age_start: this.age.start,
+                    age_end: this.age.end,
+                    gender: this.gender,
+                    formType: this.formType,
+                    barangay: this.barangay,
+                    page: parseInt(this.page) - 1
+                }
+
+                Inertia.get(
+                    this.$root.route + '/reports', res, 
+                    {
+                        onSuccess: (res) => { 
+
+                        },
+                    },
+                );
+            }
+
+            
+        },
+
+        next() {
+            if(this.page < this.options.pageCount) {
+                var res = {
+                    date_start: this.date.start,
+                    date_end: this.date.end,
+                    age_start: this.age.start,
+                    age_end: this.age.end,
+                    gender: this.gender,
+                    formType: this.formType,
+                    barangay: this.barangay,
+                    page: parseInt(this.page) + 1
+                }
+
+                Inertia.get(
+                    this.$root.route + '/reports', res, 
+                    {
+                        onSuccess: (res) => { 
+                            console.log(res)
                         },
                     },
                 );

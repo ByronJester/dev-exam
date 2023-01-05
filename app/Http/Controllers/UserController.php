@@ -367,13 +367,6 @@ class UserController extends Controller
             $formType = $request->formType;
             $barangay = $request->barangay;
 
-            // if($age_start && $age_end){
-            //     $patients = $patients->where(function ($query) use ($age_start, $age_end) {
-            //         $query->where('age',  '>=', $age_start)
-            //           ->where('age',  '<=', $age_end);
-            //     });
-            // }
-
             if($date_start && $date_end){
                 $from = Carbon::parse($date_start)->startOfDay()->toDateTimeString(); // 2018-09-29 00:00:00
                 $to = Carbon::parse($date_end)->endOfDay()->toDateTimeString(); // 2018-09-29 00:00:00
@@ -415,12 +408,18 @@ class UserController extends Controller
 
             $now = Carbon::now();
 
+            $reportCount = !!$isFiltered ? $patientData->count() : count($patientData);
+
+            $page = $request->page ? $request->page : 1;
+            $perPage = 10;
+            $pageCount = ceil($reportCount / $perPage);
+
             return Inertia::render('Reports', [
                 'auth'    => $auth,
                 'options' => [
                     'barangayMedicines' => $barangayMedicines->get(),
                     'patientMedicines'  => $patientMedicines->get(),
-                    'patients' => $patientData,
+                    'patients' => $patientData->forPage($page, $perPage),
                     'places' => Place::orderBy('name')->get(),
                     'date_start' => $date_start,
                     'date_end' => $date_end,
@@ -430,7 +429,9 @@ class UserController extends Controller
                     'formType' => $formType,
                     'barangay' => $barangay,
                     'now' => $now->isoFormat('LL'),
-                    'reportCount' => !!$isFiltered ? $patientData->count() : count($patientData)
+                    'reportCount' => $reportCount,
+                    'pageCount' => $pageCount,
+                    'page' => $page
                 ]
             ]);
         }

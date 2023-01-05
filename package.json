@@ -27,6 +27,7 @@
         "@inertiajs/progress": "^0.2.5",
         "html-to-image": "^1.10.8",
         "k-progress": "^1.5.0",
+        "moment": "^2.29.4",
         "vue": "^2.6.12",
         "vue-bot-ui": "^0.2.8",
         "vue-carousel": "^0.18.0",
